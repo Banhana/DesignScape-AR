@@ -1,6 +1,6 @@
 # RoomOrganizerAR
 
-Information about the project here...
+*Room Organizer* is a mobile application that offers a comprehensive set of tools to enhance interior design experience. Some of the key features we are planning for Room Organizer are: Augmented Reality Furniture Placement, 3D Room Modeling, Custom 3D Furniture Models, and Virtual Room Rearrangement. With Augmented Reality Furniture Placement, users will be able to view and place virtual furniture items in their actual living space through augmented reality, ensuring a perfect fit and aesthetically pleasing.
 
 # How to install
 
