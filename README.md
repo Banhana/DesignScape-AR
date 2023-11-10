@@ -4,7 +4,6 @@
 
 <p align="center">
   <img src="https://media.giphy.com/media/4R63eQx8wyEda/giphy.gif" alt="Image 1" />
-  <img src="https://media.giphy.com/media/AW5q9Dgyv8LZILmFQI/giphy.gif" alt="Image 2" />
 </p>
 
 # How to install
