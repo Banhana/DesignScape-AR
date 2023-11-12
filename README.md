@@ -1,6 +1,6 @@
-# RoomOrganizerAR
+# DesignScape AR
 
-*Room Organizer* is a mobile application that offers a comprehensive set of tools to enhance interior design experience. Some of the key features we are planning for Room Organizer are: Augmented Reality Furniture Placement, 3D Room Modeling, Custom 3D Furniture Models, and Virtual Room Rearrangement. With Augmented Reality Furniture Placement, users will be able to view and place virtual furniture items in their actual living space through augmented reality, ensuring a perfect fit and aesthetically pleasing.
+*DesignScape AR* is a mobile application that offers a comprehensive set of tools to enhance interior design experience. Some of the key features we are planning for *DesignScape AR* are: Augmented Reality Furniture Placement, 3D Room Modeling, Custom 3D Furniture Models, and Virtual Room Rearrangement. With Augmented Reality Furniture Placement, users will be able to view and place virtual furniture items in their actual living space through augmented reality, ensuring a perfect fit and aesthetically pleasing.
 
 <p align="center">
   <img src="https://media.giphy.com/media/4R63eQx8wyEda/giphy.gif" alt="Image 1" />
@@ -9,7 +9,7 @@
 # How to install
 
 1. Plug in your iPhone to your computer
-2. Click on project name (e.g. RoomOrganizer) and add your account under "Team". Then Sign in with your Apple ID.
+2. Click on project name (e.g. DesignScape AR) and add your account under "Team". Then Sign in with your Apple ID.
 3. On Xcode, click on Window > Device and Simulators
 4. Unlock your iPhone and trust your computer if it's the first time trying to publish an app on your phone.
 5. Xcode will start downloading the debugger support onto your iPhone.
@@ -37,9 +37,19 @@
     - Xcode is an integrated development environment (IDE) provided by Apple.
     - It includes the iOS SDK (Software Development Kit), a source code editor(UI), debugging tools, and much more.
 
+**Database Setup**
+
+1. [Firebase iOS setup guide](https://firebase.google.com/docs/ios/setup)
+    - Sign up for a Firebase account.
+    - Create a Firebase project.
+    - Register your app with Firebase.
+    - Add the Firebase config file.
+    - Add Firebase SDKs to the app.
+    - Initialize Firebase into your app.
+
 # Project Documentation Resources
 
-This section provides links to documentation that outlines the scope and features for *Room Organizer*. Please refer to the proper documentation below to find out more information.
+This section provides links to documentation that outlines the scope and features for *DesignScape AR*. Please refer to the proper documentation below to find out more information.
 
 **Project Feature**
 
@@ -52,3 +62,11 @@ This section provides links to documentation that outlines the scope and feature
 **Project Design**
 
 - [Design Specification](https://docs.google.com/document/d/1xE5PmYNLfhW6LXJMpOyJ0YykViZTHdtaCpgh2IZMWvs/edit)
+
+# Support
+
+If you are having any issues, please let us know!
+
+Email: support@DesignScapeAR.com
+
+Discord: [DesignScape AR](https://discord.gg/K7R47P3H)
