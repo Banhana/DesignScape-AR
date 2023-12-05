@@ -11,12 +11,13 @@ import Firebase
 
 struct ContentView: View {
     @State private var inputText: String = ""
-    @State private var displayedText: String = ""
+//    @State private var displayedText: String = ""
 //    private let db = Firestore.firestore()
     
     var body: some View {
         VStack {
-            Text("DesignScape AR")
+            Text("DesignScape")
+            DataTableView()
             TextField("Enter data here", text: $inputText)
             Button("Submit") {
                 /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/ /*@END_MENU_TOKEN@*/
