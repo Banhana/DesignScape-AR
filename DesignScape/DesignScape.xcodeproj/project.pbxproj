@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		61F0A31E2B1FEE1D00D0F661 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F0A31B2B1FEE1D00D0F661 /* ContentView.swift */; };
+		61F0A31F2B1FEE1D00D0F661 /* DataTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F0A31C2B1FEE1D00D0F661 /* DataTableView.swift */; };
+		61F0A3202B1FEE1D00D0F661 /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F0A31D2B1FEE1D00D0F661 /* List.swift */; };
 		EA8D2F0F2B1E705A0074FC71 /* DesignScapeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8D2F0E2B1E705A0074FC71 /* DesignScapeApp.swift */; };
 		EA8D2F112B1E705A0074FC71 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8D2F102B1E705A0074FC71 /* ContentView.swift */; };
 		EA8D2F132B1E705B0074FC71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA8D2F122B1E705B0074FC71 /* Assets.xcassets */; };
@@ -38,6 +41,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		61F0A31B2B1FEE1D00D0F661 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		61F0A31C2B1FEE1D00D0F661 /* DataTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataTableView.swift; sourceTree = "<group>"; };
+		61F0A31D2B1FEE1D00D0F661 /* List.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
 		EA8D2F0B2B1E705A0074FC71 /* DesignScape.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DesignScape.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA8D2F0E2B1E705A0074FC71 /* DesignScapeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignScapeApp.swift; sourceTree = "<group>"; };
 		EA8D2F102B1E705A0074FC71 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -105,6 +111,9 @@
 			children = (
 				EA8D2F0E2B1E705A0074FC71 /* DesignScapeApp.swift */,
 				EA8D2F102B1E705A0074FC71 /* ContentView.swift */,
+				61F0A31B2B1FEE1D00D0F661 /* ContentView.swift */,
+				61F0A31C2B1FEE1D00D0F661 /* DataTableView.swift */,
+				61F0A31D2B1FEE1D00D0F661 /* List.swift */,
 				EA8D2F122B1E705B0074FC71 /* Assets.xcassets */,
 				EAD22D1E2B1E7378007D4679 /* GoogleService-Info.plist */,
 				EA8D2F142B1E705B0074FC71 /* Preview Content */,
@@ -278,6 +287,9 @@
 			files = (
 				EA8D2F112B1E705A0074FC71 /* ContentView.swift in Sources */,
 				EA8D2F0F2B1E705A0074FC71 /* DesignScapeApp.swift in Sources */,
+				61F0A31E2B1FEE1D00D0F661 /* ContentView.swift in Sources */,
+				61F0A3202B1FEE1D00D0F661 /* List.swift in Sources */,
+				61F0A31F2B1FEE1D00D0F661 /* DataTableView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
