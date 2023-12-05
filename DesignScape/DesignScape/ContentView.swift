@@ -6,16 +6,29 @@
 //
 
 import SwiftUI
+import Firebase
+//import FirebaseFirestore
 
 struct ContentView: View {
+    @State private var inputText: String = ""
+    @State private var displayedText: String = ""
+//    private let db = Firestore.firestore()
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            Text("DesignScape AR")
+            TextField("Enter data here", text: $inputText)
+            Button("Submit") {
+                /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/ /*@END_MENU_TOKEN@*/
+            }
+            .padding()
+            Button("Refresh") {
+                /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/ /*@END_MENU_TOKEN@*/
+            }
         }
-        .padding()
+//        .onAppear(){
+//            FirebaseApp.configure()
+//        }
     }
 }
 
