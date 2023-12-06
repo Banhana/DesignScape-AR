@@ -14,6 +14,8 @@ struct ContentView: View {
 //    @State private var displayedText: String = ""
 //    private let db = Firestore.firestore()
     
+    var model = Controller()
+    
     var body: some View {
         VStack {
             Text("DesignScape")
