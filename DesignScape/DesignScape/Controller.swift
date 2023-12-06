@@ -4,7 +4,6 @@ class Controller{
     let db = Firestore.firestore()
     
     init(){
-        fetchData()
     }
     
     func fetchData(){

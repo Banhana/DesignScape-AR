@@ -16,6 +16,7 @@ struct ContentView: View {
     
     var model = Controller()
     
+    
     var body: some View {
         VStack {
             Text("DesignScape")
@@ -26,7 +27,7 @@ struct ContentView: View {
             }
             .padding()
             Button("Refresh") {
-                /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/ /*@END_MENU_TOKEN@*/
+                model.fetchData()
             }
         }
 //        .onAppear(){
