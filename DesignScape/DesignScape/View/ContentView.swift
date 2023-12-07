@@ -7,35 +7,34 @@
 
 import SwiftUI
 import Firebase
-//import FirebaseFirestore
 
 struct ContentView: View {
     @State private var inputText: String = ""
-//    @State private var displayedText: String = ""
-//    private let db = Firestore.firestore()
     
-    var model = Controller()
-    
+    @ObservedObject var dataController = DataController()
     
     var body: some View {
         VStack {
             Text("DesignScape")
-            DataTableView()
+            DataTableView(items: dataController.items)
+                .onAppear() {
+                    dataController.fetchData()
+                }
             TextField("Enter data here", text: $inputText)
+                .padding()
             Button("Submit") {
-                /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/ /*@END_MENU_TOKEN@*/
+                dataController.addData(name: inputText)
             }
             .padding()
             Button("Refresh") {
-                model.fetchData()
+                dataController.fetchData()
             }
         }
-//        .onAppear(){
-//            FirebaseApp.configure()
-//        }
     }
 }
 
-#Preview {
+struct ContentView_Preview: PreviewProvider {
+  static var previews: some View {
     ContentView()
+  }
 }
