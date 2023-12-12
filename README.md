@@ -63,6 +63,10 @@ This section provides links to documentation that outlines the scope and feature
 
 - [Design Specification](https://docs.google.com/document/d/1xE5PmYNLfhW6LXJMpOyJ0YykViZTHdtaCpgh2IZMWvs/edit)
 
+**Project Test**
+
+- [Test Specification](https://docs.google.com/document/d/1OvmOSIA3D_UNR7OjjtLwOg9HWtmfqIRCh86AGgLuuq4/edit#heading=h.6jynaot9cbnq)
+
 # Support
 
 If you are having any issues, please let us know!
