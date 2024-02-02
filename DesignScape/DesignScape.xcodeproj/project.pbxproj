@@ -8,6 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		6E7DEE7E2B676A0E00165B61 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DEE7D2B676A0E00165B61 /* MainView.swift */; };
+		6E7DEE802B69C35900165B61 /* CreateScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DEE7F2B69C35900165B61 /* CreateScanView.swift */; };
+		6E7DEE8B2B69CC4700165B61 /* Merriweather-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E7DEE882B69C42500165B61 /* Merriweather-BlackItalic.ttf */; };
+		6E7DEE8C2B69CC4700165B61 /* Merriweather-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E7DEE872B69C42500165B61 /* Merriweather-Regular.ttf */; };
+		6E7DEE8D2B69CC4700165B61 /* Merriweather-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E7DEE892B69C42500165B61 /* Merriweather-Black.ttf */; };
+		6E7DEE8E2B69CC4700165B61 /* Merriweather-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E7DEE832B69C42500165B61 /* Merriweather-Italic.ttf */; };
+		6E7DEE8F2B69CC4700165B61 /* Merriweather-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E7DEE852B69C42500165B61 /* Merriweather-BoldItalic.ttf */; };
+		6E7DEE902B69CC4700165B61 /* Merriweather-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E7DEE842B69C42500165B61 /* Merriweather-Light.ttf */; };
+		6E7DEE912B69CC4700165B61 /* Merriweather-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E7DEE862B69C42500165B61 /* Merriweather-LightItalic.ttf */; };
+		6E7DEE922B69CC4700165B61 /* Merriweather-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E7DEE822B69C42500165B61 /* Merriweather-Bold.ttf */; };
+		6E7DEE972B6C602500165B61 /* Cambay-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E7DEE932B6C602500165B61 /* Cambay-BoldItalic.ttf */; };
+		6E7DEE982B6C602500165B61 /* Cambay-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E7DEE942B6C602500165B61 /* Cambay-Italic.ttf */; };
+		6E7DEE992B6C602500165B61 /* Cambay-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E7DEE952B6C602500165B61 /* Cambay-Regular.ttf */; };
+		6E7DEE9A2B6C602500165B61 /* Cambay-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E7DEE962B6C602500165B61 /* Cambay-Bold.ttf */; };
 		6E955C762B2230E900E57F55 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD5D9642B1FED850014FA26 /* ContentView.swift */; };
 		EA8D2F0F2B1E705A0074FC71 /* DesignScapeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8D2F0E2B1E705A0074FC71 /* DesignScapeApp.swift */; };
 		EA8D2F132B1E705B0074FC71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA8D2F122B1E705B0074FC71 /* Assets.xcassets */; };
@@ -22,6 +35,20 @@
 
 /* Begin PBXFileReference section */
 		6E7DEE7D2B676A0E00165B61 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		6E7DEE7F2B69C35900165B61 /* CreateScanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateScanView.swift; sourceTree = "<group>"; };
+		6E7DEE822B69C42500165B61 /* Merriweather-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Merriweather-Bold.ttf"; sourceTree = "<group>"; };
+		6E7DEE832B69C42500165B61 /* Merriweather-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Merriweather-Italic.ttf"; sourceTree = "<group>"; };
+		6E7DEE842B69C42500165B61 /* Merriweather-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Merriweather-Light.ttf"; sourceTree = "<group>"; };
+		6E7DEE852B69C42500165B61 /* Merriweather-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Merriweather-BoldItalic.ttf"; sourceTree = "<group>"; };
+		6E7DEE862B69C42500165B61 /* Merriweather-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Merriweather-LightItalic.ttf"; sourceTree = "<group>"; };
+		6E7DEE872B69C42500165B61 /* Merriweather-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Merriweather-Regular.ttf"; sourceTree = "<group>"; };
+		6E7DEE882B69C42500165B61 /* Merriweather-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Merriweather-BlackItalic.ttf"; sourceTree = "<group>"; };
+		6E7DEE892B69C42500165B61 /* Merriweather-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Merriweather-Black.ttf"; sourceTree = "<group>"; };
+		6E7DEE8A2B69C4DF00165B61 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		6E7DEE932B6C602500165B61 /* Cambay-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cambay-BoldItalic.ttf"; sourceTree = "<group>"; };
+		6E7DEE942B6C602500165B61 /* Cambay-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cambay-Italic.ttf"; sourceTree = "<group>"; };
+		6E7DEE952B6C602500165B61 /* Cambay-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cambay-Regular.ttf"; sourceTree = "<group>"; };
+		6E7DEE962B6C602500165B61 /* Cambay-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cambay-Bold.ttf"; sourceTree = "<group>"; };
 		EA8D2F0B2B1E705A0074FC71 /* DesignScape.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DesignScape.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA8D2F0E2B1E705A0074FC71 /* DesignScapeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignScapeApp.swift; sourceTree = "<group>"; };
 		EA8D2F122B1E705B0074FC71 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -46,6 +73,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6E7DEE812B69C3BA00165B61 /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				6E7DEE962B6C602500165B61 /* Cambay-Bold.ttf */,
+				6E7DEE932B6C602500165B61 /* Cambay-BoldItalic.ttf */,
+				6E7DEE942B6C602500165B61 /* Cambay-Italic.ttf */,
+				6E7DEE952B6C602500165B61 /* Cambay-Regular.ttf */,
+				6E7DEE892B69C42500165B61 /* Merriweather-Black.ttf */,
+				6E7DEE882B69C42500165B61 /* Merriweather-BlackItalic.ttf */,
+				6E7DEE822B69C42500165B61 /* Merriweather-Bold.ttf */,
+				6E7DEE852B69C42500165B61 /* Merriweather-BoldItalic.ttf */,
+				6E7DEE832B69C42500165B61 /* Merriweather-Italic.ttf */,
+				6E7DEE842B69C42500165B61 /* Merriweather-Light.ttf */,
+				6E7DEE862B69C42500165B61 /* Merriweather-LightItalic.ttf */,
+				6E7DEE872B69C42500165B61 /* Merriweather-Regular.ttf */,
+			);
+			path = fonts;
+			sourceTree = "<group>";
+		};
 		6E955C732B222B8800E57F55 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -60,6 +106,7 @@
 				EAD5D9642B1FED850014FA26 /* ContentView.swift */,
 				EAD5D9632B1FED850014FA26 /* DataTableView.swift */,
 				6E7DEE7D2B676A0E00165B61 /* MainView.swift */,
+				6E7DEE7F2B69C35900165B61 /* CreateScanView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -93,6 +140,8 @@
 		EA8D2F0D2B1E705A0074FC71 /* DesignScape */ = {
 			isa = PBXGroup;
 			children = (
+				6E7DEE8A2B69C4DF00165B61 /* Info.plist */,
+				6E7DEE812B69C3BA00165B61 /* fonts */,
 				6E955C752B222B9900E57F55 /* Controller */,
 				6E955C742B222B9600E57F55 /* View */,
 				6E955C732B222B8800E57F55 /* Model */,
@@ -184,8 +233,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				EAD22D262B1E8DC1007D4679 /* .gitignore in Resources */,
+				6E7DEE8D2B69CC4700165B61 /* Merriweather-Black.ttf in Resources */,
+				6E7DEE8B2B69CC4700165B61 /* Merriweather-BlackItalic.ttf in Resources */,
 				EA8D2F162B1E705B0074FC71 /* Preview Assets.xcassets in Resources */,
+				6E7DEE902B69CC4700165B61 /* Merriweather-Light.ttf in Resources */,
+				6E7DEE992B6C602500165B61 /* Cambay-Regular.ttf in Resources */,
+				6E7DEE9A2B6C602500165B61 /* Cambay-Bold.ttf in Resources */,
+				6E7DEE8F2B69CC4700165B61 /* Merriweather-BoldItalic.ttf in Resources */,
+				6E7DEE922B69CC4700165B61 /* Merriweather-Bold.ttf in Resources */,
 				EA8D2F132B1E705B0074FC71 /* Assets.xcassets in Resources */,
+				6E7DEE912B69CC4700165B61 /* Merriweather-LightItalic.ttf in Resources */,
+				6E7DEE982B6C602500165B61 /* Cambay-Italic.ttf in Resources */,
+				6E7DEE8E2B69CC4700165B61 /* Merriweather-Italic.ttf in Resources */,
+				6E7DEE972B6C602500165B61 /* Cambay-BoldItalic.ttf in Resources */,
+				6E7DEE8C2B69CC4700165B61 /* Merriweather-Regular.ttf in Resources */,
 				EAD22D1F2B1E7378007D4679 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -203,6 +264,7 @@
 				EA8D2F0F2B1E705A0074FC71 /* DesignScapeApp.swift in Sources */,
 				EAD5D9662B1FED850014FA26 /* DataTableView.swift in Sources */,
 				EAD5D9652B1FED850014FA26 /* Item.swift in Sources */,
+				6E7DEE802B69C35900165B61 /* CreateScanView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,6 +401,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DesignScape/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.shopping";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -370,6 +433,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DesignScape/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.shopping";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

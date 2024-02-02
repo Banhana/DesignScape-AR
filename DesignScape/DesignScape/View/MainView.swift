@@ -11,38 +11,45 @@ struct MainView: View {
     
     @State private var selectedTab = 1
     
-    struct Tab {
-        let text: String
-        let imageName: String
-        let tag: Int
-    }
-    
-    let tabs: [Tab] = [
-        Tab(text: "Home", imageName: "home", tag: 1),
-        Tab(text: "Copilot", imageName: "stars", tag: 2),
-        Tab(text: "Add", imageName: "add", tag: 3),
-        Tab(text: "Search", imageName: "search", tag: 4),
-        Tab(text: "Profile", imageName: "profile", tag: 5)
-    ]
-    
     var body: some View {
-        TabView(selection: $selectedTab) {
-            ForEach(tabs, id: \.tag) { tab in
-                Text(tab.text)
+        NavigationView {
+            TabView(selection: $selectedTab) {
+                Text("Home")
                     .tabItem {
-                        if !tab.text.isEmpty {
-                            Text(tab.text)
-                        }
-                        Image(selectedTab == tab.tag ? "\(tab.imageName).fill" : tab.imageName)
+                        Text("Home")
+                        selectedTab == 1 ? Image("home.fill") : Image("home")
                     }
-                    .tag(tab.tag)
+                    .tag(1)
+                Text("Copilot")
+                    .tabItem {
+                        Text("Copilot")
+                        selectedTab == 2 ? Image("stars.fill") : Image("stars")
+                    }.tag(2)
+                CreateScanView()
+                    .tabItem {
+                        Image("add")
+                    }.tag(3)
+                Text("Search")
+                    .tabItem {
+                        Text("Search")
+                        selectedTab == 4 ? Image("search.fill") : Image("search")
+                    }.tag(4)
+                Text("Profile")
+                    .tabItem {
+                        Text("Profile")
+                        selectedTab == 5 ? Image("profile.fill") : Image("profile")
+                    }.tag(5)
             }
+            .navigationTitle(Text("DesignScape AR"))
+            .navigationBarTitleDisplayMode(.inline)
         }
+        
     }
 }
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
         MainView()
+            .environment(\.font, Font.custom("Merriweather-Regular", size: 14))
     }
 }
