@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CreateScanView: View {
+struct CreateDesignView: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text("Create a new design")
@@ -57,7 +57,7 @@ struct CreateScanView: View {
 
 struct CreateScanView_Previews: PreviewProvider {
     static var previews: some View {
-        CreateScanView()
+        CreateDesignView()
             .environment(\.font, Font.custom("Merriweather-Regular", size: 14))
     }
 }
