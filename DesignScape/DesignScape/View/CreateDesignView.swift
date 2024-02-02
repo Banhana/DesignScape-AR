@@ -31,20 +31,6 @@ struct CreateDesignView: View {
             HStack {
                 Spacer()
                 HStack(alignment: .center, spacing: 10) {
-                    Button{
-                        CameraView()
-                    } label: {
-                        Image("arrow-right")
-                            .frame(width: 16, height: 16)
-                        Text("NEXT")
-                            .font(
-                                Font.custom("Cambay-Regular", size: 14)
-                                    .weight(.semibold)
-                            )
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity, alignment: .bottom)
-                            .padding([.top], 3)
-                    }
                     Image("arrow-right")
                         .frame(width: 16, height: 16)
                     Text("NEXT")

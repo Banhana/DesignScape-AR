@@ -21,7 +21,7 @@ class CustomARView: ARView{
     convenience init(){
         self.init(frame: UIScreen.main.bounds)
         
-        placeBlueBlock()
+        placeObject()
     }
     
     func configuration(){
@@ -53,7 +53,7 @@ class CustomARView: ARView{
         }
     }
     
-    func placeBlueBlock(){
+    func placeObject(){
         let block = MeshResource.generateBox(size: 1)
         let material = SimpleMaterial(color: .blue, isMetallic: false)
         let entity = ModelEntity(mesh: block, materials: [material])

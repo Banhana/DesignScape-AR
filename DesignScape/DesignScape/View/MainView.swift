@@ -20,7 +20,7 @@ struct MainView: View {
                         selectedTab == 1 ? Image("home.fill") : Image("home")
                     }
                     .tag(1)
-                Text("Copilot")
+                CameraView()
                     .tabItem {
                         Text("Copilot")
                         selectedTab == 2 ? Image("stars.fill") : Image("stars")
