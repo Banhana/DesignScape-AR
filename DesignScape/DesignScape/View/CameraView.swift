@@ -8,9 +8,42 @@
 import SwiftUI
 
 struct CameraView: View{
+    @State private var colors: [Color] = [.green, .red, .blue]
+    
     var body: some View{
         ARViewRepresentable()
             .ignoresSafeArea()
+        // Requires iOS 15+ for .overlay
+            .overlay(alignment: .bottom) {
+                ScrollView(.horizontal) {
+                    HStack {
+                        Button {
+                            ARManager.shared.actionStream.send(.removeAllAnchors)
+                        } label: {
+                            Image(systemName: "trash")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 40, height: 40)
+                                .padding()
+                                .background(.regularMaterial)
+                                .cornerRadius(16)
+                        }
+                        
+                        ForEach(colors, id: \.self) { color in
+                            Button {
+                                ARManager.shared.actionStream.send(.placeObject(color: color))
+                            } label: {
+                                color
+                                    .frame(width: 40, height: 40)
+                                    .padding()
+                                    .background(.regularMaterial)
+                                    .cornerRadius(16)
+                            }
+                        }
+                    }
+                    .padding()
+                }
+            }
     }
 }
 
