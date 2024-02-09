@@ -28,12 +28,23 @@ struct CreateDesignView: View {
                   .frame(width: 200, alignment: .topLeading)
                   .padding(30)
             }
-            HStack {
-                Spacer()
+            HStack(alignment: .center, spacing: 10) {
+                NavigationLink(destination: ScanRoomView()) {
+                    Text("CREATE ROOM")
+                        .font(
+                            Font.custom("Cambay-Regular", size: 14)
+                                .weight(.semibold)
+                        )
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity, alignment: .bottom)
+                        .padding([.top], 3)
+                }
+            }
+            .padding(10)
+            .background(Color("Brown"))
+            .cornerRadius(8)
                 HStack(alignment: .center, spacing: 10) {
-                    Image("arrow-right")
-                        .frame(width: 16, height: 16)
-                    Text("NEXT")
+                    Text("LIVE SCAN")
                         .font(
                             Font.custom("Cambay-Regular", size: 14)
                                 .weight(.semibold)
@@ -43,15 +54,13 @@ struct CreateDesignView: View {
                         .padding([.top], 3)
                 }
                 .padding(10)
-                .frame(width: 87, alignment: .center)
                 .background(Color("Brown"))
                 .cornerRadius(8)
-            }
             
         }
         .padding(10)
         .padding([.leading, .trailing], 40)
-        .padding(.bottom, 10)
+        .padding(.bottom, 20)
     }
 }
 

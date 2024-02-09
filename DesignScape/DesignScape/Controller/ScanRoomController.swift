@@ -47,7 +47,7 @@ class ScanRoomController: RoomCaptureSessionDelegate, RoomCaptureViewDelegate {
 
 }
 
-struct RoomCaptureViewRepresentable: UIViewRepresentable {
+struct ScanRoomViewRepresentable: UIViewRepresentable {
     func makeUIView(context: Context) -> RoomCaptureView {
         ScanRoomController.instance.captureView
     }

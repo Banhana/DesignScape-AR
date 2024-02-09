@@ -23,6 +23,7 @@
 		6E7DEE9A2B6C602500165B61 /* Cambay-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E7DEE962B6C602500165B61 /* Cambay-Bold.ttf */; };
 		6E7DEE9C2B6C947800165B61 /* ScanRoomController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DEE9B2B6C947800165B61 /* ScanRoomController.swift */; };
 		6E955C762B2230E900E57F55 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD5D9642B1FED850014FA26 /* ContentView.swift */; };
+		6EA62D8F2B75CBDA009ADE7C /* ScanRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA62D8E2B75CBDA009ADE7C /* ScanRoomView.swift */; };
 		EA8D2F0F2B1E705A0074FC71 /* DesignScapeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8D2F0E2B1E705A0074FC71 /* DesignScapeApp.swift */; };
 		EA8D2F132B1E705B0074FC71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA8D2F122B1E705B0074FC71 /* Assets.xcassets */; };
 		EA8D2F162B1E705B0074FC71 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA8D2F152B1E705B0074FC71 /* Preview Assets.xcassets */; };
@@ -51,6 +52,7 @@
 		6E7DEE952B6C602500165B61 /* Cambay-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cambay-Regular.ttf"; sourceTree = "<group>"; };
 		6E7DEE962B6C602500165B61 /* Cambay-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cambay-Bold.ttf"; sourceTree = "<group>"; };
 		6E7DEE9B2B6C947800165B61 /* ScanRoomController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanRoomController.swift; sourceTree = "<group>"; };
+		6EA62D8E2B75CBDA009ADE7C /* ScanRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanRoomView.swift; sourceTree = "<group>"; };
 		EA8D2F0B2B1E705A0074FC71 /* DesignScape.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DesignScape.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA8D2F0E2B1E705A0074FC71 /* DesignScapeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignScapeApp.swift; sourceTree = "<group>"; };
 		EA8D2F122B1E705B0074FC71 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				EAD5D9632B1FED850014FA26 /* DataTableView.swift */,
 				6E7DEE7D2B676A0E00165B61 /* MainView.swift */,
 				6E7DEE7F2B69C35900165B61 /* CreateDesignView.swift */,
+				6EA62D8E2B75CBDA009ADE7C /* ScanRoomView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -264,6 +267,7 @@
 				EAD5D95E2B1FEB810014FA26 /* DataController.swift in Sources */,
 				6E7DEE9C2B6C947800165B61 /* ScanRoomController.swift in Sources */,
 				6E7DEE7E2B676A0E00165B61 /* MainView.swift in Sources */,
+				6EA62D8F2B75CBDA009ADE7C /* ScanRoomView.swift in Sources */,
 				6E955C762B2230E900E57F55 /* ContentView.swift in Sources */,
 				EA8D2F0F2B1E705A0074FC71 /* DesignScapeApp.swift in Sources */,
 				EAD5D9662B1FED850014FA26 /* DataTableView.swift in Sources */,
@@ -402,7 +406,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DesignScape/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = VK2PRX795K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DesignScape/Info.plist;
@@ -418,7 +422,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.DesignScape.DesignScape;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.mhuynh.DesignScape;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -434,7 +438,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DesignScape/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = VK2PRX795K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DesignScape/Info.plist;
@@ -450,7 +454,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.DesignScape.DesignScape;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.mhuynh.DesignScape;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
