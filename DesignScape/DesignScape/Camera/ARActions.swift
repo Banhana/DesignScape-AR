@@ -8,6 +8,6 @@
 import SwiftUI
 
 enum ARActions{
-    case placeObject(color: Color)
+    case placeObject(modelName: String)
     case removeAllAnchors
 }

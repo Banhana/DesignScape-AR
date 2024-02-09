@@ -32,12 +32,11 @@ class CustomARView: ARView{
         ARManager.shared.actionStream
             .sink { [weak self] action in
                 switch action {
-                    case .placeObject(let color):
-                        self?.placeObject(ofColor: color)
+                    case .placeObject(let modelName):
+                        self?.placeObject(modelName: modelName)
                     
                     case .removeAllAnchors:
                         self?.scene.anchors.removeAll()
-                    
                 }
             }
             .store(in: &cancellables)
@@ -50,38 +49,8 @@ class CustomARView: ARView{
         session.run(configuration)
     }
     
-    func anchor(){
-        // Attach anchors at specfic coordinates in the iPhone-centered coordinate system
-        let _ = AnchorEntity(world: .zero)
-        
-        // Attach anchors to detected planes (Best used on devices with LIDAR sensor)
-        let _ = AnchorEntity()
-        let _ = AnchorEntity()
-    }
-    
-    func entity(){
-        // Load an entity from a usdz file
-        if let usdzEntity = try? Entity.load(named: "chair_swan.usdz"){
-            let anchor = AnchorEntity()
-            anchor.addChild(usdzEntity)
-        }
-        
-        // Load an entity from a reality file
-        if let realityEntity = try? Entity.load(named: "realityFileName"){
-            let anchor = AnchorEntity()
-            anchor.addChild(realityEntity)
-        }
-    }
-    
-    func placeObject(ofColor color: Color){
-//        let block = MeshResource.generateBox(size: 1)
-//        let material = SimpleMaterial(color: UIColor(color), isMetallic: false)
-//        let entity = ModelEntity(mesh: block, materials: [material])
-//        
-//        let anchor = AnchorEntity(plane: .horizontal, minimumBounds:[0.7, 0.7])
-//        anchor.addChild(entity)
-        
-        let usdzEntity = try! ModelEntity.load(named: "Furniture/chair_swan.usdz")
+    func placeObject(modelName: String){
+        let usdzEntity = try! ModelEntity.load(named: "Furniture/" + modelName + ".usdz")
         let anchor = AnchorEntity()
         anchor.addChild(usdzEntity)
         anchor.position = [0, 0, -1]

@@ -8,12 +8,15 @@
 import SwiftUI
 
 struct CameraView: View{
-    @State private var colors: [Color] = [.green, .red, .blue]
+    @State private var modelNames: [String] = []
     
     var body: some View{
         ARViewRepresentable()
+            .onAppear {
+                modelNames = loadModelNames(named: "Furniture")
+            }
             .ignoresSafeArea()
-        // Requires iOS 15+ for .overlay
+            // Requires iOS 15+ for .overlay
             .overlay(alignment: .bottom) {
                 ScrollView(.horizontal) {
                     HStack {
@@ -29,14 +32,15 @@ struct CameraView: View{
                                 .cornerRadius(16)
                         }
                         
-                        ForEach(colors, id: \.self) { color in
+                        ForEach(modelNames, id: \.self) { modelName in
                             Button {
-                                ARManager.shared.actionStream.send(.placeObject(color: color))
+                                ARManager.shared.actionStream.send(.placeObject(modelName: modelName))
                             } label: {
-                                color
+                                Image(modelName)
+                                    .resizable()
                                     .frame(width: 40, height: 40)
                                     .padding()
-                                    .background(.regularMaterial)
+                                    .background(Color.blue)
                                     .cornerRadius(16)
                             }
                         }
@@ -44,6 +48,21 @@ struct CameraView: View{
                     .padding()
                 }
             }
+    }
+}
+
+func loadModelNames(named directory: String) -> [String] {
+    guard let directoryURL = Bundle.main.url(forResource: directory, withExtension: nil) else {
+        return []
+    }
+
+    do {
+        let fileURLs = try FileManager.default.contentsOfDirectory(at: directoryURL, includingPropertiesForKeys: nil)
+        let modelNames = fileURLs.map { $0.deletingPathExtension().lastPathComponent }
+        return modelNames
+    } catch {
+        print("Error loading model names from directory: \(error)")
+        return []
     }
 }
 
