@@ -33,6 +33,7 @@
 		EAD5D9612B1FEC420014FA26 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = EAD5D9602B1FEC420014FA26 /* FirebaseFirestore */; };
 		EAD5D9652B1FED850014FA26 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD5D9622B1FED850014FA26 /* Item.swift */; };
 		EAD5D9662B1FED850014FA26 /* DataTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD5D9632B1FED850014FA26 /* DataTableView.swift */; };
+		EAD6EA9D2B7609990060072B /* Furniture in Resources */ = {isa = PBXBuildFile; fileRef = EAD6EA9C2B7609990060072B /* Furniture */; };
 		EAD7F8BE2B6D803A00BE6AC4 /* ARViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD7F8BD2B6D803A00BE6AC4 /* ARViewRepresentable.swift */; };
 		EAD7F8C02B6D807100BE6AC4 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD7F8BF2B6D807100BE6AC4 /* CameraView.swift */; };
 		EAD7F8C22B6D80D700BE6AC4 /* CustomARView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD7F8C12B6D80D700BE6AC4 /* CustomARView.swift */; };
@@ -68,6 +69,7 @@
 		EAD5D9622B1FED850014FA26 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		EAD5D9632B1FED850014FA26 /* DataTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataTableView.swift; sourceTree = "<group>"; };
 		EAD5D9642B1FED850014FA26 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		EAD6EA9C2B7609990060072B /* Furniture */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Furniture; sourceTree = "<group>"; };
 		EAD7F8BD2B6D803A00BE6AC4 /* ARViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewRepresentable.swift; sourceTree = "<group>"; };
 		EAD7F8BF2B6D807100BE6AC4 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		EAD7F8C12B6D80D700BE6AC4 /* CustomARView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomARView.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 		6E955C732B222B8800E57F55 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				EAD6EA9C2B7609990060072B /* Furniture */,
 				EAD5D9622B1FED850014FA26 /* Item.swift */,
 			);
 			path = Model;
@@ -119,6 +122,7 @@
 		6E955C742B222B9600E57F55 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				EAD7F8C12B6D80D700BE6AC4 /* CustomARView.swift */,
 				EAD7F8BF2B6D807100BE6AC4 /* CameraView.swift */,
 				EAD5D9642B1FED850014FA26 /* ContentView.swift */,
 				EAD5D9632B1FED850014FA26 /* DataTableView.swift */,
@@ -192,7 +196,6 @@
 			isa = PBXGroup;
 			children = (
 				EAD7F8BD2B6D803A00BE6AC4 /* ARViewRepresentable.swift */,
-				EAD7F8C12B6D80D700BE6AC4 /* CustomARView.swift */,
 				EAAEB1C92B6F49F800131AB7 /* ARActions.swift */,
 				EAAEB1CB2B6F4A9500131AB7 /* ARManager.swift */,
 			);
@@ -266,6 +269,7 @@
 				EAD22D262B1E8DC1007D4679 /* .gitignore in Resources */,
 				6E7DEE8D2B69CC4700165B61 /* Merriweather-Black.ttf in Resources */,
 				6E7DEE8B2B69CC4700165B61 /* Merriweather-BlackItalic.ttf in Resources */,
+				EAD6EA9D2B7609990060072B /* Furniture in Resources */,
 				EA8D2F162B1E705B0074FC71 /* Preview Assets.xcassets in Resources */,
 				6E7DEE902B69CC4700165B61 /* Merriweather-Light.ttf in Resources */,
 				6E7DEE992B6C602500165B61 /* Cambay-Regular.ttf in Resources */,
@@ -435,7 +439,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DesignScape/Preview Content\"";
-				DEVELOPMENT_TEAM = VK2PRX795K;
+				DEVELOPMENT_TEAM = WFC7GR25JA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DesignScape/Info.plist;
@@ -452,7 +456,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.mhuynh.DesignScape;
+				PRODUCT_BUNDLE_IDENTIFIER = com.DesignScape.DesignScape;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

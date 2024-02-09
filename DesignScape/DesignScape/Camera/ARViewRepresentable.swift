@@ -16,3 +16,4 @@ struct ARViewRepresentable: UIViewRepresentable{
         // Blank
     }
 }
+let modelNames = ["Acoustic_Guitar", "Antique_Phone", "Bed_06", "Bed_with_lamp"]
