@@ -6,15 +6,54 @@
 //
 
 import SwiftUI
+import RoomPlan
 
-struct ScanRoomController: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+class ScanRoomController: RoomCaptureSessionDelegate, RoomCaptureViewDelegate {
+    func encode(with coder: NSCoder) {
+        fatalError("Not Needed")
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("Not Needed")
+    }
+    
+    static var instance = ScanRoomController()
+    var captureView: RoomCaptureView
+    let sessionConfig = RoomCaptureSession.Configuration()
+    var finalResult: CapturedRoom?
+    init() {
+        captureView = RoomCaptureView(frame: .zero)
+        captureView.delegate = self
+    }
+    
+    func captureView(shouldPresent roomDataForProcessing: CapturedRoomData, error: (Error)?) -> Bool {
+        if (error == nil) {
+            return true
+        }
+        return false
+    }
+    
+    func captureView(didPresent processedResult: CapturedRoom, error: (Error)?) {
+        finalResult = processedResult
+    }
+    
+    func startSession() {
+        captureView.captureSession.run(configuration: sessionConfig)
+    }
+    
+    func stopSession() {
+        captureView.captureSession.stop()
+    }
+
+}
+
+struct RoomCaptureViewRepresentable: UIViewRepresentable {
+    func makeUIView(context: Context) -> RoomCaptureView {
+        ScanRoomController.instance.captureView
+    }
+    
+    func updateUIView(_ uiView: RoomCaptureView, context: Context) {
+        
     }
 }
 
-struct ScanRoomController_Previews: PreviewProvider {
-    static var previews: some View {
-        ScanRoomController()
-    }
-}
