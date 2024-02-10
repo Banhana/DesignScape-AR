@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "Kitchen_Knife_Set.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

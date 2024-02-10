@@ -34,13 +34,14 @@ struct CameraView: View{
                         
                         ForEach(modelNames, id: \.self) { modelName in
                             Button {
+                                print(modelName)
                                 ARManager.shared.actionStream.send(.placeObject(modelName: modelName))
                             } label: {
-                                Image(modelName)
+                                Image(modelName) 
                                     .resizable()
                                     .frame(width: 40, height: 40)
                                     .padding()
-                                    .background(Color.blue)
+                                    .background(.regularMaterial)
                                     .cornerRadius(16)
                             }
                         }

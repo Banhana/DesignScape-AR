@@ -45,16 +45,31 @@ class CustomARView: ARView{
     func configuration(){
         // Tracks the device relative to it's environment
         let configuration = ARWorldTrackingConfiguration()
+        
+        // Enable scene reconstruction if LIDAR is supported
+        if ARWorldTrackingConfiguration.supportsSceneReconstruction(.meshWithClassification) {
+            configuration.sceneReconstruction = .meshWithClassification
+        }
+        
         configuration.planeDetection = [.horizontal] // plane detection
         session.run(configuration)
     }
     
-    func placeObject(modelName: String){
+    func placeObject(modelName: String) {
         let usdzEntity = try! ModelEntity.load(named: "Furniture/" + modelName + ".usdz")
         let anchor = AnchorEntity()
+
+        // Perform a raycast from the center of the screen.
+        let screenCenter = CGPoint(x: self.bounds.midX, y: self.bounds.midY)
+        if let result = self.raycast(from: screenCenter, allowing: .estimatedPlane, alignment: .horizontal).first {
+            // If the raycast hit a surface, position the anchor at that location.
+            anchor.transform = Transform(matrix: result.worldTransform)
+        } else {
+            // If the raycast did not hit a surface, place the object in front of the camera.
+            anchor.position = [0, 0, -1]
+        }
+
         anchor.addChild(usdzEntity)
-        anchor.position = [0, 0, -1]
-        
         scene.addAnchor(anchor)
     }
 }
