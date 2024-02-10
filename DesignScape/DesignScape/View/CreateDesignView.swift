@@ -44,7 +44,6 @@ struct CreateDesignView: View {
                             .frame(maxWidth: .infinity, alignment: .bottom)
                             .padding([.top], 3)
                     }
-                    
                 }
                 .padding(10)
                 .frame(width: 87, alignment: .center)
