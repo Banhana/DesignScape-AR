@@ -28,7 +28,6 @@
 		EAAEB1CA2B6F49F800131AB7 /* ARActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAAEB1C92B6F49F800131AB7 /* ARActions.swift */; };
 		EAAEB1CC2B6F4A9500131AB7 /* ARManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAAEB1CB2B6F4A9500131AB7 /* ARManager.swift */; };
 		EAD22D1F2B1E7378007D4679 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EAD22D1E2B1E7378007D4679 /* GoogleService-Info.plist */; };
-		EAD22D262B1E8DC1007D4679 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = EAD22D252B1E8DC1007D4679 /* .gitignore */; };
 		EAD5D95E2B1FEB810014FA26 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD5D95D2B1FEB810014FA26 /* DataController.swift */; };
 		EAD5D9612B1FEC420014FA26 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = EAD5D9602B1FEC420014FA26 /* FirebaseFirestore */; };
 		EAD5D9652B1FED850014FA26 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD5D9622B1FED850014FA26 /* Item.swift */; };
@@ -64,7 +63,6 @@
 		EAAEB1C92B6F49F800131AB7 /* ARActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARActions.swift; sourceTree = "<group>"; };
 		EAAEB1CB2B6F4A9500131AB7 /* ARManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARManager.swift; sourceTree = "<group>"; };
 		EAD22D1E2B1E7378007D4679 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		EAD22D252B1E8DC1007D4679 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		EAD5D95D2B1FEB810014FA26 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		EAD5D9622B1FED850014FA26 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		EAD5D9632B1FED850014FA26 /* DataTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataTableView.swift; sourceTree = "<group>"; };
@@ -143,7 +141,6 @@
 		EA8D2F022B1E705A0074FC71 = {
 			isa = PBXGroup;
 			children = (
-				EAD22D252B1E8DC1007D4679 /* .gitignore */,
 				EA8D2F0D2B1E705A0074FC71 /* DesignScape */,
 				EA8D2F0C2B1E705A0074FC71 /* Products */,
 				EAD5D95F2B1FEC420014FA26 /* Frameworks */,
@@ -266,7 +263,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EAD22D262B1E8DC1007D4679 /* .gitignore in Resources */,
 				6E7DEE8D2B69CC4700165B61 /* Merriweather-Black.ttf in Resources */,
 				6E7DEE8B2B69CC4700165B61 /* Merriweather-BlackItalic.ttf in Resources */,
 				EAD6EA9D2B7609990060072B /* Furniture in Resources */,
