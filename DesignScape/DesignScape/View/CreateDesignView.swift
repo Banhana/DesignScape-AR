@@ -24,23 +24,26 @@ struct CreateDesignView: View {
                     .cornerRadius(8)
                     .padding(.bottom, 20)
                 Text("Start by scanning your room or picking a template")
-                  .font(Font.custom("Cambay-Regular", size: 16))
-                  .frame(width: 200, alignment: .topLeading)
-                  .padding(30)
+                    .font(Font.custom("Cambay-Regular", size: 16))
+                    .frame(width: 200, alignment: .topLeading)
+                    .padding(30)
             }
             HStack {
                 Spacer()
-                HStack(alignment: .center, spacing: 10) {
-                    Image("arrow-right")
-                        .frame(width: 16, height: 16)
-                    Text("NEXT")
-                        .font(
-                            Font.custom("Cambay-Regular", size: 14)
-                                .weight(.semibold)
-                        )
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity, alignment: .bottom)
-                        .padding([.top], 3)
+                NavigationLink(destination: CameraView()) {
+                    HStack(alignment: .center, spacing: 10) {
+                        Image("arrow-right")
+                            .frame(width: 16, height: 16)
+                        
+                        Text("NEXT")
+                            .font(
+                                Font.custom("Cambay-Regular", size: 14)
+                                    .weight(.semibold)
+                            )
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity, alignment: .bottom)
+                            .padding([.top], 3)
+                    }
                 }
                 .padding(10)
                 .frame(width: 87, alignment: .center)
