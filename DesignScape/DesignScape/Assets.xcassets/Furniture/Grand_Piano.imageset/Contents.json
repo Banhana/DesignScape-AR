@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "Grand_Piano.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

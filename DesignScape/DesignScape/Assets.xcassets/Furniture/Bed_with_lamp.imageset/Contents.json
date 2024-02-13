@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "Bed_with_lamp.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

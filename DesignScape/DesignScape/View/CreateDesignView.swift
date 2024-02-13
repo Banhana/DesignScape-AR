@@ -24,9 +24,9 @@ struct CreateDesignView: View {
                     .cornerRadius(8)
                     .padding(.bottom, 20)
                 Text("Start by scanning your room or picking a template")
-                  .font(Font.custom("Cambay-Regular", size: 16))
-                  .frame(width: 200, alignment: .topLeading)
-                  .padding(30)
+                    .font(Font.custom("Cambay-Regular", size: 16))
+                    .frame(width: 200, alignment: .topLeading)
+                    .padding(30)
             }
             HStack(alignment: .center, spacing: 10) {
                 NavigationLink(destination: ScanRoomView()) {
