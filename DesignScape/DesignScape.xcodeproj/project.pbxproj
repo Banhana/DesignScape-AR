@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		610CA8BB2B7C1F29000A84E1 /* CatalogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610CA8BA2B7C1F29000A84E1 /* CatalogView.swift */; };
 		6E7DEE7E2B676A0E00165B61 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DEE7D2B676A0E00165B61 /* MainView.swift */; };
 		6E7DEE802B69C35900165B61 /* CreateDesignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DEE7F2B69C35900165B61 /* CreateDesignView.swift */; };
 		6E7DEE8B2B69CC4700165B61 /* Merriweather-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E7DEE882B69C42500165B61 /* Merriweather-BlackItalic.ttf */; };
@@ -43,6 +44,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		610CA8BA2B7C1F29000A84E1 /* CatalogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogView.swift; sourceTree = "<group>"; };
 		6E7DEE7D2B676A0E00165B61 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		6E7DEE7F2B69C35900165B61 /* CreateDesignView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDesignView.swift; sourceTree = "<group>"; };
 		6E7DEE822B69C42500165B61 /* Merriweather-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Merriweather-Bold.ttf"; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 				6E7DEE7D2B676A0E00165B61 /* MainView.swift */,
 				6E7DEE7F2B69C35900165B61 /* CreateDesignView.swift */,
 				6EA62D8E2B75CBDA009ADE7C /* ScanRoomView.swift */,
+				610CA8BA2B7C1F29000A84E1 /* CatalogView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -236,7 +239,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1410;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 1520;
 				TargetAttributes = {
 					EA8D2F0A2B1E705A0074FC71 = {
 						CreatedOnToolsVersion = 15.0;
@@ -297,6 +300,7 @@
 			files = (
 				EAD7F8C22B6D80D700BE6AC4 /* CustomARView.swift in Sources */,
 				EAD5D95E2B1FEB810014FA26 /* DataController.swift in Sources */,
+				610CA8BB2B7C1F29000A84E1 /* CatalogView.swift in Sources */,
 				6E7DEE9C2B6C947800165B61 /* ScanRoomController.swift in Sources */,
 				6E7DEE7E2B676A0E00165B61 /* MainView.swift in Sources */,
 				6EA62D8F2B75CBDA009ADE7C /* ScanRoomView.swift in Sources */,
@@ -308,7 +312,6 @@
 				EAD5D9652B1FED850014FA26 /* Item.swift in Sources */,
 				EAD7F8BE2B6D803A00BE6AC4 /* ARViewRepresentable.swift in Sources */,
 				EAAEB1CC2B6F4A9500131AB7 /* ARManager.swift in Sources */,
-				6E7DEE802B69C35900165B61 /* CreateDesignView.swift in Sources */,
 				6E7DEE802B69C35900165B61 /* CreateDesignView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -443,7 +446,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DesignScape/Preview Content\"";
-				DEVELOPMENT_TEAM = WFC7GR25JA;
+				DEVELOPMENT_TEAM = DJYH9HGVHQ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DesignScape/Info.plist;
@@ -454,13 +457,14 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.mhuynh.DesignScape;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.DesignScape.DesignScape;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -476,7 +480,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DesignScape/Preview Content\"";
-				DEVELOPMENT_TEAM = WFC7GR25JA;
+				DEVELOPMENT_TEAM = DJYH9HGVHQ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DesignScape/Info.plist;
@@ -487,13 +491,14 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.mhuynh.DesignScape;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.DesignScape.DesignScape;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

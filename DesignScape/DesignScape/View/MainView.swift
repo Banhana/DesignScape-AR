@@ -29,9 +29,9 @@ struct MainView: View {
                     .tabItem {
                         Image("add")
                     }.tag(3)
-                Text("Search")
+                CatalogView()
                     .tabItem {
-                        Text("Search")
+                        Text("Explore")
                         selectedTab == 4 ? Image("search.fill") : Image("search")
                     }.tag(4)
                 Text("Profile")
