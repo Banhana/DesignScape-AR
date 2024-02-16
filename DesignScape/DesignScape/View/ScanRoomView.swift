@@ -51,8 +51,6 @@ struct ScanRoomView: View {
                         }
                         .frame(width: 60, height: 32)
                         .cornerRadius(8)
-                        
-                        
                     })
                 }
                 //                ZStack(alignment: .center){
@@ -72,10 +70,26 @@ struct ScanRoomView: View {
     }
 }
 
+struct IfElseView: View {
+    var nextView: Int
+    
+    var body: some View {
+        if nextView == 1 {
+            GuidedTourScanRoomView(title: "Step 1", instruction: "\u{2022} Remove all personal items\n\u{2022} Ensure room is empty with people", nextDestinationView: 2)
+        } else if nextView == 2 {
+            GuidedTourScanRoomView(title: "Step 2", instruction: "\u{2022} Close all doors\n\u{2022} Move back to get a great angle", nextDestinationView: 3)
+        } else if nextView == 3 {
+            ScanRoomView()
+        }
+    }
+}
+
 struct GuidedTourScanRoomView: View {
     var title: String
     var instruction: String
     var nextBtnText: String = "NEXT"
+    var nextDestinationView: Int
+    
     @State var player = AVPlayer(url: Bundle.main.url(forResource: "roomplan-large", withExtension: "mp4")!)
     
     var body: some View {
@@ -100,7 +114,7 @@ struct GuidedTourScanRoomView: View {
             
             HStack {
                 Spacer()
-                NavigationLink(destination: CameraView()) {
+                NavigationLink(destination: IfElseView(nextView: self.nextDestinationView)) {
                     HStack(alignment: .center, spacing: 10) {
                         Image("arrow-right")
                             .frame(width: 16, height: 16)
@@ -128,5 +142,5 @@ struct GuidedTourScanRoomView: View {
 }
 
 #Preview {
-    GuidedTourScanRoomView(title: "Get Started", instruction: "Scan your room and design in an immersive experience that brings your vision to life")
+    GuidedTourScanRoomView(title: "Get Started", instruction: "Scan your room and design in an immersive experience that brings your vision to life", nextDestinationView: 1)
 }
