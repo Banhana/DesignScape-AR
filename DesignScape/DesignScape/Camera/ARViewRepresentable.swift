@@ -7,12 +7,13 @@
 
 import SwiftUI
 
+// UI for our CustomARView
 struct ARViewRepresentable: UIViewRepresentable{
     func makeUIView(context: Context) -> CustomARView {
         return CustomARView()
     }
     
     func updateUIView(_ uiView: CustomARView, context: Context) {
-        // Blank
+        // Not Needed Right Now
     }
 }

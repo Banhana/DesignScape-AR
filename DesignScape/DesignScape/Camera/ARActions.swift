@@ -7,7 +7,8 @@
 
 import SwiftUI
 
+// Actions for our AR Scene
 enum ARActions{
-    case placeObject(modelName: String)
-    case removeAllAnchors
+    case placeObject(modelName: String) // Places the object we select from the images
+    case removeAllAnchors // Removes all objects that we placed
 }
