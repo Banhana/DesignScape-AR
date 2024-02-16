@@ -43,7 +43,8 @@ struct CreateDesignView: View {
             .padding(10)
             .background(Color("Brown"))
             .cornerRadius(8)
-                HStack(alignment: .center, spacing: 10) {
+            HStack(alignment: .center, spacing: 10) {
+                NavigationLink(destination: CameraView()){
                     Text("LIVE SCAN")
                         .font(
                             Font.custom("Cambay-Regular", size: 14)
@@ -53,9 +54,10 @@ struct CreateDesignView: View {
                         .frame(maxWidth: .infinity, alignment: .bottom)
                         .padding([.top], 3)
                 }
-                .padding(10)
-                .background(Color("Brown"))
-                .cornerRadius(8)
+            }
+            .padding(10)
+            .background(Color("Brown"))
+            .cornerRadius(8)
             
         }
         .padding(10)
