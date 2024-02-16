@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6E2A7A5D2B7ED8E400116030 /* roomplan-large.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 6E2A7A5C2B7ED8E400116030 /* roomplan-large.mp4 */; };
 		6E7DEE7E2B676A0E00165B61 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DEE7D2B676A0E00165B61 /* MainView.swift */; };
 		6E7DEE802B69C35900165B61 /* CreateDesignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DEE7F2B69C35900165B61 /* CreateDesignView.swift */; };
 		6E7DEE8B2B69CC4700165B61 /* Merriweather-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E7DEE882B69C42500165B61 /* Merriweather-BlackItalic.ttf */; };
@@ -43,6 +44,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6E2A7A5C2B7ED8E400116030 /* roomplan-large.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; name = "roomplan-large.mp4"; path = "DesignScape/roomplan-large.mp4"; sourceTree = SOURCE_ROOT; };
 		6E7DEE7D2B676A0E00165B61 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		6E7DEE7F2B69C35900165B61 /* CreateDesignView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDesignView.swift; sourceTree = "<group>"; };
 		6E7DEE822B69C42500165B61 /* Merriweather-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Merriweather-Bold.ttf"; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 				6E7DEE8A2B69C4DF00165B61 /* Info.plist */,
 				6E7DEE812B69C3BA00165B61 /* fonts */,
 				6E955C752B222B9900E57F55 /* Controller */,
+				6E2A7A5C2B7ED8E400116030 /* roomplan-large.mp4 */,
 				6E955C742B222B9600E57F55 /* View */,
 				6E955C732B222B8800E57F55 /* Model */,
 				EA8D2F0E2B1E705A0074FC71 /* DesignScapeApp.swift */,
@@ -272,6 +275,7 @@
 				6E7DEE8D2B69CC4700165B61 /* Merriweather-Black.ttf in Resources */,
 				6E7DEE8B2B69CC4700165B61 /* Merriweather-BlackItalic.ttf in Resources */,
 				EAD6EA9D2B7609990060072B /* Furniture in Resources */,
+				6E2A7A5D2B7ED8E400116030 /* roomplan-large.mp4 in Resources */,
 				EA8D2F162B1E705B0074FC71 /* Preview Assets.xcassets in Resources */,
 				6E7DEE902B69CC4700165B61 /* Merriweather-Light.ttf in Resources */,
 				6E7DEE992B6C602500165B61 /* Cambay-Regular.ttf in Resources */,

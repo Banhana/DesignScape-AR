@@ -29,7 +29,7 @@ struct CreateDesignView: View {
                     .padding(30)
             }
             HStack(alignment: .center, spacing: 10) {
-                NavigationLink(destination: ScanRoomView()) {
+                NavigationLink(destination: GuidedTourScanRoomView(title: "Get Started", instruction: "Scan your room and design in an immersive experience that brings your vision to life")) {
                     Text("CREATE ROOM")
                         .font(
                             Font.custom("Cambay-Regular", size: 14)
