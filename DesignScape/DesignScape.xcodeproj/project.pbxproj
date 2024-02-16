@@ -239,7 +239,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1410;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 1520;
 				TargetAttributes = {
 					EA8D2F0A2B1E705A0074FC71 = {
 						CreatedOnToolsVersion = 15.0;
@@ -312,7 +312,6 @@
 				EAD5D9652B1FED850014FA26 /* Item.swift in Sources */,
 				EAD7F8BE2B6D803A00BE6AC4 /* ARViewRepresentable.swift in Sources */,
 				EAAEB1CC2B6F4A9500131AB7 /* ARManager.swift in Sources */,
-				6E7DEE802B69C35900165B61 /* CreateDesignView.swift in Sources */,
 				6E7DEE802B69C35900165B61 /* CreateDesignView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

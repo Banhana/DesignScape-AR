@@ -17,28 +17,6 @@ struct CatalogView: View {
             VStack{
                 ZStack{
                     VStack{
-                        ZStack{
-                            // top banner
-                            HStack{
-                                Button(action: {}){
-                                    
-                                    Image("arrow-left")
-                                        .aspectRatio(contentMode: .fit)
-                                        .frame(width: 16, height: 16)
-                                        .padding(8)
-                                }
-                                .background(Color.gray)
-                                .clipShape(RoundedRectangle(cornerRadius: 8))
-                                
-                                Spacer()
-                            }
-                            .padding(.horizontal)
-                            
-                            Text("DesignScape AR")
-                                .font(.system(size: 18))
-                            
-                        }
-                        
                         // furniture categories
                        FurnitureView(furniture: furniture)
                         
@@ -112,7 +90,7 @@ struct FurnitureCard: View {
             ZStack (alignment: .leading) {
                 Image(imageName)
                     .resizable()
-                    .aspectRatio(contentMode: .fit)
+                    .aspectRatio(contentMode: .fill)
                     .frame(width: 125, height: 56)
                     .cornerRadius(8)
                 
