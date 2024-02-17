@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6E2A7A5D2B7ED8E400116030 /* roomplan-large.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 6E2A7A5C2B7ED8E400116030 /* roomplan-large.mp4 */; };
 		610CA8BB2B7C1F29000A84E1 /* CatalogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610CA8BA2B7C1F29000A84E1 /* CatalogView.swift */; };
+		6E2A7A5D2B7ED8E400116030 /* roomplan-large.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 6E2A7A5C2B7ED8E400116030 /* roomplan-large.mp4 */; };
 		6E7DEE7E2B676A0E00165B61 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DEE7D2B676A0E00165B61 /* MainView.swift */; };
 		6E7DEE802B69C35900165B61 /* CreateDesignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DEE7F2B69C35900165B61 /* CreateDesignView.swift */; };
 		6E7DEE8B2B69CC4700165B61 /* Merriweather-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E7DEE882B69C42500165B61 /* Merriweather-BlackItalic.ttf */; };
@@ -45,8 +45,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		6E2A7A5C2B7ED8E400116030 /* roomplan-large.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; name = "roomplan-large.mp4"; path = "DesignScape/Resources/roomplan-large.mp4"; sourceTree = SOURCE_ROOT; };
 		610CA8BA2B7C1F29000A84E1 /* CatalogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogView.swift; sourceTree = "<group>"; };
+		6E2A7A5C2B7ED8E400116030 /* roomplan-large.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; name = "roomplan-large.mp4"; path = "DesignScape/Resources/roomplan-large.mp4"; sourceTree = SOURCE_ROOT; };
 		6E7DEE7D2B676A0E00165B61 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		6E7DEE7F2B69C35900165B61 /* CreateDesignView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDesignView.swift; sourceTree = "<group>"; };
 		6E7DEE822B69C42500165B61 /* Merriweather-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Merriweather-Bold.ttf"; sourceTree = "<group>"; };
@@ -458,7 +458,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DesignScape/Preview Content\"";
-				DEVELOPMENT_TEAM = VK2PRX795K;
+				DEVELOPMENT_TEAM = WFC7GR25JA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DesignScape/Info.plist;
@@ -476,7 +476,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.DesignScape.DesignScape;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.tonybanh.DesignScape;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -492,7 +492,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DesignScape/Preview Content\"";
-				DEVELOPMENT_TEAM = VK2PRX795K;
+				DEVELOPMENT_TEAM = WFC7GR25JA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DesignScape/Info.plist;
@@ -510,7 +510,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.DesignScape.DesignScape;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.tonybanh.DesignScape;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
