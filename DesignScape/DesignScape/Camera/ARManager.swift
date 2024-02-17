@@ -7,6 +7,7 @@
 
 import Combine
 
+// Controller for our AR actions that we do in other files
 class ARManager{
     static let shared = ARManager()
     private init() { }

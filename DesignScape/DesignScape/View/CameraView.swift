@@ -7,7 +7,9 @@
 
 import SwiftUI
 
+// UI for our AR scene for object placement
 struct CameraView: View{
+    // List to hold the model names
     @State private var modelNames: [String] = []
     
     var body: some View{
@@ -23,6 +25,7 @@ struct CameraView: View{
                         Button {
                             ARManager.shared.actionStream.send(.removeAllAnchors)
                         } label: {
+                            // Trashcan image to delete all the placed objects
                             Image(systemName: "trash")
                                 .resizable()
                                 .scaledToFit()
@@ -31,10 +34,9 @@ struct CameraView: View{
                                 .background(.regularMaterial)
                                 .cornerRadius(16)
                         }
-                        
+                        // Puts all model images into buttons
                         ForEach(modelNames, id: \.self) { modelName in
                             Button {
-                                print(modelName)
                                 ARManager.shared.actionStream.send(.placeObject(modelName: modelName))
                             } label: {
                                 Image(modelName) 
@@ -52,6 +54,7 @@ struct CameraView: View{
     }
 }
 
+// Loads all models into a list from a specified directory
 func loadModelNames(named directory: String) -> [String] {
     guard let directoryURL = Bundle.main.url(forResource: directory, withExtension: nil) else {
         return []
