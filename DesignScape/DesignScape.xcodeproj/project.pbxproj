@@ -44,7 +44,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		6E2A7A5C2B7ED8E400116030 /* roomplan-large.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; name = "roomplan-large.mp4"; path = "DesignScape/roomplan-large.mp4"; sourceTree = SOURCE_ROOT; };
+		6E2A7A5C2B7ED8E400116030 /* roomplan-large.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; name = "roomplan-large.mp4"; path = "DesignScape/Resources/roomplan-large.mp4"; sourceTree = SOURCE_ROOT; };
 		6E7DEE7D2B676A0E00165B61 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		6E7DEE7F2B69C35900165B61 /* CreateDesignView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDesignView.swift; sourceTree = "<group>"; };
 		6E7DEE822B69C42500165B61 /* Merriweather-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Merriweather-Bold.ttf"; sourceTree = "<group>"; };
@@ -95,6 +95,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6E2A7A5E2B8096BA00116030 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				6E2A7A5C2B7ED8E400116030 /* roomplan-large.mp4 */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		6E7DEE812B69C3BA00165B61 /* fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -166,11 +174,11 @@
 		EA8D2F0D2B1E705A0074FC71 /* DesignScape */ = {
 			isa = PBXGroup;
 			children = (
+				6E2A7A5E2B8096BA00116030 /* Resources */,
 				EAD7F8BC2B6D800B00BE6AC4 /* Camera */,
 				6E7DEE8A2B69C4DF00165B61 /* Info.plist */,
 				6E7DEE812B69C3BA00165B61 /* fonts */,
 				6E955C752B222B9900E57F55 /* Controller */,
-				6E2A7A5C2B7ED8E400116030 /* roomplan-large.mp4 */,
 				6E955C742B222B9600E57F55 /* View */,
 				6E955C732B222B8800E57F55 /* Model */,
 				EA8D2F0E2B1E705A0074FC71 /* DesignScapeApp.swift */,

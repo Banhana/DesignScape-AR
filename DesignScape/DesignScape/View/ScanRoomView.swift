@@ -70,7 +70,7 @@ struct ScanRoomView: View {
     }
 }
 
-struct IfElseView: View {
+struct NextGuidedTourView: View {
     var nextView: Int
     
     var body: some View {
@@ -114,7 +114,7 @@ struct GuidedTourScanRoomView: View {
             
             HStack {
                 Spacer()
-                NavigationLink(destination: IfElseView(nextView: self.nextDestinationView)) {
+                NavigationLink(destination: NextGuidedTourView(nextView: self.nextDestinationView)) {
                     HStack(alignment: .center, spacing: 10) {
                         Image("arrow-right")
                             .frame(width: 16, height: 16)
