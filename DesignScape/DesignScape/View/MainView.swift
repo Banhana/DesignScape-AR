@@ -7,8 +7,10 @@
 
 import SwiftUI
 
+/// Main View of the entire app
 struct MainView: View {
     
+    /// Current active tab, numbered 1-5
     @State private var selectedTab = 1
     
     var body: some View {
