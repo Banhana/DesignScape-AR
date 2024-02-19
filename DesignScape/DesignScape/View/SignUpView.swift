@@ -9,10 +9,8 @@ import SwiftUI
 import FirebaseAuth
 
 struct SignUpView: View {
-    @State private var email = ""
-    @State private var password = ""
-    @State private var saveUsername = false
-    @State private var isPasswordHidden = true
+    @StateObject private var viewModel = AuthenticationViewModel()
+    @State private var agreeTerms = false
     
     var body: some View {
         ZStack {
@@ -22,25 +20,6 @@ struct SignUpView: View {
                 .edgesIgnoringSafeArea(.all)
             VStack {
                 ZStack{
-                    HStack {
-                        Spacer()
-                        Button(action: {}) {
-                            ZStack(alignment: .center) {
-                                RoundedRectangle(cornerRadius: 8)
-                                    .foregroundColor(Color.grey.opacity(0.5))
-                                    .frame(width: 32, height: 32)
-                                Image("arrow-back")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: 16, height: 12)
-                            }
-                        }
-                        .padding(.top)
-                        .padding(.trailing, 16)
-                        .foregroundColor(.white)
-                        .edgesIgnoringSafeArea(.horizontal)
-                    }
-                    
                     Text("Create an Account")
                         .font(.custom("Merriweather-Regular", size: 40))
                         .foregroundColor(.white)
@@ -52,7 +31,7 @@ struct SignUpView: View {
                         .shadow(radius: 3)
                     
                     VStack(alignment: .leading, spacing: 20) {
-                        TextField("Email", text: $email)
+                        TextField("Email", text: $viewModel.email)
                             .textFieldStyle(PlainTextFieldStyle())
                             .font(
                                 Font.custom("Cambay-Regular", size: 16)
@@ -60,36 +39,35 @@ struct SignUpView: View {
                             .padding(.horizontal)
 
                         HStack {
-                            SecureField("Password", text: $password)
+                            SecureField("Password", text: $viewModel.password)
                                 .textFieldStyle(PlainTextFieldStyle())
                                 .font(
                                     Font.custom("Cambay-Regular", size: 16)
                                 )
                                 .foregroundColor(.black)
                                 .padding(.horizontal)
-                            Button(action: {
-                                self.isPasswordHidden.toggle()
-                            }) {
-                                Image(systemName: isPasswordHidden ? "eye.slash" : "eye")
-                                    .foregroundColor(.gray)
-                            }
                         }
                         
                         Button(action: {
-                                    self.saveUsername.toggle()
+                                    self.agreeTerms.toggle()
                                 }) {
                                     HStack {
-                                        Image(systemName: saveUsername ? "checkmark.square" : "square")
+                                        Image(systemName: agreeTerms ? "checkmark.square" : "square")
                                             .foregroundColor(.grey)
-                                        Text("Save username")
+                                        Text("I agree to the Terms & Conditions")
                                             .foregroundColor(.grey)
+                                            .font(
+                                                Font.custom("Cambay-Regular", size: 12)
+                                            )
                                     }
                                 }
                         
                         Button(action: {
-                            Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
-                                if let error = error {
-                                    print(error.localizedDescription)
+                            Task{
+                                do {
+                                    try await viewModel.signup()
+                                } catch {
+                                    
                                 }
                             }
                         }) {
@@ -99,7 +77,7 @@ struct SignUpView: View {
                                 
                                 Image(systemName: "lock.fill")
                                     .foregroundColor(.black)
-                                Text("Sign In")
+                                Text("Sign Up")
                                     .foregroundColor(.black)
                                     .font(.headline)
                             }
@@ -108,19 +86,11 @@ struct SignUpView: View {
                             .cornerRadius(8)
                             Spacer()
                         }
-                        
-                        HStack {
-                            Spacer()
-                            Text("Forgot username or password?")
-                                .foregroundColor(.grey)
-                                .bold()
-                        }
-                        .padding(.trailing)
                     }
                     .padding()
                 }
                 .padding(.horizontal, 120)
-                .frame(width: .infinity, height: 309)
+                .frame(width: .infinity, height: 280)
                 
                 Spacer()
             }

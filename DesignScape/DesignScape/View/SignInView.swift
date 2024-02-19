@@ -9,6 +9,9 @@ import SwiftUI
 import FirebaseAuth
 
 struct SignInView: View {
+    @StateObject private var viewModel = AuthenticationViewModel()
+
+    
     @State private var email = ""
     @State private var password = ""
     @State private var saveUsername = false
@@ -87,9 +90,11 @@ struct SignInView: View {
                                 }
                         
                         Button(action: {
-                            Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
-                                if let error = error {
-                                    print(error.localizedDescription)
+                            Task{
+                                do {
+                                    try await viewModel.signin()
+                                } catch {
+                                    
                                 }
                             }
                         }) {
