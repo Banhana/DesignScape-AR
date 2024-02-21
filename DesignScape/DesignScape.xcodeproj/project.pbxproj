@@ -161,6 +161,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6107CC382B86B75800EDA568 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				619F4B6C2B8144C800F0912D /* SignInView.swift */,
+				619F4B6E2B8144E500F0912D /* AccountView.swift */,
+				619F4BA62B8161F600F0912D /* SignUpView.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		6E2A7A5E2B8096BA00116030 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -209,9 +219,7 @@
 				6E7DEE7F2B69C35900165B61 /* CreateDesignView.swift */,
 				6EA62D8E2B75CBDA009ADE7C /* ScanRoomView.swift */,
 				610CA8BA2B7C1F29000A84E1 /* CatalogView.swift */,
-				619F4B6C2B8144C800F0912D /* SignInView.swift */,
-				619F4B6E2B8144E500F0912D /* AccountView.swift */,
-				619F4BA62B8161F600F0912D /* SignUpView.swift */,
+				6107CC382B86B75800EDA568 /* Profile */,
 			);
 			path = View;
 			sourceTree = "<group>";

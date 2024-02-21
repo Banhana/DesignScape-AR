@@ -37,7 +37,7 @@ final class AuthenticationController {
     }
     
     // creates user - async
-    func createUser(email: String, password: String) async throws -> AuthDataResultModel {
+    func createUser(email: String, password: String, name: String) async throws -> AuthDataResultModel {
         let authDataResult = try await Auth.auth().createUser(withEmail: email, password: password)
         
         // Access the newly created user's UID
@@ -45,7 +45,9 @@ final class AuthenticationController {
             
         // Define the data to be stored in the Firestore document
         let userData: [String: Any] = [
+            "uid": uid,
             "email": email,
+            "name": name,
             // Add more user data as needed
         ]
                 

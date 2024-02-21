@@ -13,13 +13,14 @@ final class AuthenticationViewModel: ObservableObject {
     // Published properties for email and password
     @Published var email = ""
     @Published var password = ""
+    @Published var name = ""
     
     // Function to handle user sign-up
     func signup() async throws {
         // Check if email and password are not empty
-        guard !email.isEmpty, !password.isEmpty else {
+        guard !email.isEmpty, !password.isEmpty, !name.isEmpty else {
             // Print message if email or password is empty
-            print("No email or password found")
+            print("No name, email, or password found")
             return
         }
         
@@ -27,7 +28,7 @@ final class AuthenticationViewModel: ObservableObject {
         Task {
             do {
                 // Attempt to create a new user using provided email and password
-                let returnedUserData = try await AuthenticationController.shared.createUser(email: email, password: password)
+                let returnedUserData = try await AuthenticationController.shared.createUser(email: email, password: password, name: name)
                 // Print success message and user data upon successful sign-up
                 print("Sign-up Success")
                 print(returnedUserData)
