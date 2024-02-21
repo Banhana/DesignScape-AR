@@ -8,20 +8,26 @@
 import SwiftUI
 import AVKit
 
+/// Scan Room View allows acess to camera to outline a 3D model of a room
 struct ScanRoomView: View {
     @Environment(\.presentationMode) var presentationMode
     
+    /// RoomController instance
     var roomController = ScanRoomController.instance
-    
+    /// Condition when scanning is completed
     @State private var doneScanning: Bool = false
     
     var body: some View {
         ZStack (alignment: .topLeading) {
+            /// Camera View
             ScanRoomViewRepresentable().onAppear(perform: {
                 roomController.startSession()
             })
             .ignoresSafeArea()
+            
+            /// Navigation Bar
             HStack {
+                /// Back button
                 Button(action: {
                     self.presentationMode.wrappedValue.dismiss()
                 }){
@@ -35,6 +41,8 @@ struct ScanRoomView: View {
                     .cornerRadius(8)
                 }
                 Spacer()
+                
+                /// Done button
                 if doneScanning == false {
                     Button(action: {
                         roomController.stopSession()
@@ -53,16 +61,6 @@ struct ScanRoomView: View {
                         .cornerRadius(8)
                     })
                 }
-                //                ZStack(alignment: .center){
-                //                    Color("Grey")
-                //                        .opacity(0.5)
-                //                    Image("cross")
-                //                        .resizable()
-                //                        .frame(width: 16, height: 16)
-                //                        .scaledToFit()
-                //                }
-                //                .frame(width: 32, height: 32)
-                //                .cornerRadius(8)
             }
             .padding(30)
         }
@@ -70,35 +68,47 @@ struct ScanRoomView: View {
     }
 }
 
+/// An optional view depends on which view number is passed into
 struct NextGuidedTourView: View {
+    /// Next view is numberd by an integer
     var nextView: Int
     
     var body: some View {
+        /// Step 1
         if nextView == 1 {
             GuidedTourScanRoomView(title: "Step 1", instruction: "\u{2022} Remove all personal items\n\u{2022} Ensure room is empty with people", nextDestinationView: 2)
+        /// Step 2
         } else if nextView == 2 {
             GuidedTourScanRoomView(title: "Step 2", instruction: "\u{2022} Close all doors\n\u{2022} Move back to get a great angle", nextDestinationView: 3)
+        /// Final Step
         } else if nextView == 3 {
             ScanRoomView()
         }
     }
 }
 
+/// Getting Started View shows an overview of how Scanning a Room looks like
 struct GuidedTourScanRoomView: View {
+    /// Main contents
     var title: String
     var instruction: String
+    
+    /// Contents of next button
     var nextBtnText: String = "NEXT"
     var nextDestinationView: Int
     
+    /// Load an overview video
     @State var player = AVPlayer(url: Bundle.main.url(forResource: "roomplan-large", withExtension: "mp4")!)
     
     var body: some View {
-        
         VStack(alignment: .leading, spacing: 10) {
+            /// Main Contents
             Text(self.title)
                 .font(.custom("Merriweather-Regular", size: 40))
             Text(self.instruction)
                 .font(.custom("Cambay-Regular", size: 16))
+            
+            /// Video player
             ZStack(alignment: .topLeading) {
                 VideoPlayer(player: player)
                     .aspectRatio(5/2, contentMode: .fill
@@ -112,6 +122,7 @@ struct GuidedTourScanRoomView: View {
             .padding(.bottom, 20)
             .clipped()
             
+            /// Next button to next view
             HStack {
                 Spacer()
                 NavigationLink(destination: NextGuidedTourView(nextView: self.nextDestinationView)) {
