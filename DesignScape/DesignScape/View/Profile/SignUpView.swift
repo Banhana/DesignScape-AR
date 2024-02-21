@@ -31,6 +31,13 @@ struct SignUpView: View {
                         .shadow(radius: 3)
                     
                     VStack(alignment: .leading, spacing: 20) {
+                        TextField("Name", text: $viewModel.name)
+                            .textFieldStyle(PlainTextFieldStyle())
+                            .font(
+                                Font.custom("Cambay-Regular", size: 16)
+                            )
+                            .padding(.horizontal)
+
                         TextField("Email", text: $viewModel.email)
                             .textFieldStyle(PlainTextFieldStyle())
                             .font(
