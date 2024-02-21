@@ -36,7 +36,7 @@ struct MainView: View {
                         Text("Explore")
                         selectedTab == 4 ? Image("search.fill") : Image("search")
                     }.tag(4)
-                Text("Profile")
+                AccountView()
                     .tabItem {
                         Text("Profile")
                         selectedTab == 5 ? Image("profile.fill") : Image("profile")
