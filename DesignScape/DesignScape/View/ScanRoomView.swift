@@ -103,8 +103,7 @@ struct GuidedTourScanRoomView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             /// Main Contents
-            Text(self.title)
-                .font(.custom("Merriweather-Regular", size: 40))
+            H1Text(title: self.title)
             Text(self.instruction)
                 .font(.custom("Cambay-Regular", size: 16))
             
@@ -127,24 +126,8 @@ struct GuidedTourScanRoomView: View {
             HStack {
                 Spacer()
                 NavigationLink(destination: NextGuidedTourView(nextView: self.nextDestinationView)) {
-                    HStack(alignment: .center, spacing: 10) {
-                        Image("arrow-right")
-                            .frame(width: 16, height: 16)
-                        
-                        Text(nextBtnText)
-                            .font(
-                                Font.custom("Cambay-Regular", size: 14)
-                                    .weight(.semibold)
-                            )
-                            .foregroundColor(.white)
-                            .frame(alignment: .bottom)
-                            .padding([.top], 3)
-                    }
+                    PrimaryButton(image: "arrow-right", text: nextBtnText)
                 }
-                .padding(10)
-                .frame(alignment: .center)
-                .background(Color("Brown"))
-                .cornerRadius(8)
             }
         }
         .padding(10)
@@ -172,8 +155,7 @@ struct GuidedTourImageScanRoomView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             /// Main Contents
-            Text(self.title)
-                .font(.custom("Merriweather-Regular", size: 40))
+            H1Text(title: self.title)
             Text(self.instruction)
                 .font(.custom("Cambay-Regular", size: 16))
             
@@ -194,24 +176,8 @@ struct GuidedTourImageScanRoomView: View {
             HStack {
                 Spacer()
                 NavigationLink(destination: NextGuidedTourView(nextView: self.nextDestinationView)) {
-                    HStack(alignment: .center, spacing: 10) {
-                        Image("arrow-right")
-                            .frame(width: 16, height: 16)
-                        
-                        Text(nextBtnText)
-                            .font(
-                                Font.custom("Cambay-Regular", size: 14)
-                                    .weight(.semibold)
-                            )
-                            .foregroundColor(.white)
-                            .frame(alignment: .bottom)
-                            .padding([.top], 3)
-                    }
+                    PrimaryButton(image: "arrow-right", text: nextBtnText)
                 }
-                .padding(10)
-                .frame(alignment: .center)
-                .background(Color("Brown"))
-                .cornerRadius(8)
             }
         }
         .padding(10)

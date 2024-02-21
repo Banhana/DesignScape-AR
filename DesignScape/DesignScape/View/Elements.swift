@@ -7,6 +7,40 @@
 
 import SwiftUI
 
+/// PrimaryButton
+struct PrimaryButton: View {
+    var image: String
+    var text: String
+    var body: some View {
+        HStack(alignment: .center, spacing: 10) {
+            Image(image)
+                .frame(width: 16, height: 16)
+            
+            Text(text)
+                .font(
+                    Font.custom("Cambay-Regular", size: 14)
+                        .weight(.semibold)
+                )
+                .foregroundColor(.white)
+                .frame(alignment: .bottom)
+                .padding([.top], 3)
+        }
+        .padding(10)
+        .frame(alignment: .center)
+        .background(Color("Brown"))
+        .cornerRadius(8)
+    }
+}
+
+/// Heading 1
+struct H1Text: View {
+    var title: String
+    var body: some View {
+        Text(self.title)
+            .font(.custom("Merriweather-Regular", size: 40))
+    }
+}
+
 /// Custom Close Button
 struct CloseButton: View {
     @Environment(\.presentationMode) var presentationMode
@@ -51,5 +85,12 @@ struct BackButton: View {
 }
 
 #Preview {
-    BackButton()
+    VStack {
+        H1Text(title: "Heading 1")
+        PrimaryButton(image: "arrow-right", text: "NEXT")
+        HStack {
+            BackButton()
+            CloseButton()
+        }
+    }
 }
