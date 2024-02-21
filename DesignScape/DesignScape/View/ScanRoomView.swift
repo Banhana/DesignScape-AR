@@ -76,11 +76,11 @@ struct NextGuidedTourView: View {
     var body: some View {
         /// Step 1
         if nextView == 1 {
-            GuidedTourScanRoomView(title: "Step 1", instruction: "\u{2022} Remove all personal items\n\u{2022} Ensure room is empty with people", nextDestinationView: 2)
-        /// Step 2
+            GuidedTourImageScanRoomView(title: "Step 1", instruction: "\u{2022} Remove all personal items\n\u{2022} Ensure room is empty of people", nextDestinationView: 2, image: "personal-items")
+            /// Step 2
         } else if nextView == 2 {
-            GuidedTourScanRoomView(title: "Step 2", instruction: "\u{2022} Close all doors\n\u{2022} Move back to get a great angle", nextDestinationView: 3)
-        /// Final Step
+            GuidedTourImageScanRoomView(title: "Step 2", instruction: "\u{2022} Close all doors\n\u{2022} Move back to get a great angle", nextDestinationView: 3, nextBtnText: "START SCANNING", image: "closing-door")
+            /// Final Step
         } else if nextView == 3 {
             ScanRoomView()
         }
@@ -94,8 +94,8 @@ struct GuidedTourScanRoomView: View {
     var instruction: String
     
     /// Contents of next button
-    var nextBtnText: String = "NEXT"
     var nextDestinationView: Int
+    var nextBtnText: String = "NEXT"
     
     /// Load an overview video
     @State var player = AVPlayer(url: Bundle.main.url(forResource: "roomplan-large", withExtension: "mp4")!)
@@ -109,18 +109,19 @@ struct GuidedTourScanRoomView: View {
                 .font(.custom("Cambay-Regular", size: 16))
             
             /// Video player
-            ZStack(alignment: .topLeading) {
-                VideoPlayer(player: player)
-                    .aspectRatio(5/2, contentMode: .fill
-                    )
-                    .onAppear {
-                        self.player.play()
-                    }
-                    .frame(width: 300)
-                    .cornerRadius(8)
-            }
-            .padding(.bottom, 20)
-            .clipped()
+            Rectangle()
+                .foregroundColor(.clear)
+                .background(
+                    VideoPlayer(player: player)
+                        .aspectRatio(5/2, contentMode: .fill
+                                    )
+                        .onAppear {
+                            self.player.play()
+                        }
+                )
+                .cornerRadius(24)
+                .padding(.vertical, 15)
+                .clipped()
             
             /// Next button to next view
             HStack {
@@ -130,18 +131,82 @@ struct GuidedTourScanRoomView: View {
                         Image("arrow-right")
                             .frame(width: 16, height: 16)
                         
-                        Text("NEXT")
+                        Text(nextBtnText)
                             .font(
                                 Font.custom("Cambay-Regular", size: 14)
                                     .weight(.semibold)
                             )
                             .foregroundColor(.white)
-                            .frame(maxWidth: .infinity, alignment: .bottom)
+                            .frame(alignment: .bottom)
                             .padding([.top], 3)
                     }
                 }
                 .padding(10)
-                .frame(width: 87, alignment: .center)
+                .frame(alignment: .center)
+                .background(Color("Brown"))
+                .cornerRadius(8)
+            }
+        }
+        .padding(10)
+        .padding([.leading, .trailing], 40)
+        .padding(.bottom, 20)
+    }
+}
+
+/// A temporary view to display image instead of video
+struct GuidedTourImageScanRoomView: View {
+    /// Main contents
+    var title: String
+    var instruction: String
+    
+    /// Contents of next button
+    var nextDestinationView: Int
+    var nextBtnText: String = "NEXT"
+    
+    /// Load an overview video
+    var image: String
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            /// Main Contents
+            Text(self.title)
+                .font(.custom("Merriweather-Regular", size: 40))
+            Text(self.instruction)
+                .font(.custom("Cambay-Regular", size: 16))
+            
+            /// Image
+            Rectangle()
+                .foregroundColor(.clear)
+                .background(
+                    Image(image)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .clipped()
+                )
+                .cornerRadius(24)
+                .padding(.vertical, 15)
+                .clipped()
+            
+            /// Next button to next view
+            HStack {
+                Spacer()
+                NavigationLink(destination: NextGuidedTourView(nextView: self.nextDestinationView)) {
+                    HStack(alignment: .center, spacing: 10) {
+                        Image("arrow-right")
+                            .frame(width: 16, height: 16)
+                        
+                        Text(nextBtnText)
+                            .font(
+                                Font.custom("Cambay-Regular", size: 14)
+                                    .weight(.semibold)
+                            )
+                            .foregroundColor(.white)
+                            .frame(alignment: .bottom)
+                            .padding([.top], 3)
+                    }
+                }
+                .padding(10)
+                .frame(alignment: .center)
                 .background(Color("Brown"))
                 .cornerRadius(8)
             }
@@ -154,4 +219,5 @@ struct GuidedTourScanRoomView: View {
 
 #Preview {
     GuidedTourScanRoomView(title: "Get Started", instruction: "Scan your room and design in an immersive experience that brings your vision to life", nextDestinationView: 1)
+//        GuidedTourImageScanRoomView(title: "Get Started", instruction: "Scan your room and design in an immersive experience that brings your vision to life", nextDestinationView: 1, image: "closing-door")
 }
