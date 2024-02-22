@@ -26,7 +26,7 @@ struct CatalogView: View {
                         }
                         
                         // popular products
-                        ProductView()
+                        ProductBannerView()
                         
                         //sale
                         Button(action: {}){
@@ -105,7 +105,7 @@ struct FurnitureCard: View {
     }
 }
 
-struct ProductView: View {
+struct ProductBannerView: View {
     var body: some View {
         VStack (alignment: .leading){
             HStack{
