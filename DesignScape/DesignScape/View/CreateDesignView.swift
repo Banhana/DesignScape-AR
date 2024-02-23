@@ -12,8 +12,7 @@ struct CreateDesignView: View {
     var body: some View {
         VStack(alignment: .leading) {
             /// Heading
-            Text("Create a new design")
-                .font(.custom("Merriweather-Regular", size: 40))
+            H1Text(title: "Create a new design")
             
             /// Main image
             ZStack(alignment: .topLeading) {
@@ -27,9 +26,7 @@ struct CreateDesignView: View {
                     )
                     .cornerRadius(8)
                     .padding(.bottom, 20)
-                Text("Start by scanning your room or picking a template")
-                    .font(Font.custom("Cambay-Regular", size: 16))
-                    .frame(width: 200, alignment: .topLeading)
+                BodyText(text: "Start by scanning your room or picking a template")
                     .padding(30)
             }
             

@@ -104,8 +104,7 @@ struct GuidedTourScanRoomView: View {
         VStack(alignment: .leading, spacing: 10) {
             /// Main Contents
             H1Text(title: self.title)
-            Text(self.instruction)
-                .font(.custom("Cambay-Regular", size: 16))
+            BodyText(text: self.instruction)
             
             /// Video player
             Rectangle()
@@ -134,8 +133,8 @@ struct GuidedTourScanRoomView: View {
         .padding([.leading, .trailing], 40)
         .padding(.bottom, 20)
         .navigationTitle("DesignScape AR")
-        .navigationBarBackButtonHidden(true) // Hide the default back button
-                        .navigationBarItems(leading: BackButton(), trailing: CloseButton())
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: BackButton(), trailing: CloseButton())
     }
 }
 
@@ -156,21 +155,10 @@ struct GuidedTourImageScanRoomView: View {
         VStack(alignment: .leading, spacing: 10) {
             /// Main Contents
             H1Text(title: self.title)
-            Text(self.instruction)
-                .font(.custom("Cambay-Regular", size: 16))
+            BodyText(text: self.instruction)
             
             /// Image
-            Rectangle()
-                .foregroundColor(.clear)
-                .background(
-                    Image(image)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .clipped()
-                )
-                .cornerRadius(24)
-                .padding(.vertical, 15)
-                .clipped()
+            ImageFrame(image: image)
             
             /// Next button to next view
             HStack {
@@ -184,8 +172,8 @@ struct GuidedTourImageScanRoomView: View {
         .padding([.leading, .trailing], 40)
         .padding(.bottom, 20)
         .navigationTitle("DesignScape AR")
-        .navigationBarBackButtonHidden(true) // Hide the default back button
-                        .navigationBarItems(leading: BackButton(), trailing: CloseButton())
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: BackButton(), trailing: CloseButton())
     }
 }
 

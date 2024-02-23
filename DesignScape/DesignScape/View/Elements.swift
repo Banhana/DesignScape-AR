@@ -41,6 +41,34 @@ struct H1Text: View {
     }
 }
 
+/// Body text
+struct BodyText: View {
+    var text: String
+    var body: some View {
+        Text(text)
+            .font(Font.custom("Cambay-Regular", size: 16))
+    }
+}
+
+/// Image frame
+struct ImageFrame: View {
+    var image: String
+    var body: some View {
+        Rectangle()
+            .foregroundColor(.clear)
+            .background(
+                Image(image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .clipped()
+            )
+            .cornerRadius(24)
+            .padding(.vertical, 15)
+            .clipped()
+            .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
+    }
+}
+
 /// Custom Close Button
 struct CloseButton: View {
     @Environment(\.presentationMode) var presentationMode
@@ -87,10 +115,13 @@ struct BackButton: View {
 #Preview {
     VStack {
         H1Text(title: "Heading 1")
+        BodyText(text: "Body")
+        ImageFrame(image: "closing-door")
         PrimaryButton(image: "arrow-right", text: "NEXT")
         HStack {
             BackButton()
             CloseButton()
         }
     }
+    .padding()
 }
