@@ -162,6 +162,7 @@
 		6E2A7A5E2B8096BA00116030 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6E7DEE812B69C3BA00165B61 /* fonts */,
 				6E2A7A5C2B7ED8E400116030 /* roomplan-large.mp4 */,
 			);
 			path = Resources;
@@ -246,7 +247,6 @@
 				6E2A7A5E2B8096BA00116030 /* Resources */,
 				EAD7F8BC2B6D800B00BE6AC4 /* Camera */,
 				6E7DEE8A2B69C4DF00165B61 /* Info.plist */,
-				6E7DEE812B69C3BA00165B61 /* fonts */,
 				6E955C752B222B9900E57F55 /* Controller */,
 				6E955C742B222B9600E57F55 /* View */,
 				6E955C732B222B8800E57F55 /* Model */,
