@@ -24,47 +24,37 @@ struct ScanRoomView: View {
                 roomController.startSession()
             })
             .ignoresSafeArea()
-            
-            /// Navigation Bar
-            HStack {
-                /// Back button
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: BackButton(), trailing: DoneButton)
+    }
+    
+    /// Finish Scan Button
+    var DoneButton: some View {
+        VStack {
+            /// Done button
+            if doneScanning == false {
                 Button(action: {
-                    self.presentationMode.wrappedValue.dismiss()
-                }){
+                    roomController.stopSession()
+                    self.doneScanning = true
+                }, label: {
                     ZStack(alignment: .center){
                         Color("Grey")
                             .opacity(0.5)
-                        Image("arrow-back")
-                            .frame(width: 16, height: 12)
+                        Text("Done")
+                            .font(Font.custom("Cambay-Regular", size: 14)
+                                .weight(.semibold))
+                            .foregroundStyle(.white)
+                            .padding(.top, 3)
                     }
-                    .frame(width: 32, height: 32)
+                    .frame(width: 60, height: 32)
                     .cornerRadius(8)
-                }
-                Spacer()
-                
-                /// Done button
-                if doneScanning == false {
-                    Button(action: {
-                        roomController.stopSession()
-                        self.doneScanning = true
-                    }, label: {
-                        ZStack(alignment: .center){
-                            Color("Grey")
-                                .opacity(0.5)
-                            Text("Done")
-                                .font(Font.custom("Cambay-Regular", size: 14)
-                                    .weight(.semibold))
-                                .foregroundStyle(.white)
-                                .padding(.top, 3)
-                        }
-                        .frame(width: 60, height: 32)
-                        .cornerRadius(8)
-                    })
-                }
+                })
+            } else {
+                CloseButton()
             }
-            .padding(30)
         }
-        .navigationBarBackButtonHidden()
     }
 }
 
@@ -125,16 +115,14 @@ struct GuidedTourScanRoomView: View {
             HStack {
                 Spacer()
                 NavigationLink(destination: NextGuidedTourView(nextView: self.nextDestinationView)) {
-                    PrimaryButton(image: "arrow-right", text: nextBtnText)
+                    PrimaryButton(text: nextBtnText, image: "arrow-right")
                 }
             }
         }
         .padding(10)
         .padding([.leading, .trailing], 40)
         .padding(.bottom, 20)
-        .navigationTitle("DesignScape AR")
-        .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: BackButton(), trailing: CloseButton())
+        .customNavBar()
     }
 }
 
@@ -164,22 +152,21 @@ struct GuidedTourImageScanRoomView: View {
             HStack {
                 Spacer()
                 NavigationLink(destination: NextGuidedTourView(nextView: self.nextDestinationView)) {
-                    PrimaryButton(image: "arrow-right", text: nextBtnText)
+                    PrimaryButton(text: nextBtnText, image: "arrow-right")
                 }
             }
         }
         .padding(10)
         .padding([.leading, .trailing], 40)
         .padding(.bottom, 20)
-        .navigationTitle("DesignScape AR")
-        .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: BackButton(), trailing: CloseButton())
+        .customNavBar()
     }
 }
 
 #Preview {
     NavigationView {
-        GuidedTourScanRoomView(title: "Get Started", instruction: "Scan your room and design in an immersive experience that brings your vision to life", nextDestinationView: 1)
-            .navigationBarTitleDisplayMode(.inline)
+//        GuidedTourScanRoomView(title: "Get Started", instruction: "Scan your room and design in an immersive experience that brings your vision to life", nextDestinationView: 1)
+//            .navigationBarTitleDisplayMode(.inline)
+        ScanRoomView()
     }
 }

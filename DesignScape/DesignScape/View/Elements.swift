@@ -7,14 +7,31 @@
 
 import SwiftUI
 
+/// Custom Navigation Bar
+extension View {
+    func customNavBar() -> some View {
+        self.navigationTitle("DesignScape AR")
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarBackButtonHidden(true)
+            .navigationBarItems(leading: BackButton(), trailing: CloseButton())
+    }
+}
+
 /// PrimaryButton
 struct PrimaryButton: View {
-    var image: String
+    /// Contents
     var text: String
+    var image: String = ""
+    
+    /// Determines if the button will span horizontally to all its available spaces
+    var willSpan: Bool = false
+    
     var body: some View {
         HStack(alignment: .center, spacing: 10) {
-            Image(image)
-                .frame(width: 16, height: 16)
+            if !image.isEmpty {
+                Image(image)
+                    .frame(width: 16, height: 16)
+            }
             
             Text(text)
                 .font(
@@ -26,7 +43,7 @@ struct PrimaryButton: View {
                 .padding([.top], 3)
         }
         .padding(10)
-        .frame(alignment: .center)
+        .frame(maxWidth: willSpan ? .infinity: nil, alignment: .center)
         .background(Color("Brown"))
         .cornerRadius(8)
     }
@@ -60,10 +77,8 @@ struct ImageFrame: View {
                 Image(image)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .clipped()
             )
             .cornerRadius(24)
-            .padding(.vertical, 15)
             .clipped()
             .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
     }
@@ -113,15 +128,14 @@ struct BackButton: View {
 }
 
 #Preview {
-    VStack {
-        H1Text(title: "Heading 1")
-        BodyText(text: "Body")
-        ImageFrame(image: "closing-door")
-        PrimaryButton(image: "arrow-right", text: "NEXT")
-        HStack {
-            BackButton()
-            CloseButton()
+    NavigationStack {
+        VStack {
+            H1Text(title: "Heading 1")
+            BodyText(text: "Body")
+            ImageFrame(image: "closing-door")
+            PrimaryButton(text: "NEXT", image: "arrow-right")
         }
+        .padding()
+        .customNavBar()
     }
-    .padding()
 }
