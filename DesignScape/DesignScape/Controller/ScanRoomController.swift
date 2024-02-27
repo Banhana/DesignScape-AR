@@ -20,6 +20,12 @@ class ScanRoomController: UIViewController, RoomCaptureSessionDelegate, RoomCapt
     /// A 3d model of the final result
     var finalResult: CapturedRoom?
     
+    // RoomPlan: Data API
+    lazy var captureSession: RoomCaptureSession = {
+        let captureSession = RoomCaptureSession()
+        return captureSession
+    }()
+    
     /// Scene View
     var sceneView: ARSCNView
     var infoView: InfoView?
@@ -31,12 +37,17 @@ class ScanRoomController: UIViewController, RoomCaptureSessionDelegate, RoomCapt
     
     init() {
         // objects
+        print("Initializing")
         objectNodes = [UUID: ObjectNode]()
         captureView = RoomCaptureView(frame: .zero)
-        sceneView = ARSCNView(frame: .zero)
+        sceneView = ARSCNView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: 300, height: 300)))
         sceneView.layer.borderWidth = 5
         super.init(nibName: nil, bundle: nil)
         captureView.delegate = self
+        captureSession.delegate = self
+        setupInfoView()
+        setupScene()
+        startCaptureSession()
     }
 
     /// Initializer
@@ -91,6 +102,22 @@ class ScanRoomController: UIViewController, RoomCaptureSessionDelegate, RoomCapt
 
 }
 
+// MARK: - RoomPlan: Data API
+
+extension ScanRoomController {
+    private func setupCaptureSession() {
+        captureSession.delegate = self
+    }
+
+    private func startCaptureSession() {
+        captureSession.run(configuration: sessionConfig)
+    }
+
+    private func stopCaptureSession() {
+        captureSession.stop()
+    }
+}
+
 // MARK: - ARSCNViewDelegate
 extension ScanRoomController: ARSCNViewDelegate {
     
@@ -115,6 +142,7 @@ extension ScanRoomController: ARSCNViewDelegate {
 
 extension ScanRoomController {
     func setupScene() {
+        print("setting up scene")
         let scene = SCNScene()
         sceneView.scene = scene
         sceneView.delegate = self
@@ -310,13 +338,13 @@ extension ScanRoomController {
 /// A SwiftUI compatible view for Scan Room View
 struct ScanRoomViewRepresentable: UIViewRepresentable {
     /// Get capture view
-    func makeUIView(context: Context) -> SCNView {
+    func makeUIView(context: Context) -> ARSCNView {
 //        ScanRoomController.instance.captureView
         ScanRoomController.instance.sceneView
     }
     
     /// Update the view when needed
-    func updateUIView(_ uiView: RoomCaptureView, context: Context) {
+    func updateUIView(_ uiView: ARSCNView, context: Context) {
         
     }
 }
