@@ -40,14 +40,14 @@ class ScanRoomController: UIViewController, RoomCaptureSessionDelegate, RoomCapt
         print("Initializing")
         objectNodes = [UUID: ObjectNode]()
         captureView = RoomCaptureView(frame: .zero)
-        sceneView = ARSCNView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: 300, height: 300)))
-        sceneView.layer.borderWidth = 5
+        sceneView = ARSCNView(frame: .zero)
+        sceneView.debugOptions = .showFeaturePoints
         super.init(nibName: nil, bundle: nil)
         captureView.delegate = self
         captureSession.delegate = self
-        setupInfoView()
+//        setupInfoView()
         setupScene()
-        startCaptureSession()
+//        startCaptureSession()
     }
 
     /// Initializer
@@ -57,25 +57,25 @@ class ScanRoomController: UIViewController, RoomCaptureSessionDelegate, RoomCapt
     }
     
     
-    private func setupInfoView() {
-        let labelSize = CGSizeMake(view.bounds.width, 60)
-        let pickerSize = CGSizeMake(view.bounds.width, 160)
-        let statsSize = CGSizeMake(view.bounds.width, 90)
-        let infoView = InfoView(pickerData: capturedRoomObjectCategoryStrings(), labelSize: labelSize, pickerSize: pickerSize, statsSize: statsSize, backgroundColor: themeBackPlaneColor, labelBackgroundColor: themeFrontPlaneColor, labelTextColor: themeTextColor)
-        infoView.sizeToFit()
-
-        var proposedViewSize = infoView.bounds.size
-        proposedViewSize.height += view.safeAreaInsets.top + view.safeAreaInsets.bottom
-        infoView.frame = CGRectMake(0.0, 0.5 * (view.bounds.height - proposedViewSize.height), proposedViewSize.width, proposedViewSize.height)
-        infoView.layer.cornerRadius = 12
-        infoView.alpha = 0.0
-
-        infoView.delegate = self
-
-        self.infoView = infoView
-
-        view.addSubview(infoView)
-    }
+//    private func setupInfoView() {
+//        let labelSize = CGSizeMake(view.bounds.width, 60)
+//        let pickerSize = CGSizeMake(view.bounds.width, 160)
+//        let statsSize = CGSizeMake(view.bounds.width, 90)
+//        let infoView = InfoView(pickerData: capturedRoomObjectCategoryStrings(), labelSize: labelSize, pickerSize: pickerSize, statsSize: statsSize, backgroundColor: themeBackPlaneColor, labelBackgroundColor: themeFrontPlaneColor, labelTextColor: themeTextColor)
+//        infoView.sizeToFit()
+//
+//        var proposedViewSize = infoView.bounds.size
+//        proposedViewSize.height += view.safeAreaInsets.top + view.safeAreaInsets.bottom
+//        infoView.frame = CGRectMake(0.0, 0.5 * (view.bounds.height - proposedViewSize.height), proposedViewSize.width, proposedViewSize.height)
+//        infoView.layer.cornerRadius = 12
+//        infoView.alpha = 0.0
+//
+//        infoView.delegate = self
+//
+//        self.infoView = infoView
+//
+////        view.addSubview(infoView)
+//    }
     
     /// Capture the room
     func captureView(shouldPresent roomDataForProcessing: CapturedRoomData, error: (Error)?) -> Bool {
@@ -109,7 +109,7 @@ extension ScanRoomController {
         captureSession.delegate = self
     }
 
-    private func startCaptureSession() {
+    func startCaptureSession() {
         captureSession.run(configuration: sessionConfig)
     }
 
