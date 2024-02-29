@@ -19,11 +19,14 @@ struct ScanRoomView: View {
     
     var body: some View {
         ZStack (alignment: .topLeading) {
-            /// Camera View
-            ScanRoomViewRepresentable().onAppear(perform: {
-                roomController.startCaptureSession()
-            })
+//            /// Camera View
+//            ScanRoomViewRepresentable().onAppear(perform: {
+//                roomController.startSession()
+//            })
 //            .ignoresSafeArea()
+            /// Camera View
+            ObjectDetectionViewRepresentable()
+            .ignoresSafeArea()
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)

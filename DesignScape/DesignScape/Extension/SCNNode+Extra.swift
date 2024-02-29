@@ -18,7 +18,7 @@ func update(_ label: SCNNode, with color: UIColor) {
 
 func update(_ label: SCNNode, with text: String, color: UIColor) {
     let textGeometry = SCNText(string: text, extrusionDepth: 0.0)
-    textGeometry.font = UIFont(name: themeFont, size: 20)
+    textGeometry.font = UIFont(name: "Cambay-Bold", size: 18)
     textGeometry.firstMaterial!.diffuse.contents = color
     label.geometry = textGeometry
 

@@ -8,12 +8,6 @@
 import ARKit
 import RoomPlan
 
-let themeBackPlaneColor = UIColor.colorFromHexString(hexString: "#CC8FAB")
-let themeFrontPlaneColor = UIColor.white
-let themeTextColor = UIColor.black
-let themeFont = "Arial-BoldItalicMT"
-let themeFontLight = "Arial"
-
 enum ObjectLabelMode {
     case startEditing
     case editing
@@ -32,7 +26,6 @@ class ObjectNode {
     private(set) var currentLabelText: String
     private(set) var currentCategory: CapturedRoom.Object.Category?
 
-    private var backPlaneNode: SCNNode
     private var frontPlaneNode: SCNNode
     private var textNode: SCNNode
     private var queuedModel: ObjectModel?
@@ -44,7 +37,6 @@ class ObjectNode {
         self.uuid = uuid
         self.box = SCNNode()
         self.label = SCNNode()
-        self.backPlaneNode = SCNNode()
         self.frontPlaneNode = SCNNode()
         self.textNode = SCNNode()
         self.labelMode = .normal
@@ -65,21 +57,6 @@ class ObjectNode {
         queuedModel = model
     }
 
-    func startEditingLabel(with trackingNode: SCNNode) {
-        let fadeOutAction = SCNAction.fadeOpacity(to: 0, duration: 0.1)
-        label.runAction(fadeOutAction) {
-            self.labelMode = .startEditing
-            self.trackingNode = trackingNode
-        }
-    }
-
-    func stopEditingLabel() {
-        let fadeInAction = SCNAction.fadeOpacity(to: 1, duration: 0.1)
-        label.runAction(fadeInAction) {
-            self.labelMode = .stopEditing
-            self.trackingNode = nil
-        }
-    }
 
     func updateLabelText(_ text: String) {
         guard labelMode == .editing else {
@@ -97,10 +74,9 @@ class ObjectNode {
     }
 
     private func updateLabelNode(with text: String) {
-        DesignScape.update(textNode, with: text, color: themeTextColor)
+        DesignScape.update(textNode, with: text, color: .accent)
         let (planeWidth, planeHeight) = planeDimensionsFor(textNode: textNode)
-        DesignScape.update(backPlaneNode, width: planeWidth, height: planeHeight, color: themeBackPlaneColor)
-        DesignScape.update(frontPlaneNode, width: planeWidth, height: planeHeight, color: themeFrontPlaneColor)
+        DesignScape.update(frontPlaneNode, width: planeWidth, height: planeHeight, color: .white)
     }
 
     func updateAt(time: TimeInterval) {
@@ -153,7 +129,6 @@ class ObjectNode {
         // this helps with hit testing and identifying the right nodes
         box.name = uuid.uuidString
         label.name = uuid.uuidString
-        backPlaneNode.name = uuid.uuidString
         frontPlaneNode.name = uuid.uuidString
         textNode.name = uuid.uuidString
 
@@ -163,12 +138,10 @@ class ObjectNode {
         label.constraints = [billboardConstraint]
 
         // position additional node components
-        backPlaneNode.simdPosition = simd_float3(-4, 4, -0.5)
         frontPlaneNode.simdPosition = simd_float3(0, 0, 0)
         textNode.simdPosition = simd_float3(0, 0, 0.5)
 
         // add additional node components to label
-        label.addChildNode(backPlaneNode)
         label.addChildNode(frontPlaneNode)
         label.addChildNode(textNode)
     }
@@ -178,7 +151,6 @@ class ObjectNode {
         let scaleTransform = simd_float4x4.scaleTransform(simd_float3(0.0035, 0.0035, 0.0035))
         // place label above box
         let (minBox, maxBox) = box.boundingBox
-        //let (minLabel, maxLabel) = label.boundingBox
         let boxUpVector = box.simdTransform.unitUpVector()
         let dY = (0.5 * (maxBox.y - minBox.y) + 0.1) * boxUpVector
         let translationTransform = simd_float4x4.translationTransform(dY)

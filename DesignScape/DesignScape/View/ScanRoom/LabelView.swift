@@ -37,9 +37,9 @@ class LabelView: UIView {
         guard let titleLabel = titleLabel else {
             return
         }
-        titleLabel.font = UIFont(name: themeFont, size: 36)
+        titleLabel.font = UIFont(name: "Cambay-Bold", size: 20)
         titleLabel.textAlignment = .center
-        titleLabel.textColor = textColor
+        titleLabel.textColor = UIColor.accent
         addSubview(titleLabel)
 
         self.titleLabel = titleLabel

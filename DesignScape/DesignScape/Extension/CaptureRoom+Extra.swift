@@ -136,35 +136,3 @@ func color(for category: CapturedRoom.Object.Category) -> UIColor {
     return color
 }
 
-func capturedRoomObjectCategoryStrings() -> [String] {
-    return ["Unknown", "Storage", "Refrigerator", "Stove", "Bed", "Sink", "Washer", "Toilet", "Bathtub", "Oven", "Dishwasher", "Table", "Sofa", "Chair", "Fireplace", "Screen", "Stairs"]
-}
-
-func roomAssetImageNames() -> [String] {
-    return ["toy", "toaster", "tricycle"]
-}
-
-func roomAssetModels() -> [String: AssetModel] {
-    // logic explanation:
-    // floor = any horizontal surface that does not have a room object's top surface associated with it
-    // neutral categories should check both "inside" a room object, and "on top of" a room object
-
-    let assetModel1 = AssetModel(imageName: "toy",
-                                 neutralCategories: [.storage, .sofa, .sink],
-                                 fireHazardCategories: [.oven, .fireplace],
-                                 electricalHazardCategories: [],
-                                 isFloorOkay: true)
-    let assetModel2 = AssetModel(imageName: "toaster",
-                                 neutralCategories: [.storage, .bed, .washerDryer, .sofa, .chair],
-                                 fireHazardCategories: [.oven, .fireplace],
-                                 electricalHazardCategories: [.sink, .washerDryer, .toilet, .bathtub, .dishwasher],
-                                 isFloorOkay: false)
-    let assetModel3 = AssetModel(imageName: "tricycle",
-                                 neutralCategories: [.storage, .table, .sofa, .chair, .stove, .washerDryer, .dishwasher],
-                                 fireHazardCategories: [],
-                                 electricalHazardCategories: [],
-                                 isFloorOkay: true)
-
-    return ["toy": assetModel1, "toaster": assetModel2, "tricycle": assetModel3]
-}
-
