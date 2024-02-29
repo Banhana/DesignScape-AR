@@ -14,5 +14,5 @@ struct Product: Identifiable, Codable {
     var name: String
     var price: Double
     var description: String
-    var imageURL: String
+//    var imageURL: String
 }

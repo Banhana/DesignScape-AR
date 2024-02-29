@@ -14,6 +14,27 @@ final class AuthenticationViewModel: ObservableObject {
     @Published var email = ""
     @Published var password = ""
     @Published var name = ""
+    @Published var isUserLoggedIn = false
+    
+    init() {
+            checkUserLoggedIn() // Check user login status when the view model is initialized
+        }
+        
+        // Function to check if a user is logged in
+    func checkUserLoggedIn() {
+        do {
+            // Attempt to get authenticated user using the shared AuthenticationController
+            let returnedUserData = try AuthenticationController.shared.getAuthenticatedUser()
+            // User is logged in
+            isUserLoggedIn = true
+            print(returnedUserData)
+        } catch {
+            // User is not logged in
+            isUserLoggedIn = false
+            // Handle the error thrown by getAuthenticatedUser()
+            print("Error checking user login status: \(error)")
+        }
+    }
     
     // Function to handle user sign-up
     func signup() async throws {

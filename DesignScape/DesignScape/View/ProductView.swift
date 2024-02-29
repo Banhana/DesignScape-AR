@@ -10,19 +10,19 @@ import SwiftUI
 struct ProductView: View {
     @StateObject var viewModel = ProductViewModel()
     
-    var productId: String
+    var id: String
     
     var body: some View {
         VStack {
             if let product = viewModel.product {
                 // Display product information
-                AsyncImage(url: URL(string: product.imageURL)) { image in
-                    image.resizable()
-                } placeholder: {
-                    ProgressView()
-                }
-                .frame(width: 200, height: 200)
-                .padding()
+//                AsyncImage(url: URL(string: product.imageURL)) { image in
+//                    image.resizable()
+//                } placeholder: {
+//                    ProgressView()
+//                }
+//                .frame(width: 200, height: 200)
+//                .padding()
                 
                 Text(product.name)
                     .font(.title)
@@ -40,7 +40,7 @@ struct ProductView: View {
                 // Show loading indicator or error message
                 ProgressView()
                     .onAppear {
-                        viewModel.getProduct(productId: productId)
+                        viewModel.getProduct(id: id)
                     }
             }
         }
@@ -49,5 +49,5 @@ struct ProductView: View {
 }
 
 #Preview {
-    ProductView(productId: "your_product_id_here")
+    ProductView(id: "uQHEfRFfaznBBksD02Ps")
 }

@@ -13,8 +13,8 @@ class ProductViewModel: ObservableObject {
     
     private var db = Firestore.firestore()
     
-    func getProduct(productId: String) {
-        db.collection("products").document(productId).getDocument { snapshot, error in
+    func getProduct(id: String) {
+        db.collection("furnitures").document(id).getDocument { snapshot, error in
             if let error = error {
                 print("Error getting product: \(error.localizedDescription)")
             } else if let snapshot = snapshot, snapshot.exists {
