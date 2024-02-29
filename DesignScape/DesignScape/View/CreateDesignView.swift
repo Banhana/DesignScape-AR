@@ -35,9 +35,6 @@ struct CreateDesignView: View {
                     PrimaryButton(text: "LIVE SCAN", willSpan: true)
                 }
             }
-            .padding(10)
-            .background(Color("Brown"))
-            .cornerRadius(8)
             
         }
         .padding(10)
