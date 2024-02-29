@@ -8,19 +8,11 @@
 import ARKit
 import RoomPlan
 
-enum ObjectLabelMode {
-    case startEditing
-    case editing
-    case stopEditing
-    case normal
-}
-
 class ObjectNode {
     private(set) var model: ObjectModel?
     private(set) var uuid: UUID
     private(set) var box: SCNNode
     private(set) var label: SCNNode
-    private(set) var labelMode: ObjectLabelMode
     private(set) var modelLabelText: String
     private(set) var editedLabelText: String
     private(set) var currentLabelText: String
@@ -39,7 +31,6 @@ class ObjectNode {
         self.label = SCNNode()
         self.frontPlaneNode = SCNNode()
         self.textNode = SCNNode()
-        self.labelMode = .normal
         self.modelLabelText = ""
         self.editedLabelText = ""
         self.currentLabelText = ""
@@ -58,14 +49,6 @@ class ObjectNode {
     }
 
 
-    func updateLabelText(_ text: String) {
-        guard labelMode == .editing else {
-            print("error: not in editing mode; cannot update edited label text")
-            return
-        }
-        editedLabelText = text
-        updateLabelState(with: text)
-    }
 
     private func updateLabelState(with text: String) {
         updateLabelNode(with: text)
@@ -100,23 +83,7 @@ class ObjectNode {
         }
 
         // label coloring and poistioning
-        switch labelMode {
-        case .startEditing:
-            labelMode = .editing
-            break
-        case .editing:
-            break
-        case .stopEditing:
-            labelMode = .normal
-            break
-        case .normal:
-            let correctLabelText = editedLabelText.count > 0 ? editedLabelText : modelLabelText
-            if currentLabelText != correctLabelText {
-                //print("markkim updateAt: currentLabelText: \(currentLabelText), correctLabelText: \(correctLabelText), editedLabelText: \(editedLabelText), modelLabelText: \(modelLabelText)")
-                updateLabelState(with: correctLabelText)
-            }
-            break
-        }
+        updateLabelState(with: modelLabelText)
     }
 
     func cleanup() {
@@ -157,18 +124,6 @@ class ObjectNode {
         let labelTransform = translationTransform * box.simdTransform * scaleTransform
 
         return labelTransform
-    }
-}
-
-struct ObjectModel: Equatable {
-    var dimensions: simd_float3
-    var transform: simd_float4x4
-    var category: CapturedRoom.Object.Category
-
-    init(dimensions: simd_float3, transform: simd_float4x4, category: CapturedRoom.Object.Category) {
-        self.dimensions = dimensions
-        self.transform = transform
-        self.category = category
     }
 }
 
