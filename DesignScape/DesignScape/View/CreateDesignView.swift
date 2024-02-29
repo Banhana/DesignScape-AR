@@ -32,14 +32,7 @@ struct CreateDesignView: View {
             /// Live Scan button
             HStack(alignment: .center, spacing: 10) {
                 NavigationLink(destination: CameraView()){
-                    Text("LIVE SCAN")
-                        .font(
-                            Font.custom("Cambay-Regular", size: 14)
-                                .weight(.semibold)
-                        )
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity, alignment: .bottom)
-                        .padding([.top], 3)
+                    PrimaryButton(text: "LIVE SCAN", willSpan: true)
                 }
             }
             .padding(10)
