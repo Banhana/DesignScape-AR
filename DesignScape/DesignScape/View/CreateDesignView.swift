@@ -36,6 +36,13 @@ struct CreateDesignView: View {
                 }
             }
             
+            /// Object Detection button
+            HStack(alignment: .center, spacing: 10) {
+                NavigationLink(destination: ObjectDectectionView()){
+                    PrimaryButton(text: "OBJECT DETECTION", willSpan: true)
+                }
+            }
+            
         }
         .padding(10)
         .padding([.leading, .trailing], 40)
