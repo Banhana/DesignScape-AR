@@ -27,16 +27,13 @@ class ObjectDetectionController: UIViewController, RoomCaptureViewDelegate {
     var infoView: InfoView?
     // objects
     var objectNodes: [UUID: ObjectNode]
-    func infoViewDidTapCloseButton(_ infoView: InfoView, with title: String?) {
-        return
-    }
     
     init() {
         // objects
         print("Initializing")
         objectNodes = [UUID: ObjectNode]()
         sceneView = ARSCNView(frame: .zero)
-        sceneView.debugOptions = .showFeaturePoints
+//        sceneView.debugOptions = .showFeaturePoints
         super.init(nibName: nil, bundle: nil)
         captureSession.delegate = self
         setupScene()
