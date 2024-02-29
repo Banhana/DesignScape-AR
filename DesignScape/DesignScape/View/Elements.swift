@@ -7,6 +7,18 @@
 
 import SwiftUI
 
+/// Enables swipe back functionality when use custom navigation bar
+extension UINavigationController: UIGestureRecognizerDelegate {
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+        interactivePopGestureRecognizer?.delegate = self
+    }
+    
+    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return viewControllers.count > 1
+    }
+}
+
 /// Custom Navigation Bar
 extension View {
     func customNavBar() -> some View {
