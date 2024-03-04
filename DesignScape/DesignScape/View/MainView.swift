@@ -22,6 +22,7 @@ struct MainView: View {
                         selectedTab == 1 ? Image("home.fill") : Image("home")
                     }
                     .tag(1)
+                // Temp for testing
                 Text("Copilot")
                     .tabItem {
                         Text("Copilot")
