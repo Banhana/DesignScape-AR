@@ -12,43 +12,22 @@ struct CreateDesignView: View {
     var body: some View {
         VStack(alignment: .leading) {
             /// Heading
-            Text("Create a new design")
-                .font(.custom("Merriweather-Regular", size: 40))
+            H1Text(title: "Create a new design")
             
             /// Main image
             ZStack(alignment: .topLeading) {
-                Rectangle()
-                    .foregroundColor(.clear)
-                    .background(
-                        Image("create-new-image")
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .clipped()
-                    )
-                    .cornerRadius(8)
-                    .padding(.bottom, 20)
-                Text("Start by scanning your room or picking a template")
-                    .font(Font.custom("Cambay-Regular", size: 16))
-                    .frame(width: 200, alignment: .topLeading)
+                ImageFrame(image: "create-new-image")
+                BodyText(text: "Start by scanning your room or picking a template")
                     .padding(30)
             }
+            .padding(.bottom, 30)
             
             /// Create Room button
             HStack(alignment: .center, spacing: 10) {
                 NavigationLink(destination: GuidedTourScanRoomView(title: "Get Started", instruction: "Scan your room and design in an immersive experience that brings your vision to life", nextDestinationView: 1)) {
-                    Text("CREATE ROOM")
-                        .font(
-                            Font.custom("Cambay-Regular", size: 14)
-                                .weight(.semibold)
-                        )
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity, alignment: .bottom)
-                        .padding([.top], 3)
+                    PrimaryButton(text: "CREATE ROOM", willSpan: true)
                 }
             }
-            .padding(10)
-            .background(Color("Brown"))
-            .cornerRadius(8)
             
             /// Live Scan button
             HStack(alignment: .center, spacing: 10) {
