@@ -49,10 +49,12 @@ final class AuthenticationViewModel: ObservableObject {
         Task {
             do {
                 // Attempt to create a new user using provided email and password
-                let returnedUserData = try await AuthenticationController.shared.createUser(email: email, password: password, name: name)
+                let authDataResult = try await AuthenticationController.shared.createUser(email: email, password: password, name: name)
+                try await UserManager.shared.createNewUser(auth: authDataResult)
+
                 // Print success message and user data upon successful sign-up
                 print("Sign-up Success")
-                print(returnedUserData)
+                print(authDataResult)
             } catch {
                 // Print error message if sign-up fails
                 print("Sign-up Error \(error)")
@@ -85,3 +87,12 @@ final class AuthenticationViewModel: ObservableObject {
     }
 }
 
+@MainActor
+final class ProfileViewModel: ObservableObject {
+    @Published private(set) var user: DBUser? = nil
+    
+    func loadCurrentUser() async throws {
+        let authDataResult = try AuthenticationController.shared.getAuthenticatedUser()
+        self.user = try await UserManager.shared.getUser(userId: authDataResult.uid)
+    }
+}

@@ -81,7 +81,7 @@ struct AccountView: View {
                 }
                 .padding(10)
                 .background(Color(.white))
-               
+                
                 
                 Text("FAVORITES")
                     .font(Font.custom("Cambay-Bold", size: 16))

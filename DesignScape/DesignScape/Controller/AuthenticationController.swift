@@ -11,16 +11,16 @@ import Foundation
 
 struct AuthDataResultModel {
     var user: User
-//    let uid: String
-//    let email: String?
-//    let photoURL: String?
-//    
-//    init(user: User) {
-//        self.user = user.user
-//        self.uid = user.uid
-//        self.email = user.email
-//        self.photoURL = user.photoURL?.absoluteString
-//    }
+    let uid: String
+    let email: String?
+    let photoURL: String?
+    
+    init(user: User) {
+        self.user = user
+        self.uid = user.uid
+        self.email = user.email
+        self.photoURL = user.photoURL?.absoluteString
+    }
 }
 
 final class AuthenticationController {
@@ -42,21 +42,7 @@ final class AuthenticationController {
         
         // Access the newly created user's UID
             let uid = authDataResult.user.uid
-            
-        // Define the data to be stored in the Firestore document
-        let userData: [String: Any] = [
-            "uid": uid,
-            "email": email,
-            "name": name,
-            // Add more user data as needed
-        ]
                 
-        // Reference to the users collection in Firestore
-        let usersCollection = Firestore.firestore().collection("users")
-            
-        // Set the user document in Firestore using the UID as the document ID
-        try await usersCollection.document(uid).setData(userData)
-        
         return AuthDataResultModel(user: authDataResult.user)
     }
     

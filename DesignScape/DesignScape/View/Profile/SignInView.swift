@@ -10,12 +10,11 @@ import FirebaseAuth
 
 struct SignInView: View {
     @StateObject private var viewModel = AuthenticationViewModel()
-
-    
     @State private var email = ""
     @State private var password = ""
     @State private var saveUsername = false
     @State private var isPasswordHidden = true
+    @State private var isSignedIn = false // Add state variable to track account creation
     
     var body: some View {
         ZStack {
@@ -61,7 +60,7 @@ struct SignInView: View {
                                 Font.custom("Cambay-Regular", size: 16)
                             )
                             .padding(.horizontal)
-
+                        
                         HStack {
                             SecureField("Password", text: $password)
                                 .textFieldStyle(PlainTextFieldStyle())
@@ -79,27 +78,28 @@ struct SignInView: View {
                         }
                         
                         Button(action: {
-                                    self.saveUsername.toggle()
-                                }) {
-                                    HStack {
-                                        Image(systemName: saveUsername ? "checkmark.square" : "square")
-                                            .foregroundColor(.grey)
-                                        Text("Save username")
-                                            .foregroundColor(.grey)
-                                    }
-                                }
+                            self.saveUsername.toggle()
+                        }) {
+                            HStack {
+                                Image(systemName: saveUsername ? "checkmark.square" : "square")
+                                    .foregroundColor(.grey)
+                                Text("Save username")
+                                    .foregroundColor(.grey)
+                            }
+                        }
                         
                         Button(action: {
                             Task{
                                 do {
                                     try await viewModel.signin()
+                                    isSignedIn = true
                                 } catch {
                                     
                                 }
                             }
                         }) {
                             Spacer()
-
+                            
                             HStack (alignment: .center) {
                                 
                                 Image(systemName: "lock.fill")
@@ -132,8 +132,14 @@ struct SignInView: View {
             .padding()
             
         }
-
-
+        // NavigationLink to navigate to AccountView when the account is successfully created
+        .background(
+            NavigationLink(destination: AccountView(), isActive: $isSignedIn) {
+                EmptyView()
+            }
+                .hidden()
+        )
+        
     }
 }
 

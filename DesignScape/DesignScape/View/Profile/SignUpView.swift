@@ -11,6 +11,8 @@ import FirebaseAuth
 struct SignUpView: View {
     @StateObject private var viewModel = AuthenticationViewModel()
     @State private var agreeTerms = false
+    @State private var isAccountCreated = false // Add state variable to track account creation
+    @State private var passwordError = false
     
     var body: some View {
         ZStack {
@@ -37,14 +39,14 @@ struct SignUpView: View {
                                 Font.custom("Cambay-Regular", size: 16)
                             )
                             .padding(.horizontal)
-
+                        
                         TextField("Email", text: $viewModel.email)
                             .textFieldStyle(PlainTextFieldStyle())
                             .font(
                                 Font.custom("Cambay-Regular", size: 16)
                             )
                             .padding(.horizontal)
-
+                        
                         HStack {
                             SecureField("Password", text: $viewModel.password)
                                 .textFieldStyle(PlainTextFieldStyle())
@@ -56,30 +58,41 @@ struct SignUpView: View {
                         }
                         
                         Button(action: {
-                                    self.agreeTerms.toggle()
-                                }) {
-                                    HStack {
-                                        Image(systemName: agreeTerms ? "checkmark.square" : "square")
-                                            .foregroundColor(.grey)
-                                        Text("I agree to the Terms & Conditions")
-                                            .foregroundColor(.grey)
-                                            .font(
-                                                Font.custom("Cambay-Regular", size: 12)
-                                            )
-                                    }
-                                }
+                            self.agreeTerms.toggle()
+                        }) {
+                            HStack {
+                                Image(systemName: agreeTerms ? "checkmark.square" : "square")
+                                    .foregroundColor(.grey)
+                                Text("I agree to the Terms & Conditions")
+                                    .foregroundColor(.grey)
+                                    .font(
+                                        Font.custom("Cambay-Regular", size: 12)
+                                    )
+                            }
+                        }
+                        if passwordError {
+                            Text("Password must be at least 6 characters long.")
+                                .foregroundColor(.red)
+                        }
                         
                         Button(action: {
-                            Task{
-                                do {
-                                    try await viewModel.signup()
-                                } catch {
-                                    
+                            if viewModel.password.count >= 6 {
+                                passwordError = false
+                                Task {
+                                    do {
+                                        try await viewModel.signup()
+                                        // Set the state variable to true after successful signup
+                                        isAccountCreated = true
+                                    } catch {
+                                        // Handle error if any
+                                    }
                                 }
+                            } else {
+                                passwordError = true
                             }
                         }) {
                             Spacer()
-
+                            
                             HStack (alignment: .center) {
                                 
                                 Image(systemName: "lock.fill")
@@ -104,8 +117,13 @@ struct SignUpView: View {
             .padding()
             
         }
-
-
+        // NavigationLink to navigate to AccountView when the account is successfully created
+        .background(
+            NavigationLink(destination: AccountView(), isActive: $isAccountCreated) {
+                EmptyView()
+            }
+                .hidden()
+        )
     }
 }
 
