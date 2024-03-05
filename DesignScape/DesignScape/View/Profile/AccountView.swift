@@ -21,6 +21,25 @@ struct AccountView: View {
                 if viewModel.isUserLoggedIn {
                     Text("\(viewModel.name)")
                         .font(.custom("Merriweather-Regular", size: 36))
+                    
+                    // Button to sign out
+                    Button(action: {
+                        viewModel.signout()
+                        NavigationLink(destination: AccountView()){}
+                    }) {
+                        Text("SIGN OUT")
+                            .font(
+                                Font.custom("Cambay-Regular", size: 14)
+                                    .weight(.semibold)
+                            )
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity, alignment: .bottom)
+                            .padding([.top], 3)
+                    }
+                    .padding(10)
+                    .background(Color("Brown"))
+                    .cornerRadius(8)
+                    
                 } else {
                     Text("Sign in or create an account to access your designs and to manage your favorites")
                         .font(Font.custom("Cambay-Regular", size: 16))

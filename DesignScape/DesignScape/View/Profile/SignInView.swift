@@ -9,6 +9,8 @@ import SwiftUI
 import FirebaseAuth
 
 struct SignInView: View {
+    @Environment(\.presentationMode) var presentationMode
+    
     @StateObject private var viewModel = AuthenticationViewModel()
     @State private var email = ""
     @State private var password = ""
@@ -93,6 +95,7 @@ struct SignInView: View {
                                 do {
                                     try await viewModel.signin()
                                     isSignedIn = true
+                                    self.presentationMode.wrappedValue.dismiss()
                                 } catch {
                                     
                                 }
@@ -134,10 +137,12 @@ struct SignInView: View {
         }
         // NavigationLink to navigate to AccountView when the account is successfully created
         .background(
+//            self.presentationMode.wrappedValue.dismiss()
             NavigationLink(destination: AccountView(), isActive: $isSignedIn) {
                 EmptyView()
             }
                 .hidden()
+            
         )
         
     }

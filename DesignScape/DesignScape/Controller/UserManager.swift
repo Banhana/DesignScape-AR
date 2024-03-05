@@ -12,28 +12,28 @@ import FirebaseFirestoreSwift
 struct DBUser{
     let userId: String
     let email: String?
-    let photoURL: String?
+    let name: String?
 }
 
 final class UserManager{
     static let shared = UserManager()
     private init(){}
     
-    func createNewUser(auth: AuthDataResultModel) async throws {
+    func createNewUser(auth: AuthDataResultModel, name: String) async throws {
         // Define the data to be stored in the Firestore document
         var userData: [String: Any] = [
             "uid": auth.uid,
             "email": auth.email,
-//            "name": name,
+            "name": name,
             // Add more user data as needed
         ]
         
         if let email = auth.email{
             userData["email"] = email
         }
-        if let photoURL = auth.photoURL {
-            userData["photo_URL"] = photoURL
-        }
+//        iflet name = name {
+            userData["name"] = name
+//        }
         
         // Set the user document in Firestore using the UID as the document ID
         try await Firestore.firestore().collection("users").document(auth.uid).setData(userData, merge: false)
@@ -48,8 +48,8 @@ final class UserManager{
         
 
         let email = data["email"] as? String
-        let photoURL = data["photo_url"] as? String
+        let name = data["name"] as? String
         
-        return DBUser(userId: userId, email: email, photoURL: photoURL )
+        return DBUser(userId: userId, email: email, name: name )
     }
 }
