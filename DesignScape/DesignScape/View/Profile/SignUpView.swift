@@ -110,7 +110,7 @@ struct SignUpView: View {
                     .padding()
                 }
                 .padding(.horizontal, 120)
-                .frame(width: .infinity, height: 280)
+                .frame(height: 280)
                 
                 Spacer()
             }

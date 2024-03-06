@@ -117,18 +117,18 @@ struct SignInView: View {
                             Spacer()
                         }
                         
-                        HStack {
+                        HStack (alignment: .center){
                             Spacer()
                             Text("Forgot username or password?")
                                 .foregroundColor(.grey)
                                 .bold()
+                            Spacer()
                         }
-                        .padding(.trailing)
                     }
                     .padding()
                 }
                 .padding(.horizontal, 120)
-                .frame(width: .infinity, height: 309)
+                .frame(height: 309)
                 
                 Spacer()
             }

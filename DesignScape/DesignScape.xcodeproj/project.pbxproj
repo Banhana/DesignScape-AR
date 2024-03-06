@@ -131,6 +131,7 @@
 				619F4BA62B8161F600F0912D /* SignUpView.swift */,
 			);
 			path = Profile;
+
 			sourceTree = "<group>";
 		};
 		6E2A7A5E2B8096BA00116030 /* Resources */ = {
@@ -206,6 +207,7 @@
 				EA8D2F0D2B1E705A0074FC71 /* DesignScape */,
 				EA8D2F0C2B1E705A0074FC71 /* Products */,
 				EAD5D95F2B1FEC420014FA26 /* Frameworks */,
+				618390FE2B97E53700291C76 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -533,6 +535,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.DesignScape.DesignScape;
+
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -567,6 +570,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.DesignScape.DesignScape;
+
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
