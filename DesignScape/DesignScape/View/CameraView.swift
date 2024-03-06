@@ -15,7 +15,7 @@ struct CameraView: View{
     var body: some View{
         ARViewRepresentable()
             .onAppear {
-                modelNames = loadModelNames(named: "Furniture")
+                modelNames = ARModelManager.loadModelNames(named: "Furniture")
             }
             .ignoresSafeArea()
             // Requires iOS 15+ for .overlay
@@ -51,22 +51,6 @@ struct CameraView: View{
                     .padding()
                 }
             }
-    }
-}
-
-// Loads all models into a list from a specified directory
-func loadModelNames(named directory: String) -> [String] {
-    guard let directoryURL = Bundle.main.url(forResource: directory, withExtension: nil) else {
-        return []
-    }
-
-    do {
-        let fileURLs = try FileManager.default.contentsOfDirectory(at: directoryURL, includingPropertiesForKeys: nil)
-        let modelNames = fileURLs.map { $0.deletingPathExtension().lastPathComponent }
-        return modelNames
-    } catch {
-        print("Error loading model names from directory: \(error)")
-        return []
     }
 }
 
