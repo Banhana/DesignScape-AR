@@ -57,6 +57,7 @@
 		6E7DEE9C2B6C947800165B61 /* ScanRoomController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DEE9B2B6C947800165B61 /* ScanRoomController.swift */; };
 		6E955C762B2230E900E57F55 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD5D9642B1FED850014FA26 /* ContentView.swift */; };
 		6EA62D8F2B75CBDA009ADE7C /* ScanRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA62D8E2B75CBDA009ADE7C /* ScanRoomView.swift */; };
+		EA26A7042B97EA8E000BE434 /* gitignore.txt in Resources */ = {isa = PBXBuildFile; fileRef = EA26A7032B97EA8E000BE434 /* gitignore.txt */; };
 		EA8D2F0F2B1E705A0074FC71 /* DesignScapeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8D2F0E2B1E705A0074FC71 /* DesignScapeApp.swift */; };
 		EA8D2F132B1E705B0074FC71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA8D2F122B1E705B0074FC71 /* Assets.xcassets */; };
 		EA8D2F162B1E705B0074FC71 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA8D2F152B1E705B0074FC71 /* Preview Assets.xcassets */; };
@@ -104,6 +105,7 @@
 		6E7DEE962B6C602500165B61 /* Cambay-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cambay-Bold.ttf"; sourceTree = "<group>"; };
 		6E7DEE9B2B6C947800165B61 /* ScanRoomController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanRoomController.swift; sourceTree = "<group>"; };
 		6EA62D8E2B75CBDA009ADE7C /* ScanRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanRoomView.swift; sourceTree = "<group>"; };
+		EA26A7032B97EA8E000BE434 /* gitignore.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gitignore.txt; sourceTree = "<group>"; };
 		EA8D2F0B2B1E705A0074FC71 /* DesignScape.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DesignScape.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA8D2F0E2B1E705A0074FC71 /* DesignScapeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignScapeApp.swift; sourceTree = "<group>"; };
 		EA8D2F122B1E705B0074FC71 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 		EA8D2F0D2B1E705A0074FC71 /* DesignScape */ = {
 			isa = PBXGroup;
 			children = (
+				EA26A7032B97EA8E000BE434 /* gitignore.txt */,
 				6E2A7A5E2B8096BA00116030 /* Resources */,
 				EAD7F8BC2B6D800B00BE6AC4 /* Camera */,
 				6E7DEE8A2B69C4DF00165B61 /* Info.plist */,
@@ -409,6 +412,7 @@
 				6E7DEE972B6C602500165B61 /* Cambay-BoldItalic.ttf in Resources */,
 				6E7DEE8C2B69CC4700165B61 /* Merriweather-Regular.ttf in Resources */,
 				EAD22D1F2B1E7378007D4679 /* GoogleService-Info.plist in Resources */,
+				EA26A7042B97EA8E000BE434 /* gitignore.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -576,7 +580,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DesignScape/Preview Content\"";
-				DEVELOPMENT_TEAM = VK2PRX795K;
+				DEVELOPMENT_TEAM = WFC7GR25JA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DesignScape/Info.plist;
@@ -610,7 +614,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DesignScape/Preview Content\"";
-				DEVELOPMENT_TEAM = VK2PRX795K;
+				DEVELOPMENT_TEAM = WFC7GR25JA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DesignScape/Info.plist;
