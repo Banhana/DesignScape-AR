@@ -223,10 +223,7 @@
 				619F4B6E2B8144E500F0912D /* AccountView.swift */,
 				619F4BA62B8161F600F0912D /* SignUpView.swift */,
 				EA93265D2B914E77009ABBCC /* CapturePrimaryView.swift */,
-<<<<<<< HEAD
 				6E20E1642B85A3D90024BEA8 /* Elements.swift */,
-=======
->>>>>>> object_capture
 			);
 			path = View;
 			sourceTree = "<group>";
