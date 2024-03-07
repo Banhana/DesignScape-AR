@@ -21,6 +21,7 @@
 		619F4B8D2B814EFE00F0912D /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 619F4B8C2B814EFE00F0912D /* FirebaseFirestoreSwift */; };
 		619F4BA32B814EFE00F0912D /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 619F4BA22B814EFE00F0912D /* FirebaseStorage */; };
 		619F4BA72B8161F600F0912D /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619F4BA62B8161F600F0912D /* SignUpView.swift */; };
+		6E20E1652B85A3D90024BEA8 /* Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E20E1642B85A3D90024BEA8 /* Elements.swift */; };
 		6E2A7A5D2B7ED8E400116030 /* roomplan-large.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 6E2A7A5C2B7ED8E400116030 /* roomplan-large.mp4 */; };
 		6E7DEE7E2B676A0E00165B61 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DEE7D2B676A0E00165B61 /* MainView.swift */; };
 		6E7DEE802B69C35900165B61 /* CreateDesignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DEE7F2B69C35900165B61 /* CreateDesignView.swift */; };
@@ -68,6 +69,7 @@
 		619F4B6C2B8144C800F0912D /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		619F4B6E2B8144E500F0912D /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		619F4BA62B8161F600F0912D /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		6E20E1642B85A3D90024BEA8 /* Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Elements.swift; sourceTree = "<group>"; };
 		6E2A7A5C2B7ED8E400116030 /* roomplan-large.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; name = "roomplan-large.mp4"; path = "DesignScape/Resources/roomplan-large.mp4"; sourceTree = SOURCE_ROOT; };
 		6E7DEE7D2B676A0E00165B61 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		6E7DEE7F2B69C35900165B61 /* CreateDesignView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDesignView.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 		6E2A7A5E2B8096BA00116030 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6E7DEE812B69C3BA00165B61 /* fonts */,
 				6E2A7A5C2B7ED8E400116030 /* roomplan-large.mp4 */,
 			);
 			path = Resources;
@@ -185,6 +188,8 @@
 				610CA8BA2B7C1F29000A84E1 /* CatalogView.swift */,
 				6107CC3D2B86C99B00EDA568 /* ProductView.swift */,
 				6107CC382B86B75800EDA568 /* Profile */,
+				6E20E1642B85A3D90024BEA8 /* Elements.swift */,
+
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -223,7 +228,6 @@
 				6E2A7A5E2B8096BA00116030 /* Resources */,
 				EAD7F8BC2B6D800B00BE6AC4 /* Camera */,
 				6E7DEE8A2B69C4DF00165B61 /* Info.plist */,
-				6E7DEE812B69C3BA00165B61 /* fonts */,
 				6E955C752B222B9900E57F55 /* Controller */,
 				6E955C742B222B9600E57F55 /* View */,
 				6E955C732B222B8800E57F55 /* Model */,
@@ -372,6 +376,7 @@
 				6107CC3E2B86C99B00EDA568 /* ProductView.swift in Sources */,
 				EAAEB1CA2B6F49F800131AB7 /* ARActions.swift in Sources */,
 				EAD5D9662B1FED850014FA26 /* DataTableView.swift in Sources */,
+				6E20E1652B85A3D90024BEA8 /* Elements.swift in Sources */,
 				EAD5D9652B1FED850014FA26 /* Item.swift in Sources */,
 				EAD7F8BE2B6D803A00BE6AC4 /* ARViewRepresentable.swift in Sources */,
 				6107CC3A2B86BC3C00EDA568 /* ProductViewModel.swift in Sources */,
@@ -514,7 +519,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DesignScape/Preview Content\"";
-				DEVELOPMENT_TEAM = DJYH9HGVHQ;
+
+				DEVELOPMENT_TEAM = VK2PRX795K;
+
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DesignScape/Info.plist;
@@ -532,7 +539,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.DesignScape.DesignScape;
+
+				PRODUCT_BUNDLE_IDENTIFIER = dev.mhuynh.DesignScape2;
+
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -548,7 +557,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DesignScape/Preview Content\"";
-				DEVELOPMENT_TEAM = DJYH9HGVHQ;
+
+				DEVELOPMENT_TEAM = VK2PRX795K;
+
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DesignScape/Info.plist;
@@ -566,7 +577,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.DesignScape.DesignScape;
+
+				PRODUCT_BUNDLE_IDENTIFIER = dev.mhuynh.DesignScape2;
+
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
