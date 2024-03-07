@@ -8,11 +8,13 @@
 import SwiftUI
 import FirebaseAuth
 
-struct SignUpView: View {
+struct SignInView: View {
+    @StateObject private var viewModel = AuthenticationViewModel()
     @State private var email = ""
     @State private var password = ""
     @State private var saveUsername = false
     @State private var isPasswordHidden = true
+    @State private var isSignedIn = false // Add state variable to track account creation
     
     var body: some View {
         ZStack {
@@ -41,7 +43,7 @@ struct SignUpView: View {
                         .edgesIgnoringSafeArea(.horizontal)
                     }
                     
-                    Text("Create an Account")
+                    Text("Sign In")
                         .font(.custom("Merriweather-Regular", size: 40))
                         .foregroundColor(.white)
                 }
@@ -58,7 +60,7 @@ struct SignUpView: View {
                                 Font.custom("Cambay-Regular", size: 16)
                             )
                             .padding(.horizontal)
-
+                        
                         HStack {
                             SecureField("Password", text: $password)
                                 .textFieldStyle(PlainTextFieldStyle())
@@ -76,25 +78,28 @@ struct SignUpView: View {
                         }
                         
                         Button(action: {
-                                    self.saveUsername.toggle()
-                                }) {
-                                    HStack {
-                                        Image(systemName: saveUsername ? "checkmark.square" : "square")
-                                            .foregroundColor(.grey)
-                                        Text("Save username")
-                                            .foregroundColor(.grey)
-                                    }
-                                }
+                            self.saveUsername.toggle()
+                        }) {
+                            HStack {
+                                Image(systemName: saveUsername ? "checkmark.square" : "square")
+                                    .foregroundColor(.grey)
+                                Text("Save username")
+                                    .foregroundColor(.grey)
+                            }
+                        }
                         
                         Button(action: {
-                            Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
-                                if let error = error {
-                                    print(error.localizedDescription)
+                            Task{
+                                do {
+                                    try await viewModel.signin()
+                                    isSignedIn = true
+                                } catch {
+                                    
                                 }
                             }
                         }) {
                             Spacer()
-
+                            
                             HStack (alignment: .center) {
                                 
                                 Image(systemName: "lock.fill")
@@ -127,11 +132,17 @@ struct SignUpView: View {
             .padding()
             
         }
-
-
+        // NavigationLink to navigate to AccountView when the account is successfully created
+        .background(
+            NavigationLink(destination: AccountView(), isActive: $isSignedIn) {
+                EmptyView()
+            }
+                .hidden()
+        )
+        
     }
 }
 
 #Preview {
-    SignUpView()
+    SignInView()
 }
