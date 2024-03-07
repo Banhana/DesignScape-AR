@@ -17,50 +17,57 @@ struct CapturePrimaryView: View {
         ZStack {
             if session.userCompletedScanPass {
                 VStack(spacing: 20) {
-                    Spacer() // Pushes the buttons to the bottom
+                    Spacer()
                     Button(action: {
                         session.session?.finish()
                         // Set the flag to true when you finish the capture session
                         isReconstructionComplete = true
+                        // Puts the images/snapshots into a local directory
+                        if let folderManager = CaptureFolderManager() {
+                            ReconstructionPrimaryView(outputFile: folderManager.modelsFolder.appendingPathComponent("model-mobile.usdz"))
+                        }
                     }) {
                         Text("Finish")
-                            .padding() // Increase padding to make the button bigger
-                            .background(Color.red) // Add background color
-                            .foregroundColor(.white) // Text color
-                            .cornerRadius(10) // Rounded corners
+                            .padding()
+                            .background(Color.red)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
                     }
                 }
                 .padding() // Add padding to the VStack
             } else if isReconstructionComplete {
                 // Display the reconstructed model somehow
+//                if let folderManager = CaptureFolderManager() {
+//                    ReconstructionPrimaryView(outputFile: folderManager.modelsFolder.appendingPathComponent("model-mobile.usdz"))
+//                }
             } else {
                 ObjectCaptureView(session: session.session ?? ObjectCaptureSession())
                 
                 VStack(spacing: 20) {
                     Spacer() // Pushes the buttons to the bottom
                     if case .ready = session.session?.state {
-                        Button(action: { session.session?.startDetecting() }) {
+                        Button(action: { session.session?.startDetecting() }) { // Button to start detecting the object
                             Text("Continue")
-                                .padding() // Increase padding to make the button bigger
-                                .background(Color.blue) // Add background color
-                                .foregroundColor(.white) // Text color
-                                .cornerRadius(10) // Rounded corners
+                                .padding()
+                                .background(Color.blue)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
                         }
                     } else if case .detecting = session.session?.state {
-                        Button(action: { session.session?.startCapturing() }) {
+                        Button(action: { session.session?.startCapturing() }) { // Button to start capturing the object
                             Text("Start Capture")
-                                .padding() // Increase padding to make the button bigger
-                                .background(Color.green) // Add background color
-                                .foregroundColor(.white) // Text color
-                                .cornerRadius(10) // Rounded corners
+                                .padding()
+                                .background(Color.green)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
                         }
                     } else if case .capturing = session.session?.state {
-                        Button(action: { session.finishScanningSession() }) { // Add button to finish scanning session
+                        Button(action: { session.finishScanningSession() }) { // Button to finish scanning session
                             Text("Finish Scanning")
-                                .padding() // Increase padding to make the button bigger
-                                .background(Color.red) // Add background color
-                                .foregroundColor(.white) // Text color
-                                .cornerRadius(10) // Rounded corners
+                                .padding()
+                                .background(Color.red)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
                         }
                     }
                 }

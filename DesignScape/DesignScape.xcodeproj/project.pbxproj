@@ -58,6 +58,8 @@
 		6E955C762B2230E900E57F55 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD5D9642B1FED850014FA26 /* ContentView.swift */; };
 		6EA62D8F2B75CBDA009ADE7C /* ScanRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA62D8E2B75CBDA009ADE7C /* ScanRoomView.swift */; };
 		EA26A7042B97EA8E000BE434 /* gitignore.txt in Resources */ = {isa = PBXBuildFile; fileRef = EA26A7032B97EA8E000BE434 /* gitignore.txt */; };
+		EA63662E2B9957170098DAD1 /* ReconstructionPrimaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA63662D2B9957170098DAD1 /* ReconstructionPrimaryView.swift */; };
+		EA6366302B99594E0098DAD1 /* UntilProcessingCompleteFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA63662F2B99594E0098DAD1 /* UntilProcessingCompleteFilter.swift */; };
 		EA8D2F0F2B1E705A0074FC71 /* DesignScapeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8D2F0E2B1E705A0074FC71 /* DesignScapeApp.swift */; };
 		EA8D2F132B1E705B0074FC71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA8D2F122B1E705B0074FC71 /* Assets.xcassets */; };
 		EA8D2F162B1E705B0074FC71 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA8D2F152B1E705B0074FC71 /* Preview Assets.xcassets */; };
@@ -106,6 +108,8 @@
 		6E7DEE9B2B6C947800165B61 /* ScanRoomController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanRoomController.swift; sourceTree = "<group>"; };
 		6EA62D8E2B75CBDA009ADE7C /* ScanRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanRoomView.swift; sourceTree = "<group>"; };
 		EA26A7032B97EA8E000BE434 /* gitignore.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gitignore.txt; sourceTree = "<group>"; };
+		EA63662D2B9957170098DAD1 /* ReconstructionPrimaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReconstructionPrimaryView.swift; sourceTree = "<group>"; };
+		EA63662F2B99594E0098DAD1 /* UntilProcessingCompleteFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UntilProcessingCompleteFilter.swift; sourceTree = "<group>"; };
 		EA8D2F0B2B1E705A0074FC71 /* DesignScape.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DesignScape.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA8D2F0E2B1E705A0074FC71 /* DesignScapeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignScapeApp.swift; sourceTree = "<group>"; };
 		EA8D2F122B1E705B0074FC71 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -224,6 +228,8 @@
 				619F4BA62B8161F600F0912D /* SignUpView.swift */,
 				EA93265D2B914E77009ABBCC /* CapturePrimaryView.swift */,
 				6E20E1642B85A3D90024BEA8 /* Elements.swift */,
+				EA63662D2B9957170098DAD1 /* ReconstructionPrimaryView.swift */,
+				EA63662F2B99594E0098DAD1 /* UntilProcessingCompleteFilter.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -430,6 +436,7 @@
 				619F4B6F2B8144E500F0912D /* AccountView.swift in Sources */,
 				6E7DEE9C2B6C947800165B61 /* ScanRoomController.swift in Sources */,
 				EA9326632B91BF4D009ABBCC /* ShotFileInfo.swift in Sources */,
+				EA63662E2B9957170098DAD1 /* ReconstructionPrimaryView.swift in Sources */,
 				EA9326642B91BF4D009ABBCC /* CaptureFolderManager.swift in Sources */,
 				6E7DEE7E2B676A0E00165B61 /* MainView.swift in Sources */,
 				6EA62D8F2B75CBDA009ADE7C /* ScanRoomView.swift in Sources */,
@@ -444,6 +451,7 @@
 				EA93265C2B914E4E009ABBCC /* MyObjectCaptureSession.swift in Sources */,
 				EAD7F8BE2B6D803A00BE6AC4 /* ARViewRepresentable.swift in Sources */,
 				EAAEB1CC2B6F4A9500131AB7 /* ARManager.swift in Sources */,
+				EA6366302B99594E0098DAD1 /* UntilProcessingCompleteFilter.swift in Sources */,
 				619F4B6D2B8144C800F0912D /* SignInView.swift in Sources */,
 				619F4BA72B8161F600F0912D /* SignUpView.swift in Sources */,
 				6E7DEE802B69C35900165B61 /* CreateDesignView.swift in Sources */,

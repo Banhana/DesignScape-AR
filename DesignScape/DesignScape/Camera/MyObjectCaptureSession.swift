@@ -12,7 +12,7 @@ import Combine
 @available(iOS 17.0, *)
 class MyObjectCaptureSession: ObservableObject {
     @Published var session: ObjectCaptureSession?
-    @Published var userCompletedScanPass = false // New property for completion status
+    @Published var userCompletedScanPass = false
     var modelFile: URL?
     
     private(set) var scanFolderManager: CaptureFolderManager!
@@ -21,6 +21,7 @@ class MyObjectCaptureSession: ObservableObject {
         setupSession()
     }
 
+    // Starts our session (async needed to work)
     private func setupSession() {
         Task {
             let newSession = await ObjectCaptureSession()
@@ -30,7 +31,6 @@ class MyObjectCaptureSession: ObservableObject {
             }
 
             scanFolderManager = folderManager
-            
             
             DispatchQueue.main.async {
                 self.session = newSession
@@ -46,8 +46,8 @@ class MyObjectCaptureSession: ObservableObject {
         }
     }
     
+    // Updates Scanning Session when it's finished
     func finishScanningSession() {
-        // Update completion status or perform any other necessary actions
         userCompletedScanPass = true
     }
 }
