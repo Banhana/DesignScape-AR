@@ -20,35 +20,18 @@ struct SignInView: View {
     
     var body: some View {
         ZStack {
-            Image("background-chairs")
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .edgesIgnoringSafeArea(.all)
+            Rectangle()
+                .foregroundColor(.clear)
+                .background {
+                Image("background-chairs")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .edgesIgnoringSafeArea(.all)
+            }
             VStack {
-                ZStack{
-                    HStack {
-                        Spacer()
-                        Button(action: {}) {
-                            ZStack(alignment: .center) {
-                                RoundedRectangle(cornerRadius: 8)
-                                    .foregroundColor(Color.grey.opacity(0.5))
-                                    .frame(width: 32, height: 32)
-                                Image("arrow-back")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: 16, height: 12)
-                            }
-                        }
-                        .padding(.top)
-                        .padding(.trailing, 16)
-                        .foregroundColor(.white)
-                        .edgesIgnoringSafeArea(.horizontal)
-                    }
-                    
-                    Text("Sign In")
-                        .font(.custom("Merriweather-Regular", size: 40))
-                        .foregroundColor(.white)
-                }
+                Text("Sign In")
+                    .font(.custom("Merriweather-Regular", size: 40))
+                    .foregroundColor(.white)
                 
                 ZStack {
                     RoundedRectangle(cornerRadius: 8)
@@ -127,7 +110,7 @@ struct SignInView: View {
                     }
                     .padding()
                 }
-                .padding(.horizontal, 120)
+//                .padding(.horizontal, 120)
                 .frame(height: 309)
                 
                 Spacer()
@@ -135,9 +118,10 @@ struct SignInView: View {
             .padding()
             
         }
+        
         // NavigationLink to navigate to AccountView when the account is successfully created
         .background(
-//            self.presentationMode.wrappedValue.dismiss()
+            //            self.presentationMode.wrappedValue.dismiss()
             NavigationLink(destination: AccountView(), isActive: $isSignedIn) {
                 EmptyView()
             }
