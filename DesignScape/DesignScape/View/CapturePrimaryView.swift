@@ -29,7 +29,7 @@ struct CapturePrimaryView: View {
                     }) {
                         Text("Finish")
                             .padding()
-                            .background(Color.red)
+                            .background(Color(red: 0.95, green: 0.85, blue: 0.6)) // Goldish
                             .foregroundColor(.white)
                             .cornerRadius(10)
                     }
@@ -49,7 +49,7 @@ struct CapturePrimaryView: View {
                         Button(action: { session.session?.startDetecting() }) { // Button to start detecting the object
                             Text("Continue")
                                 .padding()
-                                .background(Color.blue)
+                                .background(Color(red: 0.9, green: 0.85, blue: 0.7)) // Beige Color
                                 .foregroundColor(.white)
                                 .cornerRadius(10)
                         }
@@ -57,7 +57,7 @@ struct CapturePrimaryView: View {
                         Button(action: { session.session?.startCapturing() }) { // Button to start capturing the object
                             Text("Start Capture")
                                 .padding()
-                                .background(Color.green)
+                                .background(Color(red: 0.6, green: 0.4, blue: 0.2)) // Brown Color
                                 .foregroundColor(.white)
                                 .cornerRadius(10)
                         }
@@ -65,7 +65,7 @@ struct CapturePrimaryView: View {
                         Button(action: { session.finishScanningSession() }) { // Button to finish scanning session
                             Text("Finish Scanning")
                                 .padding()
-                                .background(Color.red)
+                                .background(Color(red: 0.8, green: 0.8, blue: 0.8)) // Grey Color
                                 .foregroundColor(.white)
                                 .cornerRadius(10)
                         }
