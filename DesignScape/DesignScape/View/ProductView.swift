@@ -16,13 +16,9 @@ struct ProductView: View {
         VStack {
             if let product = viewModel.product {
                 // Display product information
-//                AsyncImage(url: URL(string: product.imageURL)) { image in
-//                    image.resizable()
-//                } placeholder: {
-//                    ProgressView()
-//                }
-//                .frame(width: 200, height: 200)
-//                .padding()
+                Image("product1")
+                .frame(width: 200, height: 200)
+                .padding()
                 
                 Text(product.name)
                     .font(.title)
