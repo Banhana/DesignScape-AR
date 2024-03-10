@@ -8,28 +8,43 @@
 import SwiftUI
 
 struct ProductView: View {
-    @StateObject var viewModel = ProductViewModel()
-    
+    @StateObject var viewModel = ProductViewModel()    
     var id: String
     
     var body: some View {
-        VStack {
+        VStack (alignment: .leading){
             if let product = viewModel.product {
                 // Display product information
-                Image("product1")
-                .frame(width: 200, height: 200)
+                AsyncImage(url: URL(string: product.imageURL)) { image in
+                    image.resizable()
+                } placeholder: {
+                    ProgressView()
+                }
+                .frame(height: 200)
                 .padding()
                 
-                Text(product.name)
-                    .font(.title)
-                    .padding()
+                Text(product.name.capitalized)
+                    .font(
+                        Font.custom("Merriweather-Regular", size: 22)
+                    )
+                    .padding(.vertical)
                 
-                Text("$\(product.price)")
-                    .font(.headline)
-                    .padding()
+                BodyText(text: "$\(String(format: "%.2f", product.price))")
                 
-                Text(product.description)
-                    .padding()
+                Text("Description")
+                    .font(
+                        Font.custom("Merriweather-Regular", size: 22)
+                    )
+                    .padding(.vertical)
+                
+                BodyText(text: product.description)
+                    
+                
+                Button(action: {
+                    
+                }, label: {
+                    PrimaryButton(text: "VIEW PRODUCT IN ROOM", willSpan: true)
+                })
                 
                 Spacer()
             } else {
@@ -41,9 +56,14 @@ struct ProductView: View {
             }
         }
         .navigationTitle("Product Details")
+        .customNavBar()
+        .padding(25)
     }
 }
 
 #Preview {
-    ProductView(id: "uQHEfRFfaznBBksD02Ps")
+    NavigationStack{
+        ProductView(id: "uQHEfRFfaznBBksD02Ps")
+    }
+    
 }

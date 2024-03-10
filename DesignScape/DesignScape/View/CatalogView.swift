@@ -128,8 +128,10 @@ struct ProductBannerView: View {
                 LazyVGrid(columns: [GridItem(.flexible(), spacing: 16),
                                     GridItem(.flexible(), spacing: 16)], spacing: 16) {
                     ForEach(1..<5) { index in
-                        ProductCard(productName: "Product \(index)", price: "\(index * 10)", imageName: "product\(index)")
-                            .aspectRatio(1, contentMode: .fit)
+                        NavigationLink(destination: ProductView(id: "uQHEfRFfaznBBksD02Ps")) {
+                            ProductCard(productName: "Product \(index)", price: "\(index * 10)", imageName: "product\(index)", productUID: "uQHEfRFfaznBBksD02Ps")
+                                .aspectRatio(1, contentMode: .fit)
+                        }
                     }
                 }
                                     .padding()
@@ -142,6 +144,9 @@ struct ProductCard: View {
     var productName: String
     var price: String
     var imageName: String
+    var productUID: String // Add product UID
+    
+    @State private var isFavorite = false // State to track favorite status
     
     var body: some View {
         VStack (alignment: .leading, spacing: 4){

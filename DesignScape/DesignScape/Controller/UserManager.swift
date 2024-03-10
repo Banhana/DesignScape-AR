@@ -31,9 +31,9 @@ final class UserManager{
         if let email = auth.email{
             userData["email"] = email
         }
-//        iflet name = name {
-            userData["name"] = name
-//        }
+        //        iflet name = name {
+        userData["name"] = name
+        //        }
         
         // Set the user document in Firestore using the UID as the document ID
         try await Firestore.firestore().collection("users").document(auth.uid).setData(userData, merge: false)
@@ -46,10 +46,17 @@ final class UserManager{
             throw URLError(.badServerResponse)
         }
         
-
+        
         let email = data["email"] as? String
         let name = data["name"] as? String
         
         return DBUser(userId: userId, email: email, name: name )
+    }
+    
+    func addToFavorites(userId: String, productUID: String) async throws {
+        let favoritesRef = Firestore.firestore().collection("users").document(userId).collection("favorites")
+        
+        // Add product UID to favorites collection
+        try await favoritesRef.document(productUID).setData(["addedAt": Timestamp()])
     }
 }

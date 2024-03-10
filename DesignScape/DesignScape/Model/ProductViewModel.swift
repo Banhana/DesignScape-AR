@@ -10,7 +10,6 @@ import FirebaseFirestore
 
 class ProductViewModel: ObservableObject {
     @Published var product: Product?
-    @Published var image: UIImage?
     
     private var db = DataController.shared.db
     private var storage = DataController.shared.storage
@@ -24,8 +23,8 @@ class ProductViewModel: ObservableObject {
                     let product = try snapshot.data(as: Product.self)
                     DispatchQueue.main.async {
                         self.product = product
-//                        self.downloadImage(urlString: product.imageURL ?? "")
                     }
+//                    self.downloadImage(urlString: product.imageURL)
                 } catch {
                     print("Error decoding product: \(error.localizedDescription)")
                 }
@@ -35,20 +34,20 @@ class ProductViewModel: ObservableObject {
         }
     } // getProduct
     
-    private func downloadImage(urlString: String) {
-        let storageRef = storage.reference(forURL: urlString)
-        storageRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
-            if let error = error {
-                print("Error downloading image: \(error.localizedDescription)")
-            } else if let data = data {
-                if let image = UIImage(data: data) {
-                    DispatchQueue.main.async {
-                        self.image = image
-                    }
-                }
-            }
-        }
-    }
+//    private func downloadImage(urlString: String) {
+//        let storageRef = storage.reference(forURL: urlString)
+//        storageRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+//            if let error = error {
+//                print("Error downloading image: \(error.localizedDescription)")
+//            } else if let data = data {
+//                if let image = UIImage(data: data) {
+//                    DispatchQueue.main.async {
+//                        self.image = image
+//                    }
+//                }
+//            }
+//        }
+//    }
     
     // Function to upload image to Firebase Storage and update imageURL
     func uploadImageToStorage(imageData: Data, completion: @escaping (String?) -> Void) {
