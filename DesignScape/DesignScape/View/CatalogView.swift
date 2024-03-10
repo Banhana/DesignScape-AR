@@ -106,6 +106,7 @@ struct FurnitureCard: View {
 }
 
 struct ProductBannerView: View {
+    @StateObject var viewModel = ProductViewModel()
     var body: some View {
         VStack (alignment: .leading){
             HStack{
@@ -127,45 +128,52 @@ struct ProductBannerView: View {
             VStack {
                 LazyVGrid(columns: [GridItem(.flexible(), spacing: 16),
                                     GridItem(.flexible(), spacing: 16)], spacing: 16) {
-                    ForEach(1..<5) { index in
-                        NavigationLink(destination: ProductView(id: "uQHEfRFfaznBBksD02Ps")) {
-                            ProductCard(productName: "Product \(index)", price: "\(index * 10)", imageName: "product\(index)", productUID: "uQHEfRFfaznBBksD02Ps")
-                                .aspectRatio(1, contentMode: .fit)
+                    ForEach(viewModel.products) { product in
+
+                        NavigationLink(destination: ProductView(id: product.id!)) {
+                            ProductCard(productName: product.name, price: product.price, imageURL: product.imageURL, productId: product.id!)
+//                                .aspectRatio(1, contentMode: .fit)
                         }
                     }
                 }
                                     .padding()
             }
         }
+        .onAppear(perform: {
+            viewModel.getAllProducts()
+        })
     }
 }
 
 struct ProductCard: View {
     var productName: String
-    var price: String
-    var imageName: String
-    var productUID: String // Add product UID
+    var price: Double
+    var imageURL: String
+    var productId: String // Add product UID
     
     @State private var isFavorite = false // State to track favorite status
     
     var body: some View {
         VStack (alignment: .leading, spacing: 4){
-            Image(imageName)
+            AsyncImage(url: URL(string: imageURL)) { image in
+                image.resizable()
+            } placeholder: {
+                ProgressView()
+            }
                 .aspectRatio(contentMode: .fill)
                 .frame(width: 141, height: 149)
                 .cornerRadius(8)
-                .overlay(
+                .overlay(alignment: .topTrailing) {
                     ZStack {
                         Circle()
                             .foregroundColor(Color.white.opacity(0.8))
                             .frame(width: 32, height: 32)
-                            .offset(x: 40, y: -40)
                         Image(systemName: "heart")
                             .foregroundColor(.black)
                             .frame(width: 20, height: 20)
-                            .offset(x: 40, y: -40)
                     }
-                )
+                    .padding(10)
+                }
                 .padding(.top, 8)
             
             VStack(alignment: .leading, spacing: 4) {
@@ -175,7 +183,7 @@ struct ProductCard: View {
                     )
                     .foregroundColor(Color("AccentColor"))
                 //                    .padding(.bottom, 4)
-                Text("$\(price)")
+                Text("$\(String(format: "%.2f", price))")
                     .font(
                         Font.custom("Cambay-Bold", size: 14)
                     )

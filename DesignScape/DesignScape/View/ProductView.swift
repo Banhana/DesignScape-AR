@@ -21,7 +21,6 @@ struct ProductView: View {
                     ProgressView()
                 }
                 .frame(height: 200)
-                .padding()
                 
                 Text(product.name.capitalized)
                     .font(
