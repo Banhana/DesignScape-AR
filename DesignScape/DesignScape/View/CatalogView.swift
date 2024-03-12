@@ -18,7 +18,7 @@ struct CatalogView: View {
                 ZStack{
                     VStack{
                         // furniture categories
-                       FurnitureView(furniture: furniture)
+                        FurnitureView(furniture: furniture)
                         
                         // furniture promotion
                         Button(action: {}){
@@ -26,7 +26,7 @@ struct CatalogView: View {
                         }
                         
                         // popular products
-                        ProductView()
+                        ProductBannerView()
                         
                         //sale
                         Button(action: {}){
@@ -42,7 +42,7 @@ struct CatalogView: View {
                 }
             }
         }
-
+        
     }
 }
 
@@ -71,7 +71,7 @@ struct FurnitureView: View{
                 HStack {
                     ForEach(0..<3) { index in
                         FurnitureCard(imageName: "furniture\(index + 1)", category: "\(furniture[index])")
-                            
+                        
                     }
                 }
                 .padding(.horizontal) // Add padding around the entire HStack
@@ -105,7 +105,7 @@ struct FurnitureCard: View {
     }
 }
 
-struct ProductView: View {
+struct ProductBannerView: View {
     var body: some View {
         VStack (alignment: .leading){
             HStack{
@@ -118,7 +118,7 @@ struct ProductView: View {
                 
                 Text("See all")
                     .foregroundColor(Color("AccentColor"))
-
+                
                 Image("arrow-right-accent")
                     .frame(width: 16, height: 16)
             }
@@ -129,10 +129,10 @@ struct ProductView: View {
                                     GridItem(.flexible(), spacing: 16)], spacing: 16) {
                     ForEach(1..<5) { index in
                         ProductCard(productName: "Product \(index)", price: "\(index * 10)", imageName: "product\(index)")
-                                   .aspectRatio(1, contentMode: .fit)
+                            .aspectRatio(1, contentMode: .fit)
                     }
                 }
-                .padding()
+                                    .padding()
             }
         }
     }
@@ -169,13 +169,13 @@ struct ProductCard: View {
                         Font.custom("Cambay-Regular", size: 12)
                     )
                     .foregroundColor(Color("AccentColor"))
-//                    .padding(.bottom, 4)
+                //                    .padding(.bottom, 4)
                 Text("$\(price)")
                     .font(
                         Font.custom("Cambay-Bold", size: 14)
                     )
             }
-//            .padding(.vertical)
+            //            .padding(.vertical)
         }
         .frame(width: 157)
         .background(Color.white)
