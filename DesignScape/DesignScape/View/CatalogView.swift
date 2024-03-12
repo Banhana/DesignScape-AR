@@ -151,6 +151,8 @@ struct ProductCard: View {
     var imageURL: String
     var productId: String // Add product UID
     
+    @StateObject var productViewModel = ProductViewModel()
+    @StateObject var user = AuthenticationViewModel()
     @State private var isFavorite = false // State to track favorite status
     
     var body: some View {
@@ -164,15 +166,27 @@ struct ProductCard: View {
                 .frame(width: 141, height: 149)
                 .cornerRadius(8)
                 .overlay(alignment: .topTrailing) {
-                    ZStack {
-                        Circle()
-                            .foregroundColor(Color.white.opacity(0.8))
-                            .frame(width: 32, height: 32)
-                        Image(systemName: "heart")
-                            .foregroundColor(.black)
-                            .frame(width: 20, height: 20)
+                    Button(action: {
+                        // add product to favorites folder
+                        Task {
+                            do {
+                                try await addFavorite()
+                            } catch {
+                                // Handle the error if addFavorite fails
+                                print("Failed to add favorite: \(error.localizedDescription)")
+                            }
+                        }
+                    }){
+                        ZStack {
+                            Circle()
+                                .foregroundColor(Color.white.opacity(0.8))
+                                .frame(width: 32, height: 32)
+                            Image(systemName: "heart")
+                                .foregroundColor(.black)
+                                .frame(width: 20, height: 20)
+                        }
+                        .padding(10)
                     }
-                    .padding(10)
                 }
                 .padding(.top, 8)
             
@@ -182,18 +196,21 @@ struct ProductCard: View {
                         Font.custom("Cambay-Regular", size: 12)
                     )
                     .foregroundColor(Color("AccentColor"))
-                //                    .padding(.bottom, 4)
                 Text("$\(String(format: "%.2f", price))")
                     .font(
                         Font.custom("Cambay-Bold", size: 14)
                     )
             }
-            //            .padding(.vertical)
         }
         .frame(width: 157)
         .background(Color.white)
         .cornerRadius(8)
         .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
+    }
+        
+    func addFavorite() async throws{
+        isFavorite.toggle()
+        try await UserManager.shared.addToFavorites(userId: user.userId, productUID: productId)
     }
 }
 

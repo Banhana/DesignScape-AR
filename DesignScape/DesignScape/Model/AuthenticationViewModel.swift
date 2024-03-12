@@ -14,6 +14,7 @@ final class AuthenticationViewModel: ObservableObject {
     @Published var email = ""
     @Published var password = ""
     @Published var name = ""
+    @Published var userId = ""
     @Published var isUserLoggedIn = false
     
     init() {
@@ -29,6 +30,7 @@ final class AuthenticationViewModel: ObservableObject {
                 // User is logged in
                 isUserLoggedIn = true
                 name = try await UserManager.shared.getUser(userId: returnedUserData.uid).name ?? ""
+                userId = returnedUserData.uid
                 print(returnedUserData)
             } catch {
                 // User is not logged in

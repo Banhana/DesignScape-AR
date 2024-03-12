@@ -59,4 +59,5 @@ final class UserManager{
         // Add product UID to favorites collection
         try await favoritesRef.document(productUID).setData(["addedAt": Timestamp()])
     }
+
 }
