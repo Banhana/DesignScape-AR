@@ -129,14 +129,13 @@ struct ProductBannerView: View {
                 LazyVGrid(columns: [GridItem(.flexible(), spacing: 16),
                                     GridItem(.flexible(), spacing: 16)], spacing: 16) {
                     ForEach(viewModel.products) { product in
-
+                        
                         NavigationLink(destination: ProductView(id: product.id!)) {
                             ProductCard(productName: product.name, price: product.price, imageURL: product.imageURL, productId: product.id!)
-//                                .aspectRatio(1, contentMode: .fit)
                         }
                     }
                 }
-                                    .padding()
+                .padding()
             }
         }
         .onAppear(perform: {
@@ -181,8 +180,8 @@ struct ProductCard: View {
                             Circle()
                                 .foregroundColor(Color.white.opacity(0.8))
                                 .frame(width: 32, height: 32)
-                            Image(systemName: "heart")
-                                .foregroundColor(.black)
+                            Image(systemName: isFavorite ? "heart.fill" : "heart") // Change image based on isFavorite state
+                                .foregroundColor(isFavorite ? .red : .black) // Change color based on isFavorite state
                                 .frame(width: 20, height: 20)
                         }
                         .padding(10)

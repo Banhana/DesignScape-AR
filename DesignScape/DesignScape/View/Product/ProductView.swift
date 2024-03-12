@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct ProductView: View {
-    @StateObject var viewModel = ProductViewModel()    
+    @StateObject var viewModel = ProductViewModel() 
+    @State private var isFavorite = false // State to track favorite status
+    @StateObject var user = AuthenticationViewModel()
     var id: String
     
     var body: some View {
@@ -22,11 +24,31 @@ struct ProductView: View {
                 }
                 .frame(height: 200)
                 
-                Text(product.name.capitalized)
-                    .font(
-                        Font.custom("Merriweather-Regular", size: 22)
-                    )
+                HStack {
+                    Text(product.name.capitalized)
+                        .font(
+                            Font.custom("Merriweather-Regular", size: 22)
+                        )
                     .padding(.vertical)
+                    Spacer()
+                    Button(action: {
+                        // add product to favorites folder
+                        Task {
+                            do {
+                                try await addFavorite(userId: user.userId, productId: product.id!)
+                            } catch {
+                                // Handle the error if addFavorite fails
+                                print("Failed to add favorite: \(error.localizedDescription)")
+                            }
+                        }
+                    }, label: {
+                        Image(systemName: isFavorite ? "heart.fill" : "heart") // Change image based on isFavorite state
+                            .foregroundColor(isFavorite ? .red : .black) // Change color based on isFavorite state
+                            .frame(width: 20, height: 20)
+                    })
+                }
+                
+
                 
                 BodyText(text: "$\(String(format: "%.2f", product.price))")
                 
@@ -57,6 +79,11 @@ struct ProductView: View {
         .navigationTitle("Product Details")
         .customNavBar()
         .padding(25)
+    }
+    
+    func addFavorite(userId: String, productId: String) async throws{
+        isFavorite.toggle()
+        try await UserManager.shared.addToFavorites(userId: userId, productUID: productId)
     }
 }
 

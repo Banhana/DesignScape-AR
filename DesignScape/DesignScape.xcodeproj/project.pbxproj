@@ -21,6 +21,7 @@
 		619F4B8D2B814EFE00F0912D /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 619F4B8C2B814EFE00F0912D /* FirebaseFirestoreSwift */; };
 		619F4BA32B814EFE00F0912D /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 619F4BA22B814EFE00F0912D /* FirebaseStorage */; };
 		619F4BA72B8161F600F0912D /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619F4BA62B8161F600F0912D /* SignUpView.swift */; };
+		61CACAC92BA1120700F94AF5 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CACAC82BA1120700F94AF5 /* FavoritesView.swift */; };
 		6E20E1652B85A3D90024BEA8 /* Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E20E1642B85A3D90024BEA8 /* Elements.swift */; };
 		6E2A7A5D2B7ED8E400116030 /* roomplan-large.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 6E2A7A5C2B7ED8E400116030 /* roomplan-large.mp4 */; };
 		6E7DEE7E2B676A0E00165B61 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DEE7D2B676A0E00165B61 /* MainView.swift */; };
@@ -69,6 +70,7 @@
 		619F4B6C2B8144C800F0912D /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		619F4B6E2B8144E500F0912D /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		619F4BA62B8161F600F0912D /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		61CACAC82BA1120700F94AF5 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
 		6E20E1642B85A3D90024BEA8 /* Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Elements.swift; sourceTree = "<group>"; };
 		6E2A7A5C2B7ED8E400116030 /* roomplan-large.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; name = "roomplan-large.mp4"; path = "DesignScape/Resources/roomplan-large.mp4"; sourceTree = SOURCE_ROOT; };
 		6E7DEE7D2B676A0E00165B61 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -135,6 +137,16 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		61CACAC72BA111D900F94AF5 /* Product */ = {
+			isa = PBXGroup;
+			children = (
+				610CA8BA2B7C1F29000A84E1 /* CatalogView.swift */,
+				6107CC3D2B86C99B00EDA568 /* ProductView.swift */,
+				61CACAC82BA1120700F94AF5 /* FavoritesView.swift */,
+			);
+			path = Product;
+			sourceTree = "<group>";
+		};
 		6E2A7A5E2B8096BA00116030 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -185,8 +197,7 @@
 				6E7DEE7D2B676A0E00165B61 /* MainView.swift */,
 				6E7DEE7F2B69C35900165B61 /* CreateDesignView.swift */,
 				6EA62D8E2B75CBDA009ADE7C /* ScanRoomView.swift */,
-				610CA8BA2B7C1F29000A84E1 /* CatalogView.swift */,
-				6107CC3D2B86C99B00EDA568 /* ProductView.swift */,
+				61CACAC72BA111D900F94AF5 /* Product */,
 				6107CC382B86B75800EDA568 /* Profile */,
 				6E20E1642B85A3D90024BEA8 /* Elements.swift */,
 			);
@@ -362,6 +373,7 @@
 			files = (
 				EAD7F8C22B6D80D700BE6AC4 /* CustomARView.swift in Sources */,
 				EAD5D95E2B1FEB810014FA26 /* DataController.swift in Sources */,
+				61CACAC92BA1120700F94AF5 /* FavoritesView.swift in Sources */,
 				610CA8BB2B7C1F29000A84E1 /* CatalogView.swift in Sources */,
 				619F4B6F2B8144E500F0912D /* AccountView.swift in Sources */,
 				6E7DEE9C2B6C947800165B61 /* ScanRoomController.swift in Sources */,
