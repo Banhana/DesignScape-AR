@@ -11,9 +11,7 @@ import FirebaseAuth
 struct SignInView: View {
     @Environment(\.presentationMode) var presentationMode
     
-    @StateObject private var viewModel = AuthenticationViewModel()
-    @State private var email = ""
-    @State private var password = ""
+    @StateObject private var viewModel = AuthenticationViewModel.instance
     @State private var saveUsername = false
     @State private var isPasswordHidden = true
     @State private var isSignedIn = false // Add state variable to track account creation
@@ -39,7 +37,7 @@ struct SignInView: View {
                         .shadow(radius: 3)
                     
                     VStack(alignment: .leading, spacing: 20) {
-                        TextField("Email", text: $email)
+                        TextField("Email", text: $viewModel.email)
                             .textFieldStyle(PlainTextFieldStyle())
                             .font(
                                 Font.custom("Cambay-Regular", size: 16)
@@ -47,7 +45,7 @@ struct SignInView: View {
                             .padding(.horizontal)
                         
                         HStack {
-                            SecureField("Password", text: $password)
+                            SecureField("Password", text: $viewModel.password)
                                 .textFieldStyle(PlainTextFieldStyle())
                                 .font(
                                     Font.custom("Cambay-Regular", size: 16)

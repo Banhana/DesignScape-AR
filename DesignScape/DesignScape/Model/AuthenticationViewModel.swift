@@ -17,6 +17,8 @@ final class AuthenticationViewModel: ObservableObject {
     @Published var userId = ""
     @Published var isUserLoggedIn = false
     
+    static var instance = AuthenticationViewModel()
+    
     init() {
         checkUserLoggedIn() // Check user login status when the view model is initialized
     }
@@ -56,7 +58,9 @@ final class AuthenticationViewModel: ObservableObject {
                 // Attempt to create a new user using provided email and password
                 let authDataResult = try await AuthenticationController.shared.createUser(email: email, password: password, name: name)
                 try await UserManager.shared.createNewUser(auth: authDataResult, name: name)
-                
+                DispatchQueue.main.async {
+                    self.checkUserLoggedIn()
+                }
                 // Print success message and user data upon successful sign-up
                 print("Sign-up Success")
                 print(authDataResult)
@@ -81,6 +85,9 @@ final class AuthenticationViewModel: ObservableObject {
             do {
                 // Attempt to sign in user using provided email and password
                 let returnedUserData = try await AuthenticationController.shared.signIn(email: email, password: password)
+                DispatchQueue.main.async {
+                    self.checkUserLoggedIn()
+                }
                 // Print success message and user data upon successful sign-in
                 print("Sign-in Success")
                 print(returnedUserData)
@@ -95,6 +102,9 @@ final class AuthenticationViewModel: ObservableObject {
     func signout() {
         do {
             try AuthenticationController.shared.signOut()
+            DispatchQueue.main.async {
+                self.checkUserLoggedIn()
+            }
         } catch {
             // Handle sign-out error
             print("Sign-out Error \(error)")
