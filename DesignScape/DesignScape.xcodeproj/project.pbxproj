@@ -167,6 +167,8 @@
 				6E091F412B9073E3006AE7CB /* ObjectDectectionView.swift */,
 			);
 			path = ScanRoom;
+            sourceTree = "<group>";
+        };
 		6107CC382B86B75800EDA568 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
@@ -242,8 +244,6 @@
 			children = (
 				EAD5D95D2B1FEB810014FA26 /* DataController.swift */,
 				6E7DEE9B2B6C947800165B61 /* ObjectDetectionController.swift */,
-				6E20E1722B8B15190024BEA8 /* ObjectNode.swift */,
-				6E091F3B2B906DEE006AE7CB /* ScanRoomController.swift */,
 				6E7DEE9B2B6C947800165B61 /* ScanRoomController.swift */,
 				6107CC322B831E9B00EDA568 /* AuthenticationController.swift */,
 				618390FC2B9548E900291C76 /* UserManager.swift */,
