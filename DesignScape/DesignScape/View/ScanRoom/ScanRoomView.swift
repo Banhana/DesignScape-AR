@@ -23,6 +23,9 @@ struct ScanRoomView: View {
             ScanRoomViewRepresentable().onAppear(perform: {
                 roomController.startSession()
             })
+            .onDisappear(perform: {
+                roomController.stopSession()
+            })
             .ignoresSafeArea()
         }
         .navigationBarTitleDisplayMode(.inline)
