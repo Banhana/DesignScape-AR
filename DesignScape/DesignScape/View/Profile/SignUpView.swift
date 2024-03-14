@@ -9,7 +9,9 @@ import SwiftUI
 import FirebaseAuth
 
 struct SignUpView: View {
-    @StateObject private var viewModel = AuthenticationViewModel()
+    @Environment(\.presentationMode) var presentationMode
+    
+    @StateObject private var viewModel = AuthenticationViewModel.instance
     @State private var agreeTerms = false
     @State private var isAccountCreated = false // Add state variable to track account creation
     @State private var passwordError = false
@@ -83,6 +85,7 @@ struct SignUpView: View {
                                         try await viewModel.signup()
                                         // Set the state variable to true after successful signup
                                         isAccountCreated = true
+                                        self.presentationMode.wrappedValue.dismiss()
                                     } catch {
                                         // Handle error if any
                                     }
@@ -117,13 +120,6 @@ struct SignUpView: View {
             .padding()
             
         }
-        // NavigationLink to navigate to AccountView when the account is successfully created
-        .background(
-            NavigationLink(destination: AccountView(), isActive: $isAccountCreated) {
-                EmptyView()
-            }
-                .hidden()
-        )
     }
 }
 
