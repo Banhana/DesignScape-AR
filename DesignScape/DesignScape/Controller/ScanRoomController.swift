@@ -8,8 +8,9 @@
 import SwiftUI
 import RoomPlan
 
+
 /// Scan Room Controller in charge of capturing the room for a model
-class ScanRoomController: RoomCaptureSessionDelegate, RoomCaptureViewDelegate {
+class ScanRoomController: RoomCaptureSessionDelegate, RoomCaptureViewDelegate, ObservableObject {
     func encode(with coder: NSCoder) {
         fatalError("Not Needed")
     }
@@ -26,10 +27,17 @@ class ScanRoomController: RoomCaptureSessionDelegate, RoomCaptureViewDelegate {
     /// A 3d model of the final result
     var finalResult: CapturedRoom?
     
+    // Setup RoomBuilder
+    private var roomBuilder = RoomBuilder(options: [.beautifyObjects])
+    
+    // Export url
+    @Published var url: URL?
+    
     /// Initializer
     init() {
         captureView = RoomCaptureView(frame: .zero)
         captureView.delegate = self
+        captureView.captureSession.delegate = self
     }
     
     /// Capture the room
@@ -42,7 +50,35 @@ class ScanRoomController: RoomCaptureSessionDelegate, RoomCaptureViewDelegate {
     
     /// Scans completed
     func captureView(didPresent processedResult: CapturedRoom, error: (Error)?) {
+        if let error {
+            print("Error: \(error.localizedDescription)")
+            return
+        }
         finalResult = processedResult
+    }
+    
+    func captureSession(_ session: RoomCaptureSession, didEndWith data: CapturedRoomData, error: (Error)?) {
+        if let error {
+            print("Error: \(error.localizedDescription)")
+            return
+        }
+        generateRoomURL(with: data)
+    }
+    
+    func generateRoomURL(with captureRoomData: CapturedRoomData){
+        print("Starting to generate URL")
+        // Export to file and share
+        Task {
+            if let finalRoom = try? await roomBuilder.capturedRoom(from: captureRoomData) {
+                if let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+                    let url = directory.appendingPathComponent("scanned.usdz")
+                    try finalRoom.export(to: url)
+                    self.url = url
+                    print("Successful Export URL for model")
+                    print(url)
+                }
+            }
+        }
     }
     
     /// Start a session
