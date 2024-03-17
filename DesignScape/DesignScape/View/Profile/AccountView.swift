@@ -8,24 +8,21 @@
 import SwiftUI
 
 struct AccountView: View {
-    @StateObject private var viewModel = AuthenticationViewModel()
+    @StateObject private var viewModel = AuthenticationViewModel.instance
     
     var body: some View {
         ZStack{
             Color(.grey).edgesIgnoringSafeArea(.horizontal).opacity(0.2)
             VStack(alignment: .leading){
-                Text("Welcome")
-                    .font(.custom("Merriweather-Regular", size: 40))
+                
                 
                 // if user is logged in, only displays the Projects & Favorites folder
                 if viewModel.isUserLoggedIn {
-                    Text("\(viewModel.name)")
-                        .font(.custom("Merriweather-Regular", size: 36))
+                    H1Text(title: "Welcome, \(viewModel.name)!")
                     
                     // Button to sign out
                     Button(action: {
                         viewModel.signout()
-                        NavigationLink(destination: AccountView()){}
                     }) {
                         Text("SIGN OUT")
                             .font(
@@ -41,6 +38,7 @@ struct AccountView: View {
                     .cornerRadius(8)
                     
                 } else {
+                    H1Text(title: "Welcome!")
                     Text("Sign in or create an account to access your designs and to manage your favorites")
                         .font(Font.custom("Cambay-Regular", size: 16))
                     
