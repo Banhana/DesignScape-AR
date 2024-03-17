@@ -13,17 +13,19 @@ struct DBUser{
     let userId: String
     let email: String?
     let name: String?
+
 }
 
 final class UserManager{
     static let shared = UserManager()
+    private var db = DataController.shared.db
     private init(){}
     
     func createNewUser(auth: AuthDataResultModel, name: String) async throws {
         // Define the data to be stored in the Firestore document
         var userData: [String: Any] = [
             "uid": auth.uid,
-            "email": auth.email,
+            "email": auth.email ?? "",
             "name": name,
             // Add more user data as needed
         ]
@@ -54,10 +56,36 @@ final class UserManager{
     }
     
     func addToFavorites(userId: String, productUID: String) async throws {
-        let favoritesRef = Firestore.firestore().collection("users").document(userId).collection("favorites")
+        let favoritesRef = db.collection("users").document(userId).collection("favorites")
         
         // Add product UID to favorites collection
         try await favoritesRef.document(productUID).setData(["addedAt": Timestamp()])
+    }
+    
+    func getFavorites(userId: String){
+        let favoritesRef = db.collection("users").document(userId).collection("favorites")
+        var products: [Product] = []
+        favoritesRef.getDocuments { snapshot, error in
+            if let error = error {
+                print("Error getting product: \(error.localizedDescription)")
+            } else {
+                //                products = []
+                // Iterate through each document in the collection
+                for document in snapshot!.documents {
+                    // Try to decode document data into Product model
+                    do {
+                        let product = try document.data(as: Product.self)
+                        // Append the decoded product to the products array
+                        DispatchQueue.main.async {
+                            products.append(product)
+                            print(products)
+                        }
+                    } catch {
+                        print("Error decoding product: \(error.localizedDescription)")
+                    }
+                }
+            }
+        }
     }
 
 }
