@@ -7,6 +7,7 @@
 
 import SwiftUI
 import RoomPlan
+import ARKit
 
 
 /// Scan Room Controller in charge of capturing the room for a model
@@ -33,11 +34,20 @@ class ScanRoomController: RoomCaptureSessionDelegate, RoomCaptureViewDelegate, O
     // Export url
     @Published var url: URL?
     
+    // Scene View to build model
+    var sceneView: SCNView?
+    
     /// Initializer
     init() {
         captureView = RoomCaptureView(frame: .zero)
         captureView.delegate = self
         captureView.captureSession.delegate = self
+        
+        // Setup scene
+        sceneView = SCNView(frame: .zero)
+        sceneView?.scene = SCNScene()
+        sceneView?.allowsCameraControl = true
+        sceneView?.autoenablesDefaultLighting = true
     }
     
     /// Capture the room
@@ -55,29 +65,24 @@ class ScanRoomController: RoomCaptureSessionDelegate, RoomCaptureViewDelegate, O
             return
         }
         finalResult = processedResult
+        generateRoomURL()
     }
     
-    func captureSession(_ session: RoomCaptureSession, didEndWith data: CapturedRoomData, error: (Error)?) {
-        if let error {
-            print("Error: \(error.localizedDescription)")
-            return
-        }
-        generateRoomURL(with: data)
-    }
-    
-    func generateRoomURL(with captureRoomData: CapturedRoomData){
+    func generateRoomURL(){
         print("Starting to generate URL")
-        // Export to file and share
-        Task {
-            if let finalRoom = try? await roomBuilder.capturedRoom(from: captureRoomData) {
-                if let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-                    let url = directory.appendingPathComponent("scanned.usdz")
-                    try finalRoom.export(to: url)
+        do {
+            if let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first,
+               let finalResult = self.finalResult {
+                let url = directory.appendingPathComponent("Room.usdz")
+                try finalResult.export(to: url)
+                DispatchQueue.main.async {
                     self.url = url
                     print("Successful Export URL for model")
                     print(url)
                 }
             }
+        } catch {
+            print("Error: \(error.localizedDescription)")
         }
     }
     
@@ -91,6 +96,77 @@ class ScanRoomController: RoomCaptureSessionDelegate, RoomCaptureViewDelegate, O
         captureView.captureSession.stop()
     }
 
+}
+
+/// Scan Room Controller + SCNView
+extension ScanRoomController {
+    
+    func onModelReady() {
+        guard let model = finalResult else { return }
+        let walls = getAllNodes(for: model.walls,
+                                length: 0.1,
+                                contents: UIImage(named: "White-Marble-Diffuse"))
+        walls.forEach { wallNode in
+            print("Added a wall")
+            let initialY = wallNode.position.y
+            wallNode.opacity = 0.0
+            wallNode.position.y -= Float((wallNode.geometry?.boundingBox.max.z)! - (wallNode.geometry?.boundingBox.min.z)!) // Initial position adjustment
+            sceneView?.scene?.rootNode.addChildNode(wallNode)
+            // Apply fade-and-float animation
+            SCNTransaction.begin()
+            SCNTransaction.animationDuration = 1.5
+            wallNode.opacity = 1.0
+            wallNode.position.y = initialY // Final position adjustment
+            SCNTransaction.commit()
+        }
+//        let doors = getAllNodes(for: model.doors,
+//                                length: 0.11,
+//                                contents: UIImage(named: "doorTexture"))
+//        doors.forEach { sceneView?.scene?.rootNode.addChildNode($0) }
+//        let windows = getAllNodes(for: model.windows,
+//                                  length: 0.11,
+//                                  contents: UIImage(named: "windowTexture"))
+//        windows.forEach { sceneView?.scene?.rootNode.addChildNode($0) }
+//        let openings = getAllNodes(for: model.openings,
+//                                   length: 0.11,
+//                                   contents: UIColor.blue.withAlphaComponent(0.5))
+//        openings.forEach { sceneView?.scene?.rootNode.addChildNode($0) }
+    }
+    
+    private func getAllNodes(for surfaces: [CapturedRoom.Surface], length: CGFloat, contents: Any?) -> [SCNNode] {
+        var nodes: [SCNNode] = []
+        surfaces.forEach { surface in
+            let width = CGFloat(surface.dimensions.x)
+            let height = CGFloat(surface.dimensions.y)
+            let box = SCNBox(width: width, height: height, length: length, chamferRadius: 0.0)
+            let node = SCNNode(geometry: box)
+            
+            let pbrMaterial = SCNMaterial()
+            pbrMaterial.diffuse.contents = contents
+            pbrMaterial.metalness.contents = UIImage(named: "White-Marble-Metalness")
+            pbrMaterial.normal.contents = UIImage(named: "White-Marble-Normal")
+            pbrMaterial.roughness.contents = UIImage(named: "White-Marble-Normal")
+            node.geometry?.materials = [pbrMaterial]
+            
+            node.transform = SCNMatrix4(surface.transform)
+            nodes.append(node)
+        }
+        return nodes
+    }
+}
+
+/// A SwiftUI compatible view for Model View
+struct ModelViewRepresentable: UIViewRepresentable {
+    
+    /// Get capture view
+    func makeUIView(context: Context) -> SCNView {
+        ScanRoomController.instance.sceneView!
+    }
+    
+    /// Update the view when needed
+    func updateUIView(_ uiView: SCNView, context: Context) {
+        
+    }
 }
 
 /// A SwiftUI compatible view for Scan Room View

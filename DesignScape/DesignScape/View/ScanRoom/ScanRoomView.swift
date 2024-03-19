@@ -31,6 +31,9 @@ struct ScanRoomView: View {
                 
                 /// Share sheet
                 if doneScanning, let url = roomController.url {
+                    NavigationLink(destination: ModelView()) {
+                        Text("View Details")
+                    }
                     ShareLink(item: url) {
                         Image(systemName: "square.and.arrow.up")
                     }
