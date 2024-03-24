@@ -8,20 +8,37 @@
 import SwiftUI
 
 struct AccountView: View {
-    @StateObject private var viewModel = AuthenticationViewModel()
+    @StateObject private var viewModel = AuthenticationViewModel.instance
     
     var body: some View {
         ZStack{
             Color(.grey).edgesIgnoringSafeArea(.horizontal).opacity(0.2)
             VStack(alignment: .leading){
-                Text("Welcome")
-                    .font(.custom("Merriweather-Regular", size: 40))
+                
                 
                 // if user is logged in, only displays the Projects & Favorites folder
                 if viewModel.isUserLoggedIn {
-                    Text("\(viewModel.name)")
-                        .font(.custom("Merriweather-Regular", size: 36))
+                    H1Text(title: "Welcome, \(viewModel.name)!")
+                    
+                    // Button to sign out
+                    Button(action: {
+                        viewModel.signout()
+                    }) {
+                        Text("SIGN OUT")
+                            .font(
+                                Font.custom("Cambay-Regular", size: 14)
+                                    .weight(.semibold)
+                            )
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity, alignment: .bottom)
+                            .padding([.top], 3)
+                    }
+                    .padding(10)
+                    .background(Color("Brown"))
+                    .cornerRadius(8)
+                    
                 } else {
+                    H1Text(title: "Welcome!")
                     Text("Sign in or create an account to access your designs and to manage your favorites")
                         .font(Font.custom("Cambay-Regular", size: 16))
                     
@@ -65,7 +82,7 @@ struct AccountView: View {
                     Image(systemName: "folder")
                         .foregroundColor(.black)
                         .frame(width: 20, height: 20)
-                    NavigationLink(destination: AccountView()) {
+                    NavigationLink(destination: FavoritesView()) {
                         Text("Access my saved designs")
                             .font(
                                 Font.custom("Cambay-Regular", size: 14)

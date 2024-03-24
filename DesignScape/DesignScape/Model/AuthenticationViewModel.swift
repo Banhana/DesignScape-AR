@@ -14,25 +14,32 @@ final class AuthenticationViewModel: ObservableObject {
     @Published var email = ""
     @Published var password = ""
     @Published var name = ""
+    @Published var userId = ""
     @Published var isUserLoggedIn = false
     
+    static var instance = AuthenticationViewModel()
+    
     init() {
-            checkUserLoggedIn() // Check user login status when the view model is initialized
-        }
-        
-        // Function to check if a user is logged in
+        checkUserLoggedIn() // Check user login status when the view model is initialized
+    }
+    
+    // Function to check if a user is logged in
     func checkUserLoggedIn() {
-        do {
-            // Attempt to get authenticated user using the shared AuthenticationController
-            let returnedUserData = try AuthenticationController.shared.getAuthenticatedUser()
-            // User is logged in
-            isUserLoggedIn = true
-            print(returnedUserData)
-        } catch {
-            // User is not logged in
-            isUserLoggedIn = false
-            // Handle the error thrown by getAuthenticatedUser()
-            print("Error checking user login status: \(error)")
+        Task {
+            do {
+                // Attempt to get authenticated user using the shared AuthenticationController
+                let returnedUserData = try AuthenticationController.shared.getAuthenticatedUser()
+                // User is logged in
+                isUserLoggedIn = true
+                name = try await UserManager.shared.getUser(userId: returnedUserData.uid).name ?? ""
+                userId = returnedUserData.uid
+                print(returnedUserData)
+            } catch {
+                // User is not logged in
+                isUserLoggedIn = false
+                // Handle the error thrown by getAuthenticatedUser()
+                print("Error checking user login status: \(error)")
+            }
         }
     }
     
@@ -50,8 +57,10 @@ final class AuthenticationViewModel: ObservableObject {
             do {
                 // Attempt to create a new user using provided email and password
                 let authDataResult = try await AuthenticationController.shared.createUser(email: email, password: password, name: name)
-                try await UserManager.shared.createNewUser(auth: authDataResult)
-
+                try await UserManager.shared.createNewUser(auth: authDataResult, name: name)
+                DispatchQueue.main.async {
+                    self.checkUserLoggedIn()
+                }
                 // Print success message and user data upon successful sign-up
                 print("Sign-up Success")
                 print(authDataResult)
@@ -76,6 +85,9 @@ final class AuthenticationViewModel: ObservableObject {
             do {
                 // Attempt to sign in user using provided email and password
                 let returnedUserData = try await AuthenticationController.shared.signIn(email: email, password: password)
+                DispatchQueue.main.async {
+                    self.checkUserLoggedIn()
+                }
                 // Print success message and user data upon successful sign-in
                 print("Sign-in Success")
                 print(returnedUserData)
@@ -84,7 +96,20 @@ final class AuthenticationViewModel: ObservableObject {
                 print("Sign-in Error \(error)")
             }
         }
-    }
+    } // signin
+    
+    // Function to handle user sign-out
+    func signout() {
+        do {
+            try AuthenticationController.shared.signOut()
+            DispatchQueue.main.async {
+                self.checkUserLoggedIn()
+            }
+        } catch {
+            // Handle sign-out error
+            print("Sign-out Error \(error)")
+        }
+    } // signout
 }
 
 @MainActor
