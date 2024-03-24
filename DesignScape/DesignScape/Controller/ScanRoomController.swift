@@ -7,6 +7,7 @@
 
 import SwiftUI
 import RoomPlan
+import FirebaseStorage
 
 
 /// Scan Room Controller in charge of capturing the room for a model
@@ -71,12 +72,42 @@ class ScanRoomController: RoomCaptureSessionDelegate, RoomCaptureViewDelegate, O
         Task {
             if let finalRoom = try? await roomBuilder.capturedRoom(from: captureRoomData) {
                 if let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-                    let url = directory.appendingPathComponent("scanned.usdz")
+                    let url = directory.appendingPathComponent("Room.usdz")
                     try finalRoom.export(to: url)
                     self.url = url
                     print("Successful Export URL for model")
                     print(url)
+                    uploadUSDZFile(fileURL: url)
                 }
+            }
+        }
+    }
+    
+    func uploadUSDZFile(fileURL: URL) {
+        let storage = Storage.storage()
+        let storageRef = storage.reference()
+        
+        let fileRef = storageRef.child("usdz_files/Room.usdz")
+        
+        // Upload the file to the path "usdz_files/Room.usdz"
+        _ = fileRef.putFile(from: fileURL, metadata: nil) { metadata, error in
+            guard error == nil else {
+                // Handle error
+                print("Error uploading file: \(error!)")
+                return
+            }
+            // File uploaded successfully
+            print("USDZ file uploaded successfully")
+            
+            // Fetch the download URL
+            fileRef.downloadURL { url, error in
+                guard let downloadURL = url, error == nil else {
+                    // Handle error
+                    print("Error getting download URL: \(error!)")
+                    return
+                }
+                // Download URL obtained successfully
+                print("Download URL: \(downloadURL)")
             }
         }
     }
