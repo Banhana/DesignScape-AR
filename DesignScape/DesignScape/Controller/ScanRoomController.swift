@@ -108,6 +108,15 @@ class ScanRoomController: RoomCaptureSessionDelegate, RoomCaptureViewDelegate, O
                 }
                 // Download URL obtained successfully
                 print("Download URL: \(downloadURL)")
+                Task {
+                    do {
+                        let authDataResult = try AuthenticationController.shared.getAuthenticatedUser()
+                        try await UserManager.shared.addToRooms(userId: authDataResult.uid, downloadURL: downloadURL.absoluteString)
+                    } catch {
+                        print("Error")
+                    }
+                }
+                
             }
         }
     }

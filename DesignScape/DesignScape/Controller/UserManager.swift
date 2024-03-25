@@ -59,5 +59,12 @@ final class UserManager{
         // Add product UID to favorites collection
         try await favoritesRef.document(productUID).setData(["addedAt": Timestamp()])
     }
+    
+    func addToRooms(userId: String, downloadURL: String) async throws {
+        let roomsRef = Firestore.firestore().collection("users").document(userId).collection("rooms")
+        
+        // Add product UID to favorites collection
+        try await roomsRef.document().setData(["downloadURL": downloadURL])
+    }
 
 }

@@ -116,8 +116,9 @@ final class AuthenticationViewModel: ObservableObject {
 final class ProfileViewModel: ObservableObject {
     @Published private(set) var user: DBUser? = nil
     
-    func loadCurrentUser() async throws {
+    func loadCurrentUser() async throws -> String {
         let authDataResult = try AuthenticationController.shared.getAuthenticatedUser()
         self.user = try await UserManager.shared.getUser(userId: authDataResult.uid)
+        return authDataResult.uid
     }
 }
