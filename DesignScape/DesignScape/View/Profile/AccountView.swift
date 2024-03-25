@@ -82,7 +82,7 @@ struct AccountView: View {
                     Image(systemName: "folder")
                         .foregroundColor(.black)
                         .frame(width: 20, height: 20)
-                    NavigationLink(destination: FavoritesView()) {
+                    NavigationLink(destination: UserRoomsView()) {
                         Text("Access my saved designs")
                             .font(
                                 Font.custom("Cambay-Regular", size: 14)
