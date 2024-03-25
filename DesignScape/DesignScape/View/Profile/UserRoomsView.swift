@@ -9,66 +9,55 @@ import SwiftUI
 import Firebase
 import FirebaseStorage
 
-//struct UserRoomsView:View {
-//    var body: some View {
-//        Text("Hello")
-//    }
-//}
 struct UserRoomsView: View {
     @State private var usdzFiles: [StorageReference] = []
+    @State var userManager = UserManager.shared
     
     var body: some View {
         VStack {
-            
-            // Display list of USDZ files with image previews
-            List(usdzFiles, id: \.self) { fileRef in
-                AsyncImageView(fileRef: fileRef)
+            HStack{
+                Text("Rooms")
+                    .font(
+                        Font.custom("Merriweather-Regular", size: 20)
+                    )
+                Spacer()
             }
-            .onAppear(perform: fetchUSDZFiles)
-        }
-    }
-    
-    func uploadUSDZFile(fileURL: URL) {
-        let storage = Storage.storage()
-        let storageRef = storage.reference()
-        
-        let fileRef = storageRef.child("usdz_files/Room\(usdzFiles.count + 1).usdz")
-        
-        // Upload the file to the path "usdz_files/RoomX.usdz"
-        let _ = fileRef.putFile(from: fileURL, metadata: nil) { metadata, error in
-            guard error == nil else {
-                // Handle error
-                print("Error uploading file: \(error!)")
-                return
+            LazyVGrid(columns: [GridItem(.flexible(), spacing: 16),
+                                GridItem(.flexible(), spacing: 16)], spacing: 16) {
+                ForEach(usdzFiles, id: \.self) { fileRef in
+                    NavigationLink(destination: UserRoomsView()) {
+                        VStack (alignment: .center, spacing: 4){
+                            AsyncModelThumbnailView(fileRef: fileRef)
+                            
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text(fileRef.name)
+                                    .font(
+                                        Font.custom("Cambay-Regular", size: 12)
+                                    )
+                                    .foregroundColor(Color("AccentColor"))
+                            }
+                        }
+                        .padding([.horizontal, .top])
+                        .background(Color.white)
+                        .cornerRadius(8)
+                        .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
+                    }
+                }
             }
-            // File uploaded successfully
-            print("USDZ file uploaded successfully")
-            
-            // Refresh the list of files
-            fetchUSDZFiles()
+            Spacer()
         }
-    }
-    
-    func fetchUSDZFiles() {
-        let storage = Storage.storage()
-        let storageRef = storage.reference().child("usdz_files")
-        
-        // List all files under "usdz_files" folder
-        storageRef.listAll { result, error in
-            guard error == nil else {
-                // Handle error
-                print("Error listing files: \(error!)")
-                return
+        .onAppear(perform: {
+            userManager.fetchRooms { usdzFiles in
+                self.usdzFiles = usdzFiles
             }
-            
-            // Get the list of file references
-            usdzFiles = result!.items
-        }
+        })
+        .padding()
+        .padding()
+        .customNavBar()
     }
 }
 
-//
-struct AsyncImageView: View {
+struct AsyncModelThumbnailView: View {
     @ObservedObject var thumbnailLoader: ThumbnailLoader
     let fileRef: StorageReference
     
@@ -78,19 +67,14 @@ struct AsyncImageView: View {
     }
     
     var body: some View {
-        VStack {
+        VStack(alignment: .center) {
             if let image = thumbnailLoader.thumbnail {
                 Image(uiImage: image)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 500, height: 500)
-//                RoomViewRepresentable(sceneView: thumbnailLoader.sceneView!)
-//                    .frame(width: 500, height: 500)
             } else {
-                // Placeholder or loading indicator
-                Text("Loading...")
+                ProgressView()
             }
-            Text(fileRef.name)
         }
         .onAppear(perform: thumbnailLoader.load)
     }

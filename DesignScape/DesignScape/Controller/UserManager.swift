@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import FirebaseStorage
 
 struct DBUser{
     let userId: String
@@ -59,12 +60,32 @@ final class UserManager{
         // Add product UID to favorites collection
         try await favoritesRef.document(productUID).setData(["addedAt": Timestamp()])
     }
-    
+
+}
+
+/// User Rooms Manager
+extension UserManager {
     func addToRooms(userId: String, downloadURL: String) async throws {
         let roomsRef = Firestore.firestore().collection("users").document(userId).collection("rooms")
         
         // Add product UID to favorites collection
         try await roomsRef.document().setData(["downloadURL": downloadURL])
     }
-
+    
+    func fetchRooms(completion: @escaping (([StorageReference]) -> Void)) {
+        let storage = Storage.storage()
+        let storageRef = storage.reference().child("usdz_files")
+        
+        // List all files under "usdz_files" folder
+        storageRef.listAll { result, error in
+            guard error == nil else {
+                // Handle error
+                print("Error listing files: \(error!)")
+                return
+            }
+            
+            // Get the list of file references
+            completion(result!.items)
+        }
+    }
 }
