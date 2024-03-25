@@ -21,7 +21,7 @@ class ThumbnailLoader: ObservableObject {
     
     func load() {
         // Generate thumbnail using SceneKit
-        let sceneView = SCNView()
+        let sceneView = SCNView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: 300, height: 300)))
         sceneView.backgroundColor = .clear
         sceneView.autoenablesDefaultLighting = true
         
@@ -38,18 +38,8 @@ class ThumbnailLoader: ObservableObject {
                     // Set camera position
                     let cameraNode = SCNNode()
                     cameraNode.camera = SCNCamera()
-                    // Get the bounding box of the entire scene
-                    let boundingBox = scene.rootNode.boundingBox
-
-                    // Calculate the diagonal length of the bounding box
-//                    let diagonalLength = 0
-
-                    // Calculate the distance between the camera and the object
-//                    let cameraDistance = diagonalLength / (2 * tan(cameraNode.camera!.fieldOfView / 2))
-
-                    // Position the camera at a distance that fits the entire scene
-//                    cameraNode.position = SCNVector3(0, 0, cameraDistance * 1.5) // Adjust the multiplier as needed
-                    cameraNode.position = SCNVector3(0, 0, 10) // Adjust the multiplier as needed
+                    sceneView.allowsCameraControl = true
+                    cameraNode.position = SCNVector3(0, 0, 15)
                     
                     // Add camera to the scene
                     scene.rootNode.addChildNode(cameraNode)

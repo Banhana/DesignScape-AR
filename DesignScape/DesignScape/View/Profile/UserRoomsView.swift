@@ -19,11 +19,6 @@ struct UserRoomsView: View {
     
     var body: some View {
         VStack {
-            Button("Upload USDZ") {
-                // Upload USDZ file
-                let usdzFileURL = URL(fileURLWithPath: "file:///var/mobile/Containers/Data/Application/8BAE7D6C-EBF4-4A3A-B0EC-25F444B1FBE1/Documents/Room.usdz")
-                uploadUSDZFile(fileURL: usdzFileURL)
-            }
             
             // Display list of USDZ files with image previews
             List(usdzFiles, id: \.self) { fileRef in
@@ -85,12 +80,12 @@ struct AsyncImageView: View {
     var body: some View {
         VStack {
             if let image = thumbnailLoader.thumbnail {
-//                Image(uiImage: image)
-//                    .resizable()
-//                    .scaledToFit()
-//                    .frame(width: 500, height: 500)
-                RoomViewRepresentable(sceneView: thumbnailLoader.sceneView!)
+                Image(uiImage: image)
+                    .resizable()
+                    .scaledToFit()
                     .frame(width: 500, height: 500)
+//                RoomViewRepresentable(sceneView: thumbnailLoader.sceneView!)
+//                    .frame(width: 500, height: 500)
             } else {
                 // Placeholder or loading indicator
                 Text("Loading...")
