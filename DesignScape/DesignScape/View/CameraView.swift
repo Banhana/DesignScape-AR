@@ -34,6 +34,18 @@ struct CameraView: View{
                                 .background(.regularMaterial)
                                 .cornerRadius(16)
                         }
+                        Button {
+                            ARManager.shared.actionStream.send(.removeLastObject)
+                        } label: {
+                            // Undo image to undo the last placed objects
+                            Image(systemName: "arrow.uturn.backward.circle")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 40, height: 40)
+                                .padding()
+                                .background(.regularMaterial)
+                                .cornerRadius(16)
+                        }
                         // Puts all model images into buttons
                         ForEach(modelNames, id: \.self) { modelName in
                             Button {

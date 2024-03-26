@@ -11,4 +11,5 @@ import SwiftUI
 enum ARActions{
     case placeObject(modelName: String) // Places the object we select from the images
     case removeAllAnchors // Removes all objects that we placed
+    case removeLastObject // Removes the last placed object
 }

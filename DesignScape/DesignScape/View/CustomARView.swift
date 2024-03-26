@@ -30,15 +30,16 @@ class CustomARView: ARView{
     private var cancellables: Set<AnyCancellable> = []
     
     // Controlls what action is being done in the scene
-    func subscribeToActionStream(){
+    func subscribeToActionStream() {
         ARManager.shared.actionStream
             .sink { [weak self] action in
                 switch action {
-                    case .placeObject(let modelName):
-                        self?.placeObject(modelName: modelName) // Places the object you picked into the AR Scene
-                    
-                    case .removeAllAnchors:
-                        self?.scene.anchors.removeAll()
+                case .placeObject(let modelName):
+                    self?.placeObject(modelName: modelName)
+                case .removeAllAnchors:
+                    self?.scene.anchors.removeAll()
+                case .removeLastObject:
+                    self?.removeLastObject()
                 }
             }
             .store(in: &cancellables)
@@ -56,6 +57,9 @@ class CustomARView: ARView{
         configuration.planeDetection = [.horizontal] // plane detection
         session.run(configuration)
     }
+    
+    // Stack to keep track of placed anchors/entities
+    private var placedObjects: [AnchorEntity] = []
     
     func placeObject(modelName: String) {
         // Loads the model picked from the Furniture directory if it exists
@@ -75,6 +79,7 @@ class CustomARView: ARView{
             }
             anchor.addChild(usdzEntity)
             self.scene.addAnchor(anchor)
+            self.placedObjects.append(anchor) // Push anchor onto the stack
 
             // Add gestures to the entity.
             usdzEntity.generateCollisionShapes(recursive: true)
@@ -83,6 +88,12 @@ class CustomARView: ARView{
             // .scale allows you to change the size of the object
             self.installGestures([.translation, .rotation, .scale], for: usdzEntity)
         }).store(in: &cancellables)
+    }
+    
+    // Function to remove last placed object
+    func removeLastObject() {
+        guard let lastAnchor = placedObjects.popLast() else { return }
+        self.scene.removeAnchor(lastAnchor)
     }
 
     func findClosestPlane() -> ARRaycastResult? {
