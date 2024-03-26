@@ -13,20 +13,30 @@ struct ScanRoomView: View {
     @Environment(\.presentationMode) var presentationMode
     
     /// RoomController instance
-    var roomController = ScanRoomController.instance
+    @ObservedObject var roomController = ScanRoomController.instance
     /// Condition when scanning is completed
     @State private var doneScanning: Bool = false
     
     var body: some View {
-        ZStack (alignment: .topLeading) {
-            /// Camera View
-            ScanRoomViewRepresentable().onAppear(perform: {
-                roomController.startSession()
-            })
-            .onDisappear(perform: {
-                roomController.stopSession()
-            })
-            .ignoresSafeArea()
+        VStack {
+            ZStack (alignment: .bottom) {
+                /// Camera View
+                ScanRoomViewRepresentable().onAppear(perform: {
+                    roomController.startSession()
+                })
+                .onDisappear(perform: {
+                    roomController.stopSession()
+                })
+                .ignoresSafeArea()
+                
+                /// Share sheet
+                if doneScanning, let url = roomController.url {
+                    ShareLink(item: url) {
+                        Image(systemName: "square.and.arrow.up")
+                    }
+                    .font(.title)
+                }
+            }
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
@@ -171,5 +181,8 @@ struct GuidedTourImageScanRoomView: View {
 //        GuidedTourScanRoomView(title: "Get Started", instruction: "Scan your room and design in an immersive experience that brings your vision to life", nextDestinationView: 1)
 //            .navigationBarTitleDisplayMode(.inline)
         ScanRoomView()
+            .onAppear {
+                ScanRoomController.instance.url =  URL(string: "www.google.com")!
+            }
     }
 }
