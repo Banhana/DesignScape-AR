@@ -15,7 +15,7 @@ class ProductViewModel: ObservableObject {
     private var db = DataController.shared.db
     private var storage = DataController.shared.storage
     
-    func getProduct(id: String) {
+    func getProduct(id: String, completion: @escaping (Product) -> Void = { _ in }) {
         db.collection("furnitures").document(id).getDocument { snapshot, error in
             if let error = error {
                 print("Error getting product: \(error.localizedDescription)")
@@ -25,6 +25,7 @@ class ProductViewModel: ObservableObject {
                     DispatchQueue.main.async {
                         self.product = product
                     }
+                    completion(product)
                 } catch {
                     print("Error decoding product: \(error.localizedDescription)")
                 }
@@ -56,7 +57,7 @@ class ProductViewModel: ObservableObject {
                 }
             }
         }
-    } // getProduct
+    } // getAllProduct
     
     //    private func downloadImage(urlString: String) {
     //        let storageRef = storage.reference(forURL: urlString)

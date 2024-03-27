@@ -18,10 +18,14 @@ struct SignUpView: View {
     
     var body: some View {
         ZStack {
-            Image("background-chairs")
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .edgesIgnoringSafeArea(.all)
+            Rectangle()
+                .foregroundColor(.clear)
+                .background {
+                    Image("background-chairs")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .edgesIgnoringSafeArea(.all)
+                }
             VStack {
                 ZStack{
                     Text("Create an Account")
@@ -112,13 +116,11 @@ struct SignUpView: View {
                     }
                     .padding()
                 }
-                .padding(.horizontal, 120)
                 .frame(height: 280)
                 
                 Spacer()
             }
             .padding()
-            
         }
     }
 }

@@ -13,13 +13,13 @@ struct DBUser{
     let userId: String
     let email: String?
     let name: String?
-
+    
 }
 
-final class UserManager{
+final class UserManager: ObservableObject {
     static let shared = UserManager()
     private var db = DataController.shared.db
-    private init(){}
+    init(){}
     
     func createNewUser(auth: AuthDataResultModel, name: String) async throws {
         // Define the data to be stored in the Firestore document
@@ -59,33 +59,29 @@ final class UserManager{
         let favoritesRef = db.collection("users").document(userId).collection("favorites")
         
         // Add product UID to favorites collection
-        try await favoritesRef.document(productUID).setData(["addedAt": Timestamp()])
+        try await favoritesRef.document(productUID).setData(["productUID": productUID])
     }
     
-    func getFavorites(userId: String){
+    func getFavorites(userId: String, completion: @escaping ([String]?, Error?) -> Void) {
         let favoritesRef = db.collection("users").document(userId).collection("favorites")
-        var products: [Product] = []
+        var products: [String] = []
+        
         favoritesRef.getDocuments { snapshot, error in
             if let error = error {
-                print("Error getting product: \(error.localizedDescription)")
+                // Call completion handler with error if an error occurs
+                completion(nil, error)
             } else {
-                //                products = []
                 // Iterate through each document in the collection
                 for document in snapshot!.documents {
                     // Try to decode document data into Product model
-                    do {
-                        let product = try document.data(as: Product.self)
+                    if let product = document.data()["productUID"] as? String {
                         // Append the decoded product to the products array
-                        DispatchQueue.main.async {
-                            products.append(product)
-                            print(products)
-                        }
-                    } catch {
-                        print("Error decoding product: \(error.localizedDescription)")
+                        products.append(product)
                     }
                 }
+                // Call completion handler with products if no error occurs
+                completion(products, nil)
             }
         }
     }
-
 }

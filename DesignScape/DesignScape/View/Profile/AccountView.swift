@@ -107,7 +107,7 @@ struct AccountView: View {
                     Image(systemName: "heart")
                         .foregroundColor(.black)
                         .frame(width: 20, height: 20)
-                    NavigationLink(destination: AccountView()) {
+                    NavigationLink(destination: FavoritesView()) {
                         Text("Explore designs, products and add your favorites")
                             .font(
                                 Font.custom("Cambay-Regular", size: 14)

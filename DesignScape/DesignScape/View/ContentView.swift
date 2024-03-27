@@ -38,7 +38,7 @@ struct ContentView: View {
                                 }
                             }
                         }
-                        print("COmpleted")
+                        print("Completed")
                     }
                     
                 }

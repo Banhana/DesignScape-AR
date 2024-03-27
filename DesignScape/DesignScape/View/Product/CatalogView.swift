@@ -151,8 +151,10 @@ struct ProductCard: View {
     var productId: String // Add product UID
     
     @StateObject var productViewModel = ProductViewModel()
-    @StateObject var user = AuthenticationViewModel()
+    @StateObject var user = AuthenticationViewModel.instance
     @State private var isFavorite = false // State to track favorite status
+    @State private var isLoggedIn = false
+    @State private var isPresentingDetailView = false
     
     var body: some View {
         VStack (alignment: .leading, spacing: 4){
@@ -205,13 +207,40 @@ struct ProductCard: View {
         .background(Color.white)
         .cornerRadius(8)
         .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
+        .sheet(isPresented: $isPresentingDetailView) {
+            // The view to present goes here
+            NavigationStack {
+                AccountView()
+            }
+        }
     }
         
     func addFavorite() async throws{
-        isFavorite.toggle()
-        try await UserManager.shared.addToFavorites(userId: user.userId, productUID: productId)
+        if user.isUserLoggedIn == false {
+            isPresentingDetailView = true
+        }
+        else {
+            try await UserManager.shared.addToFavorites(userId: user.userId, productUID: productId)
+            isFavorite.toggle()
+        }
+    }
+    
+
+}
+struct ContenttView: View {
+    @State private var isPresentingDetailView = false // State variable to control the presentation of the detail view
+    
+    var body: some View {
+        Button("Present Detail View") {
+ // Set isPresentingDetailView to true to present the detail view
+        }
+        .sheet(isPresented: $isPresentingDetailView) {
+            // The view to present goes here
+            AccountView()
+        }
     }
 }
+
 
 struct RoomView: View{
     var rooms: [String]
@@ -336,6 +365,8 @@ struct SaleView: View {
 
 struct CatalogView_Previews: PreviewProvider {
     static var previews: some View {
-        CatalogView()
+        NavigationStack {
+            CatalogView()
+        }
     }
 }
