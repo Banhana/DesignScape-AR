@@ -35,10 +35,22 @@ struct CameraView: View{
                                 .cornerRadius(16)
                         }
                         Button {
-                            ARManager.shared.actionStream.send(.removeLastObject)
+                            ARManager.shared.actionStream.send(.undo)
                         } label: {
                             // Undo image to undo the last placed objects
                             Image(systemName: "arrow.uturn.backward.circle")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 40, height: 40)
+                                .padding()
+                                .background(.regularMaterial)
+                                .cornerRadius(16)
+                        }
+                        Button {
+                            ARManager.shared.actionStream.send(.redo)
+                        } label: {
+                            // Undo image to undo the last placed objects
+                            Image(systemName: "arrow.uturn.forward.circle")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 40, height: 40)

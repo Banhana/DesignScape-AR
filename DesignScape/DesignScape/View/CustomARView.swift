@@ -39,8 +39,10 @@ class CustomARView: ARView{
                     self?.placeObject(modelName: modelName)
                 case .removeAllAnchors:
                     self?.scene.anchors.removeAll()
-                case .removeLastObject:
-                    self?.removeLastObject()
+                case .undo:
+                    self?.undo()
+                case .redo:
+                    self?.redo()
                 }
             }
             .store(in: &cancellables)
@@ -59,8 +61,9 @@ class CustomARView: ARView{
         session.run(configuration)
     }
     
-    // Stack to keep track of placed anchors/entities
-    private var placedObjects: [AnchorEntity] = []
+    // Stacks to keep track of placed anchors/entities
+    private var undoStack: [AnchorEntity] = []
+    private var redoStack: [AnchorEntity] = []
     
     func placeObject(modelName: String) {
         // Reference to Firebase Storage
@@ -108,7 +111,8 @@ class CustomARView: ARView{
                 }
                 anchor.addChild(usdzEntity)
                 self.scene.addAnchor(anchor)
-                self.placedObjects.append(anchor) // Push anchor onto the stack
+                self.redoStack.removeAll()
+                self.undoStack.append(anchor) // Push anchor onto the undo stack
                 
                 // Add gestures to the entity.
                 usdzEntity.generateCollisionShapes(recursive: true)
@@ -121,9 +125,17 @@ class CustomARView: ARView{
     }
     
     // Function to remove last placed object
-    func removeLastObject() {
-        guard let lastAnchor = placedObjects.popLast() else { return }
+    func undo() {
+        guard let lastAnchor = undoStack.popLast() else { return }
         self.scene.removeAnchor(lastAnchor)
+        redoStack.append(lastAnchor) // Push anchor onto the redo stack
+    }
+
+    // Function to redo last removed object
+    func redo() {
+        guard let lastAnchor = redoStack.popLast() else { return }
+        self.scene.addAnchor(lastAnchor)
+        undoStack.append(lastAnchor) // Push anchor back onto the undo stack
     }
 
     func findClosestPlane() -> ARRaycastResult? {
