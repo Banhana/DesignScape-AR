@@ -15,7 +15,7 @@ struct CameraView: View{
     var body: some View{
         ARViewRepresentable()
             .onAppear {
-                modelNames = loadModelNamesFromPlist(named: "Furniture")
+                modelNames = loadModelNamesFromPlist(named: "Furniture") // Function is in ModelLoader.swift
             }
             .ignoresSafeArea()
             // Requires iOS 15+ for .overlay
@@ -75,23 +75,6 @@ struct CameraView: View{
                     .padding()
                 }
             }
-    }
-}
-
-// Loads all models into a list from a specified directory
-func loadModelNamesFromPlist(named plistName: String) -> [String] {
-    // Get the path to the plist file in the asset catalog
-    guard let plistPath = Bundle.main.path(forResource: plistName, ofType: "plist") else {
-        print("Plist file named \(plistName) not found in the app bundle.")
-        return []
-    }
-
-    // Load contents of the plist file
-    if let modelNames = NSArray(contentsOfFile: plistPath) as? [String] {
-        return modelNames
-    } else {
-        print("Error loading model names from plist file.")
-        return []
     }
 }
 

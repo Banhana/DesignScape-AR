@@ -51,6 +51,7 @@
 		6E955C762B2230E900E57F55 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD5D9642B1FED850014FA26 /* ContentView.swift */; };
 		6EA62D8F2B75CBDA009ADE7C /* ScanRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA62D8E2B75CBDA009ADE7C /* ScanRoomView.swift */; };
 		EA8126682BB3E897001DDD4D /* Furniture.plist in Resources */ = {isa = PBXBuildFile; fileRef = EA8126672BB3E897001DDD4D /* Furniture.plist */; };
+		EA8BE2762BB4DE7B0013504B /* ModelLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8BE2752BB4DE7B0013504B /* ModelLoader.swift */; };
 		EA8D2F0F2B1E705A0074FC71 /* DesignScapeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8D2F0E2B1E705A0074FC71 /* DesignScapeApp.swift */; };
 		EA8D2F132B1E705B0074FC71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA8D2F122B1E705B0074FC71 /* Assets.xcassets */; };
 		EA8D2F162B1E705B0074FC71 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA8D2F152B1E705B0074FC71 /* Preview Assets.xcassets */; };
@@ -111,6 +112,7 @@
 		6E7DEE9B2B6C947800165B61 /* ObjectDetectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDetectionController.swift; sourceTree = "<group>"; };
 		6EA62D8E2B75CBDA009ADE7C /* ScanRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanRoomView.swift; sourceTree = "<group>"; };
 		EA8126672BB3E897001DDD4D /* Furniture.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Furniture.plist; sourceTree = "<group>"; };
+		EA8BE2752BB4DE7B0013504B /* ModelLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelLoader.swift; sourceTree = "<group>"; };
 		EA8D2F0B2B1E705A0074FC71 /* DesignScape.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DesignScape.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA8D2F0E2B1E705A0074FC71 /* DesignScapeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignScapeApp.swift; sourceTree = "<group>"; };
 		EA8D2F122B1E705B0074FC71 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -320,6 +322,7 @@
 				EAD7F8BD2B6D803A00BE6AC4 /* ARViewRepresentable.swift */,
 				EAAEB1C92B6F49F800131AB7 /* ARActions.swift */,
 				EAAEB1CB2B6F4A9500131AB7 /* ARManager.swift */,
+				EA8BE2752BB4DE7B0013504B /* ModelLoader.swift */,
 			);
 			path = Camera;
 			sourceTree = "<group>";
@@ -419,6 +422,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA8BE2762BB4DE7B0013504B /* ModelLoader.swift in Sources */,
 				EAD7F8C22B6D80D700BE6AC4 /* CustomARView.swift in Sources */,
 				EAD5D95E2B1FEB810014FA26 /* DataController.swift in Sources */,
 				610CA8BB2B7C1F29000A84E1 /* CatalogView.swift in Sources */,
