@@ -8,6 +8,14 @@
 import SwiftUI
 import FirebaseFirestore
 
+struct Product: Identifiable, Codable, Hashable {
+    @DocumentID var id: String?
+    var name: String
+    var price: Double
+    var description: String
+    var imageURL: String
+}
+
 class ProductViewModel: ObservableObject {
     @Published var product: Product?
     @Published var products: [Product] = []
