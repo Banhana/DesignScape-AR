@@ -65,27 +65,37 @@ final class UserManager{
 
 /// User Rooms Manager
 extension UserManager {
-    func addToRooms(userId: String, downloadURL: String) async throws {
+    /// Add a new room to database and bid it to the user
+    func addToRooms(userId: String, fileRef: String) async throws {
         let roomsRef = Firestore.firestore().collection("users").document(userId).collection("rooms")
         
         // Add product UID to favorites collection
-        try await roomsRef.document().setData(["downloadURL": downloadURL])
+        try await roomsRef.document().setData(["fileRef": fileRef])
     }
     
+    /// Fetch All Rooms
     func fetchRooms(completion: @escaping (([StorageReference]) -> Void)) {
-        let storage = Storage.storage()
-        let storageRef = storage.reference().child("usdz_files")
-        
-        // List all files under "usdz_files" folder
-        storageRef.listAll { result, error in
-            guard error == nil else {
-                // Handle error
-                print("Error listing files: \(error!)")
-                return
+        Task {
+            do {
+                let authDataResult = try AuthenticationController.shared.getAuthenticatedUser()
+                let roomsRef = Firestore.firestore().collection("users").document(authDataResult.uid).collection("rooms")
+                let documents = try await roomsRef.getDocuments()
+                
+                // Array to store storageRefs
+                let storage = DataController.shared.storage
+                var storageRefs: [StorageReference] = []
+                
+                // Iterate through documents and extract fileRef from each document
+                for document in documents.documents {
+                    if let fileRef = document.data()["fileRef"] as? String {
+                        storageRefs.append(storage.reference().child(fileRef))
+                    }
+                }
+                // Get the list of file references
+                completion(storageRefs)
+            } catch {
+                print("Error")
             }
-            
-            // Get the list of file references
-            completion(result!.items)
         }
     }
 }

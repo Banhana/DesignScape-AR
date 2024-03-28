@@ -39,7 +39,7 @@ class ThumbnailLoader: ObservableObject {
                     let cameraNode = SCNNode()
                     cameraNode.camera = SCNCamera()
                     sceneView.allowsCameraControl = true
-                    cameraNode.position = SCNVector3(0, 0, 10)
+                    cameraNode.position = SCNVector3(0, 0, 2)
                     
                     // Add camera to the scene
                     scene.rootNode.addChildNode(cameraNode)
