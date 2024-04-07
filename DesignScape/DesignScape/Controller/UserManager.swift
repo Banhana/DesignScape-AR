@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import FirebaseStorage
 
 struct DBUser{
     let userId: String
@@ -81,6 +82,44 @@ final class UserManager: ObservableObject {
                 }
                 // Call completion handler with products if no error occurs
                 completion(products, nil)
+            }
+        }
+    }
+
+}
+
+/// User Rooms Manager
+extension UserManager {
+    /// Add a new room to database and bid it to the user
+    func addToRooms(userId: String, fileRef: String) async throws {
+        let roomsRef = Firestore.firestore().collection("users").document(userId).collection("rooms")
+        
+        // Add product UID to favorites collection
+        try await roomsRef.document().setData(["fileRef": fileRef])
+    }
+    
+    /// Fetch All Rooms
+    func fetchRooms(completion: @escaping (([StorageReference]) -> Void)) {
+        Task {
+            do {
+                let authDataResult = try AuthenticationController.shared.getAuthenticatedUser()
+                let roomsRef = Firestore.firestore().collection("users").document(authDataResult.uid).collection("rooms")
+                let documents = try await roomsRef.getDocuments()
+                
+                // Array to store storageRefs
+                let storage = DataController.shared.storage
+                var storageRefs: [StorageReference] = []
+                
+                // Iterate through documents and extract fileRef from each document
+                for document in documents.documents {
+                    if let fileRef = document.data()["fileRef"] as? String {
+                        storageRefs.append(storage.reference().child(fileRef))
+                    }
+                }
+                // Get the list of file references
+                completion(storageRefs)
+            } catch {
+                print("Error")
             }
         }
     }
