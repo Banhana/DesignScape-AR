@@ -70,4 +70,3 @@ struct ScanRoomViewRepresentable: UIViewRepresentable {
         
     }
 }
-
