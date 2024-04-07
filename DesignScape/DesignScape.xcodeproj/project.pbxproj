@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		610552A62BC231A500F5A052 /* ProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610552A42BC231A500F5A052 /* ProductView.swift */; };
 		610552A72BC231A500F5A052 /* CatalogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610552A52BC231A500F5A052 /* CatalogView.swift */; };
+		610552A92BC231BA00F5A052 /* ScanRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610552A82BC231BA00F5A052 /* ScanRoomView.swift */; };
 		6107CC332B831E9B00EDA568 /* AuthenticationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6107CC322B831E9B00EDA568 /* AuthenticationController.swift */; };
 		6107CC352B831EC100EDA568 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6107CC342B831EC100EDA568 /* AuthenticationViewModel.swift */; };
 		6107CC3A2B86BC3C00EDA568 /* ProductViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6107CC392B86BC3C00EDA568 /* ProductViewModel.swift */; };
