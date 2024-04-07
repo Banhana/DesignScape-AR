@@ -14,17 +14,19 @@ struct DBUser{
     let userId: String
     let email: String?
     let name: String?
+    
 }
 
-final class UserManager{
+final class UserManager: ObservableObject {
     static let shared = UserManager()
-    private init(){}
+    private var db = DataController.shared.db
+    init(){}
     
     func createNewUser(auth: AuthDataResultModel, name: String) async throws {
         // Define the data to be stored in the Firestore document
         var userData: [String: Any] = [
             "uid": auth.uid,
-            "email": auth.email,
+            "email": auth.email ?? "",
             "name": name,
             // Add more user data as needed
         ]
@@ -55,10 +57,33 @@ final class UserManager{
     }
     
     func addToFavorites(userId: String, productUID: String) async throws {
-        let favoritesRef = Firestore.firestore().collection("users").document(userId).collection("favorites")
+        let favoritesRef = db.collection("users").document(userId).collection("favorites")
         
         // Add product UID to favorites collection
-        try await favoritesRef.document(productUID).setData(["addedAt": Timestamp()])
+        try await favoritesRef.document(productUID).setData(["productUID": productUID])
+    }
+    
+    func getFavorites(userId: String, completion: @escaping ([String]?, Error?) -> Void) {
+        let favoritesRef = db.collection("users").document(userId).collection("favorites")
+        var products: [String] = []
+        
+        favoritesRef.getDocuments { snapshot, error in
+            if let error = error {
+                // Call completion handler with error if an error occurs
+                completion(nil, error)
+            } else {
+                // Iterate through each document in the collection
+                for document in snapshot!.documents {
+                    // Try to decode document data into Product model
+                    if let product = document.data()["productUID"] as? String {
+                        // Append the decoded product to the products array
+                        products.append(product)
+                    }
+                }
+                // Call completion handler with products if no error occurs
+                completion(products, nil)
+            }
+        }
     }
 
 }

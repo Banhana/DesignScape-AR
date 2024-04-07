@@ -21,11 +21,11 @@ struct SignInView: View {
             Rectangle()
                 .foregroundColor(.clear)
                 .background {
-                Image("background-chairs")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .edgesIgnoringSafeArea(.all)
-            }
+                    Image("background-chairs")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .edgesIgnoringSafeArea(.all)
+                }
             VStack {
                 Text("Sign In")
                     .font(.custom("Merriweather-Regular", size: 40))
