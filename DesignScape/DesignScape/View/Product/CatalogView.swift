@@ -106,6 +106,7 @@ struct FurnitureCard: View {
 }
 
 struct ProductBannerView: View {
+    @StateObject var viewModel = ProductViewModel()
     var body: some View {
         VStack (alignment: .leading){
             HStack{
@@ -127,40 +128,67 @@ struct ProductBannerView: View {
             VStack {
                 LazyVGrid(columns: [GridItem(.flexible(), spacing: 16),
                                     GridItem(.flexible(), spacing: 16)], spacing: 16) {
-                    ForEach(1..<5) { index in
-                        ProductCard(productName: "Product \(index)", price: "\(index * 10)", imageName: "product\(index)")
-                            .aspectRatio(1, contentMode: .fit)
+                    ForEach(viewModel.products) { product in
+                        
+                        NavigationLink(destination: ProductView(id: product.id!)) {
+                            ProductCard(productName: product.name, price: product.price, imageURL: product.imageURL, productId: product.id!)
+                        }
                     }
                 }
-                                    .padding()
+                .padding()
             }
         }
+        .onAppear(perform: {
+            viewModel.getAllProducts()
+        })
     }
 }
 
 struct ProductCard: View {
     var productName: String
-    var price: String
-    var imageName: String
+    var price: Double
+    var imageURL: String
+    var productId: String // Add product UID
+    
+    @StateObject var productViewModel = ProductViewModel()
+    @StateObject var user = AuthenticationViewModel.instance
+    @State private var isFavorite = false // State to track favorite status
+    @State private var isLoggedIn = false
+    @State private var isPresentingDetailView = false
     
     var body: some View {
         VStack (alignment: .leading, spacing: 4){
-            Image(imageName)
+            AsyncImage(url: URL(string: imageURL)) { image in
+                image.resizable()
+            } placeholder: {
+                ProgressView()
+            }
                 .aspectRatio(contentMode: .fill)
                 .frame(width: 141, height: 149)
                 .cornerRadius(8)
-                .overlay(
-                    ZStack {
-                        Circle()
-                            .foregroundColor(Color.white.opacity(0.8))
-                            .frame(width: 32, height: 32)
-                            .offset(x: 40, y: -40)
-                        Image(systemName: "heart")
-                            .foregroundColor(.black)
-                            .frame(width: 20, height: 20)
-                            .offset(x: 40, y: -40)
+                .overlay(alignment: .topTrailing) {
+                    Button(action: {
+                        // add product to favorites folder
+                        Task {
+                            do {
+                                try await addFavorite()
+                            } catch {
+                                // Handle the error if addFavorite fails
+                                print("Failed to add favorite: \(error.localizedDescription)")
+                            }
+                        }
+                    }){
+                        ZStack {
+                            Circle()
+                                .foregroundColor(Color.white.opacity(0.8))
+                                .frame(width: 32, height: 32)
+                            Image(systemName: isFavorite ? "heart.fill" : "heart") // Change image based on isFavorite state
+                                .foregroundColor(isFavorite ? .red : .black) // Change color based on isFavorite state
+                                .frame(width: 20, height: 20)
+                        }
+                        .padding(10)
                     }
-                )
+                }
                 .padding(.top, 8)
             
             VStack(alignment: .leading, spacing: 4) {
@@ -169,20 +197,50 @@ struct ProductCard: View {
                         Font.custom("Cambay-Regular", size: 12)
                     )
                     .foregroundColor(Color("AccentColor"))
-                //                    .padding(.bottom, 4)
-                Text("$\(price)")
+                Text("$\(String(format: "%.2f", price))")
                     .font(
                         Font.custom("Cambay-Bold", size: 14)
                     )
             }
-            //            .padding(.vertical)
         }
         .frame(width: 157)
         .background(Color.white)
         .cornerRadius(8)
         .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
+        .sheet(isPresented: $isPresentingDetailView) {
+            // The view to present goes here
+            NavigationStack {
+                AccountView()
+            }
+        }
+    }
+        
+    func addFavorite() async throws{
+        if user.isUserLoggedIn == false {
+            isPresentingDetailView = true
+        }
+        else {
+            try await UserManager.shared.addToFavorites(userId: user.userId, productUID: productId)
+            isFavorite.toggle()
+        }
+    }
+    
+
+}
+struct ContenttView: View {
+    @State private var isPresentingDetailView = false // State variable to control the presentation of the detail view
+    
+    var body: some View {
+        Button("Present Detail View") {
+ // Set isPresentingDetailView to true to present the detail view
+        }
+        .sheet(isPresented: $isPresentingDetailView) {
+            // The view to present goes here
+            AccountView()
+        }
     }
 }
+
 
 struct RoomView: View{
     var rooms: [String]
@@ -307,6 +365,8 @@ struct SaleView: View {
 
 struct CatalogView_Previews: PreviewProvider {
     static var previews: some View {
-        CatalogView()
+        NavigationStack {
+            CatalogView()
+        }
     }
 }
