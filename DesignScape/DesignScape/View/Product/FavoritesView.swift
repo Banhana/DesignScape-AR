@@ -18,11 +18,10 @@ struct FavoritesView: View {
             LazyVGrid(columns: [GridItem(.flexible(), spacing: 16),
                                 GridItem(.flexible(), spacing: 16)], spacing: 16) {
                 ForEach(products, id: \.self) { product in
-                    if let product = productViewModel.product {
                         NavigationLink(destination: ProductView(id: product.id!)) {
                             ProductCard(productName: product.name, price: product.price, imageURL: product.imageURL, productId: product.id!)
                         }
-                    }
+                    
                 }
             }
                                 .padding()
