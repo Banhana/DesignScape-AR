@@ -49,7 +49,7 @@ struct CameraView: View{
                         Button {
                             ARManager.shared.actionStream.send(.redo)
                         } label: {
-                            // Undo image to undo the last placed objects
+                            // Redo image to redo the last placed objects
                             Image(systemName: "arrow.uturn.forward.circle")
                                 .resizable()
                                 .scaledToFit()
