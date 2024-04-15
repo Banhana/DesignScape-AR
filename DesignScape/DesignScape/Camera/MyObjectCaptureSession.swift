@@ -9,6 +9,7 @@ import RealityKit
 import SwiftUI
 import Combine
 
+#if !targetEnvironment(simulator)
 @available(iOS 17.0, *)
 class MyObjectCaptureSession: ObservableObject {
     @Published var session: ObjectCaptureSession?
@@ -51,3 +52,4 @@ class MyObjectCaptureSession: ObservableObject {
         userCompletedScanPass = true
     }
 }
+#endif

@@ -10,10 +10,13 @@ import SwiftUI
 
 @available(iOS 17.0, *)
 struct CapturePrimaryView: View {
+#if !targetEnvironment(simulator)
     @StateObject var session = MyObjectCaptureSession()
     @State private var isReconstructionComplete = false
-
+#endif
+    
     var body: some View {
+#if !targetEnvironment(simulator)
         ZStack {
             if session.userCompletedScanPass {
                 VStack(spacing: 20) {
@@ -37,11 +40,13 @@ struct CapturePrimaryView: View {
                 .padding() // Add padding to the VStack
             } else if isReconstructionComplete {
                 // Display the reconstructed model somehow
-//                if let folderManager = CaptureFolderManager() {
-//                    ReconstructionPrimaryView(outputFile: folderManager.modelsFolder.appendingPathComponent("model-mobile.usdz"))
-//                }
+                //                if let folderManager = CaptureFolderManager() {
+                //                    ReconstructionPrimaryView(outputFile: folderManager.modelsFolder.appendingPathComponent("model-mobile.usdz"))
+                //                }
             } else {
+                
                 ObjectCaptureView(session: session.session ?? ObjectCaptureSession())
+                
                 
                 VStack(spacing: 20) {
                     Spacer() // Pushes the buttons to the bottom
@@ -74,5 +79,6 @@ struct CapturePrimaryView: View {
                 .padding() // Add padding to the VStack
             }
         }
+#endif
     }
 }

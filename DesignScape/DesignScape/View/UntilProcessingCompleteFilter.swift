@@ -8,6 +8,7 @@ An asynchronous sequence filter this sample applies to the photogrammetry sessio
 import Foundation
 import RealityKit
 
+#if !targetEnvironment(simulator)
 @available(iOS 17.0, *)
 struct UntilProcessingCompleteFilter<Base>: AsyncSequence,
                                             AsyncIteratorProtocol where Base: AsyncSequence, Base.Element == PhotogrammetrySession.Output {
@@ -47,3 +48,4 @@ struct UntilProcessingCompleteFilter<Base>: AsyncSequence,
         return nextElement
     }
 }
+#endif
