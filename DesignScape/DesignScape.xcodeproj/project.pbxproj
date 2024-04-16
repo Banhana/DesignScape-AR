@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		610552A62BC231A500F5A052 /* ProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610552A42BC231A500F5A052 /* ProductView.swift */; };
 		610552A72BC231A500F5A052 /* CatalogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610552A52BC231A500F5A052 /* CatalogView.swift */; };
-		610552A92BC231BA00F5A052 /* ScanRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610552A82BC231BA00F5A052 /* ScanRoomView.swift */; };
 		6107CC332B831E9B00EDA568 /* AuthenticationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6107CC322B831E9B00EDA568 /* AuthenticationController.swift */; };
 		6107CC352B831EC100EDA568 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6107CC342B831EC100EDA568 /* AuthenticationViewModel.swift */; };
 		6107CC3A2B86BC3C00EDA568 /* ProductViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6107CC392B86BC3C00EDA568 /* ProductViewModel.swift */; };
@@ -610,7 +609,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DesignScape/Preview Content\"";
-				DEVELOPMENT_TEAM = DJYH9HGVHQ;
+				DEVELOPMENT_TEAM = VK2PRX795K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DesignScape/Info.plist;
@@ -618,7 +617,6 @@
 				INFOPLIST_KEY_NSCameraUsageDescription = "Needed for AR Camera";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
@@ -628,7 +626,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.DesignScape.DesignScape;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.mhuynh.DesignScape;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -644,7 +642,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DesignScape/Preview Content\"";
-				DEVELOPMENT_TEAM = DJYH9HGVHQ;
+				DEVELOPMENT_TEAM = VK2PRX795K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DesignScape/Info.plist;
@@ -652,7 +650,6 @@
 				INFOPLIST_KEY_NSCameraUsageDescription = "Needed for AR Camera";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
@@ -662,7 +659,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.DesignScape.DesignScape;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.mhuynh.DesignScape;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
