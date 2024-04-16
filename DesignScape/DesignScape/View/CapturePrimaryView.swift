@@ -30,11 +30,8 @@ struct CapturePrimaryView: View {
                             ReconstructionPrimaryView(outputFile: folderManager.modelsFolder.appendingPathComponent("model-mobile.usdz"))
                         }
                     }) {
-                        Text("Finish")
-                            .padding()
-                            .background(Color(red: 0.95, green: 0.85, blue: 0.6)) // Goldish
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
+                        GoldButton(text: "FINISH", systemImage: "checkmark")
+                            .opacity(0.8)
                     }
                 }
                 .padding() // Add padding to the VStack
@@ -51,34 +48,25 @@ struct CapturePrimaryView: View {
                 VStack(spacing: 20) {
                     Spacer() // Pushes the buttons to the bottom
                     if case .ready = session.session?.state {
-                        Button(action: { session.session?.startDetecting() }) { // Button to start detecting the object
-                            Text("Continue")
-                                .padding()
-                                .background(Color(red: 0.9, green: 0.85, blue: 0.7)) // Beige Color
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
+                        Button(action: { _ = session.session?.startDetecting() }) { // Button to start detecting the object
+                            GreyButton(text: "CONTINUE", systemImage: "arrow.right")
                         }
                     } else if case .detecting = session.session?.state {
                         Button(action: { session.session?.startCapturing() }) { // Button to start capturing the object
-                            Text("Start Capture")
-                                .padding()
-                                .background(Color(red: 0.6, green: 0.4, blue: 0.2)) // Brown Color
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
+                            PrimaryButton(text: "START CAPTURING", systemImage: "camera")
+                                .opacity(0.8)
                         }
                     } else if case .capturing = session.session?.state {
                         Button(action: { session.finishScanningSession() }) { // Button to finish scanning session
-                            Text("Finish Scanning")
-                                .padding()
-                                .background(Color(red: 0.8, green: 0.8, blue: 0.8)) // Grey Color
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
+                            GoldButton(text: "FINISH", systemImage: "checkmark")
+                                .opacity(0.8)
                         }
                     }
                 }
                 .padding() // Add padding to the VStack
             }
         }
+        .customNavBar(isTitleHidden: true, isCloseButtonHidden: true)
 #endif
     }
 }
