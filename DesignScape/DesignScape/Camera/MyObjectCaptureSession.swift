@@ -13,7 +13,7 @@ import Combine
 @available(iOS 17.0, *)
 class MyObjectCaptureSession: ObservableObject {
     @Published var session: ObjectCaptureSession?
-    @Published var userCompletedScanPass = false
+//    @Published var userCompletedScanPass = false
     var modelFile: URL?
     
     private(set) var scanFolderManager: CaptureFolderManager!
@@ -48,8 +48,10 @@ class MyObjectCaptureSession: ObservableObject {
     }
     
     // Updates Scanning Session when it's finished
-    func finishScanningSession() {
-        userCompletedScanPass = true
+    @MainActor func finishScanningSession() {
+//        userCompletedScanPass = true
+        session?.finish()
+        ObjectCaptureView(session: session ?? ObjectCaptureSession())
     }
 }
 #endif
