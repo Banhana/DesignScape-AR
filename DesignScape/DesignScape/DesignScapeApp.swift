@@ -24,8 +24,9 @@ struct DesignScapeApp: App {
 
     var body: some Scene {
         WindowGroup {
-            MainView()
-                .environment(\.font, Font.custom("Merriweather-Regular", size: 14))
+//            MainView()
+//                .environment(\.font, Font.custom("Merriweather-Regular", size: 14))
+            ContentView()
         }
     }
 }

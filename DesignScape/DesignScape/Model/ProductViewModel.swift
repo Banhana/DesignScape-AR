@@ -14,6 +14,7 @@ struct Product: Identifiable, Codable, Hashable {
     var price: Double
     var description: String
     var imageURL: String
+    var modelURL: String
 }
 
 class ProductViewModel: ObservableObject {
