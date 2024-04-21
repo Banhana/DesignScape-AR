@@ -39,14 +39,13 @@ struct ScanRoomView: View {
                         Button {} label: {
                             Image(systemName: "square.and.arrow.up")
                         }
-
                         
                         Spacer()
                         Button(action: {
                             isActive.toggle()
                         }, label: {
                             ZStack(alignment: .center){
-                                Image("Button")
+                                Image("Round-Button")
                                 Image(systemName: "checkmark")
                                     .resizable()
                                     .frame(width: 22, height: 18)
