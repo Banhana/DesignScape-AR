@@ -9,6 +9,7 @@ import SwiftUI
 
 /// Create Design View allows scanning a new room for a model or live furniture placement
 struct CreateDesignView: View {
+    @State var isActive = false
     var body: some View {
         VStack(alignment: .leading) {
             /// Heading
@@ -24,7 +25,10 @@ struct CreateDesignView: View {
             
             /// Create Room button
             HStack(alignment: .center, spacing: 10) {
-                NavigationLink(destination: GuidedTourScanRoomView(title: "Get Started", instruction: "Scan your room and design in an immersive experience that brings your vision to life", nextDestinationView: 1)) {
+//                NavigationLink(isActive: $isActive, destination: GuidedTourScanRoomView(title: "Get Started", instruction: "Scan your room and design in an immersive experience that brings your vision to life", nextDestinationView: 1, isActive: $isActive)) {
+//                    PrimaryButton(text: "CREATE ROOM", willSpan: true)
+//                }
+                NavigationLink(destination: GuidedTourScanRoomView(title: "Get Started", instruction: "Scan your room and design in an immersive experience that brings your vision to life", nextDestinationView: 1, isActive: $isActive), isActive: $isActive) {
                     PrimaryButton(text: "CREATE ROOM", willSpan: true)
                 }
             }
