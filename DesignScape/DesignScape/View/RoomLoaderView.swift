@@ -8,11 +8,22 @@
 import SwiftUI
 
 struct RoomLoaderView: View {
+    @StateObject var sceneLoader = SceneLoader()
     var body: some View {
-        Text("Hello, World!")
-            .task {
-                SceneLoader().loadScene()
-            }
+        if let _ = sceneLoader.scene {
+            SceneView(scene: sceneLoader.scene)
+                .edgesIgnoringSafeArea(.all)
+                .onAppear {
+//                    self.sceneLoader.loadScene()
+//                    self.sceneLoader.styleWalls()
+                }
+        } else {
+            ProgressView()
+                .onAppear() {
+                    self.sceneLoader.loadScene()
+                    self.sceneLoader.styleWalls()
+                }
+        }
     }
 }
 
