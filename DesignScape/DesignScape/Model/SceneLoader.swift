@@ -34,70 +34,7 @@ class SceneLoader: ObservableObject {
         } else {
             print("Failed to load material images")
         }
-        
-//
-        // Get the existing geometry of the node
-            guard let geometry = node.geometry else {
-                print("Node has no geometry")
-                return
-            }
-        let box = createBoundingBox(for: geometry)
-//        // Define texture coordinates for the geometry
-//        let texCoords: [SCNVector3] = extractVertices(from: geometry)
-//        
-//        // Create a new geometry source with the texture coordinates
-//            let texCoordSource = SCNGeometrySource(vertices: texCoords)
-//        
-//            
-//            // Create a new geometry with the existing geometry's data and the new texture coordinate source
-//            let newGeometry = SCNGeometry(sources: [geometry.sources(for: .vertex).first!, texCoordSource], elements: geometry.elements)
-//            
-//            // Set the semantics of the texture coordinate source
-//            newGeometry.firstMaterial?.diffuse.wrapS = .repeat
-//            newGeometry.firstMaterial?.diffuse.wrapT = .repeat
-////            newGeometry.firstMaterial?.diffuse.contentsTransform = SCNMatrix4Translate(SCNMatrix4MakeScale(1, -1, 1), 0, 1, 0)
-//            
-//            // Replace the existing geometry with the new geometry
-//            node.geometry = newGeometry
-//        
-//        node.geometry?.materials = [pbrMaterial]
-        box.geometry?.materials = [pbrMaterial]
-        scene?.rootNode.addChildNode(box)
-        
-    }
-    
-    func createBoundingBox(for geometry: SCNGeometry) -> SCNNode {
-        let boundingBox = geometry.boundingBox
-        let boxNode = SCNNode(geometry: SCNBox(width: CGFloat(boundingBox.max.x - boundingBox.min.x),
-                                               height: CGFloat(boundingBox.max.y - boundingBox.min.y),
-                                               length: CGFloat(boundingBox.max.z - boundingBox.min.z),
-                                              chamferRadius: 0))
-        var mid: SCNVector3 {
-            let x = (boundingBox.min.x + boundingBox.max.x) / 2
-            let y = (boundingBox.min.y + boundingBox.max.y) / 2
-            let z = (boundingBox.min.z + boundingBox.max.z) / 2
-            return SCNVector3(x: x, y: y, z: z)
-        }
-        boxNode.position = SCNVector3(mid.x, mid.y, mid.z)
-        return boxNode
-    }
-    
-    func extractVertices(from geometry: SCNGeometry) -> [SCNVector3] {
-        guard let vertexSource = geometry.sources(for: .vertex).first else {
-            print("Geometry has no vertex data")
-            return []
-        }
-        
-        let vertices = vertexSource.data.map { Float32($0) }
-        var vertexArray: [SCNVector3] = []
-        for i in 0..<vertices.count / 3 {
-            let index = i * 3
-            let x = vertices[index]
-            let y = vertices[index + 1]
-            let z = vertices[index + 2]
-            vertexArray.append(SCNVector3(x, y, z))
-        }
-        return vertexArray
+        node.geometry?.materials = [pbrMaterial]
     }
     
     func loadScene() {
