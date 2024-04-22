@@ -31,30 +31,15 @@ struct CapturePrimaryView: View {
                     PrimaryButton(text: "START CAPTURING", systemImage: "camera")
                         .opacity(0.8)
                 }
-            } else if case .capturing = session.session?.state {
-                Button(action: { session.finishScanningSession() }) { // Button to finish scanning session
-                    GoldButton(text: "FINISH", systemImage: "checkmark")
-                        .opacity(0.8)
-                }
             } else if case session.session?.userCompletedScanPass = true {
                 VStack {
                     ObjectCapturePointCloudView(session: session.session ?? ObjectCaptureSession())
                     Button(action: { session.session?.finish() }) { // Button to finish scanning session
-                        GoldButton(text: "am done", systemImage: "checkmark")
+                        GoldButton(text: "FINISH", systemImage: "checkmark")
                             .opacity(0.8)
                     }
                 }
-//            } else {
-//                ZStack {
-//                    ObjectCaptureView(session: session.session ?? ObjectCaptureSession())
-//                }
             }
-//            else if case .completed = session.session?.state {
-//                ObjectCaptureView(session: session.session ?? ObjectCaptureSession())
-//                if let folderManager = CaptureFolderManager() {
-//                    ReconstructionPrimaryView(outputFile: folderManager.modelsFolder.appendingPathComponent("model-mobile.usdz"))
-//                }
-//            }
         }
         .padding() // Add padding to the VStack
     }
