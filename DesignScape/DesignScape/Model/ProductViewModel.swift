@@ -140,4 +140,36 @@ class ProductViewModel: ObservableObject {
             completion(false)
         }
     }
+    
+    /// Download model file to local path
+    func downloadModelFile(from url: URL, completion: @escaping (Result<URL, Error>) -> Void) {
+            URLSession.shared.downloadTask(with: url) { (downloadedUrl, response, error) in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                
+                guard let downloadedUrl = downloadedUrl else {
+                    completion(.failure(NSError(domain: "Downloaded URL is nil", code: 0, userInfo: nil)))
+                    return
+                }
+                
+                do {
+                    let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+                    let localFileUrl = documentsDirectory.appendingPathComponent("model.usdz")
+                    
+                    if FileManager.default.fileExists(atPath: localFileUrl.path) {
+                        try FileManager.default.removeItem(at: localFileUrl)
+                    }
+                    
+                    try FileManager.default.moveItem(at: downloadedUrl, to: localFileUrl)
+                    
+                    DispatchQueue.main.async {
+                        completion(.success(localFileUrl))
+                    }
+                } catch {
+                    completion(.failure(error))
+                }
+            }.resume()
+        }
 }
