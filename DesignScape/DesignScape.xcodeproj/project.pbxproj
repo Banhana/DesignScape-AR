@@ -55,6 +55,7 @@
 		6E7DEE9A2B6C602500165B61 /* Cambay-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E7DEE962B6C602500165B61 /* Cambay-Bold.ttf */; };
 		6E7DEE9C2B6C947800165B61 /* ObjectDetectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DEE9B2B6C947800165B61 /* ObjectDetectionController.swift */; };
 		6E955C762B2230E900E57F55 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD5D9642B1FED850014FA26 /* ContentView.swift */; };
+		6EE2EC722BD654E50095DE12 /* bisou-accent-chair.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 6EE2EC712BD654E50095DE12 /* bisou-accent-chair.usdz */; };
 		EA8D2F0F2B1E705A0074FC71 /* DesignScapeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8D2F0E2B1E705A0074FC71 /* DesignScapeApp.swift */; };
 		EA8D2F132B1E705B0074FC71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA8D2F122B1E705B0074FC71 /* Assets.xcassets */; };
 		EA8D2F162B1E705B0074FC71 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA8D2F152B1E705B0074FC71 /* Preview Assets.xcassets */; };
@@ -123,6 +124,7 @@
 		6E7DEE952B6C602500165B61 /* Cambay-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cambay-Regular.ttf"; sourceTree = "<group>"; };
 		6E7DEE962B6C602500165B61 /* Cambay-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cambay-Bold.ttf"; sourceTree = "<group>"; };
 		6E7DEE9B2B6C947800165B61 /* ObjectDetectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDetectionController.swift; sourceTree = "<group>"; };
+		6EE2EC712BD654E50095DE12 /* bisou-accent-chair.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "bisou-accent-chair.usdz"; sourceTree = "<group>"; };
 		EA8D2F0B2B1E705A0074FC71 /* DesignScape.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DesignScape.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA8D2F0E2B1E705A0074FC71 /* DesignScapeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignScapeApp.swift; sourceTree = "<group>"; };
 		EA8D2F122B1E705B0074FC71 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -309,6 +311,7 @@
 		EA8D2F0D2B1E705A0074FC71 /* DesignScape */ = {
 			isa = PBXGroup;
 			children = (
+				6EE2EC712BD654E50095DE12 /* bisou-accent-chair.usdz */,
 				6E23ECCB2BCF3AAC00B2249A /* Room 2.usdz */,
 				6E20E1742B8B15390024BEA8 /* Extension */,
 				6E2A7A5E2B8096BA00116030 /* Resources */,
@@ -424,6 +427,7 @@
 				6E7DEE8D2B69CC4700165B61 /* Merriweather-Black.ttf in Resources */,
 				6E7DEE8B2B69CC4700165B61 /* Merriweather-BlackItalic.ttf in Resources */,
 				EAD6EA9D2B7609990060072B /* Furniture in Resources */,
+				6EE2EC722BD654E50095DE12 /* bisou-accent-chair.usdz in Resources */,
 				6E2A7A5D2B7ED8E400116030 /* roomplan-large.mp4 in Resources */,
 				6E23ECCC2BCF3AAC00B2249A /* Room 2.usdz in Resources */,
 				EA8D2F162B1E705B0074FC71 /* Preview Assets.xcassets in Resources */,

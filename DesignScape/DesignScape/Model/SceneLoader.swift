@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SceneKit
+import RealityKit
 
 class SceneLoader: ObservableObject {
     
@@ -34,7 +35,9 @@ class SceneLoader: ObservableObject {
         } else {
             print("Failed to load material images")
         }
-        node.geometry?.materials = [pbrMaterial]
+        DispatchQueue.main.async {
+            node.geometry?.materials = [pbrMaterial]
+        }
     }
     
     func loadScene() {
@@ -67,6 +70,8 @@ class SceneLoader: ObservableObject {
         let washerDryerNodes = findNodes(withNamePrefix: "WasherDryer", in: rootNode)
         let wallsNodes = findNodes(withNamePrefix: "Wall", in: rootNode)
         
+        replaceObjects(objectNodes: chairNodes)
+        
         sceneModel = SceneModel(
             bathtubs: bathtubNodes,
             beds: bedNodes,
@@ -94,6 +99,33 @@ class SceneLoader: ObservableObject {
             styleNode(node: wall)
             print("Style Wall Once")
         })
+    }
+    
+    func replaceObjects(objectNodes: [SCNNode]) {
+        objectNodes.forEach { objectNode in
+            if let newObjectUrl = Bundle.main.url(forResource: "bisou-accent-chair", withExtension: "usdz"),
+               let newObjectScene = try? SCNScene(url: newObjectUrl),
+               let newObjectNode = newObjectScene.rootNode.childNodes.first {
+                let node = newObjectNode.clone()
+                node.transform = objectNode.transform
+                objectNode.removeFromParentNode()
+                DispatchQueue.main.async {
+                    self.scene?.rootNode.addChildNode(node)
+                }
+                print("Replaced")
+            } else {
+                print("Cannot load file")
+            }
+        }
+        
+    }
+    
+    func loadCustomChairScene() -> SCNScene? {
+        guard let customChairSceneURL = Bundle.main.url(forResource: "CustomChair", withExtension: "usdz"), let customChairScene = try? SCNScene(url: customChairSceneURL, options: nil) else {
+            print("Unable to find CustomChair.usdz")
+            return nil
+        }
+        return customChairScene
     }
     
     func findNodes(withNamePrefix namePrefix: String, in node: SCNNode) -> [SCNNode] {
