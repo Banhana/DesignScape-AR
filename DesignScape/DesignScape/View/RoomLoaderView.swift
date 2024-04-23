@@ -21,7 +21,7 @@ struct RoomLoaderView: View {
     var body: some View {
         if let _ = sceneLoader.scene {
             ZStack {
-                SceneView(scene: sceneLoader.scene)
+                SceneView(scene: sceneLoader.scene, sceneLoader: sceneLoader)
                     .edgesIgnoringSafeArea(.all)
                 VStack {
                     Spacer()

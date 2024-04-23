@@ -128,10 +128,11 @@ class SceneLoader: ObservableObject {
         let view = SCNView()
         view.scene = scene
         var newNodes: [SCNNode] = []
-        objectNodes?.forEach { objectNode in
-            if let newObjectUrl = resourceUrl,
-               let newObjectScene = try? SCNScene(url: newObjectUrl),
-               let newObjectNode = newObjectScene.rootNode.childNodes.first {
+        if let newObjectUrl = resourceUrl,
+           let newObjectScene = try? SCNScene(url: newObjectUrl),
+           let newObjectNode = newObjectScene.rootNode.childNodes.first {
+            objectNodes?.forEach { objectNode in
+                
                 let node = newObjectNode.clone()
                 // Initial state before animation
                 node.name = objectNode.name
@@ -158,9 +159,10 @@ class SceneLoader: ObservableObject {
                 }
                 
                 print("Replaced \(String(describing: objectNode.name))")
-            } else {
-                print("Cannot load file")
+                
             }
+        } else {
+            print("Cannot load file")
         }
         // Replace oldnodes with newnodes
         objectNodes = newNodes
@@ -187,14 +189,62 @@ class SceneLoader: ObservableObject {
         
         return foundNodes
     }
+    
+    func findNearestWall(from point: SCNVector3) -> SCNNode? {
+        guard let walls = sceneModel?.walls else { return nil }
+
+        var nearestWall: SCNNode?
+        var shortestDistance: Float = .greatestFiniteMagnitude
+
+        for wall in walls {
+            let wallCenter = wall.position
+            let distance = SCNVector3.distanceFrom(vector: wallCenter, toVector: point)
+
+            if distance < shortestDistance {
+                shortestDistance = distance
+                nearestWall = wall
+            }
+        }
+
+        return nearestWall
+    }
+    
+    func hideWall(_ wall: SCNNode?) {
+        if let wallToHide = wall {
+            SCNTransaction.begin()
+            SCNTransaction.animationDuration = 0.5
+            sceneModel?.walls?.forEach({ wall in
+                if wall != wallToHide {
+                    wall.opacity = 1
+                }
+            })
+            wallToHide.opacity = 0
+            SCNTransaction.commit()
+        }
+    }
+}
+
+extension SCNVector3 {
+    static func distanceFrom(vector vector1: SCNVector3, toVector vector2: SCNVector3) -> Float {
+        let x0 = vector1.x
+        let x1 = vector2.x
+        let y0 = vector1.y
+        let y1 = vector2.y
+        let z0 = vector1.z
+        let z1 = vector2.z
+
+        return sqrtf(powf(x1-x0, 2) + powf(y1-y0, 2) + powf(z1-z0, 2))
+    }
 }
 
 
 struct SceneView: UIViewRepresentable {
     let scene: SCNScene?
+    let sceneLoader: SceneLoader?
     
-    init(scene: SCNScene?) {
+    init(scene: SCNScene?, sceneLoader: SceneLoader?) {
         self.scene = scene
+        self.sceneLoader = sceneLoader
     }
     
     func makeUIView(context: Context) -> SCNView {
@@ -202,13 +252,35 @@ struct SceneView: UIViewRepresentable {
         view.scene = scene
         view.autoenablesDefaultLighting = true
         view.allowsCameraControl = true
+        view.delegate = context.coordinator
         return view
     }
     
     func updateUIView(_ view: SCNView, context: Context) {
         view.scene = scene
     }
+    
+    func makeCoordinator() -> Coordinator {
+        print("Coordinator made")
+            return Coordinator(self)
+        }
+
+        class Coordinator: NSObject, SCNSceneRendererDelegate {
+            var parent: SceneView
+
+            init(_ parent: SceneView) {
+                self.parent = parent
+            }
+            
+            func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+                if let pointOfViewPos = renderer.pointOfView?.position {
+                    let nearestWall = parent.sceneLoader?.findNearestWall(from: pointOfViewPos)
+                    parent.sceneLoader?.hideWall(nearestWall)
+                }
+            }
+        }
 }
+
 
 #Preview {
     MainView()
