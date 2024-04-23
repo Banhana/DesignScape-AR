@@ -9,6 +9,8 @@ import SwiftUI
 
 struct RoomLoaderView: View {
     @StateObject var sceneLoader = SceneLoader()
+    @State var isGeneratedFirstTime = true
+    @State var isGenerating = false
     
     let chairModelURL = Bundle.main.url(forResource: "bisou-accent-chair", withExtension: "usdz")
     let tableModelURL = Bundle.main.url(forResource: "wells-leather-sofa", withExtension: "usdz")
@@ -21,10 +23,20 @@ struct RoomLoaderView: View {
                 VStack {
                     Spacer()
                     Button {
-                        sceneLoader.replaceChairs(with: chairModelURL)
-                        sceneLoader.replaceTables(with: tableModelURL)
+                        isGenerating = true
+                        sceneLoader.replaceObjects(ofType: .chair, with: chairModelURL)
+                        sceneLoader.replaceObjects(ofType: .table, with: tableModelURL)
+                        sceneLoader.replaceObjects(ofType: .storage, with: tableModelURL)
+                        sceneLoader.replaceObjects(ofType: .television, with: tableModelURL)
+                        isGenerating = false
+                        isGeneratedFirstTime = false
                     } label: {
-                        PrimaryButton(text: "GENERATE", willSpan: true)
+                        if isGenerating {
+                            ProgressView()
+                        } else {
+                            PrimaryButton(text: isGeneratedFirstTime ? "GENERATE" : "REGENERATE", willSpan: true)
+                                .disabled(isGenerating)
+                        }
                     }
                 }
                 .padding(20)

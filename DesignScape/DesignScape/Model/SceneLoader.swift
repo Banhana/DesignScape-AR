@@ -8,6 +8,7 @@
 import SwiftUI
 import SceneKit
 import RealityKit
+import RoomPlan
 
 class SceneLoader: ObservableObject {
     
@@ -64,7 +65,7 @@ class SceneLoader: ObservableObject {
         let storageNodes = findNodes(withNamePrefix: "Storage", in: rootNode)
         let stoveNodes = findNodes(withNamePrefix: "Stove", in: rootNode)
         let tableNodes = findNodes(withNamePrefix: "Table", in: rootNode)
-        let televisionNodes = findNodes(withNamePrefix: "Television", in: rootNode)
+        let televisionNodes = findNodes(withNamePrefix: "Screen", in: rootNode)
         let toiletNodes = findNodes(withNamePrefix: "Toilet", in: rootNode)
         let washerDryerNodes = findNodes(withNamePrefix: "WasherDryer", in: rootNode)
         let wallsNodes = findNodes(withNamePrefix: "Wall", in: rootNode)
@@ -109,19 +110,35 @@ class SceneLoader: ObservableObject {
         })
     }
     
-    func replaceChairs(with resourceUrl: URL?) {
-        var chairs: [SCNNode]? = sceneModel?.chairs
-        replaceObjects(objectNodes: &chairs, with: resourceUrl)
-        sceneModel?.chairs = chairs
+    func replaceObjects(ofType type: CapturedRoom.Object.Category, with resourceUrl: URL?) {
+        var objectNodes: [SCNNode]? = nil
+        
+        switch type {
+        case .storage, .refrigerator, .stove, .bed, .sink, .washerDryer, .toilet, .bathtub, .oven, .dishwasher, .sofa, .chair, .fireplace, .television, .stairs, .table:
+            objectNodes = sceneModel?.nodes(forCategory: type)
+        @unknown default:
+            return
+        }
+        
+//        if var nodes = objectNodes {
+            replaceObjects(objectNodes: &objectNodes, with: resourceUrl)
+        sceneModel?.updateNodes(objectNodes ?? [], forCategory: type)
+//        }
     }
     
-    func replaceTables(with resourceUrl: URL?) {
-        var tables: [SCNNode]? = sceneModel?.tables
-        replaceObjects(objectNodes: &tables, with: resourceUrl)
-        sceneModel?.tables = tables
-    }
+//    func replaceChairs(with resourceUrl: URL?) {
+//        var chairs: [SCNNode]? = sceneModel?.chairs
+//        replaceObjects(objectNodes: &chairs, with: resourceUrl)
+//        sceneModel?.chairs = chairs
+//    }
+//    
+//    func replaceTables(with resourceUrl: URL?) {
+//        var tables: [SCNNode]? = sceneModel?.tables
+//        replaceObjects(objectNodes: &tables, with: resourceUrl)
+//        sceneModel?.tables = tables
+//    }
     
-    func replaceObjects(objectNodes: inout [SCNNode]?, with resourceUrl: URL?) {
+    private func replaceObjects(objectNodes: inout [SCNNode]?, with resourceUrl: URL?) {
         let view = SCNView()
         view.scene = scene
         var newNodes: [SCNNode] = []
@@ -205,6 +222,54 @@ struct SceneModel {
     var washerDryers: [SCNNode]?
     
     var walls: [SCNNode]?
+}
+
+extension SceneModel {
+    func nodes(forCategory category: CapturedRoom.Object.Category) -> [SCNNode]? {
+        switch category {
+        case .storage: return storages
+        case .refrigerator: return refridgerator
+        case .stove: return stoves
+        case .bed: return beds
+        case .sink: return sinks
+        case .washerDryer: return washerDryers
+        case .toilet: return toilets
+        case .bathtub: return bathtubs
+        case .oven: return ovens
+        case .dishwasher: return dishwashers
+        case .table: return tables
+        case .sofa: return sofas
+        case .chair: return chairs
+        case .fireplace: return fireplaces
+        case .television: return televisions
+        case .stairs: return stairs
+        @unknown default:
+            return nil
+        }
+    }
+    
+    mutating func updateNodes(_ nodes: [SCNNode], forCategory category: CapturedRoom.Object.Category) {
+        switch category {
+        case .storage: storages = nodes
+        case .refrigerator: refridgerator = nodes
+        case .stove: stoves = nodes
+        case .bed: beds = nodes
+        case .sink: sinks = nodes
+        case .washerDryer: washerDryers = nodes
+        case .toilet: toilets = nodes
+        case .bathtub: bathtubs = nodes
+        case .oven: ovens = nodes
+        case .dishwasher: dishwashers = nodes
+        case .table: tables = nodes
+        case .sofa: sofas = nodes
+        case .chair: chairs = nodes
+        case .fireplace: fireplaces = nodes
+        case .television: televisions = nodes
+        case .stairs: stairs = nodes
+        @unknown default:
+            return
+        }
+    }
 }
 
 struct SceneView: UIViewRepresentable {
