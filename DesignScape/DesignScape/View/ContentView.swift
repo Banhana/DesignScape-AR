@@ -7,34 +7,48 @@
 
 import SwiftUI
 import Firebase
+import FirebaseFirestore
+
 
 struct ContentView: View {
-    @State private var inputText: String = ""
-    
-    @ObservedObject var dataController = DataController()
+    var imageURLS: [String] = []
+    private var db = DataController.shared.db
+    private var storage = DataController.shared.storage
     
     var body: some View {
-        VStack {
-            Text("DesignScape")
-            DataTableView(items: dataController.items)
-                .onAppear() {
-                    dataController.fetchData()
+        
+        
+        Text("hi")
+            .onAppear(perform: {
+                print("Start")
+                let storageRef = storage.reference().child("products")
+                
+                storageRef.listAll { result, error in
+                    print("Fetch")
+                    if let error = error {
+                        print("Error listing images: \(error.localizedDescription)")
+                    } else {
+                        for item in result!.items {
+                            item.downloadURL { url, error in
+                                if let error = error {
+                                    print("Error getting download URL for \(item.name): \(error.localizedDescription)")
+                                } else if let url = url {
+                                    print("Download URL for \(item.name): \(url.absoluteString)")
+                                    // Here you can store the download URL as needed
+                                }
+                            }
+                        }
+                        print("Completed")
+                    }
+                    
                 }
-            TextField("Enter data here", text: $inputText)
-                .padding()
-            Button("Submit") {
-                dataController.addData(name: inputText)
-            }
-            .padding()
-            Button("Refresh") {
-                dataController.fetchData()
-            }
-        }
+            })
+//        print("\(storageRef)")
     }
 }
 
 struct ContentView_Preview: PreviewProvider {
-  static var previews: some View {
-    ContentView()
-  }
+    static var previews: some View {
+        ContentView()
+    }
 }
