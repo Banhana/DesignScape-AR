@@ -6,11 +6,14 @@
 //
 
 import SwiftUI
+import FirebaseStorage
 
 struct RoomLoaderView: View {
     @StateObject var sceneLoader = SceneLoader()
     @State var isGeneratedFirstTime = true
     @State var isGenerating = false
+    
+    let fileRef: StorageReference
     
     let chairModelURL = Bundle.main.url(forResource: "bisou-accent-chair", withExtension: "usdz")
     let tableModelURL = Bundle.main.url(forResource: "wells-leather-sofa", withExtension: "usdz")
@@ -45,15 +48,17 @@ struct RoomLoaderView: View {
         } else {
             ProgressView()
                 .onAppear() {
-                    self.sceneLoader.loadScene()
-                    self.sceneLoader.styleWalls()
+                    Task {
+                        await self.sceneLoader.loadScene(from: fileRef)
+                    }
                 }
         }
     }
 }
 
 #Preview {
-    NavigationStack {
-        RoomLoaderView()
-    }
+//    NavigationStack {
+//        RoomLoaderView(fileRef: DataController.shared.storage.reference(withPath: "/usdz_files/33i3YtIe6TTzBx7uElHrNdbSq1z1/Room1.usdz"))
+//    }
+    MainView()
 }

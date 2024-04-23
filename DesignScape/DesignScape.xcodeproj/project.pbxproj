@@ -34,7 +34,6 @@
 		6E20E17F2B8B19100024BEA8 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E20E17E2B8B19100024BEA8 /* InfoView.swift */; };
 		6E20E1812B8B19320024BEA8 /* LabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E20E1802B8B19320024BEA8 /* LabelView.swift */; };
 		6E23ECCA2BCF398D00B2249A /* SceneLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E23ECC92BCF398D00B2249A /* SceneLoader.swift */; };
-		6E23ECCC2BCF3AAC00B2249A /* Room 2.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 6E23ECCB2BCF3AAC00B2249A /* Room 2.usdz */; };
 		6E23ECCE2BCF3BBD00B2249A /* RoomLoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E23ECCD2BCF3BBD00B2249A /* RoomLoaderView.swift */; };
 		6E2A7A5D2B7ED8E400116030 /* roomplan-large.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 6E2A7A5C2B7ED8E400116030 /* roomplan-large.mp4 */; };
 		6E4CA3312BA67CEA00B9F152 /* ScanRoomController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4CA3302BA67CEA00B9F152 /* ScanRoomController.swift */; };
@@ -104,7 +103,6 @@
 		6E20E17E2B8B19100024BEA8 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		6E20E1802B8B19320024BEA8 /* LabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelView.swift; sourceTree = "<group>"; };
 		6E23ECC92BCF398D00B2249A /* SceneLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneLoader.swift; sourceTree = "<group>"; };
-		6E23ECCB2BCF3AAC00B2249A /* Room 2.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "Room 2.usdz"; sourceTree = "<group>"; };
 		6E23ECCD2BCF3BBD00B2249A /* RoomLoaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomLoaderView.swift; sourceTree = "<group>"; };
 		6E2A7A5C2B7ED8E400116030 /* roomplan-large.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; name = "roomplan-large.mp4"; path = "DesignScape/Resources/roomplan-large.mp4"; sourceTree = SOURCE_ROOT; };
 		6E4CA3302BA67CEA00B9F152 /* ScanRoomController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanRoomController.swift; sourceTree = "<group>"; };
@@ -315,7 +313,6 @@
 			children = (
 				6EE2EC732BD769870095DE12 /* wells-leather-sofa.usdz */,
 				6EE2EC712BD654E50095DE12 /* bisou-accent-chair.usdz */,
-				6E23ECCB2BCF3AAC00B2249A /* Room 2.usdz */,
 				6E20E1742B8B15390024BEA8 /* Extension */,
 				6E2A7A5E2B8096BA00116030 /* Resources */,
 				EAD7F8BC2B6D800B00BE6AC4 /* Camera */,
@@ -432,7 +429,6 @@
 				EAD6EA9D2B7609990060072B /* Furniture in Resources */,
 				6EE2EC722BD654E50095DE12 /* bisou-accent-chair.usdz in Resources */,
 				6E2A7A5D2B7ED8E400116030 /* roomplan-large.mp4 in Resources */,
-				6E23ECCC2BCF3AAC00B2249A /* Room 2.usdz in Resources */,
 				EA8D2F162B1E705B0074FC71 /* Preview Assets.xcassets in Resources */,
 				6E7DEE902B69CC4700165B61 /* Merriweather-Light.ttf in Resources */,
 				6E7DEE992B6C602500165B61 /* Cambay-Regular.ttf in Resources */,

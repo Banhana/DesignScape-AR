@@ -9,6 +9,7 @@ import SwiftUI
 import SceneKit
 import RealityKit
 import RoomPlan
+import FirebaseStorage
 
 class SceneLoader: ObservableObject {
     
@@ -40,9 +41,10 @@ class SceneLoader: ObservableObject {
         }
     }
     
-    func loadScene() {
-        guard let sceneURL = Bundle.main.url(forResource: "Room 2", withExtension: "usdz"), let scene = try? SCNScene(url: sceneURL, options: nil) else {
-            print("Unable to find file.usdz")
+    func loadScene(from fileRef: StorageReference) async {
+        let sceneURL = try? await UserManager.shared.downloadRoomAsync(fileRef: fileRef)
+        
+        guard let sceneURL = sceneURL, let scene = try? SCNScene(url: sceneURL, options: nil) else {
             return
         }
         // Do not async this
@@ -70,9 +72,6 @@ class SceneLoader: ObservableObject {
         let washerDryerNodes = findNodes(withNamePrefix: "WasherDryer", in: rootNode)
         let wallsNodes = findNodes(withNamePrefix: "Wall", in: rootNode)
         
-//        replaceObjects(objectNodes: chairNodes, with: Bundle.main.url(forResource: "bisou-accent-chair", withExtension: "usdz"))
-//        replaceObjects(objectNodes: tableNodes, with: Bundle.main.url(forResource: "wells-leather-sofa", withExtension: "usdz"))
-        
         sceneModel = SceneModel(
             bathtubs: bathtubNodes,
             beds: bedNodes,
@@ -92,6 +91,7 @@ class SceneLoader: ObservableObject {
             washerDryers: washerDryerNodes,
             walls: wallsNodes
         )
+        print("Scene Loaded")
     }
     
     func findLowestYCoordinate(in rootNode: SCNNode) -> Float {
@@ -120,23 +120,9 @@ class SceneLoader: ObservableObject {
             return
         }
         
-//        if var nodes = objectNodes {
-            replaceObjects(objectNodes: &objectNodes, with: resourceUrl)
+        replaceObjects(objectNodes: &objectNodes, with: resourceUrl)
         sceneModel?.updateNodes(objectNodes ?? [], forCategory: type)
-//        }
     }
-    
-//    func replaceChairs(with resourceUrl: URL?) {
-//        var chairs: [SCNNode]? = sceneModel?.chairs
-//        replaceObjects(objectNodes: &chairs, with: resourceUrl)
-//        sceneModel?.chairs = chairs
-//    }
-//    
-//    func replaceTables(with resourceUrl: URL?) {
-//        var tables: [SCNNode]? = sceneModel?.tables
-//        replaceObjects(objectNodes: &tables, with: resourceUrl)
-//        sceneModel?.tables = tables
-//    }
     
     private func replaceObjects(objectNodes: inout [SCNNode]?, with resourceUrl: URL?) {
         let view = SCNView()
@@ -294,6 +280,6 @@ struct SceneView: UIViewRepresentable {
 
 #Preview {
     NavigationStack {
-        RoomLoaderView()
+        RoomLoaderView(fileRef: DataController.shared.storage.reference(withPath: "/usdz_files/33i3YtIe6TTzBx7uElHrNdbSq1z1/Room1.usdz"))
     }
 }
