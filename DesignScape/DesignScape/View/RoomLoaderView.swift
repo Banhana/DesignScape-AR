@@ -9,14 +9,27 @@ import SwiftUI
 
 struct RoomLoaderView: View {
     @StateObject var sceneLoader = SceneLoader()
+    
+    let chairModelURL = Bundle.main.url(forResource: "bisou-accent-chair", withExtension: "usdz")
+    let tableModelURL = Bundle.main.url(forResource: "wells-leather-sofa", withExtension: "usdz")
+    
     var body: some View {
         if let _ = sceneLoader.scene {
-            SceneView(scene: sceneLoader.scene)
-                .edgesIgnoringSafeArea(.all)
-                .onAppear {
-//                    self.sceneLoader.loadScene()
-//                    self.sceneLoader.styleWalls()
+            ZStack {
+                SceneView(scene: sceneLoader.scene)
+                    .edgesIgnoringSafeArea(.all)
+                VStack {
+                    Spacer()
+                    Button {
+                        sceneLoader.replaceChairs(with: chairModelURL)
+                        sceneLoader.replaceTables(with: tableModelURL)
+                    } label: {
+                        PrimaryButton(text: "GENERATE", willSpan: true)
+                    }
                 }
+                .padding(20)
+            }
+            .customNavBar()
         } else {
             ProgressView()
                 .onAppear() {
@@ -28,5 +41,7 @@ struct RoomLoaderView: View {
 }
 
 #Preview {
-    RoomLoaderView()
+    NavigationStack {
+        RoomLoaderView()
+    }
 }

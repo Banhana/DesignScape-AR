@@ -14,6 +14,9 @@ class SceneLoader: ObservableObject {
     @Published var scene: SCNScene?
     @Published var sceneModel: SceneModel?
     
+    private lazy var rootNode = scene?.rootNode
+    private var groundLevel: Float = 0.0
+    
     
     // TODO: create the bounding box instead of the geometry itself because custom UIImage cannot be loaded
     func styleNode(node: SCNNode) {
@@ -22,10 +25,6 @@ class SceneLoader: ObservableObject {
            let metalnessImage = UIImage(named: "White-Marble-Metalness"),
            let normalImage = UIImage(named: "White-Marble-Normal"),
            let roughnessImage = UIImage(named: "White-Marble-Roughness") {
-//            if let jpegData = diffuseImage.jpegData(compressionQuality: 1.0) {
-//                let jpegImage = UIImage(data: jpegData)!
-//                pbrMaterial.diffuse.contents = jpegImage
-//            }
             pbrMaterial.diffuse.contents = diffuseImage
             //                pbrMaterial.metalness.contents = metalnessImage
             //                pbrMaterial.normal.contents = normalImage
@@ -45,12 +44,12 @@ class SceneLoader: ObservableObject {
             print("Unable to find file.usdz")
             return
         }
-        
-        DispatchQueue.main.async {
-            self.scene = scene
-        }
+        // Do not async this
+        self.scene = scene
         // Access the root node of the scene
         let rootNode = scene.rootNode
+        
+        groundLevel = findLowestYCoordinate(in: rootNode)
         
         let bathtubNodes = findNodes(withNamePrefix: "Bathtub", in: rootNode)
         let bedNodes = findNodes(withNamePrefix: "Bed", in: rootNode)
@@ -70,7 +69,8 @@ class SceneLoader: ObservableObject {
         let washerDryerNodes = findNodes(withNamePrefix: "WasherDryer", in: rootNode)
         let wallsNodes = findNodes(withNamePrefix: "Wall", in: rootNode)
         
-        replaceObjects(objectNodes: chairNodes)
+//        replaceObjects(objectNodes: chairNodes, with: Bundle.main.url(forResource: "bisou-accent-chair", withExtension: "usdz"))
+//        replaceObjects(objectNodes: tableNodes, with: Bundle.main.url(forResource: "wells-leather-sofa", withExtension: "usdz"))
         
         sceneModel = SceneModel(
             bathtubs: bathtubNodes,
@@ -91,33 +91,76 @@ class SceneLoader: ObservableObject {
             washerDryers: washerDryerNodes,
             walls: wallsNodes
         )
-        print("Scene Loaded! \(String(describing: sceneModel))")
+    }
+    
+    func findLowestYCoordinate(in rootNode: SCNNode) -> Float {
+        var lowestY: Float = Float.greatestFiniteMagnitude
+        // Finding the lowest of all object gives false value (Walls bounding box is lower than expected), therefore only find the bounding box of Room node
+        rootNode.childNodes.forEach { node in
+            let boundingBox = node.boundingBox
+            lowestY = min(lowestY, boundingBox.min.y)
+        }
+        return lowestY
     }
     
     func styleWalls() {
         sceneModel?.walls?.forEach({ wall in
             styleNode(node: wall)
-            print("Style Wall Once")
         })
     }
     
-    func replaceObjects(objectNodes: [SCNNode]) {
-        objectNodes.forEach { objectNode in
-            if let newObjectUrl = Bundle.main.url(forResource: "bisou-accent-chair", withExtension: "usdz"),
+    func replaceChairs(with resourceUrl: URL?) {
+        var chairs: [SCNNode]? = sceneModel?.chairs
+        replaceObjects(objectNodes: &chairs, with: resourceUrl)
+        sceneModel?.chairs = chairs
+    }
+    
+    func replaceTables(with resourceUrl: URL?) {
+        var tables: [SCNNode]? = sceneModel?.tables
+        replaceObjects(objectNodes: &tables, with: resourceUrl)
+        sceneModel?.tables = tables
+    }
+    
+    func replaceObjects(objectNodes: inout [SCNNode]?, with resourceUrl: URL?) {
+        let view = SCNView()
+        view.scene = scene
+        var newNodes: [SCNNode] = []
+        objectNodes?.forEach { objectNode in
+            if let newObjectUrl = resourceUrl,
                let newObjectScene = try? SCNScene(url: newObjectUrl),
                let newObjectNode = newObjectScene.rootNode.childNodes.first {
                 let node = newObjectNode.clone()
+                // Initial state before animation
+                node.name = objectNode.name
+                node.opacity = 0.0
                 node.transform = objectNode.transform
-                objectNode.removeFromParentNode()
-                DispatchQueue.main.async {
-                    self.scene?.rootNode.addChildNode(node)
+                node.position.y -= Float((node.boundingBox.max.z) - (node.boundingBox.min.z))
+                newNodes.append(node)
+                self.scene?.rootNode.addChildNode(node)
+                print("Initial y \(node.position.y)")
+                DispatchQueue.main.asyncAfter(deadline: .now() + Double.random(in: 0.2...0.8)) {
+                    SCNTransaction.begin()
+                    SCNTransaction.animationDuration = Double.random(in: 0.5...2.5)
+                    node.position.y = self.groundLevel // Final position adjustment
+                    node.opacity = 1.0
+                    objectNode.position.y -= Float((objectNode.boundingBox.max.z) - (objectNode.boundingBox.min.z))
+                    objectNode.opacity = 0.0
+                    SCNTransaction.commit()
                 }
-                print("Replaced")
+                // End animation
+                
+                // Remove after animation ends
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3.3) {
+                    objectNode.removeFromParentNode()
+                }
+                
+                print("Replaced \(String(describing: objectNode.name))")
             } else {
                 print("Cannot load file")
             }
         }
-        
+        // Replace oldnodes with newnodes
+        objectNodes = newNodes
     }
     
     func loadCustomChairScene() -> SCNScene? {
@@ -181,5 +224,11 @@ struct SceneView: UIViewRepresentable {
     
     func updateUIView(_ view: SCNView, context: Context) {
         view.scene = scene
+    }
+}
+
+#Preview {
+    NavigationStack {
+        RoomLoaderView()
     }
 }
