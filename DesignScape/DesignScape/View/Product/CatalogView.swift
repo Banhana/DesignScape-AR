@@ -243,7 +243,6 @@ struct ContenttView: View {
     }
 }
 
-
 struct RoomView: View{
     var rooms: [String]
     

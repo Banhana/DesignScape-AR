@@ -119,7 +119,7 @@ extension UserManager {
                 // Get the list of file references
                 completion(storageRefs)
             } catch {
-                print("Error")
+                print("Error fetchRooms")
             }
         }
     }
