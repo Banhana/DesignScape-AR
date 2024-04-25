@@ -61,6 +61,10 @@ struct CopilotView: View {
     }
 }
 
+extension StorageReference: Hashable{
+    
+}
+
 /// View to pick rooms
 struct CopilotRoomsView: View {
     @State private var usdzFiles: [StorageReference] = []
@@ -80,29 +84,28 @@ struct CopilotRoomsView: View {
                         )
                     Spacer()
                 }
-                LazyVGrid(columns: [GridItem(.flexible(), spacing: 16),
-                                    GridItem(.flexible(), spacing: 16)], spacing: 16) {
-                    ForEach(usdzFiles, id: \.self) { fileRef in
-                        // get file ref
-                        NavigationLink(destination: CopilotRoomTypesView().environmentObject(userSelection)) {
-                            VStack (alignment: .center, spacing: 4){
-                                AsyncModelThumbnailView(fileRef: fileRef)
-                                
-                                VStack(alignment: .leading, spacing: 4) {
-                                    Text(fileRef.name)
-                                        .font(
-                                            Font.custom("Cambay-Regular", size: 12)
-                                        )
-                                        .foregroundColor(Color("AccentColor"))
+                ScrollView {
+                    LazyVGrid(columns: [GridItem(.flexible(), spacing: 16),
+                                        GridItem(.flexible(), spacing: 16)], spacing: 16) {
+                        ForEach(usdzFiles, id: \.self) { fileRef in
+                            // get file ref
+                            NavigationLink(value: fileRef) {
+                                VStack (alignment: .center, spacing: 4){
+                                    AsyncModelThumbnailView(fileRef: fileRef)
+                                    
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        Text(fileRef.name)
+                                            .font(
+                                                Font.custom("Cambay-Regular", size: 12)
+                                            )
+                                            .foregroundColor(Color("AccentColor"))
+                                    }
                                 }
-                            }
-                            .padding([.horizontal, .top])
-                            .background(Color.white)
-                            .cornerRadius(8)
-                            .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
-                        }// navigationlink
-                        .onTapGesture {
-                            userSelection.room = fileRef
+                                .padding([.horizontal, .top])
+                                .background(Color.white)
+                                .cornerRadius(8)
+                                .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
+                            }// navigationlink
                         }
                     }
                 }
@@ -114,10 +117,18 @@ struct CopilotRoomsView: View {
                 }
             })
         }
+        .navigationDestination(for: StorageReference.self) { fileRef in
+            CopilotRoomTypesView().environmentObject(userSelection)
+                .onAppear(){
+                    userSelection.room = fileRef
+                    print("Room: \(userSelection.room)")
+                }
+            
+        }
         .padding(.top, 10)
         .padding([.leading, .trailing], 40)
         .padding(.bottom, 20)
-        //        .customNavBar()
+                .customNavBar()
     }
 } // CopilotRoomsView
 
@@ -258,10 +269,11 @@ struct CopilotGenerateView: View {
 
 
 #Preview {
-    NavigationStack{
-        CopilotView()
-//        CopilotRoomsView()
-//        CopilotRoomTypesView()
-//        CopilotStyleView()
-    }
+//    NavigationStack{
+//        CopilotView()
+////        CopilotRoomsView()
+////        CopilotRoomTypesView()
+////        CopilotStyleView()
+//    }
+    MainView()
 }
