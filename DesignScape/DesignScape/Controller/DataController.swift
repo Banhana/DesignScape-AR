@@ -1,9 +1,22 @@
 import Firebase
+import FirebaseStorage
 
 class DataController: ObservableObject {
     @Published var items: [Item] = []
     
+    static let shared = DataController()
+    
+    // Firebase - allow access to Firebase services like Storage, Firestore, and Auth from anywhere in the app
+    
+    // let storage = DataController.shared.storage
+    // let db = DataController.shared.db
+    // let auth = DataController.shared.auth
+    
+    let storage = Storage.storage()
     let db = Firestore.firestore()
+    let auth = Auth.auth()
+    
+    private init() {}
     
     /// Fetch data from Firebase
     func fetchData(){

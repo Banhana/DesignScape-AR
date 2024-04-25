@@ -8,43 +8,28 @@
 import SwiftUI
 import FirebaseAuth
 
-struct SignUpView: View {
-    @State private var email = ""
-    @State private var password = ""
+struct SignInView: View {
+    @Environment(\.presentationMode) var presentationMode
+    
+    @StateObject private var viewModel = AuthenticationViewModel.instance
     @State private var saveUsername = false
     @State private var isPasswordHidden = true
+    @State private var isSignedIn = false // Add state variable to track account creation
     
     var body: some View {
         ZStack {
-            Image("background-chairs")
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .edgesIgnoringSafeArea(.all)
-            VStack {
-                ZStack{
-                    HStack {
-                        Spacer()
-                        Button(action: {}) {
-                            ZStack(alignment: .center) {
-                                RoundedRectangle(cornerRadius: 8)
-                                    .foregroundColor(Color.grey.opacity(0.5))
-                                    .frame(width: 32, height: 32)
-                                Image("arrow-back")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: 16, height: 12)
-                            }
-                        }
-                        .padding(.top)
-                        .padding(.trailing, 16)
-                        .foregroundColor(.white)
-                        .edgesIgnoringSafeArea(.horizontal)
-                    }
-                    
-                    Text("Create an Account")
-                        .font(.custom("Merriweather-Regular", size: 40))
-                        .foregroundColor(.white)
+            Rectangle()
+                .foregroundColor(.clear)
+                .background {
+                    Image("background-chairs")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .edgesIgnoringSafeArea(.all)
                 }
+            VStack {
+                Text("Sign In")
+                    .font(.custom("Merriweather-Regular", size: 40))
+                    .foregroundColor(.white)
                 
                 ZStack {
                     RoundedRectangle(cornerRadius: 8)
@@ -52,15 +37,15 @@ struct SignUpView: View {
                         .shadow(radius: 3)
                     
                     VStack(alignment: .leading, spacing: 20) {
-                        TextField("Email", text: $email)
+                        TextField("Email", text: $viewModel.email)
                             .textFieldStyle(PlainTextFieldStyle())
                             .font(
                                 Font.custom("Cambay-Regular", size: 16)
                             )
                             .padding(.horizontal)
-
+                        
                         HStack {
-                            SecureField("Password", text: $password)
+                            SecureField("Password", text: $viewModel.password)
                                 .textFieldStyle(PlainTextFieldStyle())
                                 .font(
                                     Font.custom("Cambay-Regular", size: 16)
@@ -76,25 +61,29 @@ struct SignUpView: View {
                         }
                         
                         Button(action: {
-                                    self.saveUsername.toggle()
-                                }) {
-                                    HStack {
-                                        Image(systemName: saveUsername ? "checkmark.square" : "square")
-                                            .foregroundColor(.grey)
-                                        Text("Save username")
-                                            .foregroundColor(.grey)
-                                    }
-                                }
+                            self.saveUsername.toggle()
+                        }) {
+                            HStack {
+                                Image(systemName: saveUsername ? "checkmark.square" : "square")
+                                    .foregroundColor(.grey)
+                                Text("Save username")
+                                    .foregroundColor(.grey)
+                            }
+                        }
                         
                         Button(action: {
-                            Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
-                                if let error = error {
-                                    print(error.localizedDescription)
+                            Task{
+                                do {
+                                    try await viewModel.signin()
+                                    isSignedIn = true
+                                    self.presentationMode.wrappedValue.dismiss()
+                                } catch {
+                                    
                                 }
                             }
                         }) {
                             Spacer()
-
+                            
                             HStack (alignment: .center) {
                                 
                                 Image(systemName: "lock.fill")
@@ -109,29 +98,37 @@ struct SignUpView: View {
                             Spacer()
                         }
                         
-                        HStack {
+                        HStack (alignment: .center){
                             Spacer()
                             Text("Forgot username or password?")
                                 .foregroundColor(.grey)
                                 .bold()
+                            Spacer()
                         }
-                        .padding(.trailing)
                     }
                     .padding()
                 }
-                .padding(.horizontal, 120)
-                .frame(width: .infinity, height: 309)
+                .frame(height: 309)
                 
                 Spacer()
             }
             .padding()
             
         }
-
-
+        
+        // NavigationLink to navigate to AccountView when the account is successfully created
+        .background(
+            //            self.presentationMode.wrappedValue.dismiss()
+            NavigationLink(destination: AccountView(), isActive: $isSignedIn) {
+                EmptyView()
+            }
+                .hidden()
+            
+        )
+        
     }
 }
 
 #Preview {
-    SignUpView()
+    SignInView()
 }
