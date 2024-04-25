@@ -8,18 +8,23 @@
 import SwiftUI
 
 struct AccountView: View {
+    @StateObject private var viewModel = AuthenticationViewModel.instance
+    
     var body: some View {
         ZStack{
             Color(.grey).edgesIgnoringSafeArea(.horizontal).opacity(0.2)
             VStack(alignment: .leading){
-                Text("Welcome")
-                    .font(.custom("Merriweather-Regular", size: 40))
-                Text("Sign in or create an account to access your designs and to manage your favorites")
-                    .font(Font.custom("Cambay-Regular", size: 16))
                 
-                HStack(alignment: .center, spacing: 10) {
-                    NavigationLink(destination: SignInView()) {
-                        Text("SIGN IN")
+                
+                // if user is logged in, only displays the Projects & Favorites folder
+                if viewModel.isUserLoggedIn {
+                    H1Text(title: "Welcome, \(viewModel.name)!")
+                    
+                    // Button to sign out
+                    Button(action: {
+                        viewModel.signout()
+                    }) {
+                        Text("SIGN OUT")
                             .font(
                                 Font.custom("Cambay-Regular", size: 14)
                                     .weight(.semibold)
@@ -28,26 +33,47 @@ struct AccountView: View {
                             .frame(maxWidth: .infinity, alignment: .bottom)
                             .padding([.top], 3)
                     }
-                }
-                .padding(10)
-                .background(Color("Brown"))
-                .cornerRadius(8)
-                
-                HStack(alignment: .center, spacing: 10) {
-                    NavigationLink(destination: SignUpView()) {
-                        Text("CREATE AN ACCOUNT")
-                            .font(
-                                Font.custom("Cambay-Regular", size: 14)
-                                    .weight(.semibold)
-                            )
-                            .foregroundColor(.black)
-                            .frame(maxWidth: .infinity, alignment: .bottom)
-                            .padding([.top], 3)
+                    .padding(10)
+                    .background(Color("Brown"))
+                    .cornerRadius(8)
+                    
+                } else {
+                    H1Text(title: "Welcome!")
+                    Text("Sign in or create an account to access your designs and to manage your favorites")
+                        .font(Font.custom("Cambay-Regular", size: 16))
+                    
+                    HStack(alignment: .center, spacing: 10) {
+                        NavigationLink(destination: SignInView()) {
+                            Text("SIGN IN")
+                                .font(
+                                    Font.custom("Cambay-Regular", size: 14)
+                                        .weight(.semibold)
+                                )
+                                .foregroundColor(.white)
+                                .frame(maxWidth: .infinity, alignment: .bottom)
+                                .padding([.top], 3)
+                        }
                     }
+                    .padding(10)
+                    .background(Color("Brown"))
+                    .cornerRadius(8)
+                    
+                    HStack(alignment: .center, spacing: 10) {
+                        NavigationLink(destination: SignUpView()) {
+                            Text("CREATE AN ACCOUNT")
+                                .font(
+                                    Font.custom("Cambay-Regular", size: 14)
+                                        .weight(.semibold)
+                                )
+                                .foregroundColor(.black)
+                                .frame(maxWidth: .infinity, alignment: .bottom)
+                                .padding([.top], 3)
+                        }
+                    }
+                    .padding(10)
+                    .background(Color("Grey").opacity(0.5))
+                    .cornerRadius(8)
                 }
-                .padding(10)
-                .background(Color("Grey").opacity(0.5))
-                .cornerRadius(8)
                 
                 Text("MY PROJECTS")
                     .font(Font.custom("Cambay-Bold", size: 16))
@@ -56,7 +82,7 @@ struct AccountView: View {
                     Image(systemName: "folder")
                         .foregroundColor(.black)
                         .frame(width: 20, height: 20)
-                    NavigationLink(destination: AccountView()) {
+                    NavigationLink(destination: UserRoomsView()) {
                         Text("Access my saved designs")
                             .font(
                                 Font.custom("Cambay-Regular", size: 14)
@@ -72,7 +98,7 @@ struct AccountView: View {
                 }
                 .padding(10)
                 .background(Color(.white))
-               
+                
                 
                 Text("FAVORITES")
                     .font(Font.custom("Cambay-Bold", size: 16))
@@ -81,7 +107,7 @@ struct AccountView: View {
                     Image(systemName: "heart")
                         .foregroundColor(.black)
                         .frame(width: 20, height: 20)
-                    NavigationLink(destination: AccountView()) {
+                    NavigationLink(destination: FavoritesView()) {
                         Text("Explore designs, products and add your favorites")
                             .font(
                                 Font.custom("Cambay-Regular", size: 14)
@@ -104,7 +130,11 @@ struct AccountView: View {
             .padding(20)
             .padding(.horizontal, 28)
         } // zstack
-
+        .onAppear {
+            // Check user's login status when the view appears
+            viewModel.checkUserLoggedIn()
+            // Retrieve user's login status from Firebase Authentication
+        }
     }
 }
 
