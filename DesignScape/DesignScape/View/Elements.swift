@@ -21,11 +21,11 @@ extension UINavigationController: UIGestureRecognizerDelegate {
 
 /// Custom Navigation Bar
 extension View {
-    func customNavBar() -> some View {
-        self.navigationTitle("DesignScape AR")
+    func customNavBar(isTitleHidden: Bool = false, isCloseButtonHidden: Bool = false) -> some View {
+        self.navigationTitle(isTitleHidden ? "" : "DesignScape AR")
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden(true)
-            .navigationBarItems(leading: BackButton(), trailing: CloseButton())
+            .navigationBarItems(leading: BackButton(), trailing: isCloseButtonHidden ? nil : CloseButton())
     }
 }
 
@@ -33,16 +33,23 @@ extension View {
 struct PrimaryButton: View {
     /// Contents
     var text: String
-    var image: String = ""
+    var image: String?
+    var systemImage: String?
     
     /// Determines if the button will span horizontally to all its available spaces
     var willSpan: Bool = false
     
     var body: some View {
         HStack(alignment: .center, spacing: 10) {
-            if !image.isEmpty {
+            if let image = image {
                 Image(image)
                     .frame(width: 16, height: 16)
+            }
+            if let systemImage = systemImage {
+                Image(systemName: systemImage)
+                    .font(.system(size: 12))
+                    .fontWeight(.semibold)
+                    .foregroundStyle(.white)
             }
             
             Text(text)
@@ -57,6 +64,73 @@ struct PrimaryButton: View {
         .padding(10)
         .frame(maxWidth: willSpan ? .infinity: nil, alignment: .center)
         .background(Color("Brown"))
+        .cornerRadius(8)
+    }
+}
+
+/// GreyButton
+struct GreyButton: View {
+    /// Contents
+    var text: String
+    var systemImage: String?
+    
+    /// Determines if the button will span horizontally to all its available spaces
+    var willSpan: Bool = false
+    
+    var body: some View {
+        HStack(alignment: .center, spacing: 10) {
+            if let systemImage = systemImage {
+                Image(systemName: systemImage)
+                    .font(.system(size: 12))
+                    .fontWeight(.semibold)
+                    .foregroundStyle(.black)
+            }
+            
+            Text(text)
+                .font(
+                    Font.custom("Cambay-Regular", size: 14)
+                        .weight(.semibold)
+                )
+                .foregroundColor(.black)
+                .frame(alignment: .bottom)
+                .padding([.top], 3)
+        }
+        .padding(10)
+        .frame(maxWidth: willSpan ? .infinity: nil, alignment: .center)
+        .background(Color.grey.opacity(0.5))
+        .cornerRadius(8)
+    }
+}
+/// GoldButton
+struct GoldButton: View {
+    /// Contents
+    var text: String
+    var systemImage: String?
+    
+    /// Determines if the button will span horizontally to all its available spaces
+    var willSpan: Bool = false
+    
+    var body: some View {
+        HStack(alignment: .center, spacing: 10) {
+            if let systemImage = systemImage {
+                Image(systemName: systemImage)
+                    .font(.system(size: 12))
+                    .fontWeight(.semibold)
+                    .foregroundStyle(.white)
+            }
+            
+            Text(text)
+                .font(
+                    Font.custom("Cambay-Regular", size: 14)
+                        .weight(.semibold)
+                )
+                .foregroundColor(.white)
+                .frame(alignment: .bottom)
+                .padding([.top], 3)
+        }
+        .padding(10)
+        .frame(maxWidth: willSpan ? .infinity: nil, alignment: .center)
+        .background(Color.accentColor)
         .cornerRadius(8)
     }
 }
@@ -146,6 +220,8 @@ struct BackButton: View {
             BodyText(text: "Body")
             ImageFrame(image: "closing-door")
             PrimaryButton(text: "NEXT", image: "arrow-right")
+            PrimaryButton(text: "START CAPTURE", systemImage: "camera")
+            GoldButton(text: "FINISH", systemImage: "checkmark")
         }
         .padding()
         .customNavBar()

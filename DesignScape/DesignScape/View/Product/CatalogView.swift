@@ -10,7 +10,7 @@ import SwiftUI
 struct CatalogView: View {
     @State private var selectedOption = 0
     @State private var rooms = ["Dining Room", "Bedroom", "Livingroom", "Kitchen", "Bathroom", "Office"]
-    @State private var furniture = ["Chair", "Sofa", "Desk"]
+    @State private var furniture = ["Chair", "Sofa", "Desk", "Custom"]
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: true){
@@ -69,7 +69,7 @@ struct FurnitureView: View{
             
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
-                    ForEach(0..<3) { index in
+                    ForEach(0..<4) { index in
                         FurnitureCard(imageName: "furniture\(index + 1)", category: "\(furniture[index])")
                         
                     }
@@ -86,21 +86,33 @@ struct FurnitureCard: View {
     let category: String
     
     var body: some View {
-        NavigationLink(destination: Text("Furniture category: \(category)")) {
-            ZStack (alignment: .leading) {
-                Image(imageName)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 125, height: 56)
-                    .cornerRadius(8)
-                
-                Text(category)
-                    .font(.caption)
-                    .foregroundColor(.primary)
-                    .padding(.horizontal)
+        if imageName == "furniture4"{
+            NavigationLink(destination: CapturePrimaryView()) {
+                ZStack(alignment: .leading) {
+                    Image(imageName)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 125, height: 56)
+                        .cornerRadius(8)
+                }
             }
-            .padding(2)
-            .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
+        } else {
+            NavigationLink(destination: Text("Furniture category: \(category)")) {
+                ZStack (alignment: .leading) {
+                    Image(imageName)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 125, height: 56)
+                        .cornerRadius(8)
+                    
+                    Text(category)
+                        .font(.caption)
+                        .foregroundColor(.primary)
+                        .padding(.horizontal)
+                }
+                .padding(2)
+                .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
+            }
         }
     }
 }
