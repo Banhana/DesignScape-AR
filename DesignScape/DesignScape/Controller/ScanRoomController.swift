@@ -50,6 +50,29 @@ class ScanRoomController: RoomCaptureSessionDelegate, RoomCaptureViewDelegate, O
         sceneView?.scene?.rootNode.castsShadow = true
         sceneView?.allowsCameraControl = true
         sceneView?.autoenablesDefaultLighting = true
+        // Add spot light to the scene
+        addSpotLight(to: sceneView?.scene?.rootNode)
+    }
+    
+    func addSpotLight(to rootNode: SCNNode?) {
+        // Create a spot light
+        let spotLight = SCNLight()
+        spotLight.type = .spot
+        spotLight.color = UIColor.white
+        spotLight.intensity = 200 // Adjust intensity as needed
+        spotLight.spotInnerAngle = 0 // Adjust inner angle of the spot light
+        spotLight.spotOuterAngle = 60 // Adjust outer angle of the spot light
+        
+        // Create a node to attach the spot light
+        let spotLightNode = SCNNode()
+        spotLightNode.light = spotLight
+        
+        // Position and orient the spot light node
+        spotLightNode.position = SCNVector3(x: 0, y: 50, z: 2) // Adjust position as needed
+        spotLightNode.eulerAngles = SCNVector3(x: -105, y: 0, z: 0) // Point light downwards
+        
+        // Add the spot light node to the root node
+        rootNode?.addChildNode(spotLightNode)
     }
     
     /// Capture the room
@@ -154,19 +177,19 @@ extension ScanRoomController {
         sceneView?.scene?.rootNode.castsShadow = true
         guard let model = finalResult else { return }
         let walls = getAllNodes(for: model.walls,
-                                length: 0.1,
+                                length: 0.2,
                                 contents: UIImage(named: "White-Marble-Diffuse"))
         walls.forEach { sceneView?.scene?.rootNode.addChildNode($0) }
         let doors = getAllNodes(for: model.doors,
-                                length: 0.1,
+                                length: 0.2,
                                 contents: UIImage(named: "doorTexture"))
         doors.forEach { sceneView?.scene?.rootNode.addChildNode($0) }
         let windows = getAllNodes(for: model.windows,
-                                  length: 0.1,
+                                  length: 0.2,
                                   contents: UIImage(named: "windowTexture"))
         windows.forEach { sceneView?.scene?.rootNode.addChildNode($0) }
         let openings = getAllNodes(for: model.openings,
-                                   length: 0.1,
+                                   length: 0.2,
                                    contents: UIColor.blue.withAlphaComponent(0.5))
         openings.forEach { sceneView?.scene?.rootNode.addChildNode($0) }
         let tables = getAllNodes(for: model.objects, contents: UIImage(named: "windowTexture"))
@@ -198,9 +221,11 @@ extension ScanRoomController {
             let height = CGFloat(surface.dimensions.y)
             let box = SCNBox(width: width, height: height, length: length, chamferRadius: 0.0)
             let node = SCNNode(geometry: box)
+            // Create a material for the box
+                let boxMaterial = SCNMaterial()
+            boxMaterial.metalness.contents = 0.2 // Need for shadows
+            box.materials = [boxMaterial]
             node.name = "\(name)\(index)"
-            print(node.name)
-            
             node.transform = SCNMatrix4(surface.transform)
             nodes.append(node)
         }

@@ -49,6 +49,7 @@
 		6E347DC32BDA5AD300D6F834 /* WoodFlooringAshSuperWhite001_REFL_2K.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6E347DC12BDA5AD300D6F834 /* WoodFlooringAshSuperWhite001_REFL_2K.jpg */; };
 		6E4CA3312BA67CEA00B9F152 /* ScanRoomController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4CA3302BA67CEA00B9F152 /* ScanRoomController.swift */; };
 		6E4CA3332BA67D4200B9F152 /* ObjectNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4CA3322BA67D4200B9F152 /* ObjectNode.swift */; };
+		6E5F32DB2BDC4D9A003A980A /* Room 2.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 6E5F32DA2BDC4D9A003A980A /* Room 2.usdz */; };
 		6E7DEE7E2B676A0E00165B61 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DEE7D2B676A0E00165B61 /* MainView.swift */; };
 		6E7DEE802B69C35900165B61 /* CreateDesignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DEE7F2B69C35900165B61 /* CreateDesignView.swift */; };
 		6E7DEE8B2B69CC4700165B61 /* Merriweather-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E7DEE882B69C42500165B61 /* Merriweather-BlackItalic.ttf */; };
@@ -134,6 +135,7 @@
 		6E347DC12BDA5AD300D6F834 /* WoodFlooringAshSuperWhite001_REFL_2K.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = WoodFlooringAshSuperWhite001_REFL_2K.jpg; sourceTree = "<group>"; };
 		6E4CA3302BA67CEA00B9F152 /* ScanRoomController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanRoomController.swift; sourceTree = "<group>"; };
 		6E4CA3322BA67D4200B9F152 /* ObjectNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectNode.swift; sourceTree = "<group>"; };
+		6E5F32DA2BDC4D9A003A980A /* Room 2.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "Room 2.usdz"; sourceTree = "<group>"; };
 		6E7DEE7D2B676A0E00165B61 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		6E7DEE7F2B69C35900165B61 /* CreateDesignView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDesignView.swift; sourceTree = "<group>"; };
 		6E7DEE822B69C42500165B61 /* Merriweather-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Merriweather-Bold.ttf"; sourceTree = "<group>"; };
@@ -348,6 +350,7 @@
 				6E33B4FB2BDB2C53004FF5FF /* SceneKit Scene.scn */,
 				6E1524222BDC2B2700532A46 /* SceneKit Scene2.scn */,
 				6E33B4F92BDB2B56004FF5FF /* 68809180-ec29-bd3b-ef5c-b1b41b277823.glb */,
+				6E5F32DA2BDC4D9A003A980A /* Room 2.usdz */,
 				6E33B4F72BDB241C004FF5FF /* untitled.fbx */,
 				6E33B4F52BDB1312004FF5FF /* autumn_field_puresky_1k.exr */,
 				6E347DBC2BDA5ABE00D6F834 /* WoodFlooringAshSuperWhite001_COL_2K.jpg */,
@@ -478,6 +481,7 @@
 				6E347DC22BDA5AD300D6F834 /* WoodFlooringAshSuperWhite001_GLOSS_2K.jpg in Resources */,
 				EAD6EA9D2B7609990060072B /* Furniture in Resources */,
 				6E33B4F82BDB241C004FF5FF /* untitled.fbx in Resources */,
+				6E5F32DB2BDC4D9A003A980A /* Room 2.usdz in Resources */,
 				6E347DBD2BDA5ABE00D6F834 /* WoodFlooringAshSuperWhite001_COL_2K.jpg in Resources */,
 				6EE2EC722BD654E50095DE12 /* bisou-accent-chair.usdz in Resources */,
 				6E33B4FD2BDB31FF004FF5FF /* SceneKit Scene.scn in Resources */,
