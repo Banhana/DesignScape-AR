@@ -38,6 +38,8 @@
 		6E2A7A5D2B7ED8E400116030 /* roomplan-large.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 6E2A7A5C2B7ED8E400116030 /* roomplan-large.mp4 */; };
 		6E33B4F62BDB1312004FF5FF /* autumn_field_puresky_1k.exr in Resources */ = {isa = PBXBuildFile; fileRef = 6E33B4F52BDB1312004FF5FF /* autumn_field_puresky_1k.exr */; };
 		6E33B4F82BDB241C004FF5FF /* untitled.fbx in Resources */ = {isa = PBXBuildFile; fileRef = 6E33B4F72BDB241C004FF5FF /* untitled.fbx */; };
+		6E33B4FA2BDB2B56004FF5FF /* 68809180-ec29-bd3b-ef5c-b1b41b277823.glb in Resources */ = {isa = PBXBuildFile; fileRef = 6E33B4F92BDB2B56004FF5FF /* 68809180-ec29-bd3b-ef5c-b1b41b277823.glb */; };
+		6E33B4FD2BDB31FF004FF5FF /* SceneKit Scene.scn in Resources */ = {isa = PBXBuildFile; fileRef = 6E33B4FB2BDB2C53004FF5FF /* SceneKit Scene.scn */; };
 		6E347DB72BDA543A00D6F834 /* puresky.exr in Resources */ = {isa = PBXBuildFile; fileRef = 6E347DB62BDA543A00D6F834 /* puresky.exr */; };
 		6E347DBD2BDA5ABE00D6F834 /* WoodFlooringAshSuperWhite001_COL_2K.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6E347DBC2BDA5ABE00D6F834 /* WoodFlooringAshSuperWhite001_COL_2K.jpg */; };
 		6E347DBF2BDA5AC700D6F834 /* WoodFlooringAshSuperWhite001_NRM_2K.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E347DBE2BDA5AC700D6F834 /* WoodFlooringAshSuperWhite001_NRM_2K.png */; };
@@ -119,6 +121,8 @@
 		6E2A7A5C2B7ED8E400116030 /* roomplan-large.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; name = "roomplan-large.mp4"; path = "DesignScape/Resources/roomplan-large.mp4"; sourceTree = SOURCE_ROOT; };
 		6E33B4F52BDB1312004FF5FF /* autumn_field_puresky_1k.exr */ = {isa = PBXFileReference; lastKnownFileType = file; path = autumn_field_puresky_1k.exr; sourceTree = "<group>"; };
 		6E33B4F72BDB241C004FF5FF /* untitled.fbx */ = {isa = PBXFileReference; lastKnownFileType = file; path = untitled.fbx; sourceTree = "<group>"; };
+		6E33B4F92BDB2B56004FF5FF /* 68809180-ec29-bd3b-ef5c-b1b41b277823.glb */ = {isa = PBXFileReference; lastKnownFileType = file; path = "68809180-ec29-bd3b-ef5c-b1b41b277823.glb"; sourceTree = "<group>"; };
+		6E33B4FB2BDB2C53004FF5FF /* SceneKit Scene.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = "SceneKit Scene.scn"; sourceTree = "<group>"; };
 		6E347DB62BDA543A00D6F834 /* puresky.exr */ = {isa = PBXFileReference; lastKnownFileType = file; path = puresky.exr; sourceTree = "<group>"; };
 		6E347DBC2BDA5ABE00D6F834 /* WoodFlooringAshSuperWhite001_COL_2K.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = WoodFlooringAshSuperWhite001_COL_2K.jpg; sourceTree = "<group>"; };
 		6E347DBE2BDA5AC700D6F834 /* WoodFlooringAshSuperWhite001_NRM_2K.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WoodFlooringAshSuperWhite001_NRM_2K.png; sourceTree = "<group>"; };
@@ -336,6 +340,8 @@
 		EA8D2F0D2B1E705A0074FC71 /* DesignScape */ = {
 			isa = PBXGroup;
 			children = (
+				6E33B4FB2BDB2C53004FF5FF /* SceneKit Scene.scn */,
+				6E33B4F92BDB2B56004FF5FF /* 68809180-ec29-bd3b-ef5c-b1b41b277823.glb */,
 				6E33B4F72BDB241C004FF5FF /* untitled.fbx */,
 				6E33B4F52BDB1312004FF5FF /* autumn_field_puresky_1k.exr */,
 				6E347DBC2BDA5ABE00D6F834 /* WoodFlooringAshSuperWhite001_COL_2K.jpg */,
@@ -468,8 +474,10 @@
 				6E33B4F82BDB241C004FF5FF /* untitled.fbx in Resources */,
 				6E347DBD2BDA5ABE00D6F834 /* WoodFlooringAshSuperWhite001_COL_2K.jpg in Resources */,
 				6EE2EC722BD654E50095DE12 /* bisou-accent-chair.usdz in Resources */,
+				6E33B4FD2BDB31FF004FF5FF /* SceneKit Scene.scn in Resources */,
 				6E2A7A5D2B7ED8E400116030 /* roomplan-large.mp4 in Resources */,
 				6E33B4F62BDB1312004FF5FF /* autumn_field_puresky_1k.exr in Resources */,
+				6E33B4FA2BDB2B56004FF5FF /* 68809180-ec29-bd3b-ef5c-b1b41b277823.glb in Resources */,
 				6E347DB72BDA543A00D6F834 /* puresky.exr in Resources */,
 				EA8D2F162B1E705B0074FC71 /* Preview Assets.xcassets in Resources */,
 				6E7DEE902B69CC4700165B61 /* Merriweather-Light.ttf in Resources */,

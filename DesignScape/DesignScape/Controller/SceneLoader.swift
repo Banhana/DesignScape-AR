@@ -52,7 +52,7 @@ class SceneLoader: ObservableObject {
         // Access the root node of the scene
         let rootNode = scene.rootNode
         
-        visualizeLights(scene: scene)
+//        visualizeLights(scene: scene)
         addFloor(to: scene)
         groundLevel = findLowestYCoordinate(in: rootNode)
         
@@ -104,7 +104,8 @@ class SceneLoader: ObservableObject {
         let boundingBox = roomNode.boundingBox
         
         let floorGeometry = SCNFloor()
-        floorGeometry.reflectivity = 0.3
+        // TODO: If wood then do not set reflection
+        floorGeometry.reflectivity = 0.05
         floorGeometry.reflectionFalloffEnd = 0.8
         let floorMaterial = SCNMaterial()
             floorMaterial.diffuse.contents = UIImage(named: "WoodFlooringAshSuperWhite001_COL_2K.jpg")
@@ -163,9 +164,11 @@ class SceneLoader: ObservableObject {
     
     private func replaceObjects(objectNodes: inout [SCNNode]?, with resourceUrl: URL?) {
         var newNodes: [SCNNode] = []
-        if let newObjectUrl = resourceUrl,
+        if let scene = scene,
+           let newObjectUrl = resourceUrl,
            let newObjectScene = try? SCNScene(url: newObjectUrl),
            let newObjectNode = newObjectScene.rootNode.childNodes.first {
+            visualizeLights(scene: scene)
 //            let pbrMaterial = SCNMaterial()
 //                            pbrMaterial.emission.contents = UIColor.grey
 //            pbrMaterial.lightingModel = .constant
@@ -304,13 +307,43 @@ class SceneLoader: ObservableObject {
     
     
     func visualizeLights(scene: SCNScene) {
-        let omniLight = SCNLight()
-        omniLight.type = .omni
-        omniLight.color = UIColor.white // Adjust the intensity and color as needed
-        let omniLightNode = SCNNode()
-        omniLightNode.light = omniLight
-        omniLightNode.position = SCNVector3(x: 0, y: 10, z: 10) // Set the position of the light
-        scene.rootNode.addChildNode(omniLightNode)
+//        let omniLight = SCNLight()
+//        omniLight.type = .omni
+//        omniLight.color = UIColor.white // Adjust the intensity and color as needed
+//        omniLight.intensity = 5
+//        omniLight.castsShadow = true
+//        
+//        let omniLightNode = SCNNode()
+//        omniLightNode.light = omniLight
+//        omniLightNode.position = SCNVector3(x: 0, y: 5, z: 5) // Set the position of the light
+//        scene.rootNode.addChildNode(omniLightNode)
+        
+        for x in stride(from: -10, through: 10, by: 5) {
+            for z in stride(from: -10, through: 10, by: 10) {
+                let omniLight = SCNLight()
+                omniLight.type = .omni
+                omniLight.color = UIColor.white
+                omniLight.intensity = 5
+                omniLight.castsShadow = true
+                omniLight.shadowMode = .forward
+                
+                let omniLightNode = SCNNode()
+                omniLightNode.light = omniLight
+                omniLightNode.position = SCNVector3(x: Float(x), y: 5, z: Float(z))
+                scene.rootNode.addChildNode(omniLightNode)
+            }
+        }
+        
+        let ambientLight = SCNLight()
+        ambientLight.type = .ambient
+        ambientLight.color = UIColor.white // Adjust the intensity and color as needed
+        ambientLight.intensity = 400
+
+        let ambientLightNode = SCNNode()
+        ambientLightNode.light = ambientLight
+        ambientLightNode.position = SCNVector3(x: 0, y: 1000, z: 10) // Set the position of the light
+        scene.rootNode.addChildNode(ambientLightNode)
+        
 //        // Create a directional light
 //        let directionalLight = SCNLight()
 //        directionalLight.type = .directional
@@ -378,40 +411,40 @@ class SceneLoader: ObservableObject {
         
         
 //        // Iterate through the scene's rootNode to find lights
-//        for node in scene.rootNode.childNodes {
-//            if let light = node.light {
-//                // Create a visual representation for the light
-//                let lightGeometry: SCNGeometry
-//                switch light.type {
-//                case .ambient:
-//                    // Visualize ambient light with a sphere
-//                    lightGeometry = SCNSphere(radius: 0.2)
-//                case .directional:
-//                    // Visualize directional light with an arrow
-//                    lightGeometry = SCNCylinder(radius: 0.1, height: 1.0)
-//                    lightGeometry.firstMaterial?.diffuse.contents = UIColor.red // Set arrow color
-//                    let arrow = SCNNode(geometry: lightGeometry)
-//                    arrow.eulerAngles.x = -.pi / 2 // Point the arrow upward
-//                    node.addChildNode(arrow)
-//                    continue // Skip adding the light node itself
-//                case .omni:
-//                    // Visualize point light with a sphere
-//                    lightGeometry = SCNSphere(radius: 0.2)
-//                case .spot:
-//                    // Visualize spot light with a cone
-//                    lightGeometry = SCNCone(topRadius: 0, bottomRadius: 0.2, height: 0.5)
-//                default:
-//                    continue // Skip other light types
-//                }
-//                
-//                // Set the color of the light representation
-//                lightGeometry.firstMaterial?.diffuse.contents = light.color
-//                
-//                // Create a node to hold the light representation geometry
-//                let lightNode = SCNNode(geometry: lightGeometry)
-//                node.addChildNode(lightNode)
-//            }
-//        }
+        for node in scene.rootNode.childNodes {
+            if let light = node.light {
+                // Create a visual representation for the light
+                let lightGeometry: SCNGeometry
+                switch light.type {
+                case .ambient:
+                    // Visualize ambient light with a sphere
+                    lightGeometry = SCNSphere(radius: 0.2)
+                case .directional:
+                    // Visualize directional light with an arrow
+                    lightGeometry = SCNCylinder(radius: 0.1, height: 1.0)
+                    lightGeometry.firstMaterial?.diffuse.contents = UIColor.red // Set arrow color
+                    let arrow = SCNNode(geometry: lightGeometry)
+                    arrow.eulerAngles.x = -.pi / 2 // Point the arrow upward
+                    node.addChildNode(arrow)
+                    continue // Skip adding the light node itself
+                case .omni:
+                    // Visualize point light with a sphere
+                    lightGeometry = SCNSphere(radius: 0.2)
+                case .spot:
+                    // Visualize spot light with a cone
+                    lightGeometry = SCNCone(topRadius: 0, bottomRadius: 0.2, height: 0.5)
+                default:
+                    continue // Skip other light types
+                }
+                
+                // Set the color of the light representation
+                lightGeometry.firstMaterial?.diffuse.contents = light.color
+                
+                // Create a node to hold the light representation geometry
+                let lightNode = SCNNode(geometry: lightGeometry)
+                node.addChildNode(lightNode)
+            }
+        }
     }
 }
 
@@ -443,11 +476,11 @@ struct SceneView: UIViewRepresentable {
         view.scene = scene
 //        let environmentMap = UIImage(named: "studio_lighting_objectmode_v002.exr")
 //        let environmentMap = UIImage(named: "autumn_field_puresky_4k.exr")
-        let environmentMap = UIImage(named: "studio_lighting_objectmode_v002.exr")
-        scene?.lightingEnvironment.contents = environmentMap
-        scene?.lightingEnvironment.intensity = 1
+//        let environmentMap = UIImage(named: "studio_lighting_objectmode_v002.exr")
+//        scene?.lightingEnvironment.contents = environmentMap
+//        scene?.lightingEnvironment.intensity = 1
 //        scene?.background.contents = UIImage(named: "autumn_field_puresky_1k.exr")
-        view.autoenablesDefaultLighting = true
+//        view.autoenablesDefaultLighting = true
         view.allowsCameraControl = true
         view.delegate = context.coordinator
         return view

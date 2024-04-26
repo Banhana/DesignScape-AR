@@ -17,6 +17,7 @@ struct RoomLoaderView: View {
     
 //    let chairModelURL = Bundle.main.url(forResource: "bisou-accent-chair", withExtension: "usdz")
     let chairModelURL = Bundle.main.url(forResource: "cullen-shiitake-dining-chair", withExtension: "usdz")
+//    let chairModelURL = Bundle.main.url(forResource: "68809180-ec29-bd3b-ef5c-b1b41b277823", withExtension: "glb")
     let tableModelURL = Bundle.main.url(forResource: "monarch-shiitake-dining-table", withExtension: "usdz")
     let storageModelURL = Bundle.main.url(forResource: "annie-whitewashed-wood-storage-bookcase-with-shelves-by-leanne-ford", withExtension: "usdz")
     
@@ -29,7 +30,7 @@ struct RoomLoaderView: View {
                     Spacer()
                     Button {
                         isGenerating = true
-//                        sceneLoader.styleWalls()
+                        sceneLoader.styleWalls()
                         sceneLoader.replaceObjects(ofType: .chair, with: chairModelURL)
                         sceneLoader.replaceObjects(ofType: .table, with: tableModelURL)
                         sceneLoader.replaceObjects(ofType: .storage, with: storageModelURL)
