@@ -133,7 +133,8 @@ class SceneLoader: ObservableObject {
             floorNode.runAction(fadeIn)
             floorNode.position.y = self.groundLevel // Position the floor at the lowest Y-coordinate
             // TODO: rotate the floor to match the room
-            floorNode.simdRotation = roomNode.simdRotation * -1
+//            floorNode.simdRotation = roomNode.simdRotation * -1
+//            floorNode.transform = roomNode.transform
         }
         
     }

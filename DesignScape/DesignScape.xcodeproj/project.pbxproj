@@ -26,6 +26,7 @@
 		6E091F3E2B906FF4006AE7CB /* ObjectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E091F3D2B906FF4006AE7CB /* ObjectModel.swift */; };
 		6E091F422B9073E3006AE7CB /* ObjectDectectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E091F412B9073E3006AE7CB /* ObjectDectectionView.swift */; };
 		6E0994742BB108D500E7382C /* ThumbnailLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0994732BB108D500E7382C /* ThumbnailLoader.swift */; };
+		6E1524232BDC2B2700532A46 /* SceneKit Scene2.scn in Resources */ = {isa = PBXBuildFile; fileRef = 6E1524222BDC2B2700532A46 /* SceneKit Scene2.scn */; };
 		6E20E1652B85A3D90024BEA8 /* Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E20E1642B85A3D90024BEA8 /* Elements.swift */; };
 		6E20E16F2B8B10FD0024BEA8 /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E20E16E2B8B10FC0024BEA8 /* SceneKit.framework */; };
 		6E20E1782B8B15860024BEA8 /* CaptureRoom+Extra.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E20E1772B8B15860024BEA8 /* CaptureRoom+Extra.swift */; };
@@ -40,6 +41,7 @@
 		6E33B4F82BDB241C004FF5FF /* untitled.fbx in Resources */ = {isa = PBXBuildFile; fileRef = 6E33B4F72BDB241C004FF5FF /* untitled.fbx */; };
 		6E33B4FA2BDB2B56004FF5FF /* 68809180-ec29-bd3b-ef5c-b1b41b277823.glb in Resources */ = {isa = PBXBuildFile; fileRef = 6E33B4F92BDB2B56004FF5FF /* 68809180-ec29-bd3b-ef5c-b1b41b277823.glb */; };
 		6E33B4FD2BDB31FF004FF5FF /* SceneKit Scene.scn in Resources */ = {isa = PBXBuildFile; fileRef = 6E33B4FB2BDB2C53004FF5FF /* SceneKit Scene.scn */; };
+		6E33B4FF2BDBA432004FF5FF /* ModelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E33B4FE2BDBA432004FF5FF /* ModelView.swift */; };
 		6E347DB72BDA543A00D6F834 /* puresky.exr in Resources */ = {isa = PBXBuildFile; fileRef = 6E347DB62BDA543A00D6F834 /* puresky.exr */; };
 		6E347DBD2BDA5ABE00D6F834 /* WoodFlooringAshSuperWhite001_COL_2K.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6E347DBC2BDA5ABE00D6F834 /* WoodFlooringAshSuperWhite001_COL_2K.jpg */; };
 		6E347DBF2BDA5AC700D6F834 /* WoodFlooringAshSuperWhite001_NRM_2K.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E347DBE2BDA5AC700D6F834 /* WoodFlooringAshSuperWhite001_NRM_2K.png */; };
@@ -108,6 +110,7 @@
 		6E091F3D2B906FF4006AE7CB /* ObjectModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectModel.swift; sourceTree = "<group>"; };
 		6E091F412B9073E3006AE7CB /* ObjectDectectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDectectionView.swift; sourceTree = "<group>"; };
 		6E0994732BB108D500E7382C /* ThumbnailLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailLoader.swift; sourceTree = "<group>"; };
+		6E1524222BDC2B2700532A46 /* SceneKit Scene2.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = "SceneKit Scene2.scn"; sourceTree = "<group>"; };
 		6E20E1642B85A3D90024BEA8 /* Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Elements.swift; sourceTree = "<group>"; };
 		6E20E16E2B8B10FC0024BEA8 /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
 		6E20E1722B8B15190024BEA8 /* ObjectNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectNode.swift; sourceTree = "<group>"; };
@@ -123,6 +126,7 @@
 		6E33B4F72BDB241C004FF5FF /* untitled.fbx */ = {isa = PBXFileReference; lastKnownFileType = file; path = untitled.fbx; sourceTree = "<group>"; };
 		6E33B4F92BDB2B56004FF5FF /* 68809180-ec29-bd3b-ef5c-b1b41b277823.glb */ = {isa = PBXFileReference; lastKnownFileType = file; path = "68809180-ec29-bd3b-ef5c-b1b41b277823.glb"; sourceTree = "<group>"; };
 		6E33B4FB2BDB2C53004FF5FF /* SceneKit Scene.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = "SceneKit Scene.scn"; sourceTree = "<group>"; };
+		6E33B4FE2BDBA432004FF5FF /* ModelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelView.swift; sourceTree = "<group>"; };
 		6E347DB62BDA543A00D6F834 /* puresky.exr */ = {isa = PBXFileReference; lastKnownFileType = file; path = puresky.exr; sourceTree = "<group>"; };
 		6E347DBC2BDA5ABE00D6F834 /* WoodFlooringAshSuperWhite001_COL_2K.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = WoodFlooringAshSuperWhite001_COL_2K.jpg; sourceTree = "<group>"; };
 		6E347DBE2BDA5AC700D6F834 /* WoodFlooringAshSuperWhite001_NRM_2K.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WoodFlooringAshSuperWhite001_NRM_2K.png; sourceTree = "<group>"; };
@@ -229,6 +233,7 @@
 				6E20E17E2B8B19100024BEA8 /* InfoView.swift */,
 				6E20E1802B8B19320024BEA8 /* LabelView.swift */,
 				6E091F412B9073E3006AE7CB /* ObjectDectectionView.swift */,
+				6E33B4FE2BDBA432004FF5FF /* ModelView.swift */,
 			);
 			path = ScanRoom;
 			sourceTree = "<group>";
@@ -341,6 +346,7 @@
 			isa = PBXGroup;
 			children = (
 				6E33B4FB2BDB2C53004FF5FF /* SceneKit Scene.scn */,
+				6E1524222BDC2B2700532A46 /* SceneKit Scene2.scn */,
 				6E33B4F92BDB2B56004FF5FF /* 68809180-ec29-bd3b-ef5c-b1b41b277823.glb */,
 				6E33B4F72BDB241C004FF5FF /* untitled.fbx */,
 				6E33B4F52BDB1312004FF5FF /* autumn_field_puresky_1k.exr */,
@@ -486,6 +492,7 @@
 				6EE2EC802BD88C960095DE12 /* cullen-shiitake-dining-chair.usdz in Resources */,
 				6EE2EC832BD8DC420095DE12 /* studio_lighting_objectmode_v002.exr in Resources */,
 				6E7DEE9A2B6C602500165B61 /* Cambay-Bold.ttf in Resources */,
+				6E1524232BDC2B2700532A46 /* SceneKit Scene2.scn in Resources */,
 				6E7DEE8F2B69CC4700165B61 /* Merriweather-BoldItalic.ttf in Resources */,
 				6E7DEE922B69CC4700165B61 /* Merriweather-Bold.ttf in Resources */,
 				EA8D2F132B1E705B0074FC71 /* Assets.xcassets in Resources */,
@@ -542,6 +549,7 @@
 				6E06C24B2BAFC08B000F0A63 /* ScanRoomView.swift in Sources */,
 				610552A72BC231A500F5A052 /* CatalogView.swift in Sources */,
 				619F4B6D2B8144C800F0912D /* SignInView.swift in Sources */,
+				6E33B4FF2BDBA432004FF5FF /* ModelView.swift in Sources */,
 				6107CC352B831EC100EDA568 /* AuthenticationViewModel.swift in Sources */,
 				6107CC332B831E9B00EDA568 /* AuthenticationController.swift in Sources */,
 				619F4BA72B8161F600F0912D /* SignUpView.swift in Sources */,

@@ -54,6 +54,29 @@ extension SceneModel {
         }
     }
     
+    static func getName(forCategory category: CapturedRoom.Object.Category) -> String {
+        switch category {
+        case .storage: return "Storage"
+        case .refrigerator: return "Refridgerator"
+        case .stove: return "Stove"
+        case .bed: return "Bed"
+        case .sink: return "Sink"
+        case .washerDryer: return "WasherDryer"
+        case .toilet: return "Toilet"
+        case .bathtub: return "Bathtub"
+        case .oven: return "Oven"
+        case .dishwasher: return "Dishwasher"
+        case .table: return "Table"
+        case .sofa: return "Sofa"
+        case .chair: return "Chair"
+        case .fireplace: return "Fireplace"
+        case .television: return "Television"
+        case .stairs: return "Stair"
+        @unknown default:
+            return ""
+        }
+    }
+    
     mutating func updateNodes(_ nodes: [SCNNode], forCategory category: CapturedRoom.Object.Category) {
         switch category {
         case .storage: storages = nodes
