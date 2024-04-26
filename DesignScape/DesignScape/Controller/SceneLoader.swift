@@ -15,6 +15,7 @@ class SceneLoader: ObservableObject {
     
     @Published var scene: SCNScene?
     @Published var sceneModel: SceneModel?
+    @Published var isAutoenablesDefaultLighting = true
     
     private lazy var rootNode = scene?.rootNode
     private var groundLevel: Float = 0.0
@@ -52,8 +53,6 @@ class SceneLoader: ObservableObject {
         // Access the root node of the scene
         let rootNode = scene.rootNode
         
-//        visualizeLights(scene: scene)
-        addFloor(to: scene)
         groundLevel = findLowestYCoordinate(in: rootNode)
         
         let bathtubNodes = findNodes(withNamePrefix: "Bathtub", in: rootNode)
@@ -96,8 +95,8 @@ class SceneLoader: ObservableObject {
         print("Scene Loaded")
     }
     
-    func addFloor(to scene: SCNScene) {
-        guard let roomNode = scene.rootNode.childNodes.first else {
+    func addFloor() {
+        guard let roomNode = scene?.rootNode.childNodes.first else {
             print("Cannot add floor")
             return
         }
@@ -118,18 +117,25 @@ class SceneLoader: ObservableObject {
             floorMaterial.lightingModel = .physicallyBased
 
             floorGeometry.materials = [floorMaterial]
-        print("Root \(String(describing: scene.rootNode.childNodes.first))")
+        print("Root \(String(describing: scene?.rootNode.childNodes.first))")
         print("Bounding box \(boundingBox)")
         floorGeometry.width = CGFloat(boundingBox.max.x - boundingBox.min.x) / 2
         floorGeometry.length = CGFloat(boundingBox.max.z - boundingBox.min.z) / 2
 
         let floorNode = SCNNode(geometry: floorGeometry)
-        floorNode.position.y = findLowestYCoordinate(in: scene.rootNode) // Position the floor at the lowest Y-coordinate
+        floorNode.position.y = -20
+        floorNode.opacity = 0
+        DispatchQueue.main.async {
+            self.rootNode?.addChildNode(floorNode)
+            
+            let animationTime = Double.random(in: 2...3.0)
+            let fadeIn = SCNAction.fadeIn(duration: animationTime)
+            floorNode.runAction(fadeIn)
+            floorNode.position.y = self.groundLevel // Position the floor at the lowest Y-coordinate
+            // TODO: rotate the floor to match the room
+            floorNode.simdRotation = roomNode.simdRotation * -1
+        }
         
-        // TODO: rotate the floor to match the room
-        floorNode.simdRotation = roomNode.simdRotation * -1
-
-        rootNode?.addChildNode(floorNode)
     }
     
     func findLowestYCoordinate(in rootNode: SCNNode) -> Float {
@@ -168,7 +174,6 @@ class SceneLoader: ObservableObject {
            let newObjectUrl = resourceUrl,
            let newObjectScene = try? SCNScene(url: newObjectUrl),
            let newObjectNode = newObjectScene.rootNode.childNodes.first {
-            visualizeLights(scene: scene)
 //            let pbrMaterial = SCNMaterial()
 //                            pbrMaterial.emission.contents = UIColor.grey
 //            pbrMaterial.lightingModel = .constant
@@ -210,8 +215,6 @@ class SceneLoader: ObservableObject {
                 // Initial state before animation
                 node.name = objectNode.name
                 node.opacity = 0.0
-//                node.scale = SCNVector3(x: 0.1, y: 0.1, z: 0.1)
-//                node.isHidden = true
                 node.transform = objectNode.transform
                 node.position.y -= Float((node.boundingBox.max.y) - (node.boundingBox.min.y))
                 newNodes.append(node)
@@ -306,146 +309,6 @@ class SceneLoader: ObservableObject {
     }
     
     
-    func visualizeLights(scene: SCNScene) {
-//        let omniLight = SCNLight()
-//        omniLight.type = .omni
-//        omniLight.color = UIColor.white // Adjust the intensity and color as needed
-//        omniLight.intensity = 5
-//        omniLight.castsShadow = true
-//        
-//        let omniLightNode = SCNNode()
-//        omniLightNode.light = omniLight
-//        omniLightNode.position = SCNVector3(x: 0, y: 5, z: 5) // Set the position of the light
-//        scene.rootNode.addChildNode(omniLightNode)
-        
-        for x in stride(from: -10, through: 10, by: 5) {
-            for z in stride(from: -10, through: 10, by: 10) {
-                let omniLight = SCNLight()
-                omniLight.type = .omni
-                omniLight.color = UIColor.white
-                omniLight.intensity = 5
-                omniLight.castsShadow = true
-                omniLight.shadowMode = .forward
-                
-                let omniLightNode = SCNNode()
-                omniLightNode.light = omniLight
-                omniLightNode.position = SCNVector3(x: Float(x), y: 5, z: Float(z))
-                scene.rootNode.addChildNode(omniLightNode)
-            }
-        }
-        
-        let ambientLight = SCNLight()
-        ambientLight.type = .ambient
-        ambientLight.color = UIColor.white // Adjust the intensity and color as needed
-        ambientLight.intensity = 400
-
-        let ambientLightNode = SCNNode()
-        ambientLightNode.light = ambientLight
-        ambientLightNode.position = SCNVector3(x: 0, y: 1000, z: 10) // Set the position of the light
-        scene.rootNode.addChildNode(ambientLightNode)
-        
-//        // Create a directional light
-//        let directionalLight = SCNLight()
-//        directionalLight.type = .directional
-//        directionalLight.color = UIColor.white
-//        directionalLight.intensity = 1000
-//        let lightNode = SCNNode()
-//        lightNode.light = directionalLight
-//        lightNode.position = SCNVector3(x: 0, y: 20, z: 0)
-//        scene.rootNode.addChildNode(lightNode)
-//         Load the EXR file as an HDR environment light
-//        if let image = UIImage(named: "studio_lighting_objectmode_v002.exr") {
-//            scene.lightingEnvironment.contents = image
-//            scene.lightingEnvironment.intensity = 0.2
-//        } else {
-//            print("Environment Image Not Found")
-//        }
-        
-        
-        // Create an MDLSkyCubeTexture with adjusted parameters for a blue sky
-//        let skyTexture = MDLSkyCubeTexture(name: nil,
-//                                            channelEncoding: .float32,
-//                                            textureDimensions: vector_int2(512, 512),
-//                                           turbidity: 0.15, // Decrease turbidity for clearer skies
-//                                           sunElevation: 0.5, // Adjust sun elevation for time of day
-//                                            upperAtmosphereScattering: 0.63, // Increase scattering for bluer skies
-//                                            groundAlbedo: 0.85) // Reduce ground albedo for bluer skies
-//
-//        // Assign the sky texture to the scene's background
-//        scene.background.contents = skyTexture
-//
-//        // Use the same sky texture for lighting environment
-//        scene.lightingEnvironment.contents = skyTexture
-//
-//        // Adjust the intensity of the lighting environment
-//        scene.lightingEnvironment.intensity = 2.0
-        
-        // Load the original image
-//        if let originalImage = UIImage(named: "studio_lighting_objectmode_v002.exr") {
-//            // Define the desired size for the scaled image
-//            let newSize = CGSize(width: originalImage.size.width * 1, height: originalImage.size.height * 1) // Scale down by a factor of 0.5
-//
-//            // Begin a graphics context to perform the scaling
-//            UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
-//            
-//            // Draw the original image into the context at the desired size
-//            originalImage.draw(in: CGRect(origin: .zero, size: newSize))
-//            
-//            // Get the scaled image from the context
-//            if let scaledImage = UIGraphicsGetImageFromCurrentImageContext() {
-//                // End the graphics context
-//                UIGraphicsEndImageContext()
-//                
-//                // Use the scaled image
-//                // scaledImage now contains the scaled version of the original image
-//                // You can set it as the contents of your scene's lighting environment
-//                
-//                scene.lightingEnvironment.contents = scaledImage
-//                scene.lightingEnvironment.intensity = 1 // Adjust the intensity as needed
-//            } else {
-//                print("Failed to get scaled image from context")
-//            }
-//        } else {
-//            print("Original image not found")
-//        }
-        
-        
-//        // Iterate through the scene's rootNode to find lights
-        for node in scene.rootNode.childNodes {
-            if let light = node.light {
-                // Create a visual representation for the light
-                let lightGeometry: SCNGeometry
-                switch light.type {
-                case .ambient:
-                    // Visualize ambient light with a sphere
-                    lightGeometry = SCNSphere(radius: 0.2)
-                case .directional:
-                    // Visualize directional light with an arrow
-                    lightGeometry = SCNCylinder(radius: 0.1, height: 1.0)
-                    lightGeometry.firstMaterial?.diffuse.contents = UIColor.red // Set arrow color
-                    let arrow = SCNNode(geometry: lightGeometry)
-                    arrow.eulerAngles.x = -.pi / 2 // Point the arrow upward
-                    node.addChildNode(arrow)
-                    continue // Skip adding the light node itself
-                case .omni:
-                    // Visualize point light with a sphere
-                    lightGeometry = SCNSphere(radius: 0.2)
-                case .spot:
-                    // Visualize spot light with a cone
-                    lightGeometry = SCNCone(topRadius: 0, bottomRadius: 0.2, height: 0.5)
-                default:
-                    continue // Skip other light types
-                }
-                
-                // Set the color of the light representation
-                lightGeometry.firstMaterial?.diffuse.contents = light.color
-                
-                // Create a node to hold the light representation geometry
-                let lightNode = SCNNode(geometry: lightGeometry)
-                node.addChildNode(lightNode)
-            }
-        }
-    }
 }
 
 extension SCNVector3 {
@@ -463,31 +326,121 @@ extension SCNVector3 {
 
 
 struct SceneView: UIViewRepresentable {
-    let scene: SCNScene?
-    let sceneLoader: SceneLoader?
-    
-    init(scene: SCNScene?, sceneLoader: SceneLoader?) {
-        self.scene = scene
-        self.sceneLoader = sceneLoader
-    }
+    @ObservedObject var sceneLoader: SceneLoader
+    @Binding var isAutoEnablesDefaultLighting: Bool
     
     func makeUIView(context: Context) -> SCNView {
         let view = SCNView()
-        view.scene = scene
-//        let environmentMap = UIImage(named: "studio_lighting_objectmode_v002.exr")
-//        let environmentMap = UIImage(named: "autumn_field_puresky_4k.exr")
-//        let environmentMap = UIImage(named: "studio_lighting_objectmode_v002.exr")
-//        scene?.lightingEnvironment.contents = environmentMap
-//        scene?.lightingEnvironment.intensity = 1
-//        scene?.background.contents = UIImage(named: "autumn_field_puresky_1k.exr")
-//        view.autoenablesDefaultLighting = true
+        view.scene = sceneLoader.scene
+        // Important for realistic environment
+        sceneLoader.scene?.wantsScreenSpaceReflection = true
+        // Enable before the scene is furnished
+        view.autoenablesDefaultLighting = true
+        
         view.allowsCameraControl = true
         view.delegate = context.coordinator
+//        self.sceneView = view
         return view
     }
     
+    /// Add lights to the scene for realistic environment
+    func addLights() {
+        guard let scene = sceneLoader.scene else {
+                print("Couldn't add light. No scene were found")
+                return
+            }
+
+            let fadeInAction = SCNAction.fadeIn(duration: 10.0)
+            let waitAction = SCNAction.wait(duration: 0.5)
+
+            var delay: TimeInterval = 0.0
+
+            for x in stride(from: -10, through: 10, by: 5) {
+                for z in stride(from: -10, through: 10, by: 5) {
+                    let omniLight = SCNLight()
+                    omniLight.type = .omni
+                    omniLight.color = UIColor.white
+                    omniLight.intensity = 5
+                    omniLight.castsShadow = true
+                    omniLight.shadowMode = .forward
+
+                    let omniLightNode = SCNNode()
+                    omniLightNode.light = omniLight
+                    omniLightNode.position = SCNVector3(x: Float(x), y: 5, z: Float(z))
+                    omniLightNode.opacity = 0 // Start with opacity 0 to fade in
+                    scene.rootNode.addChildNode(omniLightNode)
+
+                    // Animate the opacity to fade in
+                    let fadeInSequence = SCNAction.sequence([waitAction, SCNAction.fadeIn(duration: 1.0)])
+                    omniLightNode.runAction(fadeInSequence)
+                }
+            }
+
+            let ambientLight = SCNLight()
+            ambientLight.type = .ambient
+            ambientLight.color = UIColor.white // Adjust the intensity and color as needed
+            ambientLight.intensity = 1200
+
+            let ambientLightNode = SCNNode()
+            ambientLightNode.light = ambientLight
+            ambientLightNode.position = SCNVector3(x: 0, y: 1000, z: 10) // Set the position of the light
+            ambientLightNode.opacity = 0 // Start with opacity 0 to fade in
+            scene.rootNode.addChildNode(ambientLightNode)
+
+            // Animate the opacity to fade in
+            let fadeInActionForAmbient = SCNAction.fadeIn(duration: 10.0)
+//        DispatchQueue.main.async {
+            ambientLightNode.runAction(fadeInActionForAmbient)
+//        }
+
+            print("Lights added with animation")
+    }
+    
+    /// Enable this will visualize where the lights are, however, all the light sources will be blocked
+    func visualizeLights() {
+        // Iterate through the scene's rootNode to find lights
+        if let childNodes = sceneLoader.scene?.rootNode.childNodes {
+            for node in childNodes {
+                if let light = node.light {
+                    // Create a visual representation for the light
+                    let lightGeometry: SCNGeometry
+                    switch light.type {
+                    case .ambient:
+                        // Visualize ambient light with a sphere
+                        lightGeometry = SCNSphere(radius: 0.2)
+                    case .directional:
+                        // Visualize directional light with an arrow
+                        lightGeometry = SCNCylinder(radius: 0.1, height: 1.0)
+                        lightGeometry.firstMaterial?.diffuse.contents = UIColor.red // Set arrow color
+                        let arrow = SCNNode(geometry: lightGeometry)
+                        arrow.eulerAngles.x = -.pi / 2 // Point the arrow upward
+                        node.addChildNode(arrow)
+                        continue // Skip adding the light node itself
+                    case .omni:
+                        // Visualize point light with a sphere
+                        lightGeometry = SCNSphere(radius: 0.2)
+                    case .spot:
+                        // Visualize spot light with a cone
+                        lightGeometry = SCNCone(topRadius: 0, bottomRadius: 0.2, height: 0.5)
+                    default:
+                        continue // Skip other light types
+                    }
+                    
+                    // Set the color of the light representation
+                    lightGeometry.firstMaterial?.diffuse.contents = light.color
+                    
+                    // Create a node to hold the light representation geometry
+                    let lightNode = SCNNode(geometry: lightGeometry)
+                    node.addChildNode(lightNode)
+                }
+            }
+        }
+    }
+    
     func updateUIView(_ view: SCNView, context: Context) {
-        view.scene = scene
+        view.scene = sceneLoader.scene
+        view.autoenablesDefaultLighting = isAutoEnablesDefaultLighting
+        print("Auto lighting: \(view.autoenablesDefaultLighting)")
     }
     
     func makeCoordinator() -> Coordinator {
@@ -504,12 +457,28 @@ struct SceneView: UIViewRepresentable {
             
             func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
                 // Find and hide nearest wall
-                if parent.sceneLoader?.sceneModel?.walls?.count ?? 0 >= 4, let pointOfViewPos = renderer.pointOfView?.position {
-                    let nearestWall = parent.sceneLoader?.findNearestWall(from: pointOfViewPos)
-                    parent.sceneLoader?.hideWall(nearestWall)
+                if parent.sceneLoader.sceneModel?.walls?.count ?? 0 >= 4, let pointOfViewPos = renderer.pointOfView?.position {
+                    let nearestWall = parent.sceneLoader.findNearestWall(from: pointOfViewPos)
+                    parent.sceneLoader.hideWall(nearestWall)
                 }
             }
         }
+}
+
+struct SpritzUIViewRepresentable : UIViewRepresentable{
+    @Binding var currentWord: UIImage
+    @Binding var backgroundColor: UIColor
+    
+    func makeUIView(context: Context) -> SCNView {
+        // create and configure view here
+        return SCNView() // frame does not matter here
+    }
+
+    func updateUIView(_ uiView: SCNView, context: Context) {
+       // update view properties here from bound external data
+//       uiView.backgroundColor = backgroundColor
+//       uiView.updateWord(currentWord)
+    }
 }
 
 

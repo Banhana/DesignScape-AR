@@ -7,11 +7,15 @@
 
 import SwiftUI
 import FirebaseStorage
+import SceneKit
 
 struct RoomLoaderView: View {
     @StateObject var sceneLoader = SceneLoader()
+    @State var scene: SCNScene?
     @State var isGeneratedFirstTime = true
     @State var isGenerating = false
+    @State var sceneView: SceneView?
+    @State var isAutoEnablesDefaultLighting = true
     
     let fileRef: StorageReference
     
@@ -24,12 +28,18 @@ struct RoomLoaderView: View {
     var body: some View {
         if let _ = sceneLoader.scene {
             ZStack {
-                SceneView(scene: sceneLoader.scene, sceneLoader: sceneLoader)
+                sceneView
                     .edgesIgnoringSafeArea(.all)
                 VStack {
                     Spacer()
                     Button {
                         isGenerating = true
+                        if isGeneratedFirstTime {
+                            sceneView?.sceneLoader.addFloor()
+                            sceneView?.addLights()
+                            self.isAutoEnablesDefaultLighting = false
+                            
+                        }
                         sceneLoader.styleWalls()
                         sceneLoader.replaceObjects(ofType: .chair, with: chairModelURL)
                         sceneLoader.replaceObjects(ofType: .table, with: tableModelURL)
@@ -47,6 +57,9 @@ struct RoomLoaderView: View {
                     }
                 }
                 .padding(20)
+            }
+            .onAppear {
+                self.sceneView = SceneView(sceneLoader: sceneLoader, isAutoEnablesDefaultLighting: $isAutoEnablesDefaultLighting)
             }
             .customNavBar()
         } else {
