@@ -65,7 +65,7 @@ class CustomARView: ARView{
     private var undoStack: [AnchorEntity] = []
     private var redoStack: [AnchorEntity] = []
     
-    func placeObject(modelName: String) {
+    func retrieveModel(modelName: String, completion: @escaping (URL?, Error?) -> Void) {
         // Reference to Firebase Storage
         let storage = Storage.storage()
         let storageRef = storage.reference()
@@ -86,41 +86,53 @@ class CustomARView: ARView{
         let downloadTask = fileRef.write(toFile: localURL) { url, error in
             if let error = error {
                 print("Error downloading USDZ file: \(error.localizedDescription)")
+                completion(nil, error)
                 return
             }
 
             guard let downloadURL = url else {
                 print("USDZ file download URL not found.")
+                completion(nil, nil)
                 return
             }
             
-            // Loads the model picked from the Furniture directory if it exists
-            ModelEntity.loadModelAsync(contentsOf: localURL).sink(receiveCompletion: { _ in }, receiveValue: { usdzEntity in
-                let anchor = AnchorEntity()
-                
-                // Perform a raycast from the center of the screen.
-                let screenCenter = CGPoint(x: self.bounds.midX, y: self.bounds.midY)
-                if let result = self.raycast(from: screenCenter, allowing: .estimatedPlane, alignment: .horizontal).first {
-                    // If the raycast hit a surface, position the anchor at that location.
-                    anchor.transform = Transform(matrix: result.worldTransform)
-                } else {
-                    // If no surface is detected, find the closest detected surface and place the object on it.
-                    if let closestPlaneResult = self.findClosestPlane() {
-                        anchor.transform = Transform(matrix: closestPlaneResult.worldTransform)
+            completion(downloadURL, nil)
+        }
+    }
+
+    func placeObject(modelName: String) {
+        retrieveModel(modelName: modelName) { (url, error) in
+            if let error = error {
+                print("Error retrieving model: \(error)")
+            } else if let url = url {
+                // Loads the model picked from the Furniture directory if it exists
+                ModelEntity.loadModelAsync(contentsOf: url).sink(receiveCompletion: { _ in }, receiveValue: { usdzEntity in
+                    let anchor = AnchorEntity()
+                    
+                    // Perform a raycast from the center of the screen.
+                    let screenCenter = CGPoint(x: self.bounds.midX, y: self.bounds.midY)
+                    if let result = self.raycast(from: screenCenter, allowing: .estimatedPlane, alignment: .horizontal).first {
+                        // If the raycast hit a surface, position the anchor at that location.
+                        anchor.transform = Transform(matrix: result.worldTransform)
+                    } else {
+                        // If no surface is detected, find the closest detected surface and place the object on it.
+                        if let closestPlaneResult = self.findClosestPlane() {
+                            anchor.transform = Transform(matrix: closestPlaneResult.worldTransform)
+                        }
                     }
-                }
-                anchor.addChild(usdzEntity)
-                self.scene.addAnchor(anchor)
-                self.redoStack.removeAll()
-                self.undoStack.append(anchor) // Push anchor onto the undo stack
-                
-                // Add gestures to the entity.
-                usdzEntity.generateCollisionShapes(recursive: true)
-                // .translation allows you to move the object
-                // .rotation allows you to rotate the object
-                // .scale allows you to change the size of the object
-                self.installGestures([.translation, .rotation, .scale], for: usdzEntity)
-            }).store(in: &self.cancellables)
+                    anchor.addChild(usdzEntity)
+                    self.scene.addAnchor(anchor)
+                    self.redoStack.removeAll()
+                    self.undoStack.append(anchor) // Push anchor onto the undo stack
+                    
+                    // Add gestures to the entity.
+                    usdzEntity.generateCollisionShapes(recursive: true)
+                    // .translation allows you to move the object
+                    // .rotation allows you to rotate the object
+                    // .scale allows you to change the size of the object
+                    self.installGestures([.translation, .rotation, .scale], for: usdzEntity)
+                }).store(in: &self.cancellables)
+            }
         }
     }
     
