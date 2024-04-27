@@ -17,5 +17,7 @@
 		<string>Cambay-Italic.ttf</string>
 		<string>Cambay-Regular.ttf</string>
 	</array>
+	<key>UIFileSharingEnabled</key>
+	<true/>
 </dict>
 </plist>
