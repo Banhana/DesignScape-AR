@@ -184,6 +184,7 @@
 		6E2A7A5E2B8096BA00116030 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				EA8126672BB3E897001DDD4D /* Furniture.plist */,
 				6E7DEE812B69C3BA00165B61 /* fonts */,
 				6E2A7A5C2B7ED8E400116030 /* roomplan-large.mp4 */,
 			);
@@ -221,6 +222,7 @@
 		6E955C732B222B8800E57F55 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				EA8BE2752BB4DE7B0013504B /* ModelLoader.swift */,
 				6107CC342B831EC100EDA568 /* AuthenticationViewModel.swift */,
 				6107CC392B86BC3C00EDA568 /* ProductViewModel.swift */,
 				6107CC3B2B86BC7400EDA568 /* Product.swift */,
@@ -293,7 +295,6 @@
 				EA8D2F122B1E705B0074FC71 /* Assets.xcassets */,
 				EAD22D1E2B1E7378007D4679 /* GoogleService-Info.plist */,
 				EA8D2F142B1E705B0074FC71 /* Preview Content */,
-				EA8126672BB3E897001DDD4D /* Furniture.plist */,
 			);
 			path = DesignScape;
 			sourceTree = "<group>";
@@ -322,7 +323,6 @@
 				EAD7F8BD2B6D803A00BE6AC4 /* ARViewRepresentable.swift */,
 				EAAEB1C92B6F49F800131AB7 /* ARActions.swift */,
 				EAAEB1CB2B6F4A9500131AB7 /* ARManager.swift */,
-				EA8BE2752BB4DE7B0013504B /* ModelLoader.swift */,
 			);
 			path = Camera;
 			sourceTree = "<group>";
