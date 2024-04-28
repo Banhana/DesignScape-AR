@@ -21,6 +21,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct DesignScapeApp: App {
     // Register app delegate for Firebase setup
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    // Change to "dev.DesignScape.DesignScape once we get unique identifier
+    static let subsystem: String = "dev.tony.DesignScape"
 
     var body: some Scene {
         WindowGroup {

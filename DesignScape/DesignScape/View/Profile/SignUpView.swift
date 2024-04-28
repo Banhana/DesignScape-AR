@@ -9,17 +9,23 @@ import SwiftUI
 import FirebaseAuth
 
 struct SignUpView: View {
-    @StateObject private var viewModel = AuthenticationViewModel()
+    @Environment(\.presentationMode) var presentationMode
+    
+    @StateObject private var viewModel = AuthenticationViewModel.instance
     @State private var agreeTerms = false
     @State private var isAccountCreated = false // Add state variable to track account creation
     @State private var passwordError = false
     
     var body: some View {
         ZStack {
-            Image("background-chairs")
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .edgesIgnoringSafeArea(.all)
+            Rectangle()
+                .foregroundColor(.clear)
+                .background {
+                    Image("background-chairs")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .edgesIgnoringSafeArea(.all)
+                }
             VStack {
                 ZStack{
                     Text("Create an Account")
@@ -83,6 +89,7 @@ struct SignUpView: View {
                                         try await viewModel.signup()
                                         // Set the state variable to true after successful signup
                                         isAccountCreated = true
+                                        self.presentationMode.wrappedValue.dismiss()
                                     } catch {
                                         // Handle error if any
                                     }
@@ -109,21 +116,12 @@ struct SignUpView: View {
                     }
                     .padding()
                 }
-                .padding(.horizontal, 120)
-                .frame(width: .infinity, height: 280)
+                .frame(height: 280)
                 
                 Spacer()
             }
             .padding()
-            
         }
-        // NavigationLink to navigate to AccountView when the account is successfully created
-        .background(
-            NavigationLink(destination: AccountView(), isActive: $isAccountCreated) {
-                EmptyView()
-            }
-                .hidden()
-        )
     }
 }
 
