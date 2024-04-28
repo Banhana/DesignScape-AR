@@ -87,7 +87,7 @@ struct FurnitureCard: View {
     
     var body: some View {
         if imageName == "furniture4"{
-            NavigationLink(destination: CapturePrimaryView()) {
+            NavigationLink(destination: MyObjectCaptureView()) {
                 ZStack(alignment: .leading) {
                     Image(imageName)
                         .resizable()
