@@ -134,10 +134,11 @@ class SceneLoader: ObservableObject {
         let fadeIn = SCNAction.fadeIn(duration: animationTime)
         floorNode.runAction(fadeIn)
         floorNode.position.y = self.groundLevel // Position the floor at the lowest Y-coordinate
+//        floorNode.runAction(.rotate(by: .pi/2, around: T##SCNVector3, duration: T##TimeInterval))
         
         // Use rotation of the wall to rotate the room
         if let wallRotation = self.sceneModel?.walls?.first?.simdRotation {
-            floorNode.simdRotation = wallRotation
+            floorNode.simdRotation = -wallRotation
         }
         
     }
@@ -179,38 +180,40 @@ class SceneLoader: ObservableObject {
            let newObjectNode = newObjectScene.rootNode.childNodes.first {
             
             objectNodes?.forEach { objectNode in
-                let node = newObjectNode.clone()
-                //                node.l
-                // Initial state before animation
-                node.name = objectNode.name
-                node.opacity = 0.0
-                node.transform = objectNode.transform
-                node.position.y -= Float((node.boundingBox.max.y) - (node.boundingBox.min.y))
-                newNodes.append(node)
-                self.scene?.rootNode.addChildNode(node)
-                
-                // Start animating
-                let randomAnimationTime = Double.random(in: 0.5...1)
-                
-                // Remove current nodes
-                let fadeOut = SCNAction.fadeOut(duration: randomAnimationTime)
-                var move = SCNAction.move(to: SCNVector3(objectNode.position.x, objectNode.position.y - Float((objectNode.boundingBox.max.y) - (objectNode.boundingBox.min.y)), objectNode.position.z) , duration: randomAnimationTime)
-                objectNode.runAction(fadeOut)
-                objectNode.runAction(move)
-                
-                // Add new nodes
-                DispatchQueue.main.asyncAfter(deadline: .now() + randomAnimationTime + Double.random(in: 0...0.3)) {
-                    let animationTime = Double.random(in: 0.5...1.0)
-                    let fadeIn = SCNAction.fadeIn(duration: animationTime)
-                    move = SCNAction.move(to: SCNVector3(node.position.x, self.groundLevel, node.position.z) , duration: animationTime)
-                    node.runAction(fadeIn)
-                    node.runAction(move)
-                }
-                
-                // Remove after animation ends
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3.3) {
-                    objectNode.removeFromParentNode()
-                }
+//                DispatchQueue.main.async {
+                    let node = newObjectNode.clone()
+                    //                node.l
+                    // Initial state before animation
+                    node.name = objectNode.name
+                    node.opacity = 0.0
+                    node.transform = objectNode.transform
+                    node.position.y -= Float((node.boundingBox.max.y) - (node.boundingBox.min.y))
+                    newNodes.append(node)
+                    self.scene?.rootNode.addChildNode(node)
+                    
+                    // Start animating
+                    let randomAnimationTime = Double.random(in: 0.5...1)
+                    
+                    // Remove current nodes
+                    let fadeOut = SCNAction.fadeOut(duration: randomAnimationTime)
+                    var move = SCNAction.move(to: SCNVector3(objectNode.position.x, objectNode.position.y - Float((objectNode.boundingBox.max.y) - (objectNode.boundingBox.min.y)), objectNode.position.z) , duration: randomAnimationTime)
+                    objectNode.runAction(fadeOut)
+                    objectNode.runAction(move)
+                    
+                    // Add new nodes
+                DispatchQueue.main.asyncAfter(deadline: .now() + randomAnimationTime + Double.random(in: 0...1)) {
+                        let animationTime = Double.random(in: 0.5...1.0)
+                        let fadeIn = SCNAction.fadeIn(duration: animationTime)
+                        move = SCNAction.move(to: SCNVector3(node.position.x, self.groundLevel, node.position.z) , duration: animationTime)
+                        node.runAction(fadeIn)
+                        node.runAction(move)
+                    }
+                    
+                    // Remove after animation ends
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 3.3) {
+                        objectNode.removeFromParentNode()
+                    }
+//                }
                 
                 print("Replaced \(String(describing: objectNode.name))")
                 
@@ -267,7 +270,12 @@ class SceneLoader: ObservableObject {
         if let wallToHide = wall {
             SCNTransaction.begin()
             SCNTransaction.animationDuration = 0.5
-            wallToHide.opacity = 0.01
+            sceneModel?.walls?.forEach({ wall in
+                if wall != wallToHide {
+                    wall.opacity = 1
+                }
+            })
+            wallToHide.opacity = 0
             SCNTransaction.commit()
         }
     }
@@ -472,18 +480,10 @@ struct SceneView: UIViewRepresentable {
         }
         
         func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
-            // Hides all the walls blocking the view
-            DispatchQueue.main.async {
-                var wallNodes: [SCNNode] = []
-                let scnView = renderer as! SCNView
-                for x in stride(from: Int(scnView.bounds.minX), through: Int(scnView.bounds.minX + scnView.bounds.width), by: 50) {
-                    let location = CGPoint(x: CGFloat(x), y: scnView.bounds.midY)
-                    let hitTestResults = scnView.hitTest(location, options: nil)
-                    
-                    let hitNodes = hitTestResults.map {$0.node}
-                    wallNodes.append(contentsOf: hitNodes.filter({$0.name?.hasPrefix("Wall") ?? false}))
-                    self.parent.sceneLoader.hideWalls(wallNodes)
-                }
+            // Find and hide nearest wall
+            if parent.sceneLoader.sceneModel?.walls?.count ?? 0 >= 4, let pointOfViewPos = renderer.pointOfView?.position {
+                let nearestWall = parent.sceneLoader.findNearestWall(from: pointOfViewPos)
+                parent.sceneLoader.hideWall(nearestWall)
             }
         }
     }

@@ -19,12 +19,12 @@ struct RoomLoaderView: View {
     
     let fileRef: StorageReference
     
-//    let chairModelURL = Bundle.main.url(forResource: "bisou-accent-chair", withExtension: "usdz")
+    //    let chairModelURL = Bundle.main.url(forResource: "bisou-accent-chair", withExtension: "usdz")
     let chairModelURL = Bundle.main.url(forResource: "cullen-shiitake-dining-chair", withExtension: "usdz")
-//    let chairModelURL = Bundle.main.url(forResource: "68809180-ec29-bd3b-ef5c-b1b41b277823", withExtension: "glb")
+    //    let chairModelURL = Bundle.main.url(forResource: "68809180-ec29-bd3b-ef5c-b1b41b277823", withExtension: "glb")
     let tableModelURL = Bundle.main.url(forResource: "monarch-shiitake-dining-table", withExtension: "usdz")
-    let storageModelURL = Bundle.main.url(forResource: "501439_West Natural Cane Bar Cabinet", withExtension: "usdz")
-//    let storageModelURL = Bundle.main.url(forResource: "annie-whitewashed-wood-storage-bookcase-with-shelves-by-leanne-ford", withExtension: "usdz")
+    //    let storageModelURL = Bundle.main.url(forResource: "501439_West Natural Cane Bar Cabinet", withExtension: "usdz")
+    let storageModelURL = Bundle.main.url(forResource: "annie-whitewashed-wood-storage-bookcase-with-shelves-by-leanne-ford", withExtension: "usdz")
     
     var body: some View {
         if let _ = sceneLoader.scene {
@@ -36,20 +36,20 @@ struct RoomLoaderView: View {
                     Button {
                         isGenerating = true
                         if isGeneratedFirstTime {
-                            sceneView?.sceneLoader.addFloor()
                             sceneView?.addLights()
                             self.isAutoEnablesDefaultLighting = false
-                            
                         }
+                        sceneView?.sceneLoader.addFloor()
                         sceneLoader.styleWalls()
                         sceneLoader.replaceObjects(ofType: .chair, with: chairModelURL)
                         sceneLoader.replaceObjects(ofType: .table, with: tableModelURL)
                         sceneLoader.replaceObjects(ofType: .storage, with: storageModelURL)
-//                        sceneLoader.replaceObjects(ofType: .television, with: tableModelURL)
+                        
+                        //                        sceneLoader.replaceObjects(ofType: .television, with: tableModelURL)
                         isGenerating = false
                         isGeneratedFirstTime = false
                     } label: {
-                        if isGenerating {
+                        if isGenerating == true {
                             ProgressView()
                         } else {
                             PrimaryButton(text: isGeneratedFirstTime ? "GENERATE" : "REGENERATE", willSpan: true)
@@ -75,8 +75,8 @@ struct RoomLoaderView: View {
 }
 
 #Preview {
-//    NavigationStack {
-//        RoomLoaderView(fileRef: DataController.shared.storage.reference(withPath: "/usdz_files/33i3YtIe6TTzBx7uElHrNdbSq1z1/Room1.usdz"))
-//    }
+    //    NavigationStack {
+    //        RoomLoaderView(fileRef: DataController.shared.storage.reference(withPath: "/usdz_files/33i3YtIe6TTzBx7uElHrNdbSq1z1/Room1.usdz"))
+    //    }
     MainView()
 }
