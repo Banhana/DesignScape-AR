@@ -27,6 +27,7 @@
 		6E091F422B9073E3006AE7CB /* ObjectDectectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E091F412B9073E3006AE7CB /* ObjectDectectionView.swift */; };
 		6E0994742BB108D500E7382C /* ThumbnailLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0994732BB108D500E7382C /* ThumbnailLoader.swift */; };
 		6E1524232BDC2B2700532A46 /* SceneKit Scene2.scn in Resources */ = {isa = PBXBuildFile; fileRef = 6E1524222BDC2B2700532A46 /* SceneKit Scene2.scn */; };
+		6E1C742E2BDCFD3200049198 /* 501439_West Natural Cane Bar Cabinet.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 6E1C742D2BDCFD3100049198 /* 501439_West Natural Cane Bar Cabinet.usdz */; };
 		6E20E1652B85A3D90024BEA8 /* Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E20E1642B85A3D90024BEA8 /* Elements.swift */; };
 		6E20E16F2B8B10FD0024BEA8 /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E20E16E2B8B10FC0024BEA8 /* SceneKit.framework */; };
 		6E20E1782B8B15860024BEA8 /* CaptureRoom+Extra.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E20E1772B8B15860024BEA8 /* CaptureRoom+Extra.swift */; };
@@ -37,12 +38,8 @@
 		6E23ECCA2BCF398D00B2249A /* SceneLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E23ECC92BCF398D00B2249A /* SceneLoader.swift */; };
 		6E23ECCE2BCF3BBD00B2249A /* RoomLoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E23ECCD2BCF3BBD00B2249A /* RoomLoaderView.swift */; };
 		6E2A7A5D2B7ED8E400116030 /* roomplan-large.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 6E2A7A5C2B7ED8E400116030 /* roomplan-large.mp4 */; };
-		6E33B4F62BDB1312004FF5FF /* autumn_field_puresky_1k.exr in Resources */ = {isa = PBXBuildFile; fileRef = 6E33B4F52BDB1312004FF5FF /* autumn_field_puresky_1k.exr */; };
-		6E33B4F82BDB241C004FF5FF /* untitled.fbx in Resources */ = {isa = PBXBuildFile; fileRef = 6E33B4F72BDB241C004FF5FF /* untitled.fbx */; };
-		6E33B4FA2BDB2B56004FF5FF /* 68809180-ec29-bd3b-ef5c-b1b41b277823.glb in Resources */ = {isa = PBXBuildFile; fileRef = 6E33B4F92BDB2B56004FF5FF /* 68809180-ec29-bd3b-ef5c-b1b41b277823.glb */; };
 		6E33B4FD2BDB31FF004FF5FF /* SceneKit Scene.scn in Resources */ = {isa = PBXBuildFile; fileRef = 6E33B4FB2BDB2C53004FF5FF /* SceneKit Scene.scn */; };
 		6E33B4FF2BDBA432004FF5FF /* ModelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E33B4FE2BDBA432004FF5FF /* ModelView.swift */; };
-		6E347DB72BDA543A00D6F834 /* puresky.exr in Resources */ = {isa = PBXBuildFile; fileRef = 6E347DB62BDA543A00D6F834 /* puresky.exr */; };
 		6E347DBD2BDA5ABE00D6F834 /* WoodFlooringAshSuperWhite001_COL_2K.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6E347DBC2BDA5ABE00D6F834 /* WoodFlooringAshSuperWhite001_COL_2K.jpg */; };
 		6E347DBF2BDA5AC700D6F834 /* WoodFlooringAshSuperWhite001_NRM_2K.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E347DBE2BDA5AC700D6F834 /* WoodFlooringAshSuperWhite001_NRM_2K.png */; };
 		6E347DC22BDA5AD300D6F834 /* WoodFlooringAshSuperWhite001_GLOSS_2K.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6E347DC02BDA5AD300D6F834 /* WoodFlooringAshSuperWhite001_GLOSS_2K.jpg */; };
@@ -72,7 +69,6 @@
 		6EE2EC7B2BD857EC0095DE12 /* monarch-shiitake-dining-table.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 6EE2EC782BD857EC0095DE12 /* monarch-shiitake-dining-table.usdz */; };
 		6EE2EC7C2BD857EC0095DE12 /* annie-whitewashed-wood-storage-bookcase-with-shelves-by-leanne-ford.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 6EE2EC792BD857EC0095DE12 /* annie-whitewashed-wood-storage-bookcase-with-shelves-by-leanne-ford.usdz */; };
 		6EE2EC802BD88C960095DE12 /* cullen-shiitake-dining-chair.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 6EE2EC7F2BD88C960095DE12 /* cullen-shiitake-dining-chair.usdz */; };
-		6EE2EC832BD8DC420095DE12 /* studio_lighting_objectmode_v002.exr in Resources */ = {isa = PBXBuildFile; fileRef = 6EE2EC822BD8DC420095DE12 /* studio_lighting_objectmode_v002.exr */; };
 		EA8D2F0F2B1E705A0074FC71 /* DesignScapeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8D2F0E2B1E705A0074FC71 /* DesignScapeApp.swift */; };
 		EA8D2F132B1E705B0074FC71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA8D2F122B1E705B0074FC71 /* Assets.xcassets */; };
 		EA8D2F162B1E705B0074FC71 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA8D2F152B1E705B0074FC71 /* Preview Assets.xcassets */; };
@@ -112,6 +108,7 @@
 		6E091F412B9073E3006AE7CB /* ObjectDectectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDectectionView.swift; sourceTree = "<group>"; };
 		6E0994732BB108D500E7382C /* ThumbnailLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailLoader.swift; sourceTree = "<group>"; };
 		6E1524222BDC2B2700532A46 /* SceneKit Scene2.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = "SceneKit Scene2.scn"; sourceTree = "<group>"; };
+		6E1C742D2BDCFD3100049198 /* 501439_West Natural Cane Bar Cabinet.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "501439_West Natural Cane Bar Cabinet.usdz"; sourceTree = "<group>"; };
 		6E20E1642B85A3D90024BEA8 /* Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Elements.swift; sourceTree = "<group>"; };
 		6E20E16E2B8B10FC0024BEA8 /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
 		6E20E1722B8B15190024BEA8 /* ObjectNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectNode.swift; sourceTree = "<group>"; };
@@ -123,12 +120,8 @@
 		6E23ECC92BCF398D00B2249A /* SceneLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneLoader.swift; sourceTree = "<group>"; };
 		6E23ECCD2BCF3BBD00B2249A /* RoomLoaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomLoaderView.swift; sourceTree = "<group>"; };
 		6E2A7A5C2B7ED8E400116030 /* roomplan-large.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; name = "roomplan-large.mp4"; path = "DesignScape/Resources/roomplan-large.mp4"; sourceTree = SOURCE_ROOT; };
-		6E33B4F52BDB1312004FF5FF /* autumn_field_puresky_1k.exr */ = {isa = PBXFileReference; lastKnownFileType = file; path = autumn_field_puresky_1k.exr; sourceTree = "<group>"; };
-		6E33B4F72BDB241C004FF5FF /* untitled.fbx */ = {isa = PBXFileReference; lastKnownFileType = file; path = untitled.fbx; sourceTree = "<group>"; };
-		6E33B4F92BDB2B56004FF5FF /* 68809180-ec29-bd3b-ef5c-b1b41b277823.glb */ = {isa = PBXFileReference; lastKnownFileType = file; path = "68809180-ec29-bd3b-ef5c-b1b41b277823.glb"; sourceTree = "<group>"; };
 		6E33B4FB2BDB2C53004FF5FF /* SceneKit Scene.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = "SceneKit Scene.scn"; sourceTree = "<group>"; };
 		6E33B4FE2BDBA432004FF5FF /* ModelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelView.swift; sourceTree = "<group>"; };
-		6E347DB62BDA543A00D6F834 /* puresky.exr */ = {isa = PBXFileReference; lastKnownFileType = file; path = puresky.exr; sourceTree = "<group>"; };
 		6E347DBC2BDA5ABE00D6F834 /* WoodFlooringAshSuperWhite001_COL_2K.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = WoodFlooringAshSuperWhite001_COL_2K.jpg; sourceTree = "<group>"; };
 		6E347DBE2BDA5AC700D6F834 /* WoodFlooringAshSuperWhite001_NRM_2K.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WoodFlooringAshSuperWhite001_NRM_2K.png; sourceTree = "<group>"; };
 		6E347DC02BDA5AD300D6F834 /* WoodFlooringAshSuperWhite001_GLOSS_2K.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = WoodFlooringAshSuperWhite001_GLOSS_2K.jpg; sourceTree = "<group>"; };
@@ -152,13 +145,13 @@
 		6E7DEE952B6C602500165B61 /* Cambay-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cambay-Regular.ttf"; sourceTree = "<group>"; };
 		6E7DEE962B6C602500165B61 /* Cambay-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cambay-Bold.ttf"; sourceTree = "<group>"; };
 		6E7DEE9B2B6C947800165B61 /* ObjectDetectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDetectionController.swift; sourceTree = "<group>"; };
+		6E8B5D182BDE4464001429C3 /* livingroom_day.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = livingroom_day.scn; sourceTree = "<group>"; };
 		6EE2EC712BD654E50095DE12 /* bisou-accent-chair.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "bisou-accent-chair.usdz"; sourceTree = "<group>"; };
 		6EE2EC732BD769870095DE12 /* wells-leather-sofa.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "wells-leather-sofa.usdz"; sourceTree = "<group>"; };
 		6EE2EC752BD83C4A0095DE12 /* SceneModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneModel.swift; sourceTree = "<group>"; };
 		6EE2EC782BD857EC0095DE12 /* monarch-shiitake-dining-table.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "monarch-shiitake-dining-table.usdz"; sourceTree = "<group>"; };
 		6EE2EC792BD857EC0095DE12 /* annie-whitewashed-wood-storage-bookcase-with-shelves-by-leanne-ford.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "annie-whitewashed-wood-storage-bookcase-with-shelves-by-leanne-ford.usdz"; sourceTree = "<group>"; };
 		6EE2EC7F2BD88C960095DE12 /* cullen-shiitake-dining-chair.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "cullen-shiitake-dining-chair.usdz"; sourceTree = "<group>"; };
-		6EE2EC822BD8DC420095DE12 /* studio_lighting_objectmode_v002.exr */ = {isa = PBXFileReference; lastKnownFileType = file; path = studio_lighting_objectmode_v002.exr; sourceTree = "<group>"; };
 		EA8D2F0B2B1E705A0074FC71 /* DesignScape.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DesignScape.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA8D2F0E2B1E705A0074FC71 /* DesignScapeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignScapeApp.swift; sourceTree = "<group>"; };
 		EA8D2F122B1E705B0074FC71 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -347,21 +340,18 @@
 		EA8D2F0D2B1E705A0074FC71 /* DesignScape */ = {
 			isa = PBXGroup;
 			children = (
+				6E8B5D182BDE4464001429C3 /* livingroom_day.scn */,
 				6E33B4FB2BDB2C53004FF5FF /* SceneKit Scene.scn */,
 				6E1524222BDC2B2700532A46 /* SceneKit Scene2.scn */,
-				6E33B4F92BDB2B56004FF5FF /* 68809180-ec29-bd3b-ef5c-b1b41b277823.glb */,
 				6E5F32DA2BDC4D9A003A980A /* Room 2.usdz */,
-				6E33B4F72BDB241C004FF5FF /* untitled.fbx */,
-				6E33B4F52BDB1312004FF5FF /* autumn_field_puresky_1k.exr */,
 				6E347DBC2BDA5ABE00D6F834 /* WoodFlooringAshSuperWhite001_COL_2K.jpg */,
 				6E347DBE2BDA5AC700D6F834 /* WoodFlooringAshSuperWhite001_NRM_2K.png */,
 				6E347DC02BDA5AD300D6F834 /* WoodFlooringAshSuperWhite001_GLOSS_2K.jpg */,
 				6E347DC12BDA5AD300D6F834 /* WoodFlooringAshSuperWhite001_REFL_2K.jpg */,
-				6E347DB62BDA543A00D6F834 /* puresky.exr */,
-				6EE2EC822BD8DC420095DE12 /* studio_lighting_objectmode_v002.exr */,
 				6EE2EC732BD769870095DE12 /* wells-leather-sofa.usdz */,
 				6EE2EC7F2BD88C960095DE12 /* cullen-shiitake-dining-chair.usdz */,
 				6EE2EC792BD857EC0095DE12 /* annie-whitewashed-wood-storage-bookcase-with-shelves-by-leanne-ford.usdz */,
+				6E1C742D2BDCFD3100049198 /* 501439_West Natural Cane Bar Cabinet.usdz */,
 				6EE2EC782BD857EC0095DE12 /* monarch-shiitake-dining-table.usdz */,
 				6EE2EC712BD654E50095DE12 /* bisou-accent-chair.usdz */,
 				6E20E1742B8B15390024BEA8 /* Extension */,
@@ -480,21 +470,17 @@
 				6E7DEE8B2B69CC4700165B61 /* Merriweather-BlackItalic.ttf in Resources */,
 				6E347DC22BDA5AD300D6F834 /* WoodFlooringAshSuperWhite001_GLOSS_2K.jpg in Resources */,
 				EAD6EA9D2B7609990060072B /* Furniture in Resources */,
-				6E33B4F82BDB241C004FF5FF /* untitled.fbx in Resources */,
+				6E1C742E2BDCFD3200049198 /* 501439_West Natural Cane Bar Cabinet.usdz in Resources */,
 				6E5F32DB2BDC4D9A003A980A /* Room 2.usdz in Resources */,
 				6E347DBD2BDA5ABE00D6F834 /* WoodFlooringAshSuperWhite001_COL_2K.jpg in Resources */,
 				6EE2EC722BD654E50095DE12 /* bisou-accent-chair.usdz in Resources */,
 				6E33B4FD2BDB31FF004FF5FF /* SceneKit Scene.scn in Resources */,
 				6E2A7A5D2B7ED8E400116030 /* roomplan-large.mp4 in Resources */,
-				6E33B4F62BDB1312004FF5FF /* autumn_field_puresky_1k.exr in Resources */,
-				6E33B4FA2BDB2B56004FF5FF /* 68809180-ec29-bd3b-ef5c-b1b41b277823.glb in Resources */,
-				6E347DB72BDA543A00D6F834 /* puresky.exr in Resources */,
 				EA8D2F162B1E705B0074FC71 /* Preview Assets.xcassets in Resources */,
 				6E7DEE902B69CC4700165B61 /* Merriweather-Light.ttf in Resources */,
 				6EE2EC7C2BD857EC0095DE12 /* annie-whitewashed-wood-storage-bookcase-with-shelves-by-leanne-ford.usdz in Resources */,
 				6E7DEE992B6C602500165B61 /* Cambay-Regular.ttf in Resources */,
 				6EE2EC802BD88C960095DE12 /* cullen-shiitake-dining-chair.usdz in Resources */,
-				6EE2EC832BD8DC420095DE12 /* studio_lighting_objectmode_v002.exr in Resources */,
 				6E7DEE9A2B6C602500165B61 /* Cambay-Bold.ttf in Resources */,
 				6E1524232BDC2B2700532A46 /* SceneKit Scene2.scn in Resources */,
 				6E7DEE8F2B69CC4700165B61 /* Merriweather-BoldItalic.ttf in Resources */,

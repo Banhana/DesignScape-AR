@@ -128,16 +128,16 @@ class SceneLoader: ObservableObject {
         let floorNode = SCNNode(geometry: floorGeometry)
         floorNode.position.y = -20
         floorNode.opacity = 0
-        DispatchQueue.main.async {
-            self.rootNode?.addChildNode(floorNode)
-            
-            let animationTime = Double.random(in: 2...3.0)
-            let fadeIn = SCNAction.fadeIn(duration: animationTime)
-            floorNode.runAction(fadeIn)
-            floorNode.position.y = self.groundLevel // Position the floor at the lowest Y-coordinate
-            // TODO: rotate the floor to match the room
-            //            floorNode.simdRotation = roomNode.simdRotation * -1
-            //            floorNode.transform = roomNode.transform
+        self.rootNode?.addChildNode(floorNode)
+        
+        let animationTime = Double.random(in: 2...3.0)
+        let fadeIn = SCNAction.fadeIn(duration: animationTime)
+        floorNode.runAction(fadeIn)
+        floorNode.position.y = self.groundLevel // Position the floor at the lowest Y-coordinate
+        
+        // Use rotation of the wall to rotate the room
+        if let wallRotation = self.sceneModel?.walls?.first?.simdRotation {
+            floorNode.simdRotation = wallRotation
         }
         
     }
@@ -267,16 +267,32 @@ class SceneLoader: ObservableObject {
         if let wallToHide = wall {
             SCNTransaction.begin()
             SCNTransaction.animationDuration = 0.5
-            sceneModel?.walls?.forEach({ wall in
-                if wall != wallToHide {
-                    wall.opacity = 1
-                }
-            })
-            wallToHide.opacity = 0
+            wallToHide.opacity = 0.01
             SCNTransaction.commit()
         }
     }
     
+    func hideWalls(_ walls: [SCNNode]?) {
+        if let wallsToHide = walls {
+            SCNTransaction.begin()
+            SCNTransaction.animationDuration = 0.2
+            // Only unhide the wall not currently hidden
+            sceneModel?.walls?.filter({!wallsToHide.contains($0)}).forEach({ wall in
+                wall.opacity = 1
+            })
+            wallsToHide.filter({$0.opacity == 1}).forEach { wallToHide in
+                wallToHide.opacity = 0.01
+            }
+            SCNTransaction.commit()
+        }
+    }
+    
+    func showAllWalls() {
+        //         Show all walls
+        sceneModel?.walls?.forEach({ wall in
+            wall.opacity = 1
+        })
+    }
     
 }
 
@@ -456,10 +472,18 @@ struct SceneView: UIViewRepresentable {
         }
         
         func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
-            // Find and hide nearest wall
-            if parent.sceneLoader.sceneModel?.walls?.count ?? 0 >= 4, let pointOfViewPos = renderer.pointOfView?.position {
-                let nearestWall = parent.sceneLoader.findNearestWall(from: pointOfViewPos)
-                parent.sceneLoader.hideWall(nearestWall)
+            // Hides all the walls blocking the view
+            DispatchQueue.main.async {
+                var wallNodes: [SCNNode] = []
+                let scnView = renderer as! SCNView
+                for x in stride(from: Int(scnView.bounds.minX), through: Int(scnView.bounds.minX + scnView.bounds.width), by: 50) {
+                    let location = CGPoint(x: CGFloat(x), y: scnView.bounds.midY)
+                    let hitTestResults = scnView.hitTest(location, options: nil)
+                    
+                    let hitNodes = hitTestResults.map {$0.node}
+                    wallNodes.append(contentsOf: hitNodes.filter({$0.name?.hasPrefix("Wall") ?? false}))
+                    self.parent.sceneLoader.hideWalls(wallNodes)
+                }
             }
         }
     }
