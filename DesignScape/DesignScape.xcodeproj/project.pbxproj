@@ -74,6 +74,8 @@
 		6EE2EC7C2BD857EC0095DE12 /* annie-whitewashed-wood-storage-bookcase-with-shelves-by-leanne-ford.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 6EE2EC792BD857EC0095DE12 /* annie-whitewashed-wood-storage-bookcase-with-shelves-by-leanne-ford.usdz */; };
 		6EE2EC802BD88C960095DE12 /* cullen-shiitake-dining-chair.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 6EE2EC7F2BD88C960095DE12 /* cullen-shiitake-dining-chair.usdz */; };
 		6EECD4592BE17FA80060ACB7 /* screen.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EECD4582BE17FA70060ACB7 /* screen.png */; };
+		6EECD45B2BE187680060ACB7 /* television.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 6EECD45A2BE187680060ACB7 /* television.usdz */; };
+		6EECD45D2BE192EE0060ACB7 /* elias-natural-elm-wood-open-bookcase.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 6EECD45C2BE192EE0060ACB7 /* elias-natural-elm-wood-open-bookcase.usdz */; };
 		EA8D2F0F2B1E705A0074FC71 /* DesignScapeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8D2F0E2B1E705A0074FC71 /* DesignScapeApp.swift */; };
 		EA8D2F132B1E705B0074FC71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA8D2F122B1E705B0074FC71 /* Assets.xcassets */; };
 		EA8D2F162B1E705B0074FC71 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA8D2F152B1E705B0074FC71 /* Preview Assets.xcassets */; };
@@ -162,6 +164,8 @@
 		6EE2EC792BD857EC0095DE12 /* annie-whitewashed-wood-storage-bookcase-with-shelves-by-leanne-ford.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "annie-whitewashed-wood-storage-bookcase-with-shelves-by-leanne-ford.usdz"; sourceTree = "<group>"; };
 		6EE2EC7F2BD88C960095DE12 /* cullen-shiitake-dining-chair.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "cullen-shiitake-dining-chair.usdz"; sourceTree = "<group>"; };
 		6EECD4582BE17FA70060ACB7 /* screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = screen.png; sourceTree = "<group>"; };
+		6EECD45A2BE187680060ACB7 /* television.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = television.usdz; sourceTree = "<group>"; };
+		6EECD45C2BE192EE0060ACB7 /* elias-natural-elm-wood-open-bookcase.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "elias-natural-elm-wood-open-bookcase.usdz"; sourceTree = "<group>"; };
 		EA8D2F0B2B1E705A0074FC71 /* DesignScape.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DesignScape.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA8D2F0E2B1E705A0074FC71 /* DesignScapeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignScapeApp.swift; sourceTree = "<group>"; };
 		EA8D2F122B1E705B0074FC71 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -350,6 +354,7 @@
 		EA8D2F0D2B1E705A0074FC71 /* DesignScape */ = {
 			isa = PBXGroup;
 			children = (
+				6EECD45A2BE187680060ACB7 /* television.usdz */,
 				6EECD4582BE17FA70060ACB7 /* screen.png */,
 				6E50ED492BE0C9690084032B /* door-white.png */,
 				6E50ED4D2BE0CD3C0084032B /* window_PNG17640.png */,
@@ -363,6 +368,7 @@
 				6E347DBE2BDA5AC700D6F834 /* WoodFlooringAshSuperWhite001_NRM_2K.png */,
 				6E347DC02BDA5AD300D6F834 /* WoodFlooringAshSuperWhite001_GLOSS_2K.jpg */,
 				6E347DC12BDA5AD300D6F834 /* WoodFlooringAshSuperWhite001_REFL_2K.jpg */,
+				6EECD45C2BE192EE0060ACB7 /* elias-natural-elm-wood-open-bookcase.usdz */,
 				6EE2EC732BD769870095DE12 /* wells-leather-sofa.usdz */,
 				6EE2EC7F2BD88C960095DE12 /* cullen-shiitake-dining-chair.usdz */,
 				6EE2EC792BD857EC0095DE12 /* annie-whitewashed-wood-storage-bookcase-with-shelves-by-leanne-ford.usdz */,
@@ -481,6 +487,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6E7DEE8D2B69CC4700165B61 /* Merriweather-Black.ttf in Resources */,
+				6EECD45B2BE187680060ACB7 /* television.usdz in Resources */,
 				6E347DC32BDA5AD300D6F834 /* WoodFlooringAshSuperWhite001_REFL_2K.jpg in Resources */,
 				6E7DEE8B2B69CC4700165B61 /* Merriweather-BlackItalic.ttf in Resources */,
 				6E50ED4A2BE0C96A0084032B /* door-white.png in Resources */,
@@ -510,6 +517,7 @@
 				6EE2EC7B2BD857EC0095DE12 /* monarch-shiitake-dining-table.usdz in Resources */,
 				6E7DEE982B6C602500165B61 /* Cambay-Italic.ttf in Resources */,
 				6E50ED4E2BE0CD3C0084032B /* window_PNG17640.png in Resources */,
+				6EECD45D2BE192EE0060ACB7 /* elias-natural-elm-wood-open-bookcase.usdz in Resources */,
 				6E7DEE8E2B69CC4700165B61 /* Merriweather-Italic.ttf in Resources */,
 				6E7DEE972B6C602500165B61 /* Cambay-BoldItalic.ttf in Resources */,
 				6E7DEE8C2B69CC4700165B61 /* Merriweather-Regular.ttf in Resources */,

@@ -24,11 +24,12 @@ struct RoomLoaderView: View {
     //    let chairModelURL = Bundle.main.url(forResource: "68809180-ec29-bd3b-ef5c-b1b41b277823", withExtension: "glb")
     let tableModelURL = Bundle.main.url(forResource: "monarch-shiitake-dining-table", withExtension: "usdz")
     //    let storageModelURL = Bundle.main.url(forResource: "501439_West Natural Cane Bar Cabinet", withExtension: "usdz")
-    let storageModelURL = Bundle.main.url(forResource: "annie-whitewashed-wood-storage-bookcase-with-shelves-by-leanne-ford", withExtension: "usdz")
+//    let storageModelURL = Bundle.main.url(forResource: "annie-whitewashed-wood-storage-bookcase-with-shelves-by-leanne-ford", withExtension: "usdz")
+    let storageModelURL = Bundle.main.url(forResource: "elias-natural-elm-wood-open-bookcase", withExtension: "usdz")
     let doorModelURL = Bundle.main.url(forResource: "door", withExtension: "usdz")
+    let televisionModelURL = Bundle.main.url(forResource: "television", withExtension: "usdz")
     let doorImage = UIImage(named: "door-white.png")
     let windowImage = UIImage(named: "window_PNG17640.png")
-    let screenImage = UIImage(named: "screen.png")
     
     var body: some View {
         if let _ = sceneLoader.scene {
@@ -43,7 +44,7 @@ struct RoomLoaderView: View {
                             sceneView?.addLights()
                             self.isAutoEnablesDefaultLighting = false
                         }
-                        sceneView?.sceneLoader.addFloor()
+                        sceneView?.sceneLoader.addFloor(infinity: true)
 //                        sceneView?.sceneLoader.addCeiling()
                         sceneLoader.styleWalls()
                         sceneLoader.replaceObjects(ofType: .chair, with: chairModelURL)
@@ -53,7 +54,7 @@ struct RoomLoaderView: View {
                         sceneLoader.replaceSurfaces(ofType: .door(isOpen: false), with: doorImage)
                         sceneLoader.replaceSurfaces(ofType: .window, with: windowImage)
                         
-                        //                        sceneLoader.replaceObjects(ofType: .television, with: tableModelURL)
+                        sceneLoader.replaceObjects(ofType: .television, with: televisionModelURL, scale: 0.018, onFloorLevel: false)
                         isGenerating = false
                         isGeneratedFirstTime = false
                     } label: {

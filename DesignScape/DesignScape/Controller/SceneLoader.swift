@@ -68,7 +68,7 @@ class SceneLoader: ObservableObject {
         let storageNodes = findNodes(withNamePrefix: "Storage", in: rootNode)
         let stoveNodes = findNodes(withNamePrefix: "Stove", in: rootNode)
         let tableNodes = findNodes(withNamePrefix: "Table", in: rootNode)
-        let televisionNodes = findNodes(withNamePrefix: "Screen", in: rootNode)
+        let televisionNodes = findNodes(withNamePrefix: "Television", in: rootNode)
         let toiletNodes = findNodes(withNamePrefix: "Toilet", in: rootNode)
         let washerDryerNodes = findNodes(withNamePrefix: "WasherDryer", in: rootNode)
         let wallsNodes = findNodes(withNamePrefix: "Wall", in: rootNode)
@@ -94,14 +94,14 @@ class SceneLoader: ObservableObject {
             toilets: toiletNodes,
             washerDryers: washerDryerNodes,
             walls: wallsNodes,
-            windows: windowNodes, 
+            windows: windowNodes,
             doorsClosed: doorClosedNodes,
             doorsOpened: doorOpenedNodes
         )
         print("Scene Loaded")
     }
     
-    func addFloor() {
+    func addFloor(infinity: Bool = false) {
         guard let roomNode = scene?.rootNode.childNodes.first else {
             print("Cannot add floor")
             return
@@ -117,16 +117,15 @@ class SceneLoader: ObservableObject {
         floorMaterial.diffuse.wrapS = .repeat
         floorMaterial.diffuse.wrapT = .repeat
         floorMaterial.normal.contents = UIImage(named: "WoodFlooringAshSuperWhite001_NRM_2K.jpg")
-        //            floorMaterial.specular.contents = UIImage(named: "WoodFlooringAshSuperWhite001_GLOSS_2K.jpg")
-        //            floorMaterial.emission.contents = UIImage(named: "WoodFlooringAshSuperWhite001_REFL_2K.jpg") //Crash
-        //        floorMaterial.emission.intensity = 0
         floorMaterial.lightingModel = .physicallyBased
         
         floorGeometry.materials = [floorMaterial]
         print("Root \(String(describing: scene?.rootNode.childNodes.first))")
         print("Bounding box \(boundingBox)")
-        floorGeometry.width = CGFloat(boundingBox.max.x - boundingBox.min.x) / 2
-        floorGeometry.length = CGFloat(boundingBox.max.z - boundingBox.min.z) / 2
+        if !infinity {
+            floorGeometry.width = CGFloat(boundingBox.max.x - boundingBox.min.x) / 2
+            floorGeometry.length = CGFloat(boundingBox.max.z - boundingBox.min.z) / 2
+        }
         
         let floorNode = SCNNode(geometry: floorGeometry)
         floorNode.position.y = -20
@@ -139,7 +138,7 @@ class SceneLoader: ObservableObject {
         let fadeIn = SCNAction.fadeIn(duration: animationTime)
         floorNode.runAction(fadeIn)
         floorNode.position.y = self.groundLevel // Position the floor at the lowest Y-coordinate
-//        floorNode.runAction(.rotate(by: .pi/2, around: T##SCNVector3, duration: T##TimeInterval))
+        //        floorNode.runAction(.rotate(by: .pi/2, around: T##SCNVector3, duration: T##TimeInterval))
         
         // Use rotation of the wall to rotate the room
         if let wallRotation = self.sceneModel?.walls?.first?.simdRotation {
@@ -157,7 +156,7 @@ class SceneLoader: ObservableObject {
         
         let ceilingGeometry = SCNPlane(width: CGFloat(boundingBox.max.x - boundingBox.min.x), height: CGFloat(boundingBox.max.z - boundingBox.min.z))
         let ceilingMaterial = SCNMaterial()
-//        ceilingMaterial.diffuse.contents = .
+        //        ceilingMaterial.diffuse.contents = .
         ceilingGeometry.materials = [ceilingMaterial]
         
         let ceilingNode = SCNNode(geometry: ceilingGeometry)
@@ -191,7 +190,7 @@ class SceneLoader: ObservableObject {
         })
     }
     
-    func replaceObjects(ofType type: CapturedRoom.Object.Category, with resourceUrl: URL?) {
+    func replaceObjects(ofType type: CapturedRoom.Object.Category, with resourceUrl: URL?, scale: Float = 1, onFloorLevel: Bool = true) {
         var objectNodes: [SCNNode]? = nil
         
         switch type {
@@ -201,7 +200,7 @@ class SceneLoader: ObservableObject {
             return
         }
         
-        replaceObjects(objectNodes: &objectNodes, with: resourceUrl)
+        replaceObjects(objectNodes: &objectNodes, with: resourceUrl, scale: scale, onFloorLevel: onFloorLevel)
         sceneModel?.updateNodes(objectNodes ?? [], forCategory: type)
     }
     
@@ -235,47 +234,53 @@ class SceneLoader: ObservableObject {
         }
     }
     
-    private func replaceObjects(objectNodes: inout [SCNNode]?, with resourceUrl: URL?, scale: Float = 1) {
+    private func replaceObjects(objectNodes: inout [SCNNode]?, with resourceUrl: URL?, scale: Float = 1, onFloorLevel: Bool = true) {
         var newNodes: [SCNNode] = []
         if let newObjectUrl = resourceUrl,
            let newObjectScene = try? SCNScene(url: newObjectUrl),
            let newObjectNode = newObjectScene.rootNode.childNodes.first {
-            newObjectNode.scale = SCNVector3(scale, scale, scale)
             objectNodes?.forEach { objectNode in
-//                DispatchQueue.main.async {
-                    let node = newObjectNode.clone()
-                    //                node.l
-                    // Initial state before animation
-                    node.name = objectNode.name
-                    node.opacity = 0.0
-                    node.transform = objectNode.transform
-                    node.position.y -= Float((node.boundingBox.max.y) - (node.boundingBox.min.y))
-                    newNodes.append(node)
-                    self.scene?.rootNode.addChildNode(node)
-                    
-                    // Start animating
-                    let randomAnimationTime = Double.random(in: 0.5...1)
-                    
-                    // Remove current nodes
-                    let fadeOut = SCNAction.fadeOut(duration: randomAnimationTime)
-                    var move = SCNAction.move(to: SCNVector3(objectNode.position.x, objectNode.position.y - Float((objectNode.boundingBox.max.y) - (objectNode.boundingBox.min.y)), objectNode.position.z) , duration: randomAnimationTime)
-                    objectNode.runAction(fadeOut)
-                    objectNode.runAction(move)
-                    
-                    // Add new nodes
+                //                DispatchQueue.main.async {
+                let node = newObjectNode.clone()
+                //                node.l
+                // Initial state before animation
+                node.name = objectNode.name
+                node.opacity = 0.0
+                node.transform = objectNode.transform
+                node.scale = SCNVector3(scale, scale, scale)
+                print("Scaled down by: \(scale)")
+                node.position.y -= Float((node.boundingBox.max.y) - (node.boundingBox.min.y))
+                newNodes.append(node)
+                self.scene?.rootNode.addChildNode(node)
+                
+                // Start animating
+                let randomAnimationTime = Double.random(in: 0.5...1)
+                
+                // Remove current nodes
+                let fadeOut = SCNAction.fadeOut(duration: randomAnimationTime)
+                var move = SCNAction.move(to: SCNVector3(objectNode.position.x, objectNode.position.y - Float((objectNode.boundingBox.max.y) - (objectNode.boundingBox.min.y)), objectNode.position.z) , duration: randomAnimationTime)
+                objectNode.runAction(fadeOut)
+                objectNode.runAction(move)
+                
+                // Add new nodes
                 DispatchQueue.main.asyncAfter(deadline: .now() + randomAnimationTime + Double.random(in: 0...1)) {
-                        let animationTime = Double.random(in: 0.5...1.0)
-                        let fadeIn = SCNAction.fadeIn(duration: animationTime)
-                        move = SCNAction.move(to: SCNVector3(node.position.x, self.groundLevel, node.position.z) , duration: animationTime)
-                        node.runAction(fadeIn)
-                        node.runAction(move)
+                    let animationTime = Double.random(in: 0.5...1.0)
+                    let fadeIn = SCNAction.fadeIn(duration: animationTime)
+                    if onFloorLevel {
+                        move = SCNAction.move(to: SCNVector3(node.position.x, self.groundLevel, node.position.z), duration: animationTime)
+                    } else {
+                        move = SCNAction.move(to: SCNVector3(node.position.x, objectNode.position.y, node.position.z), duration: animationTime)
                     }
                     
-                    // Remove after animation ends
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 3.3) {
-                        objectNode.removeFromParentNode()
-                    }
-//                }
+                    node.runAction(fadeIn)
+                    node.runAction(move)
+                }
+                
+                // Remove after animation ends
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3.3) {
+                    objectNode.removeFromParentNode()
+                }
+                //                }
                 
                 print("Replaced \(String(describing: objectNode.name))")
                 
@@ -389,21 +394,21 @@ struct SceneView: UIViewRepresentable {
         let view = SCNView()
         view.scene = sceneLoader.scene
         // Debug
-        view.debugOptions = [
-            .showWireframe, // Show wireframe
-            .showBoundingBoxes, // Show bounding boxes
-            .showCameras, // Show cameras
-            .showSkeletons,
-            .showLightInfluences, // Show lights
-            .showLightExtents // Show field of view cones
-        ]
-        view.backgroundColor = .grey
+//        view.debugOptions = [
+//            .showWireframe, // Show wireframe
+//            .showBoundingBoxes, // Show bounding boxes
+//            .showCameras, // Show cameras
+//            .showSkeletons,
+//            .showLightInfluences, // Show lights
+//            .showLightExtents // Show field of view cones
+//        ]
+//        view.backgroundColor = .grey
         
         // Important for realistic environment
         sceneLoader.scene?.wantsScreenSpaceReflection = true
         sceneLoader.scene?.rootNode.castsShadow = true
         addSpotLight(to: sceneLoader.scene?.rootNode)
-//        visualizeLights()
+        //        visualizeLights()
         view.allowsCameraControl = true
         view.delegate = context.coordinator
         return view
