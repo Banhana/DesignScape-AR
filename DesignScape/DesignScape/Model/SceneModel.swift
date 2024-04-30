@@ -28,6 +28,11 @@ struct SceneModel {
     var washerDryers: [SCNNode]?
     
     var walls: [SCNNode]?
+    var floors: [SCNNode]?
+    var ceilings: [SCNNode]?
+    var windows: [SCNNode]?
+    var doorsClosed: [SCNNode]?
+    var doorsOpened: [SCNNode]?
 }
 
 extension SceneModel {
@@ -49,6 +54,25 @@ extension SceneModel {
         case .fireplace: return fireplaces
         case .television: return televisions
         case .stairs: return stairs
+        @unknown default:
+            return nil
+        }
+    }
+    
+    func nodes(forCategory category: CapturedRoom.Surface.Category) -> [SCNNode]? {
+        switch category {
+        case .wall:
+            return walls
+        case .opening:
+            return nil
+        case .window:
+            return windows
+        case .door(isOpen: true):
+            return doorsOpened
+        case .door(isOpen: false):
+            return doorsClosed
+        case .floor:
+            return floors
         @unknown default:
             return nil
         }
@@ -95,6 +119,19 @@ extension SceneModel {
         case .fireplace: fireplaces = nodes
         case .television: televisions = nodes
         case .stairs: stairs = nodes
+        @unknown default:
+            return
+        }
+    }
+    
+    mutating func updateNodes(_ nodes: [SCNNode], forCategory category: CapturedRoom.Surface.Category) {
+        switch category {
+        case .wall: walls = nodes
+        case .opening:  return
+        case .window: windows = nodes
+        case .door(isOpen: true): doorsOpened = nodes
+        case .door(isOpen: false): doorsClosed = nodes
+        case .floor: floors = nodes
         @unknown default:
             return
         }

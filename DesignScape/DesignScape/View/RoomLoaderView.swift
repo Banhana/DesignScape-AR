@@ -25,6 +25,9 @@ struct RoomLoaderView: View {
     let tableModelURL = Bundle.main.url(forResource: "monarch-shiitake-dining-table", withExtension: "usdz")
     //    let storageModelURL = Bundle.main.url(forResource: "501439_West Natural Cane Bar Cabinet", withExtension: "usdz")
     let storageModelURL = Bundle.main.url(forResource: "annie-whitewashed-wood-storage-bookcase-with-shelves-by-leanne-ford", withExtension: "usdz")
+    let doorModelURL = Bundle.main.url(forResource: "door", withExtension: "usdz")
+    let doorImage = UIImage(named: "door-white.png")
+    let windowImage = UIImage(named: "window_PNG17640.png")
     
     var body: some View {
         if let _ = sceneLoader.scene {
@@ -40,10 +43,14 @@ struct RoomLoaderView: View {
                             self.isAutoEnablesDefaultLighting = false
                         }
                         sceneView?.sceneLoader.addFloor()
+//                        sceneView?.sceneLoader.addCeiling()
                         sceneLoader.styleWalls()
                         sceneLoader.replaceObjects(ofType: .chair, with: chairModelURL)
                         sceneLoader.replaceObjects(ofType: .table, with: tableModelURL)
                         sceneLoader.replaceObjects(ofType: .storage, with: storageModelURL)
+                        sceneLoader.replaceSurfaces(ofType: .door(isOpen: true), with: doorImage)
+                        sceneLoader.replaceSurfaces(ofType: .door(isOpen: false), with: doorImage)
+                        sceneLoader.replaceSurfaces(ofType: .window, with: windowImage)
                         
                         //                        sceneLoader.replaceObjects(ofType: .television, with: tableModelURL)
                         isGenerating = false

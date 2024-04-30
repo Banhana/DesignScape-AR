@@ -93,7 +93,10 @@ class SceneLoader: ObservableObject {
             televisions: televisionNodes,
             toilets: toiletNodes,
             washerDryers: washerDryerNodes,
-            walls: wallsNodes
+            walls: wallsNodes,
+            windows: windowNodes, 
+            doorsClosed: doorClosedNodes,
+            doorsOpened: doorOpenedNodes
         )
         print("Scene Loaded")
     }
@@ -128,6 +131,8 @@ class SceneLoader: ObservableObject {
         let floorNode = SCNNode(geometry: floorGeometry)
         floorNode.position.y = -20
         floorNode.opacity = 0
+        floorNode.name = "Floor"
+        sceneModel?.floors?.append(floorNode)
         self.rootNode?.addChildNode(floorNode)
         
         let animationTime = Double.random(in: 2...3.0)
@@ -138,9 +143,36 @@ class SceneLoader: ObservableObject {
         
         // Use rotation of the wall to rotate the room
         if let wallRotation = self.sceneModel?.walls?.first?.simdRotation {
-            floorNode.simdRotation = -wallRotation
+            floorNode.simdRotation = wallRotation
         }
         
+    }
+    
+    func addCeiling() {
+        guard let roomNode = scene?.rootNode.childNodes.first else {
+            print("Cannot add ceiling")
+            return
+        }
+        let boundingBox = roomNode.boundingBox
+        
+        let ceilingGeometry = SCNPlane(width: CGFloat(boundingBox.max.x - boundingBox.min.x), height: CGFloat(boundingBox.max.z - boundingBox.min.z))
+        let ceilingMaterial = SCNMaterial()
+//        ceilingMaterial.diffuse.contents = .
+        ceilingGeometry.materials = [ceilingMaterial]
+        
+        let ceilingNode = SCNNode(geometry: ceilingGeometry)
+        ceilingNode.position.y = self.groundLevel + boundingBox.max.y - boundingBox.min.y // Position the ceiling 2.5 units above the ground level
+        ceilingNode.opacity = 0
+        self.rootNode?.addChildNode(ceilingNode)
+        
+        let animationTime = Double.random(in: 2...3.0)
+        let fadeIn = SCNAction.fadeIn(duration: animationTime)
+        ceilingNode.runAction(fadeIn)
+        // Use rotation of the wall to rotate the room
+        if let wallRotation = self.sceneModel?.walls?.first?.simdRotation {
+            ceilingNode.simdRotation = wallRotation
+        }
+        ceilingNode.eulerAngles.x = .pi / 2
     }
     
     func findLowestYCoordinate(in rootNode: SCNNode) -> Float {
@@ -173,12 +205,42 @@ class SceneLoader: ObservableObject {
         sceneModel?.updateNodes(objectNodes ?? [], forCategory: type)
     }
     
-    private func replaceObjects(objectNodes: inout [SCNNode]?, with resourceUrl: URL?) {
+    func replaceSurfaces(ofType type: CapturedRoom.Surface.Category, with image: UIImage?) {
+        var objectNodes: [SCNNode]? = nil
+        
+        switch type {
+        case .door(isOpen: false), .door(isOpen: true), .window, .wall:
+            objectNodes = sceneModel?.nodes(forCategory: type)
+        case .opening:
+            return
+        case .floor:
+            addFloor()
+        @unknown default:
+            return
+        }
+        
+        replaceSurfaces(surfaceNodes: &objectNodes, with: image)
+        sceneModel?.updateNodes(objectNodes ?? [], forCategory: type)
+    }
+    
+    private func replaceSurfaces(surfaceNodes: inout [SCNNode]?, with image: UIImage?) {
+        guard let surfaceNodes = surfaceNodes, !surfaceNodes.isEmpty else {
+            print("No surface nodes to replace")
+            return
+        }
+        if let image = image {
+            surfaceNodes.forEach { surfaceNode in
+                surfaceNode.geometry?.firstMaterial?.diffuse.contents = image
+            }
+        }
+    }
+    
+    private func replaceObjects(objectNodes: inout [SCNNode]?, with resourceUrl: URL?, scale: Float = 1) {
         var newNodes: [SCNNode] = []
         if let newObjectUrl = resourceUrl,
            let newObjectScene = try? SCNScene(url: newObjectUrl),
            let newObjectNode = newObjectScene.rootNode.childNodes.first {
-            
+            newObjectNode.scale = SCNVector3(scale, scale, scale)
             objectNodes?.forEach { objectNode in
 //                DispatchQueue.main.async {
                     let node = newObjectNode.clone()
@@ -326,11 +388,22 @@ struct SceneView: UIViewRepresentable {
     func makeUIView(context: Context) -> SCNView {
         let view = SCNView()
         view.scene = sceneLoader.scene
+        // Debug
+        view.debugOptions = [
+            .showWireframe, // Show wireframe
+            .showBoundingBoxes, // Show bounding boxes
+            .showCameras, // Show cameras
+            .showSkeletons,
+            .showLightInfluences, // Show lights
+            .showLightExtents // Show field of view cones
+        ]
+        view.backgroundColor = .grey
+        
         // Important for realistic environment
         sceneLoader.scene?.wantsScreenSpaceReflection = true
         sceneLoader.scene?.rootNode.castsShadow = true
         addSpotLight(to: sceneLoader.scene?.rootNode)
-        visualizeLights()
+//        visualizeLights()
         view.allowsCameraControl = true
         view.delegate = context.coordinator
         return view
