@@ -90,6 +90,7 @@ class ScanRoomController: RoomCaptureSessionDelegate, RoomCaptureViewDelegate, O
             return
         }
         finalResult = processedResult
+        onModelReady()
     }
     
     func captureSession(_ session: RoomCaptureSession, didEndWith data: CapturedRoomData, error: (Error)?) {
@@ -97,7 +98,7 @@ class ScanRoomController: RoomCaptureSessionDelegate, RoomCaptureViewDelegate, O
             print("Error: \(error.localizedDescription)")
             return
         }
-        generateRoomURL(with: data)
+//        generateRoomURL(with: data)
     }
     
     func generateRoomURL(with captureRoomData: CapturedRoomData){
@@ -125,7 +126,7 @@ class ScanRoomController: RoomCaptureSessionDelegate, RoomCaptureViewDelegate, O
             let authDataResult = try AuthenticationController.shared.getAuthenticatedUser()
             UserManager.shared.fetchRooms { files in
                 usdzFiles = files
-                let fileUrl = "usdz_files/\(authDataResult.uid)/Room\(usdzFiles.count + 1)"
+                let fileUrl = "usdz_files/\(authDataResult.uid)/Room\(usdzFiles.count + 1).usdz"
                 let fileRef = storageRef.child(fileUrl)
                 
                 // Upload the file to the path "usdz_files/Room.usdz"
@@ -173,27 +174,31 @@ class ScanRoomController: RoomCaptureSessionDelegate, RoomCaptureViewDelegate, O
 extension ScanRoomController {
     
     func onModelReady() {
+        print("Model Ready")
         sceneView?.scene = SCNScene()
         sceneView?.scene?.rootNode.castsShadow = true
-        guard let model = finalResult else { return }
+        guard let model = finalResult else {
+            print("Something went wrong. Model not found")
+            return
+        }
         let walls = getAllNodes(for: model.walls,
                                 length: 0.2,
                                 contents: UIImage(named: "White-Marble-Diffuse"))
         walls.forEach { sceneView?.scene?.rootNode.addChildNode($0) }
         let doors = getAllNodes(for: model.doors,
-                                length: 0.2,
+                                length: 0.3,
                                 contents: UIImage(named: "doorTexture"))
         doors.forEach { sceneView?.scene?.rootNode.addChildNode($0) }
         let windows = getAllNodes(for: model.windows,
-                                  length: 0.2,
+                                  length: 0.3,
                                   contents: UIImage(named: "windowTexture"))
         windows.forEach { sceneView?.scene?.rootNode.addChildNode($0) }
         let openings = getAllNodes(for: model.openings,
-                                   length: 0.2,
+                                   length: 0.3,
                                    contents: UIColor.blue.withAlphaComponent(0.5))
         openings.forEach { sceneView?.scene?.rootNode.addChildNode($0) }
-        let tables = getAllNodes(for: model.objects, contents: UIImage(named: "windowTexture"))
-        tables.forEach { sceneView?.scene?.rootNode.addChildNode($0) }
+        let objects = getAllNodes(for: model.objects, contents: UIImage(named: "windowTexture"))
+        objects.forEach { sceneView?.scene?.rootNode.addChildNode($0) }
         exportScene(sceneView?.scene)
     }
     
@@ -234,25 +239,16 @@ extension ScanRoomController {
     
     private func getAllNodes(for objects: [CapturedRoom.Object], contents: Any?) -> [SCNNode] {
         var nodes: [SCNNode] = []
-        var name = ""
-        if let category = objects.first?.category {
-            name = SceneModel.getName(forCategory: category)
-        }
-        
-//        switch objects.first?.category.description {
-//        case .
-//        }
         objects.enumerated().forEach { index, object in
+            let name = SceneModel.getName(forCategory: object.category)
             let width = CGFloat(object.dimensions.x)
             let height = CGFloat(object.dimensions.y)
             let length = CGFloat(object.dimensions.z)
             let box = SCNBox(width: width, height: height, length: length, chamferRadius: 0.0)
-                        let node = SCNNode(geometry: box)
-                        node.name = "\(name)\(index)"
-                        print(node.name)
-            
-                        node.transform = SCNMatrix4(object.transform)
-                        nodes.append(node)
+            let node = SCNNode(geometry: box)
+            node.name = "\(name)\(index)"
+            node.transform = SCNMatrix4(object.transform)
+            nodes.append(node)
         }
         return nodes
     }
@@ -268,6 +264,7 @@ extension ScanRoomController {
                 
                 // Export the scene to the URL
                 scene.write(to: sceneURL, delegate: nil)
+                self.url = sceneURL
                 uploadUSDZFile(fileURL: sceneURL)
                 print("Scene exported to \(sceneURL.path)")
             } else {

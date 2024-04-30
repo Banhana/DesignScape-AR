@@ -28,6 +28,7 @@ struct RoomLoaderView: View {
     let doorModelURL = Bundle.main.url(forResource: "door", withExtension: "usdz")
     let doorImage = UIImage(named: "door-white.png")
     let windowImage = UIImage(named: "window_PNG17640.png")
+    let screenImage = UIImage(named: "screen.png")
     
     var body: some View {
         if let _ = sceneLoader.scene {
