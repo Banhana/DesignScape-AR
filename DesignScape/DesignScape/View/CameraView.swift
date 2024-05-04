@@ -36,11 +36,11 @@ struct CameraView: View{
                                 .cornerRadius(16)
                         }
                         // Puts all model images into buttons
-                        ForEach(modelNames, id: \.self) { modelName in
+                        ForEach(viewModel.products, id: \.self) { product in
                             Button {
                                 ARManager.shared.actionStream.send(.placeObject(modelName: modelName))
                             } label: {
-                                Image(modelName) 
+                                Image(product)
                                     .resizable()
                                     .frame(width: 40, height: 40)
                                     .padding()
