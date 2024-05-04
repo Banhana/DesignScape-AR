@@ -15,7 +15,9 @@ struct ScanRoomView: View {
     /// RoomController instance
     @ObservedObject var roomController = ScanRoomController.instance
     /// Condition when scanning is completed
-    @State private var doneScanning: Bool = false
+    @State var doneScanning: Bool = false
+    
+    @Binding var isActive: Bool
     
     var body: some View {
         VStack {
@@ -31,10 +33,36 @@ struct ScanRoomView: View {
                 
                 /// Share sheet
                 if doneScanning, let url = roomController.url {
-                    ShareLink(item: url) {
-                        Image(systemName: "square.and.arrow.up")
+                    
+                    HStack (alignment: .center){
+                        Spacer()
+                        Button {} label: {
+                            Image(systemName: "square.and.arrow.up")
+                        }
+                        
+                        Spacer()
+                        Button(action: {
+                            isActive.toggle()
+                        }, label: {
+                            ZStack(alignment: .center){
+                                Image("Round-Button")
+                                Image(systemName: "checkmark")
+                                    .resizable()
+                                    .frame(width: 22, height: 18)
+                                    .scaledToFit()
+                            }
+                            .frame(width: 64, height: 64)
+                        })
+                        
+                        
+                        Spacer()
+                        ShareLink(item: url) {
+                            Image(systemName: "square.and.arrow.up")
+                            
+                        }
+                        Spacer()
                     }
-                    .font(.title)
+                    .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                 }
             }
         }
@@ -64,8 +92,6 @@ struct ScanRoomView: View {
                     .frame(width: 60, height: 32)
                     .cornerRadius(8)
                 })
-            } else {
-                CloseButton()
             }
         }
     }
@@ -75,17 +101,18 @@ struct ScanRoomView: View {
 struct NextGuidedTourView: View {
     /// Next view is numberd by an integer
     var nextView: Int
+    @Binding var isActive: Bool
     
     var body: some View {
         /// Step 1
         if nextView == 1 {
-            GuidedTourImageScanRoomView(title: "Step 1", instruction: "\u{2022} Remove all personal items\n\u{2022} Ensure room is empty of people", nextDestinationView: 2, image: "personal-items")
+            GuidedTourImageScanRoomView(title: "Step 1", instruction: "\u{2022} Remove all personal items\n\u{2022} Ensure room is empty of people", nextDestinationView: 2, image: "personal-items", isActive: $isActive)
             /// Step 2
         } else if nextView == 2 {
-            GuidedTourImageScanRoomView(title: "Step 2", instruction: "\u{2022} Close all doors\n\u{2022} Move back to get a great angle", nextDestinationView: 3, nextBtnText: "START SCANNING", image: "closing-door")
+            GuidedTourImageScanRoomView(title: "Step 2", instruction: "\u{2022} Close all doors\n\u{2022} Move back to get a great angle", nextDestinationView: 3, nextBtnText: "START SCANNING", image: "closing-door", isActive: $isActive)
             /// Final Step
         } else if nextView == 3 {
-            ScanRoomView()
+            ScanRoomView(isActive: $isActive)
         }
     }
 }
@@ -99,6 +126,7 @@ struct GuidedTourScanRoomView: View {
     /// Contents of next button
     var nextDestinationView: Int
     var nextBtnText: String = "NEXT"
+    @Binding var isActive: Bool
     
     /// Load an overview video
     @State var player = AVPlayer(url: Bundle.main.url(forResource: "roomplan-large", withExtension: "mp4")!)
@@ -127,7 +155,7 @@ struct GuidedTourScanRoomView: View {
             /// Next button to next view
             HStack {
                 Spacer()
-                NavigationLink(destination: NextGuidedTourView(nextView: self.nextDestinationView)) {
+                NavigationLink(destination: NextGuidedTourView(nextView: self.nextDestinationView, isActive: $isActive)) {
                     PrimaryButton(text: nextBtnText, image: "arrow-right")
                 }
             }
@@ -152,6 +180,8 @@ struct GuidedTourImageScanRoomView: View {
     /// Load an overview video
     var image: String
     
+    @Binding var isActive: Bool
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             /// Main Contents
@@ -164,7 +194,7 @@ struct GuidedTourImageScanRoomView: View {
             /// Next button to next view
             HStack {
                 Spacer()
-                NavigationLink(destination: NextGuidedTourView(nextView: self.nextDestinationView)) {
+                NavigationLink(destination: NextGuidedTourView(nextView: self.nextDestinationView, isActive: $isActive)) {
                     PrimaryButton(text: nextBtnText, image: "arrow-right")
                 }
             }
@@ -178,11 +208,12 @@ struct GuidedTourImageScanRoomView: View {
 
 #Preview {
     NavigationView {
-//        GuidedTourScanRoomView(title: "Get Started", instruction: "Scan your room and design in an immersive experience that brings your vision to life", nextDestinationView: 1)
-//            .navigationBarTitleDisplayMode(.inline)
-        ScanRoomView()
-            .onAppear {
-                ScanRoomController.instance.url =  URL(string: "www.google.com")!
-            }
+//                GuidedTourScanRoomView(title: "Get Started", instruction: "Scan your room and design in an immersive experience that brings your vision to life", nextDestinationView: 1)
+//                    .navigationBarTitleDisplayMode(.inline)
+//        ScanRoomView(doneScanning: true, isActive: Binding<false>)
+//            .onAppear {
+//                ScanRoomController.instance.url =  URL(string: "www.google.com")!
+//            }
+        CreateDesignView(isActive: false)
     }
 }
