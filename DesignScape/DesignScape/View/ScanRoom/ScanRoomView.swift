@@ -87,10 +87,10 @@ struct NextGuidedTourView: View {
         /// Step 1
         if nextView == 1 {
             GuidedTourImageScanRoomView(title: "Step 1", instruction: "\u{2022} Remove all personal items\n\u{2022} Ensure room is empty of people", nextDestinationView: 2, image: "personal-items")
-            /// Step 2
+        /// Step 2
         } else if nextView == 2 {
             GuidedTourImageScanRoomView(title: "Step 2", instruction: "\u{2022} Close all doors\n\u{2022} Move back to get a great angle", nextDestinationView: 3, nextBtnText: "START SCANNING", image: "closing-door")
-            /// Final Step
+        /// Final Step
         } else if nextView == 3 {
             ScanRoomView()
         }

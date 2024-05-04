@@ -8,42 +8,44 @@
 import SwiftUI
 import Firebase
 import FirebaseFirestore
-
+import FirebaseStorage
 
 struct ContentView: View {
-    var imageURLS: [String] = []
-    private var db = DataController.shared.db
-    private var storage = DataController.shared.storage
-    
+    let fileURLs: URL =
+        URL(string: "https://firebasestorage.googleapis.com/v0/b/designscape-5d27c.appspot.com/o/products%2Fbisou-accent-chair.usdz?alt=media&token=4264ca44-3065-49fe-bce7-2136e08d4300")!
+    let destinationURL = FileManager.default.temporaryDirectory.appendingPathComponent("file")
+    @State var isDownloadComplete = false
+
     var body: some View {
-        
-        
-        Text("hi")
-            .onAppear(perform: {
-                print("Start")
-                let storageRef = storage.reference().child("products")
-                
-                storageRef.listAll { result, error in
-                    print("Fetch")
-                    if let error = error {
-                        print("Error listing images: \(error.localizedDescription)")
-                    } else {
-                        for item in result!.items {
-                            item.downloadURL { url, error in
-                                if let error = error {
-                                    print("Error getting download URL for \(item.name): \(error.localizedDescription)")
-                                } else if let url = url {
-                                    print("Download URL for \(item.name): \(url.absoluteString)")
-                                    // Here you can store the download URL as needed
-                                }
-                            }
-                        }
-                        print("Completed")
-                    }
-                    
+        NavigationStack {
+            VStack {
+                Text("QuickLook Preview")
+                //            if isDownloadComplete == true {
+                ////                QuickLookPreviewController(url: destinationURL)
+                ////                    .frame(height: 400) // Adjust the frame size as desired
+                //            }
+                NavigationLink(destination: WebView(url: fileURLs)) {
+                    Text("View")
                 }
-            })
-//        print("\(storageRef)")
+                
+            }
+//            .task {
+//                downloadFile(from: fileURLs, to: destinationURL)
+//            }
+        }
+    }
+    
+    
+    func downloadFile(from downloadURL: URL, to destinationURL: URL) {
+        let storageRef = Storage.storage().reference(forURL: downloadURL.absoluteString)
+        storageRef.write(toFile: destinationURL) { url, error in
+            if let error = error {
+                print("Error downloading file: \(error)")
+                return
+            }
+            print("File downloaded successfully")
+            isDownloadComplete = true
+        }
     }
 }
 

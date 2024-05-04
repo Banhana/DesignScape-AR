@@ -160,6 +160,7 @@ struct ProductCard: View {
         VStack (alignment: .leading, spacing: 4){
             AsyncImage(url: URL(string: imageURL)) { image in
                 image.resizable()
+                    .scaledToFill()
             } placeholder: {
                 ProgressView()
             }
@@ -196,7 +197,8 @@ struct ProductCard: View {
                     .font(
                         Font.custom("Cambay-Regular", size: 12)
                     )
-                    .foregroundColor(Color("AccentColor"))
+                    .foregroundColor(Color("Brown"))
+                    .multilineTextAlignment(.leading)
                 Text("$\(String(format: "%.2f", price))")
                     .font(
                         Font.custom("Cambay-Bold", size: 14)
@@ -240,7 +242,6 @@ struct ContenttView: View {
         }
     }
 }
-
 
 struct RoomView: View{
     var rooms: [String]
