@@ -20,7 +20,8 @@
 		619F4B8D2B814EFE00F0912D /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 619F4B8C2B814EFE00F0912D /* FirebaseFirestoreSwift */; };
 		619F4BA32B814EFE00F0912D /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 619F4BA22B814EFE00F0912D /* FirebaseStorage */; };
 		619F4BA72B8161F600F0912D /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619F4BA62B8161F600F0912D /* SignUpView.swift */; };
-		61CACAC92BA1120700F94AF5 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CACAC82BA1120700F94AF5 /* FavoritesView.swift */; };
+		61A4652A2BE6C6A80031D36D /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A465292BE6C6A80031D36D /* FavoritesView.swift */; };
+		61A4652C2BE6C6D80031D36D /* ARQuickLookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A4652B2BE6C6D80031D36D /* ARQuickLookViewController.swift */; };
 		6E06C24B2BAFC08B000F0A63 /* ScanRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E06C24A2BAFC08B000F0A63 /* ScanRoomView.swift */; };
 		6E06C24D2BB102F8000F0A63 /* UserRoomsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E06C24C2BB102F8000F0A63 /* UserRoomsView.swift */; };
 		6E091F3E2B906FF4006AE7CB /* ObjectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E091F3D2B906FF4006AE7CB /* ObjectModel.swift */; };
@@ -51,7 +52,6 @@
 		6E7DEE992B6C602500165B61 /* Cambay-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E7DEE952B6C602500165B61 /* Cambay-Regular.ttf */; };
 		6E7DEE9A2B6C602500165B61 /* Cambay-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E7DEE962B6C602500165B61 /* Cambay-Bold.ttf */; };
 		6E7DEE9C2B6C947800165B61 /* ObjectDetectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DEE9B2B6C947800165B61 /* ObjectDetectionController.swift */; };
-		6E955C762B2230E900E57F55 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD5D9642B1FED850014FA26 /* ContentView.swift */; };
 		EA26A7042B97EA8E000BE434 /* gitignore.txt in Resources */ = {isa = PBXBuildFile; fileRef = EA26A7032B97EA8E000BE434 /* gitignore.txt */; };
 		EA63662E2B9957170098DAD1 /* ReconstructionPrimaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA63662D2B9957170098DAD1 /* ReconstructionPrimaryView.swift */; };
 		EA6366302B99594E0098DAD1 /* UntilProcessingCompleteFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA63662F2B99594E0098DAD1 /* UntilProcessingCompleteFilter.swift */; };
@@ -68,7 +68,6 @@
 		EAD5D95E2B1FEB810014FA26 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD5D95D2B1FEB810014FA26 /* DataController.swift */; };
 		EAD5D9612B1FEC420014FA26 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = EAD5D9602B1FEC420014FA26 /* FirebaseFirestore */; };
 		EAD5D9652B1FED850014FA26 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD5D9622B1FED850014FA26 /* Item.swift */; };
-		EAD5D9662B1FED850014FA26 /* DataTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD5D9632B1FED850014FA26 /* DataTableView.swift */; };
 		EAD6EA9D2B7609990060072B /* Furniture in Resources */ = {isa = PBXBuildFile; fileRef = EAD6EA9C2B7609990060072B /* Furniture */; };
 		EAD7F8BE2B6D803A00BE6AC4 /* ARViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD7F8BD2B6D803A00BE6AC4 /* ARViewRepresentable.swift */; };
 		EAD7F8C02B6D807100BE6AC4 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD7F8BF2B6D807100BE6AC4 /* CameraView.swift */; };
@@ -89,7 +88,8 @@
 		619F4B6C2B8144C800F0912D /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		619F4B6E2B8144E500F0912D /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		619F4BA62B8161F600F0912D /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
-		61CACAC82BA1120700F94AF5 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
+		61A465292BE6C6A80031D36D /* FavoritesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
+		61A4652B2BE6C6D80031D36D /* ARQuickLookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARQuickLookViewController.swift; sourceTree = "<group>"; };
 		6E06C2462BAFBFCE000F0A63 /* CatalogView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatalogView.swift; sourceTree = "<group>"; };
 		6E06C2472BAFBFCE000F0A63 /* ProductView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductView.swift; sourceTree = "<group>"; };
 		6E06C24A2BAFC08B000F0A63 /* ScanRoomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanRoomView.swift; sourceTree = "<group>"; };
@@ -141,8 +141,6 @@
 		EAD22D1E2B1E7378007D4679 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EAD5D95D2B1FEB810014FA26 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		EAD5D9622B1FED850014FA26 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
-		EAD5D9632B1FED850014FA26 /* DataTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataTableView.swift; sourceTree = "<group>"; };
-		EAD5D9642B1FED850014FA26 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		EAD6EA9C2B7609990060072B /* Furniture */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Furniture; sourceTree = "<group>"; };
 		EAD7F8BD2B6D803A00BE6AC4 /* ARViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewRepresentable.swift; sourceTree = "<group>"; };
 		EAD7F8BF2B6D807100BE6AC4 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
@@ -175,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				6E06C24C2BB102F8000F0A63 /* UserRoomsView.swift */,
+				61A465292BE6C6A80031D36D /* FavoritesView.swift */,
 				619F4B6C2B8144C800F0912D /* SignInView.swift */,
 				619F4B6E2B8144E500F0912D /* AccountView.swift */,
 				619F4BA62B8161F600F0912D /* SignUpView.swift */,
@@ -187,7 +186,6 @@
 			children = (
 				610552A52BC231A500F5A052 /* CatalogView.swift */,
 				610552A42BC231A500F5A052 /* ProductView.swift */,
-				61CACAC82BA1120700F94AF5 /* FavoritesView.swift */,
 			);
 			path = Product;
 			sourceTree = "<group>";
@@ -272,8 +270,6 @@
 				6E20E17D2B8B19000024BEA8 /* ScanRoom */,
 				EAD7F8C12B6D80D700BE6AC4 /* CustomARView.swift */,
 				EAD7F8BF2B6D807100BE6AC4 /* CameraView.swift */,
-				EAD5D9642B1FED850014FA26 /* ContentView.swift */,
-				EAD5D9632B1FED850014FA26 /* DataTableView.swift */,
 				6E7DEE7D2B676A0E00165B61 /* MainView.swift */,
 				6E7DEE7F2B69C35900165B61 /* CreateDesignView.swift */,
 				61CACAC72BA111D900F94AF5 /* Product */,
@@ -295,6 +291,7 @@
 				6107CC322B831E9B00EDA568 /* AuthenticationController.swift */,
 				6E4CA3302BA67CEA00B9F152 /* ScanRoomController.swift */,
 				618390FC2B9548E900291C76 /* UserManager.swift */,
+				61A4652B2BE6C6D80031D36D /* ARQuickLookViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -465,13 +462,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				61A4652C2BE6C6D80031D36D /* ARQuickLookViewController.swift in Sources */,
 				EAD7F8C22B6D80D700BE6AC4 /* CustomARView.swift in Sources */,
 				6E06C24D2BB102F8000F0A63 /* UserRoomsView.swift in Sources */,
 				EAD5D95E2B1FEB810014FA26 /* DataController.swift in Sources */,
 				EAF3A6CE2B85CB120016427E /* ARModelManager.swift in Sources */,
 				619F4B6F2B8144E500F0912D /* AccountView.swift in Sources */,
 				EAF3A6CE2B85CB120016427E /* ARModelManager.swift in Sources */,
-				61CACAC92BA1120700F94AF5 /* FavoritesView.swift in Sources */,
 				EA63662E2B9957170098DAD1 /* ReconstructionPrimaryView.swift in Sources */,
 				6E7DEE9C2B6C947800165B61 /* ObjectDetectionController.swift in Sources */,
 				EA9326632B91BF4D009ABBCC /* ShotFileInfo.swift in Sources */,
@@ -484,7 +481,6 @@
 				618390FD2B9548E900291C76 /* UserManager.swift in Sources */,
 				6E4CA3332BA67D4200B9F152 /* ObjectNode.swift in Sources */,
 				6E7DEE7E2B676A0E00165B61 /* MainView.swift in Sources */,
-				6E955C762B2230E900E57F55 /* ContentView.swift in Sources */,
 				EAD7F8C02B6D807100BE6AC4 /* CameraView.swift in Sources */,
 				6E4CA3312BA67CEA00B9F152 /* ScanRoomController.swift in Sources */,
 				EA8D2F0F2B1E705A0074FC71 /* DesignScapeApp.swift in Sources */,
@@ -493,7 +489,6 @@
 				6E091F422B9073E3006AE7CB /* ObjectDectectionView.swift in Sources */,
 				6E091F3E2B906FF4006AE7CB /* ObjectModel.swift in Sources */,
 				EAAEB1CA2B6F49F800131AB7 /* ARActions.swift in Sources */,
-				EAD5D9662B1FED850014FA26 /* DataTableView.swift in Sources */,
 				6E20E1652B85A3D90024BEA8 /* Elements.swift in Sources */,
 				EAD5D9652B1FED850014FA26 /* Item.swift in Sources */,
 				EA93265C2B914E4E009ABBCC /* MyObjectCaptureSession.swift in Sources */,
@@ -503,6 +498,7 @@
 				6E0994742BB108D500E7382C /* ThumbnailLoader.swift in Sources */,
 				6E20E17C2B8B180F0024BEA8 /* MathUtil+Extra.swift in Sources */,
 				6107CC3A2B86BC3C00EDA568 /* ProductViewModel.swift in Sources */,
+				61A4652A2BE6C6A80031D36D /* FavoritesView.swift in Sources */,
 				EAAEB1CC2B6F4A9500131AB7 /* ARManager.swift in Sources */,
 				EA6366302B99594E0098DAD1 /* UntilProcessingCompleteFilter.swift in Sources */,
 				6E06C24B2BAFC08B000F0A63 /* ScanRoomView.swift in Sources */,
