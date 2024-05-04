@@ -13,16 +13,29 @@ struct ProductView: View {
     @StateObject var user = AuthenticationViewModel()
     var id: String
     
+    // Preview state
+    @State private var showingPreview = false
+    // Local URL after download from model url
+    @State private var localFileUrl: URL?
+    
     var body: some View {
         VStack (alignment: .leading){
             if let product = viewModel.product {
                 // Display product information
-                AsyncImage(url: URL(string: product.imageURL)) { image in
-                    image.resizable()
-                } placeholder: {
-                    ProgressView()
+                Rectangle(
+                )
+                .foregroundColor(.clear)
+                .background{
+                    AsyncImage(url: URL(string: product.imageURL)) { image in
+                        image.resizable()
+                            .scaledToFit()
+                            .frame(height: 200)
+                            .cornerRadius(12)
+                        
+                    } placeholder: {
+                        ProgressView()
+                    }
                 }
-                .frame(height: 200)
                 
                 HStack {
                     Text(product.name.capitalized)
@@ -62,7 +75,17 @@ struct ProductView: View {
                     
                 
                 Button(action: {
-                    
+                    if let modelURL = URL(string: product.modelURL) {
+                        showingPreview.toggle()
+                        viewModel.downloadModelFile(from: modelURL) { result in
+                            switch result {
+                            case .success(let localFileUrl):
+                                self.localFileUrl = localFileUrl
+                            case .failure(let error):
+                                print("Error downloading file: \(error)")
+                            }
+                        }
+                    }
                 }, label: {
                     PrimaryButton(text: "VIEW PRODUCT IN ROOM", willSpan: true)
                 })
@@ -74,6 +97,15 @@ struct ProductView: View {
                     .onAppear {
                         viewModel.getProduct(id: id)
                     }
+            }
+        }
+        .sheet(isPresented: $showingPreview) {
+            if let localFileUrl = self.localFileUrl {
+                ARQuickLookView(url: localFileUrl) { hasDismissed in
+                    showingPreview.toggle()
+                }
+            } else {
+                ProgressView()
             }
         }
         .navigationTitle("Product Details")
@@ -89,7 +121,7 @@ struct ProductView: View {
 
 #Preview {
     NavigationStack{
-        ProductView(id: "uQHEfRFfaznBBksD02Ps")
+        ProductView(id: "4L7zd4yMU20gtuFcf1Pz")
     }
     
 }
