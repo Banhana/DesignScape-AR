@@ -35,6 +35,7 @@ enum RoomStyle: String, CaseIterable {
 }
 
 struct CopilotView: View {
+    @StateObject var userSelection = UserSelection()
     var body: some View {
             ZStack {
                 Rectangle()
@@ -68,12 +69,36 @@ struct CopilotView: View {
                     
                     /// Continue button
                     HStack(alignment: .center, spacing: 10) {
-                        NavigationLink(destination: CopilotRoomsView()) {
+                        NavigationLink(value: "") {
                             PrimaryButton(text: "CONTINUE", willSpan: true)
                         }
                     }
                     .padding(.horizontal, 50)
                 }
+            }
+            .navigationDestination(for: String.self) { _ in
+                CopilotRoomsView().environmentObject(userSelection)
+            }
+            .navigationDestination(for: StorageReference.self) { fileRef in
+                CopilotRoomTypesView().environmentObject(userSelection)
+                    .onAppear(){
+                        userSelection.room = fileRef
+                        print("Room: \(String(describing: userSelection.room))")
+                    }
+            }
+            .navigationDestination(for: RoomType.self) { roomType in
+                CopilotStyleView().environmentObject(userSelection)
+                    .onAppear(){
+                        userSelection.roomType = roomType
+                        print("Room: \(String(describing: userSelection.roomType))")
+                    }
+            }
+            .navigationDestination(for: RoomStyle.self) { roomStyle in
+                CopilotGenerateView().environmentObject(userSelection)
+                    .onAppear(){
+                        userSelection.style = roomStyle
+                        print("Room: \(String(describing: userSelection.style))")
+                    }
             }
 //        .customNavBar()
     }
@@ -83,7 +108,7 @@ struct CopilotView: View {
 struct CopilotRoomsView: View {
     @State private var usdzFiles: [StorageReference] = []
     @State var userManager = UserManager.shared
-    @StateObject var userSelection = UserSelection()
+    
     
     var body: some View {
         VStack(alignment: .center, spacing: 10) {
@@ -118,27 +143,6 @@ struct CopilotRoomsView: View {
                 }
                 Spacer()
             }
-        }
-        .navigationDestination(for: StorageReference.self) { fileRef in
-            CopilotRoomTypesView().environmentObject(userSelection)
-                .onAppear(){
-                    userSelection.room = fileRef
-                    print("Room: \(String(describing: userSelection.room))")
-                }
-        }
-        .navigationDestination(for: RoomType.self) { roomType in
-            CopilotStyleView().environmentObject(userSelection)
-                .onAppear(){
-                    userSelection.roomType = roomType
-                    print("Room: \(String(describing: userSelection.roomType))")
-                }
-        }
-        .navigationDestination(for: RoomStyle.self) { roomStyle in
-            CopilotGenerateView().environmentObject(userSelection)
-                .onAppear(){
-                    userSelection.style = roomStyle
-                    print("Room: \(String(describing: userSelection.style))")
-                }
         }
         .onAppear(perform: {
             userManager.fetchRooms { usdzFiles in
