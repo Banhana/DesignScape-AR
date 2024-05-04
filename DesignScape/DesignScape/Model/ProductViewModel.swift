@@ -63,7 +63,6 @@ class ProductViewModel: ObservableObject {
                         // Append the decoded product to the products array
                         DispatchQueue.main.async {
                             self.products.append(product)
-                            print(self.products)
                         }
                     } catch {
                         print("Error decoding product: \(error.localizedDescription)")
@@ -72,21 +71,6 @@ class ProductViewModel: ObservableObject {
             }
         }
     } // getAllProduct
-    
-    //    private func downloadImage(urlString: String) {
-    //        let storageRef = storage.reference(forURL: urlString)
-    //        storageRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
-    //            if let error = error {
-    //                print("Error downloading image: \(error.localizedDescription)")
-    //            } else if let data = data {
-    //                if let image = UIImage(data: data) {
-    //                    DispatchQueue.main.async {
-    //                        self.image = image
-    //                    }
-    //                }
-    //            }
-    //        }
-    //    }
     
     // Function to upload image to Firebase Storage and update imageURL
     func uploadImageToStorage(imageData: Data, completion: @escaping (String?) -> Void) {
@@ -161,7 +145,7 @@ class ProductViewModel: ObservableObject {
                 
                 do {
                     let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-                    let localFileUrl = documentsDirectory.appendingPathComponent("model.usdz")
+                    let localFileUrl = documentsDirectory.appendingPathComponent("\(UUID()).usdz")
                     
                     if FileManager.default.fileExists(atPath: localFileUrl.path) {
                         try FileManager.default.removeItem(at: localFileUrl)

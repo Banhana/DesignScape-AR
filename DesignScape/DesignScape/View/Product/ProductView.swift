@@ -98,8 +98,7 @@ struct ProductView: View {
                         viewModel.getProduct(id: id)
                     }
             }
-        }
-        .sheet(isPresented: $showingPreview) {
+        }        .sheet(isPresented: $showingPreview) {
             if let localFileUrl = self.localFileUrl {
                 ARQuickLookView(url: localFileUrl) { hasDismissed in
                     showingPreview.toggle()

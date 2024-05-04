@@ -12,6 +12,8 @@ struct CameraView: View{
     // List to hold the model names
     @State private var modelNames: [String] = []
     @StateObject var viewModel = ProductViewModel()
+    // Local URL after download from model url
+    @State private var localFileUrl: URL?
     
     var body: some View{
         ARViewRepresentable()
@@ -42,29 +44,32 @@ struct CameraView: View{
                                 if let modelURL = URL(string: product.modelURL) {
                                     
                                     viewModel.downloadModelFile(from: modelURL)
-//                                    { result in
-//                                        switch result {
-//                                        case .success(let localFileUrl):
-//                                            self.localFileUrl = localFileUrl
-//                                        case .failure(let error):
-//                                            print("Error downloading file: \(error)")
-//                                        }
-//                                    }
+                                    { result in
+                                        switch result {
+                                        case .success(let localFileUrl):
+                                            self.localFileUrl = localFileUrl
+                                            print(localFileUrl)
+                                            DispatchQueue.main.async {
+                                                ARManager.shared.actionStream.send(.placeObject(modelLocalUrl: localFileUrl))
+                                            }
+                                            
+                                        case .failure(let error):
+                                            print("Error downloading file: \(error)")
+                                        }
+                                    }
                                 }
-                                
-//                                ARManager.shared.actionStream.send(.placeObject(modelLocalUrl: self.localFileUrl))
+
                             } label: {
                                 AsyncImage(url: URL(string: product.imageURL)){
                                     image in
                                     image.resizable()
+                                        .frame(width: 40, height: 40)
+                                        .padding()
+                                        .background(.regularMaterial)
+                                        .cornerRadius(16)
                                 } placeholder: {
                                     ProgressView()
                                 }
-//                                    .resizable()
-//                                    .frame(width: 40, height: 40)
-//                                    .padding()
-//                                    .background(.regularMaterial)
-//                                    .cornerRadius(16)
                             }
                         }
                     }
