@@ -11,11 +11,12 @@ import SwiftUI
 struct CameraView: View{
     // List to hold the model names
     @State private var modelNames: [String] = []
-    
+    @StateObject var viewModel = ProductViewModel()
+
     var body: some View{
         ARViewRepresentable()
             .onAppear {
-                modelNames = ARModelManager.loadModelNames(named: "Furniture")
+                viewModel.getAllProducts()
             }
             .ignoresSafeArea()
             // Requires iOS 15+ for .overlay
