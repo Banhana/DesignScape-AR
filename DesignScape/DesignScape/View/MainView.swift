@@ -14,7 +14,7 @@ struct MainView: View {
     @State private var selectedTab = 1
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             TabView(selection: $selectedTab) {
                 Text("Home")
                     .tabItem {

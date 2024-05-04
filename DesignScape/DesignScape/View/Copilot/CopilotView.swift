@@ -10,59 +10,73 @@ import FirebaseStorage
 
 class UserSelection: ObservableObject {
     @Published var room: StorageReference?
-    @Published var roomType: String?
-    @Published var style: String?
+    @Published var roomType: RoomType?
+    @Published var style: RoomStyle?
     
     init() {}
 }
 
-struct CopilotView: View {
-    var body: some View {
-        ZStack {
-            Rectangle()
-                .foregroundColor(.clear)
-                .background {
-                    Image("copilot-background")
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .edgesIgnoringSafeArea(.all)
-                }
-            VStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/) {
-                /// Heading
-                Rectangle()
-                    .foregroundColor(.clear)
-                    .background() {
-                        VStack {
-                            H1Text(title: "Copilot")
-                                .padding()
-                                .padding(.top, 100)
-                            BodyText(text: "Pick a style and let DesignScape Copilot design your dream space.")
-                                .multilineTextAlignment(.center)
-                            Spacer()
-                        }
-                        .edgesIgnoringSafeArea(.horizontal)
-                    }
-                    .background(LinearGradient(gradient: Gradient(colors: [.white, .clear]), startPoint: .top, endPoint: .bottom))
-                    .frame(maxHeight: 500)
-                    .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
-                
-                Spacer()
-                
-                /// Continue button
-                HStack(alignment: .center, spacing: 10) {
-                    NavigationLink(destination: CopilotRoomsView()) {
-                        PrimaryButton(text: "CONTINUE", willSpan: true)
-                    }
-                }
-                .padding(.horizontal, 50)
-            }
-        }
-        .customNavBar()
-    }
+enum RoomType: String, CaseIterable {
+    case diningroom = "Dining Room"
+    case bedroom = "Bedroom"
+    case livingroom = "Livingroom"
+    case kitchen = "Kitchen"
+    case bathroom = "Bathroom"
+    case office = "Office"
 }
 
-extension StorageReference: Hashable{
-    
+enum RoomStyle: String, CaseIterable {
+    case midCenturyModern = "Mid-Century Modern"
+    case traditional = "Traditional"
+    case comtemporary = "Comtemporary"
+    case coastal = "Coastal"
+    case bohemian = "Bohemian"
+    case farmhouse = "Farmhouse"
+}
+
+struct CopilotView: View {
+    var body: some View {
+            ZStack {
+                Rectangle()
+                    .foregroundColor(.clear)
+                    .background {
+                        Image("copilot-background")
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .edgesIgnoringSafeArea(.all)
+                    }
+                VStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/) {
+                    /// Heading
+                    Rectangle()
+                        .foregroundColor(.clear)
+                        .background() {
+                            VStack {
+                                H1Text(title: "Copilot")
+                                    .padding()
+                                    .padding(.top, 100)
+                                BodyText(text: "Pick a style and let DesignScape Copilot design your dream space.")
+                                    .multilineTextAlignment(.center)
+                                Spacer()
+                            }
+                            .edgesIgnoringSafeArea(.horizontal)
+                        }
+                        .background(LinearGradient(gradient: Gradient(colors: [.white, .clear]), startPoint: .top, endPoint: .bottom))
+                        .frame(maxHeight: 500)
+                        .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+                    
+                    Spacer()
+                    
+                    /// Continue button
+                    HStack(alignment: .center, spacing: 10) {
+                        NavigationLink(destination: CopilotRoomsView()) {
+                            PrimaryButton(text: "CONTINUE", willSpan: true)
+                        }
+                    }
+                    .padding(.horizontal, 50)
+                }
+            }
+//        .customNavBar()
+    }
 }
 
 /// View to pick rooms
@@ -77,13 +91,6 @@ struct CopilotRoomsView: View {
             BodyText(text: "Choose a room")
             
             VStack {
-                HStack{
-                    Text("Rooms")
-                        .font(
-                            Font.custom("Merriweather-Regular", size: 20)
-                        )
-                    Spacer()
-                }
                 ScrollView {
                     LazyVGrid(columns: [GridItem(.flexible(), spacing: 16),
                                         GridItem(.flexible(), spacing: 16)], spacing: 16) {
@@ -111,20 +118,33 @@ struct CopilotRoomsView: View {
                 }
                 Spacer()
             }
-            .onAppear(perform: {
-                userManager.fetchRooms { usdzFiles in
-                    self.usdzFiles = usdzFiles
-                }
-            })
         }
         .navigationDestination(for: StorageReference.self) { fileRef in
             CopilotRoomTypesView().environmentObject(userSelection)
                 .onAppear(){
                     userSelection.room = fileRef
-                    print("Room: \(userSelection.room)")
+                    print("Room: \(String(describing: userSelection.room))")
                 }
-            
         }
+        .navigationDestination(for: RoomType.self) { roomType in
+            CopilotStyleView().environmentObject(userSelection)
+                .onAppear(){
+                    userSelection.roomType = roomType
+                    print("Room: \(String(describing: userSelection.roomType))")
+                }
+        }
+        .navigationDestination(for: RoomStyle.self) { roomStyle in
+            CopilotGenerateView().environmentObject(userSelection)
+                .onAppear(){
+                    userSelection.style = roomStyle
+                    print("Room: \(String(describing: userSelection.style))")
+                }
+        }
+        .onAppear(perform: {
+            userManager.fetchRooms { usdzFiles in
+                self.usdzFiles = usdzFiles
+            }
+        })
         .padding(.top, 10)
         .padding([.leading, .trailing], 40)
         .padding(.bottom, 20)
@@ -137,8 +157,6 @@ struct CopilotRoomTypesView: View {
     @EnvironmentObject var userSelection: UserSelection
     
     var body: some View {
-        var rooms = ["Dining Room", "Bedroom", "Livingroom", "Kitchen", "Bathroom", "Office"]
-        
         VStack(alignment: .center, spacing: 10) {
             /// Main Contents
             BodyText(text: "Choose a room type")
@@ -148,17 +166,16 @@ struct CopilotRoomTypesView: View {
                     GridItem(.flexible(), spacing: 16),
                     GridItem(.flexible(), spacing: 16)
                 ], spacing: 16) {
-                    ForEach(rooms.indices, id: \.self) { index in
-                        let room = rooms[index]
-                        NavigationLink(destination: CopilotStyleView().environmentObject(userSelection)) {
+                    ForEach(RoomType.allCases, id: \.self) { roomType in
+                        NavigationLink(value: roomType) {
                             VStack(alignment: .center, spacing: 4) {
-                                Image("room\(index + 1)")
+                                Image(roomType.rawValue)
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
                                     .frame(width: 156, height: 226)
                                     .cornerRadius(8)
                                     .overlay(
-                                        Text(room)
+                                        Text(roomType.rawValue)
                                             .font(
                                                 Font.custom("Cambay-Regular", size: 14)
                                             )
@@ -172,9 +189,6 @@ struct CopilotRoomTypesView: View {
                             }
                             .cornerRadius(8)
                             .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
-                        } // navigationlink
-                        .onTapGesture {
-                            userSelection.roomType = room
                         }
                     }
                 }
@@ -205,17 +219,16 @@ struct CopilotStyleView: View {
                     GridItem(.flexible(), spacing: 16),
                     GridItem(.flexible(), spacing: 16)
                 ], spacing: 16) {
-                    ForEach(styles.indices, id: \.self) { index in
-                        let style = styles[index]
-                        NavigationLink(destination: CopilotGenerateView().environmentObject(userSelection)) {
+                    ForEach(RoomStyle.allCases, id: \.self) { style in
+                        NavigationLink(value: style) {
                             VStack(alignment: .center, spacing: 4) {
-                                Image("style\(index + 1)")
+                                Image(style.rawValue)
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
                                     .frame(width: 156, height: 226)
                                     .cornerRadius(8)
                                     .overlay(
-                                        Text(style)
+                                        Text(style.rawValue)
                                             .font(
                                                 Font.custom("Cambay-Regular", size: 14)
                                             )
@@ -229,9 +242,6 @@ struct CopilotStyleView: View {
                             }
                             .cornerRadius(8)
                             .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
-                        }// navigationlink
-                        .onTapGesture {
-                            userSelection.style = style
                         }
                     }
                 }
@@ -260,9 +270,9 @@ struct CopilotGenerateView: View {
         }
         .onAppear {
             print("User Selection:")
-            print("Room: \(userSelection.room)")
-            print("Room Type: \(userSelection.roomType)")
-            print("Style: \(userSelection.style)")
+            print("Room: \(String(describing: userSelection.room))")
+            print("Room Type: \(String(describing: userSelection.roomType))")
+            print("Style: \(String(describing: userSelection.style))")
         }
     }
 }
