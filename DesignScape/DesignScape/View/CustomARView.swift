@@ -34,8 +34,8 @@ class CustomARView: ARView{
         ARManager.shared.actionStream
             .sink { [weak self] action in
                 switch action {
-                    case .placeObject(let modelName):
-                        self?.placeObject(modelName: modelName) // Places the object you picked into the AR Scene
+                    case .placeObject(let modelLocalUrl):
+                        self?.placeObject(modelLocalUrl: modelLocalUrl) // Places the object you picked into the AR Scene
                     
                     case .removeAllAnchors:
                         self?.scene.anchors.removeAll()
@@ -57,9 +57,9 @@ class CustomARView: ARView{
         session.run(configuration)
     }
     
-    func placeObject(modelName: String) {
+    func placeObject(modelLocalUrl: URL) {
         // Loads the model picked from the Furniture directory if it exists
-        ModelEntity.loadModelAsync(named: "Furniture/" + modelName + ".usdz").sink(receiveCompletion: { _ in }, receiveValue: { usdzEntity in
+        ModelEntity.loadModelAsync(contentsOf: modelLocalUrl ).sink(receiveCompletion: { _ in }, receiveValue: { usdzEntity in
             let anchor = AnchorEntity()
 
             // Perform a raycast from the center of the screen.

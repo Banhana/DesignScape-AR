@@ -12,14 +12,14 @@ struct CameraView: View{
     // List to hold the model names
     @State private var modelNames: [String] = []
     @StateObject var viewModel = ProductViewModel()
-
+    
     var body: some View{
         ARViewRepresentable()
             .onAppear {
                 viewModel.getAllProducts()
             }
             .ignoresSafeArea()
-            // Requires iOS 15+ for .overlay
+        // Requires iOS 15+ for .overlay
             .overlay(alignment: .bottom) {
                 ScrollView(.horizontal) {
                     HStack {
@@ -38,14 +38,33 @@ struct CameraView: View{
                         // Puts all model images into buttons
                         ForEach(viewModel.products, id: \.self) { product in
                             Button {
-                                ARManager.shared.actionStream.send(.placeObject(modelName: modelName))
+                                // get local file URL
+                                if let modelURL = URL(string: product.modelURL) {
+                                    
+                                    viewModel.downloadModelFile(from: modelURL)
+//                                    { result in
+//                                        switch result {
+//                                        case .success(let localFileUrl):
+//                                            self.localFileUrl = localFileUrl
+//                                        case .failure(let error):
+//                                            print("Error downloading file: \(error)")
+//                                        }
+//                                    }
+                                }
+                                
+//                                ARManager.shared.actionStream.send(.placeObject(modelLocalUrl: self.localFileUrl))
                             } label: {
-                                Image(product)
-                                    .resizable()
-                                    .frame(width: 40, height: 40)
-                                    .padding()
-                                    .background(.regularMaterial)
-                                    .cornerRadius(16)
+                                AsyncImage(url: URL(string: product.imageURL)){
+                                    image in
+                                    image.resizable()
+                                } placeholder: {
+                                    ProgressView()
+                                }
+//                                    .resizable()
+//                                    .frame(width: 40, height: 40)
+//                                    .padding()
+//                                    .background(.regularMaterial)
+//                                    .cornerRadius(16)
                             }
                         }
                     }
@@ -56,7 +75,7 @@ struct CameraView: View{
 }
 
 struct CameraView_Preview: PreviewProvider {
-  static var previews: some View {
-    CameraView()
-  }
+    static var previews: some View {
+        CameraView()
+    }
 }
