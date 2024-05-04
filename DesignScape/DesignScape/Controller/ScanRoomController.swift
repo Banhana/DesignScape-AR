@@ -188,15 +188,15 @@ extension ScanRoomController {
         let doors = getAllNodes(for: model.doors,
                                 length: 0.3,
                                 contents: UIImage(named: "doorTexture"))
-        doors.forEach { sceneView?.scene?.rootNode.addChildNode($0) }
+//        doors.forEach { sceneView?.scene?.rootNode.addChildNode($0) }
         let windows = getAllNodes(for: model.windows,
                                   length: 0.3,
                                   contents: UIImage(named: "windowTexture"))
-        windows.forEach { sceneView?.scene?.rootNode.addChildNode($0) }
+//        windows.forEach { sceneView?.scene?.rootNode.addChildNode($0) }
         let openings = getAllNodes(for: model.openings,
                                    length: 0.3,
                                    contents: UIColor.blue.withAlphaComponent(0.5))
-        openings.forEach { sceneView?.scene?.rootNode.addChildNode($0) }
+//        openings.forEach { sceneView?.scene?.rootNode.addChildNode($0) }
         let objects = getAllNodes(for: model.objects, contents: UIImage(named: "windowTexture"))
         objects.forEach { sceneView?.scene?.rootNode.addChildNode($0) }
         exportScene(sceneView?.scene)

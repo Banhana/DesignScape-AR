@@ -49,12 +49,24 @@ struct RoomLoaderView: View {
                         sceneLoader.styleWalls()
                         sceneLoader.replaceObjects(ofType: .chair, with: chairModelURL)
                         sceneLoader.replaceObjects(ofType: .table, with: tableModelURL)
-                        sceneLoader.replaceObjects(ofType: .storage, with: storageModelURL, scale: 0.8)
-                        sceneLoader.replaceSurfaces(ofType: .door(isOpen: true), with: doorImage)
-                        sceneLoader.replaceSurfaces(ofType: .door(isOpen: false), with: doorImage)
-                        sceneLoader.replaceSurfaces(ofType: .window, with: windowImage)
+                        sceneLoader.replaceObjects(ofType: .storage, with: storageModelURL, scale: 1)
                         
-                        sceneLoader.replaceObjects(ofType: .television, with: televisionModelURL, scale: 0.018, onFloorLevel: false)
+                        // Hide Doors, Windows, and TV
+                        sceneLoader.sceneModel?.doorsClosed?.forEach({ door in
+                            door.opacity = 0
+                        })
+                        sceneLoader.sceneModel?.windows?.forEach({ window in
+                            window.opacity = 0
+                        })
+                        sceneLoader.sceneModel?.televisions?.forEach({ tv in
+                            tv.opacity = 0
+                        })
+                        
+//                        sceneLoader.replaceSurfaces(ofType: .door(isOpen: true), with: doorImage)
+//                        sceneLoader.replaceSurfaces(ofType: .door(isOpen: false), with: doorImage)
+//                        sceneLoader.replaceSurfaces(ofType: .window, with: windowImage)
+//                        sceneLoader.replaceObjects(ofType: .television, with: televisionModelURL, scale: 0.018, onFloorLevel: false)
+                        
                         isGenerating = false
                         isGeneratedFirstTime = false
                     } label: {
