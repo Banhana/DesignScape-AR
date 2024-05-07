@@ -111,38 +111,37 @@ struct CopilotRoomsView: View {
     
     
     var body: some View {
-        VStack(alignment: .center, spacing: 10) {
+        VStack() {
             /// Main Contents
             BodyText(text: "Choose a room")
             
-            VStack {
-                ScrollView {
-                    LazyVGrid(columns: [GridItem(.flexible(), spacing: 16),
-                                        GridItem(.flexible(), spacing: 16)], spacing: 16) {
-                        ForEach(usdzFiles, id: \.self) { fileRef in
-                            // get file ref
-                            NavigationLink(value: fileRef) {
-                                VStack (alignment: .center, spacing: 4){
-                                    AsyncModelThumbnailView(fileRef: fileRef)
-                                    
-                                    VStack(alignment: .leading, spacing: 4) {
-                                        Text(fileRef.name)
-                                            .font(
-                                                Font.custom("Cambay-Regular", size: 12)
-                                            )
-                                            .foregroundColor(Color("AccentColor"))
-                                    }
+            ScrollView {
+                LazyVGrid(columns: [GridItem(.flexible(), spacing: 16), GridItem(.flexible(), spacing: 16)], spacing: 16) {
+                    ForEach(usdzFiles, id: \.self) { fileRef in
+                        // get file ref
+                        NavigationLink(value: fileRef) {
+                            VStack (alignment: .center, spacing: 4){
+                                AsyncModelThumbnailView(fileRef: fileRef)
+                                
+                                VStack(alignment: .leading, spacing: 4) {
+                                    Text(fileRef.name)
+                                        .font(
+                                            Font.custom("Cambay-Regular", size: 12)
+                                        )
+                                        .foregroundColor(Color("AccentColor"))
                                 }
-                                .padding([.horizontal, .top])
-                                .background(Color.white)
-                                .cornerRadius(8)
-                                .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
-                            }// navigationlink
-                        }
+                            }
+                            .padding([.horizontal, .top])
+                            .background(Color.white)
+                            .cornerRadius(8)
+                            .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
+                        }// navigationlink
                     }
                 }
-                Spacer()
+                .padding(.horizontal)
+                .padding(.horizontal)
             }
+            Spacer()
         }
         .onAppear(perform: {
             userManager.fetchRooms { usdzFiles in
@@ -150,9 +149,7 @@ struct CopilotRoomsView: View {
             }
         })
         .padding(.top, 10)
-        .padding([.leading, .trailing], 40)
-        .padding(.bottom, 20)
-                .customNavBar()
+        .customNavBar()
     }
 } // CopilotRoomsView
 
@@ -161,11 +158,11 @@ struct CopilotRoomTypesView: View {
     @EnvironmentObject var userSelection: UserSelection
     
     var body: some View {
-        VStack(alignment: .center, spacing: 10) {
+        VStack(spacing: 10) {
             /// Main Contents
             BodyText(text: "Choose a room type")
             
-            VStack {
+            ScrollView {
                 LazyVGrid(columns: [
                     GridItem(.flexible(), spacing: 16),
                     GridItem(.flexible(), spacing: 16)
@@ -196,12 +193,12 @@ struct CopilotRoomTypesView: View {
                         }
                     }
                 }
-                .padding()
+                .padding(.horizontal)
             }
+//            Spacer()
         }
-        .padding(.top, 60)
-        .padding([.leading, .trailing], 10)
-        .padding(.bottom, 20)
+        .padding(.top, 10)
+        .customNavBar()
     }
 } // CopilotRoomsTypeView
 
@@ -214,47 +211,49 @@ struct CopilotStyleView: View {
     var body: some View {
         var styles = ["Mid-Century Modern", "Traditional", "Comtemporary", "Coastal", "Bohemian", "Farmhouse"]
         
-        VStack(alignment: .center, spacing: 10) {
+        VStack(spacing: 10) {
             /// Main Contents
             BodyText(text: "Choose a design style")
             
-            VStack {
-                LazyVGrid(columns: [
-                    GridItem(.flexible(), spacing: 16),
-                    GridItem(.flexible(), spacing: 16)
-                ], spacing: 16) {
-                    ForEach(RoomStyle.allCases, id: \.self) { style in
-                        NavigationLink(value: style) {
-                            VStack(alignment: .center, spacing: 4) {
-                                Image(style.rawValue)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: 156, height: 226)
-                                    .cornerRadius(8)
-                                    .overlay(
-                                        Text(style.rawValue)
-                                            .font(
-                                                Font.custom("Cambay-Regular", size: 14)
-                                            )
-                                            .padding(.horizontal, 8)
-                                            .foregroundColor(.black)
-                                            .background(Color.white.opacity(0.8))
-                                            .cornerRadius(8)
-                                            .offset(x: 8, y: 8),
-                                        alignment: .topLeading
-                                    )
+            ScrollView {
+                VStack {
+                    LazyVGrid(columns: [
+                        GridItem(.flexible(), spacing: 16),
+                        GridItem(.flexible(), spacing: 16)
+                    ], spacing: 16) {
+                        ForEach(RoomStyle.allCases, id: \.self) { style in
+                            NavigationLink(value: style) {
+                                VStack(alignment: .center, spacing: 4) {
+                                    Image(style.rawValue)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 156, height: 226)
+                                        .cornerRadius(8)
+                                        .overlay(
+                                            Text(style.rawValue)
+                                                .font(
+                                                    Font.custom("Cambay-Regular", size: 14)
+                                                )
+                                                .padding(.horizontal, 8)
+                                                .foregroundColor(.black)
+                                                .background(Color.white.opacity(0.8))
+                                                .cornerRadius(8)
+                                                .offset(x: 8, y: 8),
+                                            alignment: .topLeading
+                                        )
+                                }
+                                .cornerRadius(8)
+                                .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
                             }
-                            .cornerRadius(8)
-                            .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
                         }
                     }
                 }
-                .padding()
+                .padding(.horizontal)
             }
+//            Spacer()
         }
-        .padding(.top, 60)
-        .padding([.leading, .trailing], 10)
-        .padding(.bottom, 20)
+        .padding(.top, 10)
+        .customNavBar()
     }
 } // CopilotRoomsView
 
