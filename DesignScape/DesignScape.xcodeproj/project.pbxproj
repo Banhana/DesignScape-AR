@@ -22,6 +22,7 @@
 		619F4BA72B8161F600F0912D /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619F4BA62B8161F600F0912D /* SignUpView.swift */; };
 		61A4652A2BE6C6A80031D36D /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A465292BE6C6A80031D36D /* FavoritesView.swift */; };
 		61A4652C2BE6C6D80031D36D /* ARQuickLookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A4652B2BE6C6D80031D36D /* ARQuickLookViewController.swift */; };
+		61A465312BE8C73F0031D36D /* Blur+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A465302BE8C73F0031D36D /* Blur+View.swift */; };
 		6E06C24B2BAFC08B000F0A63 /* ScanRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E06C24A2BAFC08B000F0A63 /* ScanRoomView.swift */; };
 		6E06C24D2BB102F8000F0A63 /* UserRoomsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E06C24C2BB102F8000F0A63 /* UserRoomsView.swift */; };
 		6E091F3E2B906FF4006AE7CB /* ObjectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E091F3D2B906FF4006AE7CB /* ObjectModel.swift */; };
@@ -90,6 +91,7 @@
 		619F4BA62B8161F600F0912D /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		61A465292BE6C6A80031D36D /* FavoritesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
 		61A4652B2BE6C6D80031D36D /* ARQuickLookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARQuickLookViewController.swift; sourceTree = "<group>"; };
+		61A465302BE8C73F0031D36D /* Blur+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Blur+View.swift"; sourceTree = "<group>"; };
 		6E06C2462BAFBFCE000F0A63 /* CatalogView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatalogView.swift; sourceTree = "<group>"; };
 		6E06C2472BAFBFCE000F0A63 /* ProductView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductView.swift; sourceTree = "<group>"; };
 		6E06C24A2BAFC08B000F0A63 /* ScanRoomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanRoomView.swift; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 				6E20E1772B8B15860024BEA8 /* CaptureRoom+Extra.swift */,
 				6E20E1792B8B16DF0024BEA8 /* SCNNode+Extra.swift */,
 				6E20E17B2B8B180F0024BEA8 /* MathUtil+Extra.swift */,
+				61A465302BE8C73F0031D36D /* Blur+View.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -419,6 +422,7 @@
 			packageReferences = (
 				EAD22D202B1E7590007D4679 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				EA3ECFEE2B8EA40700420B56 /* XCRemoteSwiftPackageReference "USDZScanner" */,
+				61A4652D2BE8C1580031D36D /* XCRemoteSwiftPackageReference "SwiftUIX" */,
 			);
 			productRefGroup = EA8D2F0C2B1E705A0074FC71 /* Products */;
 			projectDirPath = "";
@@ -464,6 +468,7 @@
 			files = (
 				61A4652C2BE6C6D80031D36D /* ARQuickLookViewController.swift in Sources */,
 				EAD7F8C22B6D80D700BE6AC4 /* CustomARView.swift in Sources */,
+				61A465312BE8C73F0031D36D /* Blur+View.swift in Sources */,
 				6E06C24D2BB102F8000F0A63 /* UserRoomsView.swift in Sources */,
 				EAD5D95E2B1FEB810014FA26 /* DataController.swift in Sources */,
 				EAF3A6CE2B85CB120016427E /* ARModelManager.swift in Sources */,
@@ -725,6 +730,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		61A4652D2BE8C1580031D36D /* XCRemoteSwiftPackageReference "SwiftUIX" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftUIX/SwiftUIX.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.2.1;
+			};
+		};
 		EA3ECFEE2B8EA40700420B56 /* XCRemoteSwiftPackageReference "USDZScanner" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/alfianlosari/USDZScanner.git";
