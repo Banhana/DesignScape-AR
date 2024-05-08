@@ -29,14 +29,16 @@ struct UserRoomsView: View {
                         NavigationLink(destination: RoomLoaderView(fileRef: fileRef)) {
                             VStack (alignment: .center, spacing: 4){
                                 AsyncModelThumbnailView(fileRef: fileRef)
-                                
-                                VStack(alignment: .leading, spacing: 4) {
-                                    Text(fileRef.name)
-                                        .font(
-                                            Font.custom("Cambay-Regular", size: 12)
-                                        )
-                                        .foregroundColor(Color("AccentColor"))
-                                }
+                                    .overlay(alignment: .topLeading) {
+                                        Text(fileRef.name)
+                                            .font(Font.custom("Cambay-Regular", size: 14))
+                                            .padding(.horizontal, 8)
+                                            .padding(.top, 3)
+                                            .foregroundColor(.black)
+                                            .background(Color.white.opacity(0.8))
+                                            .cornerRadius(8)
+                                            .offset(x: 8, y: 8)
+                                    }
                             }
                             .padding([.horizontal, .top])
                             .background(Color.white)
@@ -73,7 +75,9 @@ struct AsyncModelThumbnailView: View {
             if let image = thumbnailLoader.thumbnail {
                 Image(uiImage: image)
                     .resizable()
-                    .scaledToFit()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 156, height: 226)
+                    .cornerRadius(8)
             } else {
                 ProgressView()
             }
