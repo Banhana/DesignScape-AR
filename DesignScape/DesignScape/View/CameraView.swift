@@ -14,7 +14,8 @@ struct CameraView: View{
     @StateObject var viewModel = ProductViewModel()
     // Local URL after download from model url
     @State private var localFileUrl: URL?
-    @State var showingBottomSheet = false
+    @State private var thumbnail: UIImage?
+    @State var showingBottomSheet = true
     
     var body: some View{
         ZStack{
@@ -34,7 +35,7 @@ struct CameraView: View{
                 bottom
                     .presentationDetents([.height(200), .medium, .large])
                     .presentationDragIndicator(.visible)
-                    .presentationBackground(.thinMaterial)
+                    .presentationBackground(.ultraThinMaterial)
                     .presentationCornerRadius(44)
                     .presentationContentInteraction(.scrolls)
                     .presentationBackgroundInteraction(.enabled(upThrough: .height(200)))
@@ -50,18 +51,21 @@ struct CameraView: View{
         VStack (alignment: .center){
             HStack{
                 Text("Livingroom")
-                    .foregroundColor(.white)
+//                    .background(.ultraThinMaterial)
                     .bold()
                 Spacer()
                 Text("Chair")
-                    .foregroundColor(.white)
+//                    .background(.ultraThinMaterial)
+                    
             }
+            .foregroundStyle(.secondary)
+            .font(.system(size: 15))
             .padding(.horizontal)
             
             Divider()
-           .background(Color.white)
-           .frame(height: 4)
-           .shadow(radius: 5)
+                .frame(height: 1)
+                .background(Color.white)
+//           .shadow(radius: 5)
 //            Divider()
 //           .background(Color.grey)
 //           .frame(height: 3)
@@ -69,24 +73,23 @@ struct CameraView: View{
             
             ScrollView(.horizontal) {
                 HStack {
-                    Button {
-                        ARManager.shared.actionStream.send(.removeAllAnchors)
-                    } label: {
-                        // Trashcan image to delete all the placed objects
-                        Image(systemName: "trash")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 40, height: 40)
-                            .padding()
-                            .background(.regularMaterial)
-                            .cornerRadius(16)
-                    }
+//                    Button {
+//                        ARManager.shared.actionStream.send(.removeAllAnchors)
+//                    } label: {
+//                        // Trashcan image to delete all the placed objects
+//                        Image(systemName: "trash")
+//                            .resizable()
+//                            .scaledToFit()
+//                            .frame(width: 40, height: 40)
+//                            .padding()
+//                            .background(.regularMaterial)
+//                            .cornerRadius(16)
+//                    }
                     // Puts all model images into buttons
                     ForEach(viewModel.products, id: \.self) { product in
-                        Button {
-                            // get local file URL
-                            if let modelURL = URL(string: product.modelURL) {
-                                
+                        if let modelURL = URL(string: product.modelURL) {
+                            Button {
+                                // get local file URL
                                 viewModel.downloadModelFile(from: modelURL)
                                 { result in
                                     switch result {
@@ -101,17 +104,32 @@ struct CameraView: View{
                                         print("Error downloading file: \(error)")
                                     }
                                 }
+                                
+                                
+                            } label: {
+                                //                            AsyncImage(url: URL(string: product.imageURL)){
+                                //                                image in
+                                //                                image.resizable()
+                                //                                    .frame(width: 40, height: 40)
+                                //                                    .padding()
+                                //                                    .background(.clear)
+                                //                            } placeholder: {
+                                //                                ProgressView()
+                                //                            }
+                                if let thumbnail = thumbnail{
+                                    Image(uiImage: thumbnail)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                } else{
+                                    ProgressView()
+                                }
+                                
                             }
-                            
-                        } label: {
-                            AsyncImage(url: URL(string: product.imageURL)){
-                                image in
-                                image.resizable()
-                                    .frame(width: 40, height: 40)
-                                    .padding()
-                                    .background(.clear)
-                            } placeholder: {
-                                ProgressView()
+                            .onAppear{
+                                print("hihi")
+                                Task{
+                                    await thumbnail = viewModel.productThumbnail(modelURL: modelURL)
+                                }
                             }
                         }
                     }
