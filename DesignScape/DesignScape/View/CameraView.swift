@@ -15,7 +15,7 @@ struct CameraView: View{
     var body: some View{
         ARViewRepresentable()
             .onAppear {
-                modelNames = ARModelManager.loadModelNames(named: "Furniture")
+                modelNames = loadModelNamesFromPlist(named: "Furniture") // Function is in ModelLoader.swift
             }
             .ignoresSafeArea()
             // Requires iOS 15+ for .overlay
@@ -27,6 +27,30 @@ struct CameraView: View{
                         } label: {
                             // Trashcan image to delete all the placed objects
                             Image(systemName: "trash")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 40, height: 40)
+                                .padding()
+                                .background(.regularMaterial)
+                                .cornerRadius(16)
+                        }
+                        Button {
+                            ARManager.shared.actionStream.send(.undo)
+                        } label: {
+                            // Undo image to undo the last placed objects
+                            Image(systemName: "arrow.uturn.backward.circle")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 40, height: 40)
+                                .padding()
+                                .background(.regularMaterial)
+                                .cornerRadius(16)
+                        }
+                        Button {
+                            ARManager.shared.actionStream.send(.redo)
+                        } label: {
+                            // Redo image to redo the last placed objects
+                            Image(systemName: "arrow.uturn.forward.circle")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 40, height: 40)
