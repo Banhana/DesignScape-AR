@@ -29,6 +29,7 @@ struct UserRoomsView: View {
                         NavigationLink(destination: RoomLoaderView(showOverlayOptions: false, fileRef: fileRef)) {
                             VStack (alignment: .center, spacing: 4){
                                 AsyncModelThumbnailView(fileRef: fileRef)
+                                    .frame(width: 125)
                                     .overlay(alignment: .topLeading) {
                                         Text(fileRef.name)
                                             .font(Font.custom("Cambay-Regular", size: 14))
@@ -77,7 +78,7 @@ struct AsyncModelThumbnailView: View {
                 Image(uiImage: image)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: 125, height: 226)
+                    .frame(width: 156, height: 226)
                     .cornerRadius(8)
             } else {
                 ProgressView()

@@ -24,7 +24,7 @@ struct MainView: View {
                     .tag(1)
                 CopilotView()
                     .tabItem {
-                        Text("Copilot")
+                        Text("Leo")
                         selectedTab == 2 ? Image("stars.fill") : Image("stars")
                     }.tag(2)
                 CreateDesignView()
