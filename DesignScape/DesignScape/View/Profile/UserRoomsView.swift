@@ -14,9 +14,9 @@ struct UserRoomsView: View {
     @State var userManager = UserManager.shared
     
     var body: some View {
-        VStack {
+        VStack(spacing: 4) {
             HStack{
-                Text("Rooms")
+                Text("Your Rooms")
                     .font(
                         Font.custom("Merriweather-Regular", size: 20)
                     )
@@ -26,7 +26,7 @@ struct UserRoomsView: View {
                 LazyVGrid(columns: [GridItem(.flexible(), spacing: 16),
                                     GridItem(.flexible(), spacing: 16)], spacing: 16) {
                     ForEach(usdzFiles, id: \.self) { fileRef in
-                        NavigationLink(destination: RoomLoaderView(fileRef: fileRef)) {
+                        NavigationLink(destination: RoomLoaderView(showOverlayOptions: false, fileRef: fileRef)) {
                             VStack (alignment: .center, spacing: 4){
                                 AsyncModelThumbnailView(fileRef: fileRef)
                                     .overlay(alignment: .topLeading) {
@@ -47,16 +47,17 @@ struct UserRoomsView: View {
                         }
                     }
                 }
-                Spacer()
             }
+            Spacer()
         }
+        .ignoresSafeArea()
         .onAppear(perform: {
             userManager.fetchRooms { usdzFiles in
                 self.usdzFiles = usdzFiles
             }
         })
-        .padding()
-        .padding()
+        .padding(.horizontal)
+        .padding([.horizontal, .top])
         .customNavBar()
     }
 }
@@ -76,7 +77,7 @@ struct AsyncModelThumbnailView: View {
                 Image(uiImage: image)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: 156, height: 226)
+                    .frame(width: 125, height: 226)
                     .cornerRadius(8)
             } else {
                 ProgressView()
@@ -87,7 +88,7 @@ struct AsyncModelThumbnailView: View {
 }
 
 #Preview {
-    NavigationView {
+    NavigationStack {
         UserRoomsView()
     }
 }

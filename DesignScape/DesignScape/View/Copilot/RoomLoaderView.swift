@@ -17,6 +17,7 @@ struct RoomLoaderView: View {
     @State var sceneView: SceneView?
     @State var isAutoEnablesDefaultLighting = true
     
+    var showOverlayOptions = true
     let fileRef: StorageReference
     
     //    let chairModelURL = Bundle.main.url(forResource: "bisou-accent-chair", withExtension: "usdz")
@@ -36,49 +37,9 @@ struct RoomLoaderView: View {
             ZStack {
                 sceneView
                     .edgesIgnoringSafeArea(.all)
-                VStack {
-                    Spacer()
-                    Button {
-                        isGenerating = true
-                        if isGeneratedFirstTime {
-                            sceneView?.addLights()
-                            self.isAutoEnablesDefaultLighting = false
-                        }
-                        sceneView?.sceneLoader.addFloor(infinity: true)
-//                        sceneView?.sceneLoader.addCeiling()
-                        sceneLoader.styleWalls()
-                        sceneLoader.replaceObjects(ofType: .chair, with: chairModelURL)
-                        sceneLoader.replaceObjects(ofType: .table, with: tableModelURL)
-                        sceneLoader.replaceObjects(ofType: .storage, with: storageModelURL, scale: 1)
-                        
-                        // Hide Doors, Windows, and TV
-                        sceneLoader.sceneModel?.doorsClosed?.forEach({ door in
-                            door.opacity = 0
-                        })
-                        sceneLoader.sceneModel?.windows?.forEach({ window in
-                            window.opacity = 0
-                        })
-                        sceneLoader.sceneModel?.televisions?.forEach({ tv in
-                            tv.opacity = 0
-                        })
-                        
-//                        sceneLoader.replaceSurfaces(ofType: .door(isOpen: true), with: doorImage)
-//                        sceneLoader.replaceSurfaces(ofType: .door(isOpen: false), with: doorImage)
-//                        sceneLoader.replaceSurfaces(ofType: .window, with: windowImage)
-//                        sceneLoader.replaceObjects(ofType: .television, with: televisionModelURL, scale: 0.018, onFloorLevel: false)
-                        
-                        isGenerating = false
-                        isGeneratedFirstTime = false
-                    } label: {
-                        if isGenerating == true {
-                            ProgressView()
-                        } else {
-                            PrimaryButton(text: isGeneratedFirstTime ? "GENERATE" : "REGENERATE", willSpan: true)
-                                .disabled(isGenerating)
-                        }
-                    }
+                if showOverlayOptions {
+                    overlayOptionsView
                 }
-                .padding(20)
             }
             .onAppear {
                 self.sceneView = SceneView(sceneLoader: sceneLoader, isAutoEnablesDefaultLighting: $isAutoEnablesDefaultLighting)
@@ -92,6 +53,52 @@ struct RoomLoaderView: View {
                     }
                 }
         }
+    }
+    
+    var overlayOptionsView: some View {
+        VStack {
+            Spacer()
+            Button {
+                isGenerating = true
+                if isGeneratedFirstTime {
+                    sceneView?.addLights()
+                    self.isAutoEnablesDefaultLighting = false
+                }
+                sceneView?.sceneLoader.addFloor(infinity: true)
+//                        sceneView?.sceneLoader.addCeiling()
+                sceneLoader.styleWalls()
+                sceneLoader.replaceObjects(ofType: .chair, with: chairModelURL)
+                sceneLoader.replaceObjects(ofType: .table, with: tableModelURL)
+                sceneLoader.replaceObjects(ofType: .storage, with: storageModelURL, scale: 1)
+                
+                // Hide Doors, Windows, and TV
+                sceneLoader.sceneModel?.doorsClosed?.forEach({ door in
+                    door.opacity = 0
+                })
+                sceneLoader.sceneModel?.windows?.forEach({ window in
+                    window.opacity = 0
+                })
+                sceneLoader.sceneModel?.televisions?.forEach({ tv in
+                    tv.opacity = 0
+                })
+                
+//                        sceneLoader.replaceSurfaces(ofType: .door(isOpen: true), with: doorImage)
+//                        sceneLoader.replaceSurfaces(ofType: .door(isOpen: false), with: doorImage)
+//                        sceneLoader.replaceSurfaces(ofType: .window, with: windowImage)
+//                        sceneLoader.replaceObjects(ofType: .television, with: televisionModelURL, scale: 0.018, onFloorLevel: false)
+                
+                isGenerating = false
+                isGeneratedFirstTime = false
+            } label: {
+                if isGenerating == true {
+                    ProgressView()
+                } else {
+                    PrimaryButton(text: isGeneratedFirstTime ? "GENERATE" : "REGENERATE", willSpan: true)
+                        .disabled(isGenerating)
+                }
+            }
+        }
+        .padding(20)
     }
 }
 
