@@ -263,8 +263,8 @@ struct RoomView: View{
             
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 16) {
-                    ForEach(0..<6) { index in
-                        RoomCard(roomName: "\(rooms[index])", imageName: "room\(index+1)")
+                    ForEach(RoomType.allCases, id: \.self) { roomType in
+                        RoomCard(roomName: roomType.rawValue, imageName: roomType.rawValue)
                     }
                 }
                 .padding(.horizontal)
