@@ -134,10 +134,17 @@ class SceneLoader: ObservableObject {
         sceneModel?.floors?.append(floorNode)
         self.rootNode?.addChildNode(floorNode)
         
-        let animationTime = Double.random(in: 2...3.0)
-        let fadeIn = SCNAction.fadeIn(duration: animationTime)
-        floorNode.runAction(fadeIn)
+//        let animationTime = Double.random(in: 2...3.0)
+//        let fadeIn = SCNAction.fadeIn(duration: animationTime)
+//        floorNode.runAction(fadeIn)
+        
+        SCNTransaction.begin()
+        SCNTransaction.animationDuration = 3
+        floorNode.opacity = 0.99 // 1 cause render issue for fading action for unknown reason
         floorNode.position.y = self.groundLevel // Position the floor at the lowest Y-coordinate
+        SCNTransaction.commit()
+        
+        
         //        floorNode.runAction(.rotate(by: .pi/2, around: T##SCNVector3, duration: T##TimeInterval))
         
         // Use rotation of the wall to rotate the room
