@@ -118,6 +118,9 @@ class CustomARView: ARView{
             }
             anchor.addChild(usdzEntity)
             self.scene.addAnchor(anchor)
+            
+            self.redoStack.removeAll()
+            self.undoStack.append(anchor) // Push anchor onto the undo stack
 
             // Add gestures to the entity.
             usdzEntity.generateCollisionShapes(recursive: true)

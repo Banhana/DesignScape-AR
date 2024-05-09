@@ -39,6 +39,32 @@ struct CameraView: View{
                             .foregroundStyle(.thinMaterial)
                             .cornerRadius(5)
                     }
+                    Button {
+                        ARManager.shared.actionStream.send(.undo)
+                    } label: {
+                        // Undo image to undo the last placed objects
+                        Image(systemName: "arrow.uturn.backward.circle")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 15, height: 15)
+                            .padding(8)
+                            .background(.ultraThinMaterial)
+                            .foregroundStyle(.thinMaterial)
+                            .cornerRadius(5)
+                    }
+                    Button {
+                        ARManager.shared.actionStream.send(.redo)
+                    } label: {
+                        // Undo image to undo the last placed objects
+                        Image(systemName: "arrow.uturn.forward.circle")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 15, height: 15)
+                            .padding(8)
+                            .background(.ultraThinMaterial)
+                            .foregroundStyle(.thinMaterial)
+                            .cornerRadius(5)
+                    }
                     Spacer()
                 }
             }
