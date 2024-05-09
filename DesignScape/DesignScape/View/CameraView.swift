@@ -22,21 +22,28 @@ struct CameraView: View{
                 .onAppear {
                     viewModel.getAllProducts()
                 }
-            //                    Button {
-            //                        ARManager.shared.actionStream.send(.removeAllAnchors)
-            //                    } label: {
-            //                        // Trashcan image to delete all the placed objects
-            //                        Image(systemName: "trash")
-            //                            .resizable()
-            //                            .scaledToFit()
-            //                            .frame(width: 40, height: 40)
-            //                            .padding()
-            //                            .background(.regularMaterial)
-            //                            .cornerRadius(16)
-            //                    }
-                                // Puts all model images into buttons
+                .ignoresSafeArea()
+            HStack {
+                Spacer()
+                VStack {
+                    Button {
+                        ARManager.shared.actionStream.send(.removeAllAnchors)
+                    } label: {
+                        // Trashcan image to delete all the placed objects
+                        Image(systemName: "trash")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 15, height: 15)
+                            .padding(8)
+                            .background(.ultraThinMaterial)
+                            .foregroundStyle(.thinMaterial)
+                            .cornerRadius(5)
+                    }
+                    Spacer()
+                }
+            }
+            .padding()
         }
-        .ignoresSafeArea()
         .sheet(isPresented: $showingBottomSheet)
             {
                 if #available(iOS 16.4, *) {
@@ -79,7 +86,6 @@ struct CameraView: View{
             
             ScrollView(.vertical) {
                 VStack {
-
                     LazyVGrid(columns: [GridItem(.flexible(), spacing: 16), GridItem(.flexible(), spacing: 16)], spacing: 16) {
                         ForEach(viewModel.products, id: \.self) { product in
                             if let modelThumnailURL = URL(string: product.modelThumbnail), let modelURL = URL(string: product.modelURL) {
@@ -165,6 +171,8 @@ struct AsyncThumbnail: View {
 
 struct CameraView_Preview: PreviewProvider {
     static var previews: some View {
-        CameraView()
+        NavigationStack {
+            CameraView()
+        }
     }
 }
