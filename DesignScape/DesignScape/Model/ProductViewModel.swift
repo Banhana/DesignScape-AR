@@ -26,6 +26,7 @@ struct Product: Identifiable, Codable, Hashable {
 class ProductViewModel: ObservableObject {
     @Published var product: Product?
     @Published var products: [Product] = []
+    @Published var categoryProducts: [Product] = []
     
     private var db = DataController.shared.db
     private var storage = DataController.shared.storage
@@ -55,7 +56,6 @@ class ProductViewModel: ObservableObject {
             if let error = error {
                 print("Error getting product: \(error.localizedDescription)")
             } else {
-                //                products = []
                 // Iterate through each document in the collection
                 for document in snapshot!.documents {
                     // Try to decode document data into Product model
@@ -72,6 +72,31 @@ class ProductViewModel: ObservableObject {
             }
         }
     } // getAllProduct
+    
+    func getProductsByCategory(for category: String){
+        db.collection("furnitures").whereField("category", isEqualTo: category).getDocuments { snapshot, error in
+            if let error = error {
+                print("Error getting product: \(error.localizedDescription)")
+            } else {
+                // Clear the existing products array
+                self.categoryProducts.removeAll()
+                
+                // Iterate through each document in the collection
+                for document in snapshot!.documents {
+                    // Try to decode document data into Product model
+                    do {
+                        let product = try document.data(as: Product.self)
+                        // Append the decoded product to the products array
+                        DispatchQueue.main.async {
+                            self.categoryProducts.append(product)
+                        }
+                    } catch {
+                        print("Error decoding product: \(error.localizedDescription)")
+                    }
+                }
+            }
+        }
+    }
     
     // Function to upload image to Firebase Storage and update imageURL
     func uploadImageToStorage(imageData: Data, completion: @escaping (String?) -> Void) {

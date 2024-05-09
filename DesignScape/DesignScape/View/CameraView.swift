@@ -7,13 +7,16 @@
 
 import SwiftUI
 
+enum RoomType {
+    case diningroom, bedroom, livingroom, kitchen, bathroom, office
+}
+
 // UI for our AR scene for object placement
 struct CameraView: View{
     // List to hold the model names
     @State private var modelNames: [String] = []
     @StateObject var viewModel = ProductViewModel()
     // Local URL after download from model url
-    @State private var localFileUrl: URL?
     @State private var thumbnail: UIImage?
     @State var showingBottomSheet = true
     
@@ -23,8 +26,6 @@ struct CameraView: View{
                 .onAppear {
                     viewModel.getAllProducts()
                 }
-                
-            
             Button {
                 showingBottomSheet.toggle()
             } label: {
@@ -40,9 +41,7 @@ struct CameraView: View{
                     .presentationContentInteraction(.scrolls)
                     .presentationBackgroundInteraction(.enabled(upThrough: .height(200)))
 //                    .overlay(RoundedRectangle(cornerRadius: 44,style: .continuous).stroke(lineWidth: 0.5).fill(Color.white))
-
             }
-
         }
             .ignoresSafeArea()
     }
@@ -71,8 +70,8 @@ struct CameraView: View{
 //           .frame(height: 3)
 
             
-            ScrollView(.horizontal) {
-                HStack {
+            ScrollView(.vertical) {
+                VStack {
 //                    Button {
 //                        ARManager.shared.actionStream.send(.removeAllAnchors)
 //                    } label: {
@@ -88,49 +87,7 @@ struct CameraView: View{
                     // Puts all model images into buttons
                     ForEach(viewModel.products, id: \.self) { product in
                         if let modelURL = URL(string: product.modelURL) {
-                            Button {
-                                // get local file URL
-                                viewModel.downloadModelFile(from: modelURL)
-                                { result in
-                                    switch result {
-                                    case .success(let localFileUrl):
-                                        self.localFileUrl = localFileUrl
-                                        print(localFileUrl)
-                                        DispatchQueue.main.async {
-                                            ARManager.shared.actionStream.send(.placeObject(modelLocalUrl: localFileUrl))
-                                        }
-                                        
-                                    case .failure(let error):
-                                        print("Error downloading file: \(error)")
-                                    }
-                                }
-                                
-                                
-                            } label: {
-                                //                            AsyncImage(url: URL(string: product.imageURL)){
-                                //                                image in
-                                //                                image.resizable()
-                                //                                    .frame(width: 40, height: 40)
-                                //                                    .padding()
-                                //                                    .background(.clear)
-                                //                            } placeholder: {
-                                //                                ProgressView()
-                                //                            }
-                                if let thumbnail = thumbnail{
-                                    Image(uiImage: thumbnail)
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                } else{
-                                    ProgressView()
-                                }
-                                
-                            }
-                            .onAppear{
-                                print("hihi")
-                                Task{
-                                    await thumbnail = viewModel.productThumbnail(modelURL: modelURL)
-                                }
-                            }
+                            AsyncThumbnail(modelURL: modelURL, viewModel: viewModel)
                         }
                     }
                 }
@@ -138,6 +95,51 @@ struct CameraView: View{
             }
         }
         .padding()
+    }
+}
+
+struct AsyncThumbnail: View {
+    @State var thumbnail: UIImage?
+    @State private var localFileUrl: URL?
+
+    let modelURL: URL
+    let viewModel: ProductViewModel
+    
+    var body: some View {
+        Button {
+            // get local file URL
+            viewModel.downloadModelFile(from: modelURL)
+            { result in
+                switch result {
+                case .success(let localFileUrl):
+                    self.localFileUrl = localFileUrl
+                    print(localFileUrl)
+                    DispatchQueue.main.async {
+                        ARManager.shared.actionStream.send(.placeObject(modelLocalUrl: localFileUrl))
+                    }
+                    
+                case .failure(let error):
+                    print("Error downloading file: \(error)")
+                }
+            }
+            
+            
+        } label: {
+            if let thumbnail = thumbnail{
+                Image(uiImage: thumbnail)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+            } else{
+                ProgressView()
+            }
+        }
+        .onAppear{
+            print("hihi")
+            Task{
+                await thumbnail = viewModel.productThumbnail(modelURL: modelURL)
+            }
+        }
+        
     }
 }
 
