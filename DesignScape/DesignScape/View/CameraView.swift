@@ -24,17 +24,27 @@ struct CameraView: View{
                 }
         }
         .ignoresSafeArea()
-        .sheet(isPresented: $showingBottomSheet) {
-            bottom
-                .presentationDetents([.height(200), .medium, .large])
-                .presentationDragIndicator(.visible)
-//                .presentationBackground(.ultraThinMaterial)
-                .presentationCornerRadius(44)
-                .presentationContentInteraction(.scrolls)
-                .presentationBackgroundInteraction(.enabled(upThrough: .height(200)))
-                .interactiveDismissDisabled()
-//                    .overlay(RoundedRectangle(cornerRadius: 44,style: .continuous).stroke(lineWidth: 0.5).fill(Color.white))
-        }
+        .sheet(isPresented: $showingBottomSheet)
+            {
+                if #available(iOS 16.4, *) {
+                    bottom
+                        .presentationDetents([.height(200), .medium, .large])
+                        .presentationDragIndicator(.visible)
+                    //                .presentationBackground(.ultraThinMaterial)
+                        .presentationCornerRadius(44)
+                        .presentationContentInteraction(.scrolls)
+                        .presentationBackgroundInteraction(.enabled(upThrough: .height(200)))
+                        .interactiveDismissDisabled()
+                    //                    .overlay(RoundedRectangle(cornerRadius: 44,style: .continuous).stroke(lineWidth: 0.5).fill(Color.white))
+                } else {
+                    bottom
+                        .presentationDetents([.height(200), .medium, .large])
+                        .presentationDragIndicator(.visible)
+                    //                .presentationBackground(.ultraThinMaterial)
+                        .interactiveDismissDisabled()
+                }
+            }
+        
             
     }
     
