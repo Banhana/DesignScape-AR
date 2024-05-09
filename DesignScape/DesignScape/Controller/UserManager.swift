@@ -119,7 +119,31 @@ extension UserManager {
                 // Get the list of file references
                 completion(storageRefs)
             } catch {
-                print("Error")
+                print("Error fetchRooms")
+            }
+        }
+    }
+    
+    func downloadRoomAsync(fileRef: StorageReference) async throws -> URL {
+        return try await withCheckedThrowingContinuation { continuation in
+            downloadRoom(fileRef: fileRef) { url in
+                continuation.resume(returning: url)
+            }
+        }
+    }
+    
+    func downloadRoom(fileRef: StorageReference, onSuccess: @escaping ((URL) -> Void)) {
+        // Create a temporary file URL
+        let tempDirectoryURL = FileManager.default.temporaryDirectory
+        let tempFileURL = tempDirectoryURL.appendingPathComponent(UUID().uuidString).appendingPathExtension("usdz")
+        
+        // Download the USDZ file to the temporary file URL
+        fileRef.write(toFile: tempFileURL) { result in
+            switch result {
+            case .success(let url):
+                onSuccess(url)
+            case .failure(_):
+                print("Error downloading USDZ")
             }
         }
     }

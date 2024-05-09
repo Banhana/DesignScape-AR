@@ -28,6 +28,7 @@ struct DesignScapeApp: App {
         WindowGroup {
             MainView()
                 .environment(\.font, Font.custom("Merriweather-Regular", size: 14))
+//            RoomLoaderView()
         }
     }
 }

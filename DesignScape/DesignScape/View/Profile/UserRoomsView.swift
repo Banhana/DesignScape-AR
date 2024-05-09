@@ -14,45 +14,51 @@ struct UserRoomsView: View {
     @State var userManager = UserManager.shared
     
     var body: some View {
-        VStack {
+        VStack(spacing: 4) {
             HStack{
-                Text("Rooms")
+                Text("Your Rooms")
                     .font(
                         Font.custom("Merriweather-Regular", size: 20)
                     )
                 Spacer()
             }
-            LazyVGrid(columns: [GridItem(.flexible(), spacing: 16),
-                                GridItem(.flexible(), spacing: 16)], spacing: 16) {
-                ForEach(usdzFiles, id: \.self) { fileRef in
-                    NavigationLink(destination: UserRoomsView()) {
-                        VStack (alignment: .center, spacing: 4){
-                            AsyncModelThumbnailView(fileRef: fileRef)
-                            
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text(fileRef.name)
-                                    .font(
-                                        Font.custom("Cambay-Regular", size: 12)
-                                    )
-                                    .foregroundColor(Color("AccentColor"))
+            ScrollView {
+                LazyVGrid(columns: [GridItem(.flexible(), spacing: 16),
+                                    GridItem(.flexible(), spacing: 16)], spacing: 16) {
+                    ForEach(usdzFiles, id: \.self) { fileRef in
+                        NavigationLink(destination: RoomLoaderView(showOverlayOptions: false, fileRef: fileRef)) {
+                            VStack (alignment: .center, spacing: 4){
+                                AsyncModelThumbnailView(fileRef: fileRef)
+                                    .frame(width: 125)
+                                    .overlay(alignment: .topLeading) {
+                                        Text(fileRef.name)
+                                            .font(Font.custom("Cambay-Regular", size: 14))
+                                            .padding(.horizontal, 8)
+                                            .padding(.top, 3)
+                                            .foregroundColor(.black)
+                                            .background(Color.white.opacity(0.8))
+                                            .cornerRadius(8)
+                                            .offset(x: 8, y: 8)
+                                    }
                             }
+                            .padding([.horizontal, .top])
+                            .background(Color.white)
+                            .cornerRadius(8)
+                            .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
                         }
-                        .padding([.horizontal, .top])
-                        .background(Color.white)
-                        .cornerRadius(8)
-                        .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
                     }
                 }
             }
             Spacer()
         }
+        .ignoresSafeArea()
         .onAppear(perform: {
             userManager.fetchRooms { usdzFiles in
                 self.usdzFiles = usdzFiles
             }
         })
-        .padding()
-        .padding()
+        .padding(.horizontal)
+        .padding([.horizontal, .top])
         .customNavBar()
     }
 }
@@ -71,7 +77,9 @@ struct AsyncModelThumbnailView: View {
             if let image = thumbnailLoader.thumbnail {
                 Image(uiImage: image)
                     .resizable()
-                    .scaledToFit()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 156, height: 226)
+                    .cornerRadius(8)
             } else {
                 ProgressView()
             }
@@ -81,7 +89,7 @@ struct AsyncModelThumbnailView: View {
 }
 
 #Preview {
-    NavigationView {
+    NavigationStack {
         UserRoomsView()
     }
 }

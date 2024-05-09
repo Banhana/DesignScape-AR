@@ -13,6 +13,7 @@ import SceneKit
 class ThumbnailLoader: ObservableObject {
     @Published var thumbnail: UIImage?
     @Published var sceneView: SCNView?
+    @Published var modelURL: URL?
     private let fileRef: StorageReference
     
     init(fileRef: StorageReference) {
@@ -25,38 +26,28 @@ class ThumbnailLoader: ObservableObject {
         sceneView.backgroundColor = .clear
         sceneView.autoenablesDefaultLighting = true
         
-        // Create a temporary file URL
-        let tempDirectoryURL = FileManager.default.temporaryDirectory
-        let tempFileURL = tempDirectoryURL.appendingPathComponent(UUID().uuidString).appendingPathExtension("usdz")
-        
-        // Download the USDZ file to the temporary file URL
-        fileRef.write(toFile: tempFileURL) { result in
-            switch result {
-            case .success(let url):
-                // Load USDZ file URL into scene
-                if let scene = try? SCNScene(url: url, options: nil) {
-                    // Set camera position
-                    let cameraNode = SCNNode()
-                    cameraNode.camera = SCNCamera()
-                    sceneView.allowsCameraControl = true
-                    cameraNode.position = SCNVector3(0, 0, 2)
-                    
-                    // Add camera to the scene
-                    scene.rootNode.addChildNode(cameraNode)
-                    
-                    // Render scene to generate thumbnail
-                    sceneView.scene = scene
-                    DispatchQueue.main.async {
-                            
-                            // Assign the generated thumbnail
-                        self.sceneView = sceneView
-                        self.thumbnail = sceneView.snapshot()
-                    }
-                } else {
-                    print("Failed to load USDZ file")
+        UserManager.shared.downloadRoom(fileRef: fileRef) { url in
+            self.modelURL = url
+            // Load USDZ file URL into scene
+            if let scene = try? SCNScene(url: url, options: nil) {
+                // Set camera position
+                let cameraNode = SCNNode()
+                cameraNode.camera = SCNCamera()
+                sceneView.allowsCameraControl = true
+                cameraNode.position = SCNVector3(0, 0, 2)
+                
+                // Add camera to the scene
+                scene.rootNode.addChildNode(cameraNode)
+                
+                // Render scene to generate thumbnail
+                sceneView.scene = scene
+                DispatchQueue.main.async {
+                        // Assign the generated thumbnail
+                    self.sceneView = sceneView
+                    self.thumbnail = sceneView.snapshot()
                 }
-            case .failure(_):
-                print("Error downloading USDZ")
+            } else {
+                print("Failed to load USDZ file")
             }
         }
     }
