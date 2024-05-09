@@ -7,10 +7,6 @@
 
 import SwiftUI
 
-enum RoomType {
-    case diningroom, bedroom, livingroom, kitchen, bathroom, office
-}
-
 // UI for our AR scene for object placement
 struct CameraView: View{
     // List to hold the model names
@@ -26,49 +22,38 @@ struct CameraView: View{
                 .onAppear {
                     viewModel.getAllProducts()
                 }
-            Button {
-                showingBottomSheet.toggle()
-            } label: {
-                PrimaryButton(text: "Add Furniture")
-            }
-            .padding(15)
-            .sheet(isPresented: $showingBottomSheet) {
-                bottom
-                    .presentationDetents([.height(200), .medium, .large])
-                    .presentationDragIndicator(.visible)
-                    .presentationBackground(.ultraThinMaterial)
-                    .presentationCornerRadius(44)
-                    .presentationContentInteraction(.scrolls)
-                    .presentationBackgroundInteraction(.enabled(upThrough: .height(200)))
-//                    .overlay(RoundedRectangle(cornerRadius: 44,style: .continuous).stroke(lineWidth: 0.5).fill(Color.white))
-            }
         }
-            .ignoresSafeArea()
+        .ignoresSafeArea()
+        .sheet(isPresented: $showingBottomSheet) {
+            bottom
+                .presentationDetents([.height(200), .medium, .large])
+                .presentationDragIndicator(.visible)
+//                .presentationBackground(.ultraThinMaterial)
+                .presentationCornerRadius(44)
+                .presentationContentInteraction(.scrolls)
+                .presentationBackgroundInteraction(.enabled(upThrough: .height(200)))
+                .interactiveDismissDisabled()
+//                    .overlay(RoundedRectangle(cornerRadius: 44,style: .continuous).stroke(lineWidth: 0.5).fill(Color.white))
+        }
+            
     }
     
     var bottom: some View{
         VStack (alignment: .center){
             HStack{
                 Text("Livingroom")
-//                    .background(.ultraThinMaterial)
                     .bold()
                 Spacer()
                 Text("Chair")
-//                    .background(.ultraThinMaterial)
                     
             }
-            .foregroundStyle(.secondary)
+            .foregroundStyle(.regularMaterial)
             .font(.system(size: 15))
             .padding(.horizontal)
             
             Divider()
                 .frame(height: 1)
                 .background(Color.white)
-//           .shadow(radius: 5)
-//            Divider()
-//           .background(Color.grey)
-//           .frame(height: 3)
-
             
             ScrollView(.vertical) {
                 VStack {
@@ -85,16 +70,20 @@ struct CameraView: View{
 //                            .cornerRadius(16)
 //                    }
                     // Puts all model images into buttons
-                    ForEach(viewModel.products, id: \.self) { product in
-                        if let modelURL = URL(string: product.modelURL) {
-                            AsyncThumbnail(modelURL: modelURL, viewModel: viewModel)
+                    LazyVGrid(columns: [GridItem(.flexible(), spacing: 16), GridItem(.flexible(), spacing: 16)], spacing: 16) {
+                        ForEach(viewModel.products, id: \.self) { product in
+                            if let modelURL = URL(string: product.modelURL) {
+                                AsyncThumbnail(modelURL: modelURL, viewModel: viewModel)
+                            }
                         }
                     }
+                    
                 }
                 .padding()
             }
         }
-        .padding()
+        .padding(.top)
+        .padding(.horizontal)
     }
 }
 
@@ -117,13 +106,10 @@ struct AsyncThumbnail: View {
                     DispatchQueue.main.async {
                         ARManager.shared.actionStream.send(.placeObject(modelLocalUrl: localFileUrl))
                     }
-                    
                 case .failure(let error):
                     print("Error downloading file: \(error)")
                 }
             }
-            
-            
         } label: {
             if let thumbnail = thumbnail{
                 Image(uiImage: thumbnail)
@@ -134,12 +120,10 @@ struct AsyncThumbnail: View {
             }
         }
         .onAppear{
-            print("hihi")
             Task{
                 await thumbnail = viewModel.productThumbnail(modelURL: modelURL)
             }
         }
-        
     }
 }
 

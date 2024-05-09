@@ -209,9 +209,6 @@ class ProductViewModel: ObservableObject {
     
     /// Generate Thumbnail : 1:24:35
     func productThumbnail(modelURL:URL) async -> UIImage?{
-        print("descriptive mot chut")
-        
-            print("truoc do")
                 do {
                     let localModelURL = try await downloadModelFileAsync(from: modelURL)
                     print(localModelURL)
@@ -224,7 +221,6 @@ class ProductViewModel: ObservableObject {
                 } catch {
                     print("Error downloading model file: \(error.localizedDescription)")
                 }
-        
         return nil
     }
 }
