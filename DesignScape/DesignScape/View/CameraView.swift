@@ -22,15 +22,28 @@ struct CameraView: View{
                 .onAppear {
                     viewModel.getAllProducts()
                 }
+            //                    Button {
+            //                        ARManager.shared.actionStream.send(.removeAllAnchors)
+            //                    } label: {
+            //                        // Trashcan image to delete all the placed objects
+            //                        Image(systemName: "trash")
+            //                            .resizable()
+            //                            .scaledToFit()
+            //                            .frame(width: 40, height: 40)
+            //                            .padding()
+            //                            .background(.regularMaterial)
+            //                            .cornerRadius(16)
+            //                    }
+                                // Puts all model images into buttons
         }
         .ignoresSafeArea()
         .sheet(isPresented: $showingBottomSheet)
             {
                 if #available(iOS 16.4, *) {
                     bottom
-                        .presentationDetents([.height(200), .medium, .large])
+                        .presentationDetents([.height(60),.height(200), .medium, .large])
                         .presentationDragIndicator(.visible)
-                    //                .presentationBackground(.ultraThinMaterial)
+                                    .presentationBackground(.ultraThinMaterial)
                         .presentationCornerRadius(44)
                         .presentationContentInteraction(.scrolls)
                         .presentationBackgroundInteraction(.enabled(upThrough: .height(200)))
@@ -40,12 +53,11 @@ struct CameraView: View{
                     bottom
                         .presentationDetents([.height(200), .medium, .large])
                         .presentationDragIndicator(.visible)
-                    //                .presentationBackground(.ultraThinMaterial)
+//                        .presentationBackground(.ultraThinMaterial)
                         .interactiveDismissDisabled()
                 }
             }
-        
-            
+            .customNavBar(isTitleHidden: true, isCloseButtonHidden: true)
     }
     
     var bottom: some View{
@@ -57,33 +69,46 @@ struct CameraView: View{
                 Text("Chair")
                     
             }
-            .foregroundStyle(.regularMaterial)
+            .foregroundStyle(.thinMaterial)
             .font(.system(size: 15))
             .padding(.horizontal)
             
             Divider()
                 .frame(height: 1)
-                .background(Color.white)
+                .background(Color.white.opacity(0.5))
             
             ScrollView(.vertical) {
                 VStack {
-//                    Button {
-//                        ARManager.shared.actionStream.send(.removeAllAnchors)
-//                    } label: {
-//                        // Trashcan image to delete all the placed objects
-//                        Image(systemName: "trash")
-//                            .resizable()
-//                            .scaledToFit()
-//                            .frame(width: 40, height: 40)
-//                            .padding()
-//                            .background(.regularMaterial)
-//                            .cornerRadius(16)
-//                    }
-                    // Puts all model images into buttons
+
                     LazyVGrid(columns: [GridItem(.flexible(), spacing: 16), GridItem(.flexible(), spacing: 16)], spacing: 16) {
                         ForEach(viewModel.products, id: \.self) { product in
-                            if let modelURL = URL(string: product.modelURL) {
-                                AsyncThumbnail(modelURL: modelURL, viewModel: viewModel)
+                            if let modelThumnailURL = URL(string: product.modelThumbnail), let modelURL = URL(string: product.modelURL) {
+                                Button {
+                                    // get local file URL
+                                    viewModel.downloadModelFile(from: modelURL)
+                                    { result in
+                                        switch result {
+                                        case .success(let localFileUrl):
+                                            print(localFileUrl)
+                                            DispatchQueue.main.async {
+                                                ARManager.shared.actionStream.send(.placeObject(modelLocalUrl: localFileUrl))
+                                            }
+                                        case .failure(let error):
+                                            print("Error downloading file: \(error)")
+                                        }
+                                    }
+                                } label: {
+                                    AsyncImage(url: modelThumnailURL){
+                                        image in
+                                        image.resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .padding()
+                                            .cornerRadius(16)
+                                    } placeholder: {
+                                        ProgressView()
+                                    }
+                                    .background(.clear)
+                                }
                             }
                         }
                     }
@@ -92,8 +117,9 @@ struct CameraView: View{
                 .padding()
             }
         }
-        .padding(.top)
+        .padding(.top, 20)
         .padding(.horizontal)
+        .ignoresSafeArea()
     }
 }
 

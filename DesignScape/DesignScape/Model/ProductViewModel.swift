@@ -16,6 +16,7 @@ struct Product: Identifiable, Codable, Hashable {
     var description: String
     var imageURL: String
     var modelURL: String
+    var modelThumbnail: String
     var room: String
     var category: String
     var height: Double
