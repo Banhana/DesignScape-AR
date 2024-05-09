@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<string>Acoustic_Guitar</string>
+	<string>Antique_Phone</string>
+	<string>Bed_06</string>
+	<string>Bed_with_lamp</string>
+	<string>Bookcase</string>
+	<string>chair_swan</string>
+	<string>Coffee_Machine</string>
+	<string>cup_saucer_set</string>
+	<string>Electric_toaster</string>
+	<string>Grand_Piano</string>
+	<string>Kitchen_Knife_Set</string>
+	<string>Kitchen_Spice_Set</string>
+	<string>Multifryer_2</string>
+	<string>Pinball</string>
+	<string>teapot</string>
+</array>
+</plist>
