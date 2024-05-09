@@ -32,6 +32,9 @@ struct RoomLoaderView: View {
     let doorImage = UIImage(named: "door-white.png")
     let windowImage = UIImage(named: "window_PNG17640.png")
     
+    let floorResource = MaterialResource(diffuse: UIImage(named: "WoodFlooringAshSuperWhite001_COL_2K.jpg"), normal: UIImage(named: "WoodFlooringAshSuperWhite001_NRM_2K.jpg"))
+    let wallResource = MaterialResource(diffuse: UIImage(named: "White-Marble-Diffuse.png"), normal: UIImage(named: "White-Marble-Normal.png"), metalness: UIImage(named: "White-Marble-Metalness.png"), roughness: UIImage(named: "White-Marble-Roughness.png"))
+    
     var body: some View {
         if let _ = sceneLoader.scene {
             ZStack {
@@ -64,9 +67,9 @@ struct RoomLoaderView: View {
                     sceneView?.addLights()
                     self.isAutoEnablesDefaultLighting = false
                 }
-                sceneView?.sceneLoader.addFloor(infinity: true)
+                sceneView?.sceneLoader.addFloor(infinity: true, from: floorResource)
 //                        sceneView?.sceneLoader.addCeiling()
-                sceneLoader.styleWalls()
+                sceneLoader.styleWalls(with: wallResource)
                 sceneLoader.replaceObjects(ofType: .chair, with: chairModelURL)
                 sceneLoader.replaceObjects(ofType: .table, with: tableModelURL)
                 sceneLoader.replaceObjects(ofType: .storage, with: storageModelURL, scale: 1)

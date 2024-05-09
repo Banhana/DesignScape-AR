@@ -137,3 +137,10 @@ extension SceneModel {
         }
     }
 }
+
+struct MaterialResource {
+    var diffuse: UIImage?
+    var normal: UIImage?
+    var metalness: UIImage?
+    var roughness: UIImage?
+}

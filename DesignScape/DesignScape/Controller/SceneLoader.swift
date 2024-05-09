@@ -22,21 +22,22 @@ class SceneLoader: ObservableObject {
     
     
     // TODO: create the bounding box instead of the geometry itself because custom UIImage cannot be loaded
-    func styleNode(node: SCNNode) {
+    func styleNode(node: SCNNode, with resource: MaterialResource) {
         let pbrMaterial = SCNMaterial()
-        if let diffuseImage = UIImage(named: "White-Marble-Diffuse.png"),
-           let metalnessImage = UIImage(named: "White-Marble-Metalness.png"),
-           let normalImage = UIImage(named: "White-Marble-Normal.png"),
-           let roughnessImage = UIImage(named: "White-Marble-Roughness.png") {
+        if let diffuseImage = resource.diffuse {
             pbrMaterial.diffuse.contents = diffuseImage
-            pbrMaterial.metalness.contents = metalnessImage
-            pbrMaterial.normal.contents = normalImage
-            pbrMaterial.roughness.contents = roughnessImage
-            //            pbrMaterial.emission.contents = UIColor.grey
-            pbrMaterial.lightingModel = .physicallyBased
-        } else {
-            print("Failed to load material images")
         }
+        if  let metalnessImage = resource.metalness {
+            pbrMaterial.metalness.contents = metalnessImage
+        }
+        if let normalImage = resource.normal {
+            pbrMaterial.normal.contents = normalImage
+        }
+        if let roughnessImage = resource.roughness {
+            pbrMaterial.roughness.contents = roughnessImage
+        }
+        pbrMaterial.lightingModel = .physicallyBased
+        
         DispatchQueue.main.async {
             node.geometry?.materials = [pbrMaterial]
         }
@@ -101,7 +102,7 @@ class SceneLoader: ObservableObject {
         print("Scene Loaded")
     }
     
-    func addFloor(infinity: Bool = false) {
+    func addFloor(infinity: Bool = false, from resource: MaterialResource) {
         guard let roomNode = scene?.rootNode.childNodes.first else {
             print("Cannot add floor")
             return
@@ -113,10 +114,14 @@ class SceneLoader: ObservableObject {
         floorGeometry.reflectivity = 0.05
         floorGeometry.reflectionFalloffEnd = 0.8
         let floorMaterial = SCNMaterial()
-        floorMaterial.diffuse.contents = UIImage(named: "WoodFlooringAshSuperWhite001_COL_2K.jpg")
-        floorMaterial.diffuse.wrapS = .repeat
-        floorMaterial.diffuse.wrapT = .repeat
-        floorMaterial.normal.contents = UIImage(named: "WoodFlooringAshSuperWhite001_NRM_2K.jpg")
+        if let diffuse = resource.diffuse {
+            floorMaterial.diffuse.contents = diffuse // 
+            floorMaterial.diffuse.wrapS = .repeat
+            floorMaterial.diffuse.wrapT = .repeat
+        }
+        if let normal = resource.normal {
+            floorMaterial.normal.contents = normal // 
+        }
         floorMaterial.lightingModel = .physicallyBased
         
         floorGeometry.materials = [floorMaterial]
@@ -191,9 +196,9 @@ class SceneLoader: ObservableObject {
         return lowestY
     }
     
-    func styleWalls() {
+    func styleWalls(with resource: MaterialResource) {
         sceneModel?.walls?.forEach({ wall in
-            styleNode(node: wall)
+            styleNode(node: wall, with: resource)
         })
     }
     
@@ -220,7 +225,7 @@ class SceneLoader: ObservableObject {
         case .opening:
             return
         case .floor:
-            addFloor()
+            return
         @unknown default:
             return
         }
