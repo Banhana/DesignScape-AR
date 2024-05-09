@@ -7,6 +7,7 @@
 
 import SwiftUI
 import FirebaseFirestore
+import QuickLookThumbnailing
 
 struct Product: Identifiable, Codable, Hashable {
     @DocumentID var id: String?
@@ -15,11 +16,17 @@ struct Product: Identifiable, Codable, Hashable {
     var description: String
     var imageURL: String
     var modelURL: String
+    var room: String
+    var category: String
+    var height: Double
+    var depth: Double
+    var width: Double
 }
 
 class ProductViewModel: ObservableObject {
     @Published var product: Product?
     @Published var products: [Product] = []
+    @Published var categoryProducts: [Product] = []
     
     private var db = DataController.shared.db
     private var storage = DataController.shared.storage
@@ -49,7 +56,6 @@ class ProductViewModel: ObservableObject {
             if let error = error {
                 print("Error getting product: \(error.localizedDescription)")
             } else {
-                //                products = []
                 // Iterate through each document in the collection
                 for document in snapshot!.documents {
                     // Try to decode document data into Product model
@@ -58,7 +64,6 @@ class ProductViewModel: ObservableObject {
                         // Append the decoded product to the products array
                         DispatchQueue.main.async {
                             self.products.append(product)
-                            print(self.products)
                         }
                     } catch {
                         print("Error decoding product: \(error.localizedDescription)")
@@ -68,20 +73,30 @@ class ProductViewModel: ObservableObject {
         }
     } // getAllProduct
     
-    //    private func downloadImage(urlString: String) {
-    //        let storageRef = storage.reference(forURL: urlString)
-    //        storageRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
-    //            if let error = error {
-    //                print("Error downloading image: \(error.localizedDescription)")
-    //            } else if let data = data {
-    //                if let image = UIImage(data: data) {
-    //                    DispatchQueue.main.async {
-    //                        self.image = image
-    //                    }
-    //                }
-    //            }
-    //        }
-    //    }
+    func getProductsByCategory(for category: String){
+        db.collection("furnitures").whereField("category", isEqualTo: category).getDocuments { snapshot, error in
+            if let error = error {
+                print("Error getting product: \(error.localizedDescription)")
+            } else {
+                // Clear the existing products array
+                self.categoryProducts.removeAll()
+                
+                // Iterate through each document in the collection
+                for document in snapshot!.documents {
+                    // Try to decode document data into Product model
+                    do {
+                        let product = try document.data(as: Product.self)
+                        // Append the decoded product to the products array
+                        DispatchQueue.main.async {
+                            self.categoryProducts.append(product)
+                        }
+                    } catch {
+                        print("Error decoding product: \(error.localizedDescription)")
+                    }
+                }
+            }
+        }
+    }
     
     // Function to upload image to Firebase Storage and update imageURL
     func uploadImageToStorage(imageData: Data, completion: @escaping (String?) -> Void) {
@@ -143,33 +158,69 @@ class ProductViewModel: ObservableObject {
     
     /// Download model file to local path
     func downloadModelFile(from url: URL, completion: @escaping (Result<URL, Error>) -> Void) {
-            URLSession.shared.downloadTask(with: url) { (downloadedUrl, response, error) in
-                if let error = error {
-                    completion(.failure(error))
-                    return
+        URLSession.shared.downloadTask(with: url) { (downloadedUrl, response, error) in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            guard let downloadedUrl = downloadedUrl else {
+                completion(.failure(NSError(domain: "Downloaded URL is nil", code: 0, userInfo: nil)))
+                return
+            }
+            
+            do {
+                let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+                let localFileUrl = documentsDirectory.appendingPathComponent("\(UUID()).usdz")
+                
+                if FileManager.default.fileExists(atPath: localFileUrl.path) {
+                    try FileManager.default.removeItem(at: localFileUrl)
                 }
                 
-                guard let downloadedUrl = downloadedUrl else {
-                    completion(.failure(NSError(domain: "Downloaded URL is nil", code: 0, userInfo: nil)))
-                    return
-                }
+                try FileManager.default.moveItem(at: downloadedUrl, to: localFileUrl)
                 
-                do {
-                    let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-                    let localFileUrl = documentsDirectory.appendingPathComponent("model.usdz")
-                    
-                    if FileManager.default.fileExists(atPath: localFileUrl.path) {
-                        try FileManager.default.removeItem(at: localFileUrl)
-                    }
-                    
-                    try FileManager.default.moveItem(at: downloadedUrl, to: localFileUrl)
-                    
-                    DispatchQueue.main.async {
-                        completion(.success(localFileUrl))
-                    }
-                } catch {
-                    completion(.failure(error))
+                DispatchQueue.main.async {
+                    completion(.success(localFileUrl))
                 }
-            }.resume()
+            } catch {
+                completion(.failure(error))
+            }
+        }.resume()
+    }
+    
+    func downloadModelFileAsync(from url: URL) async throws -> URL {
+        let (data, response) = try await URLSession.shared.data(from: url)
+        
+        guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
+            throw NSError(domain: "Invalid response status code", code: 0, userInfo: nil)
         }
+        
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let localFileUrl = documentsDirectory.appendingPathComponent("\(UUID()).usdz")
+        
+        if FileManager.default.fileExists(atPath: localFileUrl.path) {
+            try FileManager.default.removeItem(at: localFileUrl)
+        }
+        
+        try data.write(to: localFileUrl)
+        
+        return localFileUrl
+    }
+    
+    /// Generate Thumbnail : 1:24:35
+    func productThumbnail(modelURL:URL) async -> UIImage?{
+                do {
+                    let localModelURL = try await downloadModelFileAsync(from: modelURL)
+                    print(localModelURL)
+                    // Use the localModelURL
+                    let thumbnailRequest = await QLThumbnailGenerator.Request(fileAt: localModelURL, size: .init(width: 50, height: 50), scale: UIScreen.main.scale, representationTypes: .all)
+                    print("Generating")
+                    let thumbnail = try await QLThumbnailGenerator.shared.generateBestRepresentation(for: thumbnailRequest)
+                    print("Generated")
+                        return thumbnail.uiImage
+                } catch {
+                    print("Error downloading model file: \(error.localizedDescription)")
+                }
+        return nil
+    }
 }

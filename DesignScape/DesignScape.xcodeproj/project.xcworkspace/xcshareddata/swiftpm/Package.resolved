@@ -1,4 +1,5 @@
 {
+  "originHash" : "bc6edb74f10e48c0ed359c1a2d9633e9cb0ad63f55cd643d33c801589b01bb61",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -113,8 +114,17 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-protobuf.git",
       "state" : {
-        "revision" : "9f0c76544701845ad98716f3f6a774a892152bcb",
-        "version" : "1.26.0"
+        "revision" : "65e8f29b2d63c4e38e736b25c27b83e012159be8",
+        "version" : "1.25.2"
+      }
+    },
+    {
+      "identity" : "swiftuix",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SwiftUIX/SwiftUIX.git",
+      "state" : {
+        "revision" : "ff1176d8c06c2ac81db3dfd36c63ec8a9c2ccbca",
+        "version" : "0.2.1"
       }
     },
     {

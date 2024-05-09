@@ -243,19 +243,6 @@ struct ProductCard: View {
     
 
 }
-struct ContenttView: View {
-    @State private var isPresentingDetailView = false // State variable to control the presentation of the detail view
-    
-    var body: some View {
-        Button("Present Detail View") {
- // Set isPresentingDetailView to true to present the detail view
-        }
-        .sheet(isPresented: $isPresentingDetailView) {
-            // The view to present goes here
-            AccountView()
-        }
-    }
-}
 
 struct RoomView: View{
     var rooms: [String]
