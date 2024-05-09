@@ -36,6 +36,12 @@ class SceneLoader: ObservableObject {
         if let roughnessImage = resource.roughness {
             pbrMaterial.roughness.contents = roughnessImage
         }
+        if let glossImage = resource.gloss {
+            pbrMaterial.specular.contents = glossImage
+        }
+        if let reflectionImage = resource.reflection {
+            pbrMaterial.reflective.contents = reflectionImage
+        }
         pbrMaterial.lightingModel = .physicallyBased
         
         DispatchQueue.main.async {

@@ -29,6 +29,19 @@ class ProductViewModel: ObservableObject {
     @Published var products: [Product] = []
     @Published var categoryProducts: [Product] = []
     
+    var chairs: [Product] {
+        products.filter { $0.category.contains("chair") }
+    }
+    var tables: [Product] {
+        products.filter { $0.category.contains("table") }
+    }
+    var beds: [Product] {
+        products.filter { $0.category.contains("bed") }
+    }
+    var storages: [Product] {
+        products.filter { $0.category.contains("storage") }
+    }
+    
     private var db = DataController.shared.db
     private var storage = DataController.shared.storage
     

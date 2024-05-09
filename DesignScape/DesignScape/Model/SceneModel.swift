@@ -143,4 +143,6 @@ struct MaterialResource {
     var normal: UIImage?
     var metalness: UIImage?
     var roughness: UIImage?
+    var gloss: UIImage?
+    var reflection: UIImage?
 }
