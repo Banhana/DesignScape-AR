@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		610552A62BC231A500F5A052 /* ProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610552A42BC231A500F5A052 /* ProductView.swift */; };
-		610552A72BC231A500F5A052 /* CatalogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610552A52BC231A500F5A052 /* CatalogView.swift */; };
+		610552A62BC231A500F5A052 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		610552A72BC231A500F5A052 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		6107CC332B831E9B00EDA568 /* AuthenticationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6107CC322B831E9B00EDA568 /* AuthenticationController.swift */; };
 		6107CC352B831EC100EDA568 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6107CC342B831EC100EDA568 /* AuthenticationViewModel.swift */; };
 		6107CC3A2B86BC3C00EDA568 /* ProductViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6107CC392B86BC3C00EDA568 /* ProductViewModel.swift */; };
@@ -22,6 +22,7 @@
 		619F4BA72B8161F600F0912D /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619F4BA62B8161F600F0912D /* SignUpView.swift */; };
 		61A4652A2BE6C6A80031D36D /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A465292BE6C6A80031D36D /* FavoritesView.swift */; };
 		61A4652C2BE6C6D80031D36D /* ARQuickLookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A4652B2BE6C6D80031D36D /* ARQuickLookViewController.swift */; };
+		61A465312BE8C73F0031D36D /* Blur+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A465302BE8C73F0031D36D /* Blur+View.swift */; };
 		6E0393362BEC68920012F0D9 /* CopilotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0393342BEC68920012F0D9 /* CopilotView.swift */; };
 		6E0393372BEC68920012F0D9 /* RoomLoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0393352BEC68920012F0D9 /* RoomLoaderView.swift */; };
 		6E0393392BEC68B30012F0D9 /* SceneLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0393382BEC68B30012F0D9 /* SceneLoader.swift */; };
@@ -42,7 +43,8 @@
 		6E0393562BEC6A6E0012F0D9 /* ObjectDetectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7DEE9B2B6C947800165B61 /* ObjectDetectionController.swift */; };
 		6E0393572BEC6A7E0012F0D9 /* ARModelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF3A6CD2B85CB120016427E /* ARModelManager.swift */; };
 		6E0393582BEC6A830012F0D9 /* ReconstructionPrimaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA63662D2B9957170098DAD1 /* ReconstructionPrimaryView.swift */; };
-		61A465312BE8C73F0031D36D /* Blur+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A465302BE8C73F0031D36D /* Blur+View.swift */; };
+		6E03935B2BECA3210012F0D9 /* ProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0393592BECA3210012F0D9 /* ProductView.swift */; };
+		6E03935C2BECA3210012F0D9 /* CatalogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E03935A2BECA3210012F0D9 /* CatalogView.swift */; };
 		6E06C24B2BAFC08B000F0A63 /* ScanRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E06C24A2BAFC08B000F0A63 /* ScanRoomView.swift */; };
 		6E06C24D2BB102F8000F0A63 /* UserRoomsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E06C24C2BB102F8000F0A63 /* UserRoomsView.swift */; };
 		6E091F3E2B906FF4006AE7CB /* ObjectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E091F3D2B906FF4006AE7CB /* ObjectModel.swift */; };
@@ -97,9 +99,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		610552A42BC231A500F5A052 /* ProductView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductView.swift; sourceTree = "<group>"; };
-		610552A52BC231A500F5A052 /* CatalogView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatalogView.swift; sourceTree = "<group>"; };
-		610552A82BC231BA00F5A052 /* ScanRoomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanRoomView.swift; sourceTree = "<group>"; };
 		6107CC322B831E9B00EDA568 /* AuthenticationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationController.swift; sourceTree = "<group>"; };
 		6107CC342B831EC100EDA568 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AuthenticationViewModel.swift; path = DesignScape/Model/AuthenticationViewModel.swift; sourceTree = SOURCE_ROOT; };
 		6107CC392B86BC3C00EDA568 /* ProductViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductViewModel.swift; sourceTree = "<group>"; };
@@ -109,6 +108,7 @@
 		619F4BA62B8161F600F0912D /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		61A465292BE6C6A80031D36D /* FavoritesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
 		61A4652B2BE6C6D80031D36D /* ARQuickLookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARQuickLookViewController.swift; sourceTree = "<group>"; };
+		61A465302BE8C73F0031D36D /* Blur+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Blur+View.swift"; sourceTree = "<group>"; };
 		6E0393342BEC68920012F0D9 /* CopilotView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CopilotView.swift; sourceTree = "<group>"; };
 		6E0393352BEC68920012F0D9 /* RoomLoaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomLoaderView.swift; sourceTree = "<group>"; };
 		6E0393382BEC68B30012F0D9 /* SceneLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SceneLoader.swift; path = DesignScape/Controller/SceneLoader.swift; sourceTree = SOURCE_ROOT; };
@@ -126,18 +126,17 @@
 		6E0393462BEC69770012F0D9 /* elias-natural-elm-wood-open-bookcase.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "elias-natural-elm-wood-open-bookcase.usdz"; sourceTree = "<group>"; };
 		6E0393472BEC69770012F0D9 /* WoodFlooringAshSuperWhite001_NRM_2K.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WoodFlooringAshSuperWhite001_NRM_2K.png; sourceTree = "<group>"; };
 		6E0393482BEC69770012F0D9 /* cullen-shiitake-dining-chair.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "cullen-shiitake-dining-chair.usdz"; sourceTree = "<group>"; };
-		61A465302BE8C73F0031D36D /* Blur+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Blur+View.swift"; sourceTree = "<group>"; };
+		6E0393592BECA3210012F0D9 /* ProductView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductView.swift; sourceTree = "<group>"; };
+		6E03935A2BECA3210012F0D9 /* CatalogView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatalogView.swift; sourceTree = "<group>"; };
 		6E06C2462BAFBFCE000F0A63 /* CatalogView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatalogView.swift; sourceTree = "<group>"; };
 		6E06C2472BAFBFCE000F0A63 /* ProductView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductView.swift; sourceTree = "<group>"; };
 		6E06C24A2BAFC08B000F0A63 /* ScanRoomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanRoomView.swift; sourceTree = "<group>"; };
 		6E06C24C2BB102F8000F0A63 /* UserRoomsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRoomsView.swift; sourceTree = "<group>"; };
-		6E091F3B2B906DEE006AE7CB /* ScanRoomController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanRoomController.swift; sourceTree = "<group>"; };
 		6E091F3D2B906FF4006AE7CB /* ObjectModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectModel.swift; sourceTree = "<group>"; };
 		6E091F412B9073E3006AE7CB /* ObjectDectectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDectectionView.swift; sourceTree = "<group>"; };
 		6E0994732BB108D500E7382C /* ThumbnailLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailLoader.swift; sourceTree = "<group>"; };
 		6E20E1642B85A3D90024BEA8 /* Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Elements.swift; sourceTree = "<group>"; };
 		6E20E16E2B8B10FC0024BEA8 /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
-		6E20E1722B8B15190024BEA8 /* ObjectNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectNode.swift; sourceTree = "<group>"; };
 		6E20E1772B8B15860024BEA8 /* CaptureRoom+Extra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CaptureRoom+Extra.swift"; sourceTree = "<group>"; };
 		6E20E1792B8B16DF0024BEA8 /* SCNNode+Extra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNNode+Extra.swift"; sourceTree = "<group>"; };
 		6E20E17B2B8B180F0024BEA8 /* MathUtil+Extra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MathUtil+Extra.swift"; sourceTree = "<group>"; };
@@ -222,8 +221,8 @@
 		61CACAC72BA111D900F94AF5 /* Product */ = {
 			isa = PBXGroup;
 			children = (
-				610552A52BC231A500F5A052 /* CatalogView.swift */,
-				610552A42BC231A500F5A052 /* ProductView.swift */,
+				6E03935A2BECA3210012F0D9 /* CatalogView.swift */,
+				6E0393592BECA3210012F0D9 /* ProductView.swift */,
 			);
 			path = Product;
 			sourceTree = "<group>";
@@ -272,9 +271,6 @@
 		6E4CA32F2BA67BEC00B9F152 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
-				6E091F3B2B906DEE006AE7CB /* ScanRoomController.swift */,
-				6E20E1722B8B15190024BEA8 /* ObjectNode.swift */,
-				610552A82BC231BA00F5A052 /* ScanRoomView.swift */,
 				6E06C2462BAFBFCE000F0A63 /* CatalogView.swift */,
 				6E06C2472BAFBFCE000F0A63 /* ProductView.swift */,
 			);
@@ -552,7 +548,7 @@
 				619F4B6F2B8144E500F0912D /* AccountView.swift in Sources */,
 				EA9326632B91BF4D009ABBCC /* ShotFileInfo.swift in Sources */,
 				EA9326642B91BF4D009ABBCC /* CaptureFolderManager.swift in Sources */,
-				610552A62BC231A500F5A052 /* ProductView.swift in Sources */,
+				610552A62BC231A500F5A052 /* (null) in Sources */,
 				6E20E17A2B8B16DF0024BEA8 /* SCNNode+Extra.swift in Sources */,
 				618390FD2B9548E900291C76 /* UserManager.swift in Sources */,
 				6E4CA3332BA67D4200B9F152 /* ObjectNode.swift in Sources */,
@@ -575,6 +571,7 @@
 				6E0393362BEC68920012F0D9 /* CopilotView.swift in Sources */,
 				6E0994742BB108D500E7382C /* ThumbnailLoader.swift in Sources */,
 				EACB9DBE2BDEE96A003EEF8E /* ModelLoader.swift in Sources */,
+				6E03935C2BECA3210012F0D9 /* CatalogView.swift in Sources */,
 				6E20E17C2B8B180F0024BEA8 /* MathUtil+Extra.swift in Sources */,
 				6107CC3A2B86BC3C00EDA568 /* ProductViewModel.swift in Sources */,
 				61A4652A2BE6C6A80031D36D /* FavoritesView.swift in Sources */,
@@ -582,11 +579,12 @@
 				EA6366302B99594E0098DAD1 /* UntilProcessingCompleteFilter.swift in Sources */,
 				6E03933B2BEC68CE0012F0D9 /* SceneModel.swift in Sources */,
 				6E06C24B2BAFC08B000F0A63 /* ScanRoomView.swift in Sources */,
-				610552A72BC231A500F5A052 /* CatalogView.swift in Sources */,
+				610552A72BC231A500F5A052 /* (null) in Sources */,
 				619F4B6D2B8144C800F0912D /* SignInView.swift in Sources */,
 				6E0393392BEC68B30012F0D9 /* SceneLoader.swift in Sources */,
 				6107CC352B831EC100EDA568 /* AuthenticationViewModel.swift in Sources */,
 				6107CC332B831E9B00EDA568 /* AuthenticationController.swift in Sources */,
+				6E03935B2BECA3210012F0D9 /* ProductView.swift in Sources */,
 				619F4BA72B8161F600F0912D /* SignUpView.swift in Sources */,
 				6E7DEE802B69C35900165B61 /* CreateDesignView.swift in Sources */,
 			);
