@@ -14,7 +14,7 @@ struct MainView: View {
     @State private var selectedTab = 1
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             TabView(selection: $selectedTab) {
                 Text("Home")
                     .tabItem {
@@ -22,10 +22,9 @@ struct MainView: View {
                         selectedTab == 1 ? Image("home.fill") : Image("home")
                     }
                     .tag(1)
-                // Temp for testing
-                Text("Copilot")
+                CopilotView()
                     .tabItem {
-                        Text("Copilot")
+                        Text("Leo")
                         selectedTab == 2 ? Image("stars.fill") : Image("stars")
                     }.tag(2)
                 CreateDesignView()

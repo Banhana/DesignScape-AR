@@ -87,13 +87,15 @@ struct FurnitureCard: View {
     
     var body: some View {
         if imageName == "furniture4"{
-            NavigationLink(destination: CapturePrimaryView()) {
-                ZStack(alignment: .leading) {
-                    Image(imageName)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 125, height: 56)
-                        .cornerRadius(8)
+            if #available(iOS 17.0, *) {
+                NavigationLink(destination: CapturePrimaryView()) {
+                    ZStack(alignment: .leading) {
+                        Image(imageName)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 125, height: 56)
+                            .cornerRadius(8)
+                    }
                 }
             }
         } else {
@@ -255,7 +257,6 @@ struct ContenttView: View {
     }
 }
 
-
 struct RoomView: View{
     var rooms: [String]
     
@@ -276,8 +277,8 @@ struct RoomView: View{
             
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 16) {
-                    ForEach(0..<6) { index in
-                        RoomCard(roomName: "\(rooms[index])", imageName: "room\(index+1)")
+                    ForEach(RoomType.allCases, id: \.self) { roomType in
+                        RoomCard(roomName: roomType.rawValue, imageName: roomType.rawValue)
                     }
                 }
                 .padding(.horizontal)

@@ -31,6 +31,14 @@ struct ScanRoomView: View {
                 })
                 .ignoresSafeArea()
                 
+//                /// Share sheet
+//                if doneScanning, let url = roomController.url {
+//                    ShareLink(item: url) {
+//                        Image(systemName: "square.and.arrow.up")
+//                    }
+//                    .font(.title)
+//                }
+                // TODO: Remove this
                 /// Share sheet
                 if doneScanning, let url = roomController.url {
                     
