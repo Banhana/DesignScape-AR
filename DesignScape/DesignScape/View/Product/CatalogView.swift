@@ -87,15 +87,13 @@ struct FurnitureCard: View {
     
     var body: some View {
         if imageName == "furniture4"{
-            if #available(iOS 17.0, *) {
-                NavigationLink(destination: CapturePrimaryView()) {
-                    ZStack(alignment: .leading) {
-                        Image(imageName)
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 125, height: 56)
-                            .cornerRadius(8)
-                    }
+            NavigationLink(destination: MyObjectCaptureView()) {
+                ZStack(alignment: .leading) {
+                    Image(imageName)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 125, height: 56)
+                        .cornerRadius(8)
                 }
             }
         } else {
