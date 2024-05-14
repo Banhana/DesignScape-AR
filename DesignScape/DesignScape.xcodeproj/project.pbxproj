@@ -43,6 +43,8 @@
 		6E03936B2BED45AB0012F0D9 /* CeramicPlainWhite001_NRM_2K.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E0393672BED45AB0012F0D9 /* CeramicPlainWhite001_NRM_2K.png */; };
 		6E03936C2BED45AB0012F0D9 /* CeramicPlainWhite001_COL_2K.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6E0393682BED45AB0012F0D9 /* CeramicPlainWhite001_COL_2K.jpg */; };
 		6E03936E2BED46900012F0D9 /* SceneLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E03936D2BED46900012F0D9 /* SceneLoader.swift */; };
+		6E0393722BF33DEF0012F0D9 /* SCNVector3+Extra.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0393712BF33DEF0012F0D9 /* SCNVector3+Extra.swift */; };
+		6E0393742BF33F9C0012F0D9 /* SceneLoader+ObjectReplace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0393732BF33F9C0012F0D9 /* SceneLoader+ObjectReplace.swift */; };
 		6E06C24B2BAFC08B000F0A63 /* ScanRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E06C24A2BAFC08B000F0A63 /* ScanRoomView.swift */; };
 		6E06C24D2BB102F8000F0A63 /* UserRoomsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E06C24C2BB102F8000F0A63 /* UserRoomsView.swift */; };
 		6E091F3E2B906FF4006AE7CB /* ObjectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E091F3D2B906FF4006AE7CB /* ObjectModel.swift */; };
@@ -124,6 +126,8 @@
 		6E0393672BED45AB0012F0D9 /* CeramicPlainWhite001_NRM_2K.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CeramicPlainWhite001_NRM_2K.png; sourceTree = "<group>"; };
 		6E0393682BED45AB0012F0D9 /* CeramicPlainWhite001_COL_2K.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = CeramicPlainWhite001_COL_2K.jpg; sourceTree = "<group>"; };
 		6E03936D2BED46900012F0D9 /* SceneLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneLoader.swift; sourceTree = "<group>"; };
+		6E0393712BF33DEF0012F0D9 /* SCNVector3+Extra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNVector3+Extra.swift"; sourceTree = "<group>"; };
+		6E0393732BF33F9C0012F0D9 /* SceneLoader+ObjectReplace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneLoader+ObjectReplace.swift"; sourceTree = "<group>"; };
 		6E06C2462BAFBFCE000F0A63 /* CatalogView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatalogView.swift; sourceTree = "<group>"; };
 		6E06C2472BAFBFCE000F0A63 /* ProductView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductView.swift; sourceTree = "<group>"; };
 		6E06C24A2BAFC08B000F0A63 /* ScanRoomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanRoomView.swift; sourceTree = "<group>"; };
@@ -263,6 +267,7 @@
 				6E20E1792B8B16DF0024BEA8 /* SCNNode+Extra.swift */,
 				6E20E17B2B8B180F0024BEA8 /* MathUtil+Extra.swift */,
 				61A465302BE8C73F0031D36D /* Blur+View.swift */,
+				6E0393712BF33DEF0012F0D9 /* SCNVector3+Extra.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -362,6 +367,7 @@
 				618390FC2B9548E900291C76 /* UserManager.swift */,
 				61A4652B2BE6C6D80031D36D /* ARQuickLookViewController.swift */,
 				6E03936D2BED46900012F0D9 /* SceneLoader.swift */,
+				6E0393732BF33F9C0012F0D9 /* SceneLoader+ObjectReplace.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -554,6 +560,7 @@
 				6E06C24D2BB102F8000F0A63 /* UserRoomsView.swift in Sources */,
 				EAD5D95E2B1FEB810014FA26 /* DataController.swift in Sources */,
 				619F4B6F2B8144E500F0912D /* AccountView.swift in Sources */,
+				6E0393722BF33DEF0012F0D9 /* SCNVector3+Extra.swift in Sources */,
 				EA9326632B91BF4D009ABBCC /* ShotFileInfo.swift in Sources */,
 				EA9326642B91BF4D009ABBCC /* CaptureFolderManager.swift in Sources */,
 				610552A62BC231A500F5A052 /* (null) in Sources */,
@@ -591,6 +598,7 @@
 				619F4B6D2B8144C800F0912D /* SignInView.swift in Sources */,
 				6E0393392BEC68B30012F0D9 /* SceneLoader.swift in Sources */,
 				6107CC352B831EC100EDA568 /* AuthenticationViewModel.swift in Sources */,
+				6E0393742BF33F9C0012F0D9 /* SceneLoader+ObjectReplace.swift in Sources */,
 				6107CC332B831E9B00EDA568 /* AuthenticationController.swift in Sources */,
 				6E03935B2BECA3210012F0D9 /* ProductView.swift in Sources */,
 				619F4BA72B8161F600F0912D /* SignUpView.swift in Sources */,
@@ -746,7 +754,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.mhuynh.DesignScape;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.mhuynh.DesignScape2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -759,10 +767,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DesignScape/Preview Content\"";
-				DEVELOPMENT_TEAM = VK2PRX795K;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DesignScape/Info.plist;
@@ -782,6 +790,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.mhuynh.DesignScape;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

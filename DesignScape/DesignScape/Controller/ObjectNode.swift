@@ -8,6 +8,7 @@
 import ARKit
 import RoomPlan
 
+/// ObjectNode for ObjectDetectionController, controls individual node
 class ObjectNode {
     private(set) var model: ObjectModel?
     private(set) var uuid: UUID
@@ -44,24 +45,27 @@ class ObjectNode {
         update(with: model)
     }
 
+    /// Update new model
     func update(with model: ObjectModel) {
         queuedModel = model
     }
 
 
-
+    /// Update label state
     private func updateLabelState(with text: String) {
         updateLabelNode(with: text)
         currentLabelText = text
         currentCategory = category(for: text)
     }
 
+    /// Update label node info
     private func updateLabelNode(with text: String) {
         DesignScape.update(textNode, with: text, color: .accent)
         let (planeWidth, planeHeight) = planeDimensionsFor(textNode: textNode)
         DesignScape.update(frontPlaneNode, width: planeWidth, height: planeHeight, color: .white)
     }
 
+    /// Update at times
     func updateAt(time: TimeInterval) {
         // box and label shape changes
         if queuedModel != nil, model != queuedModel {
@@ -86,11 +90,13 @@ class ObjectNode {
         updateLabelState(with: modelLabelText)
     }
 
+    /// Remove object node from the scene
     func cleanup() {
         box.removeFromParentNode()
         label.removeFromParentNode()
     }
 
+    /// Set up nodes
     private func setup() {
         // set node names with uuid
         // this helps with hit testing and identifying the right nodes
@@ -113,6 +119,7 @@ class ObjectNode {
         label.addChildNode(textNode)
     }
 
+    /// Scale label
     private func labelTransform(with box: SCNNode) -> simd_float4x4 {
         // scale label
         let scaleTransform = simd_float4x4.scaleTransform(simd_float3(0.0035, 0.0035, 0.0035))

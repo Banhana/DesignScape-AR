@@ -11,103 +11,80 @@ import RealityKit
 import RoomPlan
 import FirebaseStorage
 
+/// A SceneLoader to load any scene
 class SceneLoader: ObservableObject {
     
-    @Published var scene: SCNScene?
-    @Published var sceneModel: SceneModel?
+    /// Setup
+    @Published var scene: SCNScene? // The only scene
+    @Published var sceneModel: SceneModel? // The scene model associate with the scene
     @Published var isAutoenablesDefaultLighting = true
     
-    private lazy var rootNode = scene?.rootNode
-    private var groundLevel: Float = 0.0
+    private lazy var rootNode = scene?.rootNode // Root node of the scene
+    private var groundLevel: Float = 0.0 // Ground level of the scene
     
-    
-    // TODO: create the bounding box instead of the geometry itself because custom UIImage cannot be loaded
-    func styleNode(node: SCNNode, with resource: MaterialResource) {
-        let pbrMaterial = SCNMaterial()
-        if let diffuseImage = resource.diffuse {
-            pbrMaterial.diffuse.contents = diffuseImage
-        }
-        if  let metalnessImage = resource.metalness {
-            pbrMaterial.metalness.contents = metalnessImage
-        }
-        if let normalImage = resource.normal {
-            pbrMaterial.normal.contents = normalImage
-        }
-        if let roughnessImage = resource.roughness {
-            pbrMaterial.roughness.contents = roughnessImage
-        }
-        if let glossImage = resource.gloss {
-            pbrMaterial.specular.contents = glossImage
-        }
-        if let reflectionImage = resource.reflection {
-            pbrMaterial.reflective.contents = reflectionImage
-        }
-        pbrMaterial.lightingModel = .physicallyBased
-        
-        DispatchQueue.main.async {
-            node.geometry?.materials = [pbrMaterial]
-        }
-    }
-    
+    /// Load the scene
     func loadScene(from fileRef: StorageReference) async {
         let sceneURL = try? await UserManager.shared.downloadRoomAsync(fileRef: fileRef)
         
         guard let sceneURL = sceneURL, let scene = try? SCNScene(url: sceneURL, options: nil) else {
             return
         }
-        // Do not async this
-        self.scene = scene
-        // Access the root node of the scene
-        let rootNode = scene.rootNode
-        
-        groundLevel = findLowestYCoordinate(in: rootNode)
-        
-        let bathtubNodes = findNodes(withNamePrefix: "Bathtub", in: rootNode)
-        let bedNodes = findNodes(withNamePrefix: "Bed", in: rootNode)
-        let chairNodes = findNodes(withNamePrefix: "Chair", in: rootNode)
-        let dishwasherNodes = findNodes(withNamePrefix: "Dishwasher", in: rootNode)
-        let fireplaceNodes = findNodes(withNamePrefix: "Fireplace", in: rootNode)
-        let ovenNodes = findNodes(withNamePrefix: "Oven", in: rootNode)
-        let refrigeratorNodes = findNodes(withNamePrefix: "Refrigerator", in: rootNode)
-        let sinkNodes = findNodes(withNamePrefix: "Sink", in: rootNode)
-        let sofaNodes = findNodes(withNamePrefix: "Sofa", in: rootNode)
-        let stairsNodes = findNodes(withNamePrefix: "Stairs", in: rootNode)
-        let storageNodes = findNodes(withNamePrefix: "Storage", in: rootNode)
-        let stoveNodes = findNodes(withNamePrefix: "Stove", in: rootNode)
-        let tableNodes = findNodes(withNamePrefix: "Table", in: rootNode)
-        let televisionNodes = findNodes(withNamePrefix: "Television", in: rootNode)
-        let toiletNodes = findNodes(withNamePrefix: "Toilet", in: rootNode)
-        let washerDryerNodes = findNodes(withNamePrefix: "WasherDryer", in: rootNode)
-        let wallsNodes = findNodes(withNamePrefix: "Wall", in: rootNode)
-        let doorClosedNodes = findNodes(withNamePrefix: "DoorClosed", in: rootNode)
-        let doorOpenedNodes = findNodes(withNamePrefix: "DoorOpened", in: rootNode)
-        let windowNodes = findNodes(withNamePrefix: "Window", in: rootNode)
-        
-        sceneModel = SceneModel(
-            bathtubs: bathtubNodes,
-            beds: bedNodes,
-            chairs: chairNodes,
-            dishwashers: dishwasherNodes,
-            fireplaces: fireplaceNodes,
-            ovens: ovenNodes,
-            refridgerator: refrigeratorNodes,
-            sinks: sinkNodes,
-            sofas: sofaNodes,
-            stairs: stairsNodes,
-            storages: storageNodes,
-            stoves: stoveNodes,
-            tables: tableNodes,
-            televisions: televisionNodes,
-            toilets: toiletNodes,
-            washerDryers: washerDryerNodes,
-            walls: wallsNodes,
-            windows: windowNodes,
-            doorsClosed: doorClosedNodes,
-            doorsOpened: doorOpenedNodes
-        )
-        print("Scene Loaded")
+        // Do not async this so that the below code is execute after this line
+        DispatchQueue.main.async {
+            self.scene = scene
+            // Access the root node of the scene
+            let rootNode = scene.rootNode
+            
+            self.groundLevel = self.findLowestYCoordinate(in: rootNode)
+            
+            let bathtubNodes = self.findNodes(withNamePrefix: "Bathtub", in: rootNode)
+            let bedNodes = self.findNodes(withNamePrefix: "Bed", in: rootNode)
+            let chairNodes = self.findNodes(withNamePrefix: "Chair", in: rootNode)
+            let dishwasherNodes = self.findNodes(withNamePrefix: "Dishwasher", in: rootNode)
+            let fireplaceNodes = self.findNodes(withNamePrefix: "Fireplace", in: rootNode)
+            let ovenNodes = self.findNodes(withNamePrefix: "Oven", in: rootNode)
+            let refrigeratorNodes = self.findNodes(withNamePrefix: "Refrigerator", in: rootNode)
+            let sinkNodes = self.findNodes(withNamePrefix: "Sink", in: rootNode)
+            let sofaNodes = self.findNodes(withNamePrefix: "Sofa", in: rootNode)
+            let stairsNodes = self.findNodes(withNamePrefix: "Stairs", in: rootNode)
+            let storageNodes = self.findNodes(withNamePrefix: "Storage", in: rootNode)
+            let stoveNodes = self.findNodes(withNamePrefix: "Stove", in: rootNode)
+            let tableNodes = self.findNodes(withNamePrefix: "Table", in: rootNode)
+            let televisionNodes = self.findNodes(withNamePrefix: "Television", in: rootNode)
+            let toiletNodes = self.findNodes(withNamePrefix: "Toilet", in: rootNode)
+            let washerDryerNodes = self.findNodes(withNamePrefix: "WasherDryer", in: rootNode)
+            let wallsNodes = self.findNodes(withNamePrefix: "Wall", in: rootNode)
+            let doorClosedNodes = self.findNodes(withNamePrefix: "DoorClosed", in: rootNode)
+            let doorOpenedNodes = self.findNodes(withNamePrefix: "DoorOpened", in: rootNode)
+            let windowNodes = self.findNodes(withNamePrefix: "Window", in: rootNode)
+            
+            self.sceneModel = SceneModel(
+                bathtubs: bathtubNodes,
+                beds: bedNodes,
+                chairs: chairNodes,
+                dishwashers: dishwasherNodes,
+                fireplaces: fireplaceNodes,
+                ovens: ovenNodes,
+                refridgerator: refrigeratorNodes,
+                sinks: sinkNodes,
+                sofas: sofaNodes,
+                stairs: stairsNodes,
+                storages: storageNodes,
+                stoves: stoveNodes,
+                tables: tableNodes,
+                televisions: televisionNodes,
+                toilets: toiletNodes,
+                washerDryers: washerDryerNodes,
+                walls: wallsNodes,
+                windows: windowNodes,
+                doorsClosed: doorClosedNodes,
+                doorsOpened: doorOpenedNodes
+            )
+            print("Scene Loaded")
+        }
     }
     
+    /// Add floor to the scene with animation
     func addFloor(infinity: Bool = false, from resource: MaterialResource) {
         guard let roomNode = scene?.rootNode.childNodes.first else {
             print("Cannot add floor")
@@ -115,18 +92,20 @@ class SceneLoader: ObservableObject {
         }
         let boundingBox = roomNode.boundingBox
         
+        // Floor Geometry
         let floorGeometry = SCNFloor()
-        // TODO: If wood then do not set reflection
         floorGeometry.reflectivity = 0.05
         floorGeometry.reflectionFalloffEnd = 0.8
+        
+        // Floor Material
         let floorMaterial = SCNMaterial()
         if let diffuse = resource.diffuse {
-            floorMaterial.diffuse.contents = diffuse // 
+            floorMaterial.diffuse.contents = diffuse
             floorMaterial.diffuse.wrapS = .repeat
             floorMaterial.diffuse.wrapT = .repeat
         }
         if let normal = resource.normal {
-            floorMaterial.normal.contents = normal // 
+            floorMaterial.normal.contents = normal
         }
         floorMaterial.lightingModel = .physicallyBased
         
@@ -138,34 +117,32 @@ class SceneLoader: ObservableObject {
             floorGeometry.length = CGFloat(boundingBox.max.z - boundingBox.min.z) / 2
         }
         
+        /// Animation
         let floorNode = SCNNode(geometry: floorGeometry)
         floorNode.position.y = -20
         floorNode.opacity = 0
         floorNode.name = "Floor"
         floorNode.scale = SCNVector3(0.1, 0.1, 0.1)
         sceneModel?.floors?.append(floorNode)
-        self.rootNode?.addChildNode(floorNode)
         
-//        let animationTime = Double.random(in: 2...3.0)
-//        let fadeIn = SCNAction.fadeIn(duration: animationTime)
-//        floorNode.runAction(fadeIn)
-        
-        SCNTransaction.begin()
-        SCNTransaction.animationDuration = 2
-        floorNode.opacity = 0.99 // 1 cause render issue for fading action for unknown reason
-        floorNode.position.y = self.groundLevel // Position the floor at the lowest Y-coordinate
-        SCNTransaction.commit()
-        
-        
-        //        floorNode.runAction(.rotate(by: .pi/2, around: T##SCNVector3, duration: T##TimeInterval))
-        
-        // Use rotation of the wall to rotate the room
-        if let wallRotation = self.sceneModel?.walls?.first?.simdRotation {
-            floorNode.simdRotation = wallRotation
+        DispatchQueue.main.async {
+            self.rootNode?.addChildNode(floorNode)
+            
+            SCNTransaction.begin()
+            SCNTransaction.animationDuration = 2
+            floorNode.opacity = 0.99 // 1 cause render issue for fading action for unknown reason
+            floorNode.position.y = self.groundLevel // Position the floor at the lowest Y-coordinate
+            SCNTransaction.commit()
+            
+            // Use rotation of the wall to rotate the room
+            if let wallRotation = self.sceneModel?.walls?.first?.simdRotation {
+                floorNode.simdRotation = wallRotation
+            }
         }
         
     }
     
+    /// Add ceiling to the scene
     func addCeiling() {
         guard let roomNode = scene?.rootNode.childNodes.first else {
             print("Cannot add ceiling")
@@ -193,6 +170,35 @@ class SceneLoader: ObservableObject {
         ceilingNode.eulerAngles.x = .pi / 2
     }
     
+    /// Style a node with a MaterialResource
+    func styleNode(node: SCNNode, with resource: MaterialResource) {
+        let pbrMaterial = SCNMaterial()
+        if let diffuseImage = resource.diffuse {
+            pbrMaterial.diffuse.contents = diffuseImage
+        }
+        if  let metalnessImage = resource.metalness {
+            pbrMaterial.metalness.contents = metalnessImage
+        }
+        if let normalImage = resource.normal {
+            pbrMaterial.normal.contents = normalImage
+        }
+        if let roughnessImage = resource.roughness {
+            pbrMaterial.roughness.contents = roughnessImage
+        }
+        if let glossImage = resource.gloss {
+            pbrMaterial.specular.contents = glossImage
+        }
+        if let reflectionImage = resource.reflection {
+            pbrMaterial.reflective.contents = reflectionImage
+        }
+        pbrMaterial.lightingModel = .physicallyBased
+        
+        DispatchQueue.main.async {
+            node.geometry?.materials = [pbrMaterial]
+        }
+    }
+    
+    /// Find lowest Y Coordinate in the scene
     func findLowestYCoordinate(in rootNode: SCNNode) -> Float {
         var lowestY: Float = Float.greatestFiniteMagnitude
         // Finding the lowest of all object gives false value (Walls bounding box is lower than expected), therefore only find the bounding box of Room node
@@ -203,12 +209,14 @@ class SceneLoader: ObservableObject {
         return lowestY
     }
     
+    /// Style all the walls
     func styleWalls(with resource: MaterialResource) {
         sceneModel?.walls?.forEach({ wall in
             styleNode(node: wall, with: resource)
         })
     }
     
+    /// Replace all objects with given model url
     func replaceObjects(ofType type: CapturedRoom.Object.Category, with resourceUrl: URL?, scale: Float = 1, onFloorLevel: Bool = true) {
         var objectNodes: [SCNNode]? = nil
         
@@ -223,6 +231,7 @@ class SceneLoader: ObservableObject {
         sceneModel?.updateNodes(objectNodes ?? [], forCategory: type)
     }
     
+    /// Replace all surfaces
     func replaceSurfaces(ofType type: CapturedRoom.Surface.Category, with image: UIImage?) {
         var objectNodes: [SCNNode]? = nil
         
@@ -241,6 +250,7 @@ class SceneLoader: ObservableObject {
         sceneModel?.updateNodes(objectNodes ?? [], forCategory: type)
     }
     
+    /// Helper function to replace all surfaces
     private func replaceSurfaces(surfaceNodes: inout [SCNNode]?, with image: UIImage?) {
         guard let surfaceNodes = surfaceNodes, !surfaceNodes.isEmpty else {
             print("No surface nodes to replace")
@@ -253,6 +263,7 @@ class SceneLoader: ObservableObject {
         }
     }
     
+    /// Helper function to replace all object
     private func replaceObjects(objectNodes: inout [SCNNode]?, with resourceUrl: URL?, scale: Float = 1, onFloorLevel: Bool = true) {
         var newNodes: [SCNNode] = []
         if let newObjectUrl = resourceUrl,
@@ -311,14 +322,7 @@ class SceneLoader: ObservableObject {
         objectNodes = newNodes
     }
     
-    func loadCustomChairScene() -> SCNScene? {
-        guard let customChairSceneURL = Bundle.main.url(forResource: "CustomChair", withExtension: "usdz"), let customChairScene = try? SCNScene(url: customChairSceneURL, options: nil) else {
-            print("Unable to find CustomChair.usdz")
-            return nil
-        }
-        return customChairScene
-    }
-    
+    /// Find all nodes within a node recursively with a prefix
     func findNodes(withNamePrefix namePrefix: String, in node: SCNNode) -> [SCNNode] {
         var foundNodes: [SCNNode] = []
         
@@ -332,78 +336,10 @@ class SceneLoader: ObservableObject {
         
         return foundNodes
     }
-    
-    func findNearestWall(from point: SCNVector3) -> SCNNode? {
-        guard let walls = sceneModel?.walls else { return nil }
-        
-        var nearestWall: SCNNode?
-        var shortestDistance: Float = .greatestFiniteMagnitude
-        
-        for wall in walls {
-            let wallCenter = wall.position
-            let distance = SCNVector3.distanceFrom(vector: wallCenter, toVector: point)
-            
-            if distance < shortestDistance {
-                shortestDistance = distance
-                nearestWall = wall
-            }
-        }
-        
-        return nearestWall
-    }
-    
-    func hideWall(_ wall: SCNNode?) {
-        if let wallToHide = wall {
-            SCNTransaction.begin()
-            SCNTransaction.animationDuration = 0.5
-            sceneModel?.walls?.forEach({ wall in
-                if wall != wallToHide {
-                    wall.opacity = 1
-                }
-            })
-            wallToHide.opacity = 0
-            SCNTransaction.commit()
-        }
-    }
-    
-    func hideWalls(_ walls: [SCNNode]?) {
-        if let wallsToHide = walls {
-            SCNTransaction.begin()
-            SCNTransaction.animationDuration = 0.2
-            // Only unhide the wall not currently hidden
-            sceneModel?.walls?.filter({!wallsToHide.contains($0)}).forEach({ wall in
-                wall.opacity = 1
-            })
-            wallsToHide.filter({$0.opacity == 1}).forEach { wallToHide in
-                wallToHide.opacity = 0.01
-            }
-            SCNTransaction.commit()
-        }
-    }
-    
-    func showAllWalls() {
-        //         Show all walls
-        sceneModel?.walls?.forEach({ wall in
-            wall.opacity = 1
-        })
-    }
-    
+
 }
 
-extension SCNVector3 {
-    static func distanceFrom(vector vector1: SCNVector3, toVector vector2: SCNVector3) -> Float {
-        let x0 = vector1.x
-        let x1 = vector2.x
-        let y0 = vector1.y
-        let y1 = vector2.y
-        let z0 = vector1.z
-        let z1 = vector2.z
-        
-        return sqrtf(powf(x1-x0, 2) + powf(y1-y0, 2) + powf(z1-z0, 2))
-    }
-}
-
-
+/// SceneView for SwiftUI with custom delegate
 struct SceneView: UIViewRepresentable {
     @ObservedObject var sceneLoader: SceneLoader
     // True for before furnishing the room
@@ -431,6 +367,12 @@ struct SceneView: UIViewRepresentable {
         view.allowsCameraControl = true
         view.delegate = context.coordinator
         return view
+    }
+    
+    func updateUIView(_ view: SCNView, context: Context) {
+        view.scene = sceneLoader.scene
+        view.autoenablesDefaultLighting = isAutoEnablesDefaultLighting
+        print("Auto lighting: \(view.autoenablesDefaultLighting)")
     }
     
     func addSpotLight(to rootNode: SCNNode?) {
@@ -467,10 +409,7 @@ struct SceneView: UIViewRepresentable {
             return
         }
         
-        let fadeInAction = SCNAction.fadeIn(duration: 10.0)
         let waitAction = SCNAction.wait(duration: 0.5)
-        
-        var delay: TimeInterval = 0.0
         
         for x in stride(from: -10, through: 10, by: 5) {
             for z in stride(from: -10, through: 10, by: 5) {
@@ -558,17 +497,12 @@ struct SceneView: UIViewRepresentable {
         }
     }
     
-    func updateUIView(_ view: SCNView, context: Context) {
-        view.scene = sceneLoader.scene
-        view.autoenablesDefaultLighting = isAutoEnablesDefaultLighting
-        print("Auto lighting: \(view.autoenablesDefaultLighting)")
-    }
-    
     func makeCoordinator() -> Coordinator {
         print("Coordinator made")
         return Coordinator(self)
     }
     
+    /// SceneView delegate
     class Coordinator: NSObject, SCNSceneRendererDelegate {
         var parent: SceneView
         
@@ -576,6 +510,7 @@ struct SceneView: UIViewRepresentable {
             self.parent = parent
         }
         
+        /// Scene updates
         func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
             // Find and hide nearest wall
             if parent.sceneLoader.sceneModel?.walls?.count ?? 0 >= 4, let pointOfViewPos = renderer.pointOfView?.position {

@@ -98,7 +98,6 @@ class ScanRoomController: RoomCaptureSessionDelegate, RoomCaptureViewDelegate, O
             print("Error: \(error.localizedDescription)")
             return
         }
-//        generateRoomURL(with: data)
     }
     
     func generateRoomURL(with captureRoomData: CapturedRoomData){
@@ -170,9 +169,10 @@ class ScanRoomController: RoomCaptureSessionDelegate, RoomCaptureViewDelegate, O
     
 }
 
-/// Scan Room Controller + SCNView
+// MARK: - Scan Room Controller + SCNView - Custom Scene from scanned room
 extension ScanRoomController {
     
+    /// Construct scene when the model is ready
     func onModelReady() {
         print("Model Ready")
         sceneView?.scene = SCNScene()
@@ -202,6 +202,7 @@ extension ScanRoomController {
         exportScene(sceneView?.scene)
     }
     
+    /// Get all the nodes of any Surface
     private func getAllNodes(for surfaces: [CapturedRoom.Surface], length: CGFloat, contents: Any?) -> [SCNNode] {
         var nodes: [SCNNode] = []
         var name = ""
@@ -237,6 +238,7 @@ extension ScanRoomController {
         return nodes
     }
     
+    /// Get all the nodes of any Object
     private func getAllNodes(for objects: [CapturedRoom.Object], contents: Any?) -> [SCNNode] {
         var nodes: [SCNNode] = []
         objects.enumerated().forEach { index, object in
@@ -253,7 +255,7 @@ extension ScanRoomController {
         return nodes
     }
     
-    
+    /// Export scene to USDZ and upload to database
     func exportScene(_ scene: SCNScene?){
         if let scene = scene{
             print("Starting to generate URL")
@@ -271,20 +273,6 @@ extension ScanRoomController {
                 print("Scene is nil, cannot export")
             }
         }
-    }
-}
-
-/// A SwiftUI compatible view for Model View
-struct ModelViewRepresentable: UIViewRepresentable {
-    
-    /// Get capture view
-    func makeUIView(context: Context) -> SCNView {
-        ScanRoomController.instance.sceneView!
-    }
-    
-    /// Update the view when needed
-    func updateUIView(_ uiView: SCNView, context: Context) {
-        
     }
 }
 
