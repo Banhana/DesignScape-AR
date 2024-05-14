@@ -142,6 +142,7 @@ class SceneLoader: ObservableObject {
         floorNode.position.y = -20
         floorNode.opacity = 0
         floorNode.name = "Floor"
+        floorNode.scale = SCNVector3(0.1, 0.1, 0.1)
         sceneModel?.floors?.append(floorNode)
         self.rootNode?.addChildNode(floorNode)
         
@@ -150,7 +151,7 @@ class SceneLoader: ObservableObject {
 //        floorNode.runAction(fadeIn)
         
         SCNTransaction.begin()
-        SCNTransaction.animationDuration = 3
+        SCNTransaction.animationDuration = 2
         floorNode.opacity = 0.99 // 1 cause render issue for fading action for unknown reason
         floorNode.position.y = self.groundLevel // Position the floor at the lowest Y-coordinate
         SCNTransaction.commit()
