@@ -222,6 +222,6 @@ struct GuidedTourImageScanRoomView: View {
 //            .onAppear {
 //                ScanRoomController.instance.url =  URL(string: "www.google.com")!
 //            }
-        CreateDesignView(isActive: false)
+        CreateDesignView(isActive: false, isPresentingSignInView: .constant(false))
     }
 }

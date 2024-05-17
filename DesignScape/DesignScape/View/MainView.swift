@@ -28,7 +28,7 @@ struct MainView: View {
                         Text("Leo")
                         selectedTab == 2 ? Image("stars.fill") : Image("stars")
                     }.tag(2)
-                CreateDesignView()
+                CreateDesignView(isPresentingSignInView: $isPresentingSignInView)
                     .tabItem {
                         Image("add")
                     }.tag(3)

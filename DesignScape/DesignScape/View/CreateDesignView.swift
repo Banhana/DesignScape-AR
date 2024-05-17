@@ -9,7 +9,11 @@ import SwiftUI
 
 /// Create Design View allows scanning a new room for a model or live furniture placement
 struct CreateDesignView: View {
+    @StateObject var user = AuthenticationViewModel.instance
+    
     @State var isActive = false
+    @Binding var isPresentingSignInView: Bool
+    
     var body: some View {
         VStack(alignment: .leading) {
             /// Heading
@@ -28,9 +32,18 @@ struct CreateDesignView: View {
 //                NavigationLink(isActive: $isActive, destination: GuidedTourScanRoomView(title: "Get Started", instruction: "Scan your room and design in an immersive experience that brings your vision to life", nextDestinationView: 1, isActive: $isActive)) {
 //                    PrimaryButton(text: "CREATE ROOM", willSpan: true)
 //                }
-                NavigationLink(destination: GuidedTourScanRoomView(title: "Get Started", instruction: "Scan your room and design in an immersive experience that brings your vision to life", nextDestinationView: 1, isActive: $isActive), isActive: $isActive) {
-                    PrimaryButton(text: "CREATE ROOM", willSpan: true)
+                if user.isUserLoggedIn {
+                    NavigationLink(destination: GuidedTourScanRoomView(title: "Get Started", instruction: "Scan your room and design in an immersive experience that brings your vision to life", nextDestinationView: 1, isActive: $isActive), isActive: $isActive) {
+                        PrimaryButton(text: "CREATE ROOM", willSpan: true)
+                    }
+                } else {
+                    Button {
+                        isPresentingSignInView = true
+                    } label: {
+                        PrimaryButton(text: "CREATE A ROOM", willSpan: true)
+                    }
                 }
+                
             }
             
             /// Live Scan button
@@ -40,12 +53,12 @@ struct CreateDesignView: View {
                 }
             }
             
-            /// Object Detection button
-            HStack(alignment: .center, spacing: 10) {
-                NavigationLink(destination: ObjectDectectionView()){
-                    PrimaryButton(text: "OBJECT DETECTION", willSpan: true)
-                }
-            }
+//            /// Object Detection button
+//            HStack(alignment: .center, spacing: 10) {
+//                NavigationLink(destination: ObjectDectectionView()){
+//                    PrimaryButton(text: "OBJECT DETECTION", willSpan: true)
+//                }
+//            }
             
         }
         .padding(10)
@@ -56,7 +69,7 @@ struct CreateDesignView: View {
 
 struct CreateScanView_Previews: PreviewProvider {
     static var previews: some View {
-        CreateDesignView()
+        CreateDesignView(isPresentingSignInView: .constant(false))
             .environment(\.font, Font.custom("Merriweather-Regular", size: 14))
     }
 }
