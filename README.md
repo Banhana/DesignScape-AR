@@ -71,6 +71,5 @@ This section provides links to documentation that outlines the scope and feature
 
 If you are having any issues, please let us know!
 
-Email: support@DesignScapeAR.com
+Website: [DesignScape](https://designscape-cecs491b.webflow.io/)
 
-Discord: [DesignScape AR](https://discord.gg/K7R47P3H)
