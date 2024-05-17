@@ -115,17 +115,6 @@ struct SignInView: View {
             .padding()
             
         }
-        
-        // NavigationLink to navigate to AccountView when the account is successfully created
-        .background(
-            //            self.presentationMode.wrappedValue.dismiss()
-            NavigationLink(destination: AccountView(), isActive: $isSignedIn) {
-                EmptyView()
-            }
-                .hidden()
-            
-        )
-        
     }
 }
 
