@@ -71,11 +71,11 @@
 		6E7DEE982B6C602500165B61 /* Cambay-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E7DEE942B6C602500165B61 /* Cambay-Italic.ttf */; };
 		6E7DEE992B6C602500165B61 /* Cambay-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E7DEE952B6C602500165B61 /* Cambay-Regular.ttf */; };
 		6E7DEE9A2B6C602500165B61 /* Cambay-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E7DEE962B6C602500165B61 /* Cambay-Bold.ttf */; };
+		6EDC14A32BF6FE6F00B6163F /* USDZScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 6EDC14A22BF6FE6F00B6163F /* USDZScanner */; settings = {ATTRIBUTES = (Weak, ); }; };
 		EA26A7042B97EA8E000BE434 /* gitignore.txt in Resources */ = {isa = PBXBuildFile; fileRef = EA26A7032B97EA8E000BE434 /* gitignore.txt */; };
 		EA6366302B99594E0098DAD1 /* UntilProcessingCompleteFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA63662F2B99594E0098DAD1 /* UntilProcessingCompleteFilter.swift */; };
 		EA82EDA62BDDF85500DC4BE8 /* MyPhotogrammetrySession.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA82EDA52BDDF85500DC4BE8 /* MyPhotogrammetrySession.swift */; };
 		EA82EDA82BDE058E00DC4BE8 /* MyObjectCaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA82EDA72BDE058E00DC4BE8 /* MyObjectCaptureView.swift */; };
-		EA82EDAA2BDE05B700DC4BE8 /* USDZScanner in Frameworks */ = {isa = PBXBuildFile; productRef = EA82EDA92BDE05B700DC4BE8 /* USDZScanner */; };
 		EA8D2F0F2B1E705A0074FC71 /* DesignScapeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8D2F0E2B1E705A0074FC71 /* DesignScapeApp.swift */; };
 		EA8D2F132B1E705B0074FC71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA8D2F122B1E705B0074FC71 /* Assets.xcassets */; };
 		EA8D2F162B1E705B0074FC71 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA8D2F152B1E705B0074FC71 /* Preview Assets.xcassets */; };
@@ -199,7 +199,7 @@
 				619F4B7D2B814EFE00F0912D /* FirebaseAuth in Frameworks */,
 				6E20E16F2B8B10FD0024BEA8 /* SceneKit.framework in Frameworks */,
 				619F4BA32B814EFE00F0912D /* FirebaseStorage in Frameworks */,
-				EA82EDAA2BDE05B700DC4BE8 /* USDZScanner in Frameworks */,
+				6EDC14A32BF6FE6F00B6163F /* USDZScanner in Frameworks */,
 				619F4B892B814EFE00F0912D /* FirebaseFirestore in Frameworks */,
 				EAD7F8C62B6D857F00BE6AC4 /* RealityKit.framework in Frameworks */,
 				EAD7F8C42B6D857600BE6AC4 /* ARKit.framework in Frameworks */,
@@ -457,7 +457,7 @@
 				619F4B882B814EFE00F0912D /* FirebaseFirestore */,
 				619F4B8C2B814EFE00F0912D /* FirebaseFirestoreSwift */,
 				619F4BA22B814EFE00F0912D /* FirebaseStorage */,
-				EA82EDA92BDE05B700DC4BE8 /* USDZScanner */,
+				6EDC14A22BF6FE6F00B6163F /* USDZScanner */,
 			);
 			productName = DesignScape;
 			productReference = EA8D2F0B2B1E705A0074FC71 /* DesignScape.app */;
@@ -489,7 +489,7 @@
 			mainGroup = EA8D2F022B1E705A0074FC71;
 			packageReferences = (
 				EAD22D202B1E7590007D4679 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				EA3ECFEE2B8EA40700420B56 /* XCRemoteSwiftPackageReference "USDZScanner" */,
+				6EDC14A12BF6FE6F00B6163F /* XCRemoteSwiftPackageReference "USDZScanner" */,
 			);
 			productRefGroup = EA8D2F0C2B1E705A0074FC71 /* Products */;
 			projectDirPath = "";
@@ -553,7 +553,6 @@
 				EAD7F8C22B6D80D700BE6AC4 /* CustomARView.swift in Sources */,
 				6E06C24D2BB102F8000F0A63 /* UserRoomsView.swift in Sources */,
 				EAD5D95E2B1FEB810014FA26 /* DataController.swift in Sources */,
-				EAF3A6CE2B85CB120016427E /* ARModelManager.swift in Sources */,
 				EA82EDA62BDDF85500DC4BE8 /* MyPhotogrammetrySession.swift in Sources */,
 				619F4B6F2B8144E500F0912D /* AccountView.swift in Sources */,
 				EA9326632B91BF4D009ABBCC /* ShotFileInfo.swift in Sources */,
@@ -742,13 +741,13 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.mhuynh.DesignScape;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.mhuynh.DesignScape2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -777,13 +776,13 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.mhuynh.DesignScape;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.mhuynh.DesignScape2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -815,7 +814,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		EA3ECFEE2B8EA40700420B56 /* XCRemoteSwiftPackageReference "USDZScanner" */ = {
+		6EDC14A12BF6FE6F00B6163F /* XCRemoteSwiftPackageReference "USDZScanner" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/alfianlosari/USDZScanner.git";
 			requirement = {
@@ -854,9 +853,9 @@
 			package = EAD22D202B1E7590007D4679 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
 		};
-		EA82EDA92BDE05B700DC4BE8 /* USDZScanner */ = {
+		6EDC14A22BF6FE6F00B6163F /* USDZScanner */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = EA3ECFEE2B8EA40700420B56 /* XCRemoteSwiftPackageReference "USDZScanner" */;
+			package = 6EDC14A12BF6FE6F00B6163F /* XCRemoteSwiftPackageReference "USDZScanner" */;
 			productName = USDZScanner;
 		};
 		EAD5D9602B1FEC420014FA26 /* FirebaseFirestore */ = {

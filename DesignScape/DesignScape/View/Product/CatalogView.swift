@@ -86,7 +86,7 @@ struct FurnitureCard: View {
     let category: String
     
     var body: some View {
-        if imageName == "furniture4"{
+        if #available(iOS 17.0, *), imageName == "furniture4" {
             NavigationLink(destination: MyObjectCaptureView()) {
                 ZStack(alignment: .leading) {
                     Image(imageName)

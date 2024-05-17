@@ -7,7 +7,9 @@
 
 import RealityKit
 import SwiftUI
+#if !targetEnvironment(simulator)
 import USDZScanner
+#endif
 
 @available(iOS 17.0, *)
 struct MyObjectCaptureView: View {
