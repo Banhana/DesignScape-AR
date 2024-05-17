@@ -12,6 +12,8 @@ struct CatalogView: View {
     @State private var rooms = ["Dining Room", "Bedroom", "Livingroom", "Kitchen", "Bathroom", "Office"]
     @State private var furniture = ["Chair", "Sofa", "Desk", "Custom"]
     
+    @Binding var isPresentingSignInView: Bool
+    
     var body: some View {
         ScrollView(.vertical, showsIndicators: true){
             VStack{
@@ -26,7 +28,7 @@ struct CatalogView: View {
                         }
                         
                         // popular products
-                        ProductBannerView()
+                        ProductBannerView(isPresentingSignInView: $isPresentingSignInView)
                         
                         //sale
                         Button(action: {}){
@@ -119,6 +121,8 @@ struct FurnitureCard: View {
 
 struct ProductBannerView: View {
     @StateObject var viewModel = ProductViewModel()
+    @Binding var isPresentingSignInView: Bool
+    
     var body: some View {
         VStack (alignment: .leading){
             HStack{
@@ -143,7 +147,7 @@ struct ProductBannerView: View {
                     ForEach(viewModel.products) { product in
                         
                         NavigationLink(destination: ProductView(id: product.id!)) {
-                            ProductCard(productName: product.name, price: product.price, imageURL: product.imageURL, productId: product.id!)
+                            ProductCard(productName: product.name, price: product.price, imageURL: product.imageURL, productId: product.id!, isPresentingSignInView: $isPresentingSignInView)
                         }
                     }
                 }
@@ -166,7 +170,7 @@ struct ProductCard: View {
     @StateObject var user = AuthenticationViewModel.instance
     @State private var isFavorite = false // State to track favorite status
     @State private var isLoggedIn = false
-    @State private var isPresentingDetailView = false
+    @Binding var isPresentingSignInView: Bool
     
     var body: some View {
         VStack (alignment: .leading, spacing: 4){
@@ -221,17 +225,11 @@ struct ProductCard: View {
         .background(Color.white)
         .cornerRadius(8)
         .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
-        .sheet(isPresented: $isPresentingDetailView) {
-            // The view to present goes here
-            NavigationStack {
-                AccountView()
-            }
-        }
     }
         
     func addFavorite() async throws{
         if user.isUserLoggedIn == false {
-            isPresentingDetailView = true
+            isPresentingSignInView = true
         }
         else {
             try await UserManager.shared.addToFavorites(userId: user.userId, productUID: productId)
@@ -366,7 +364,7 @@ struct SaleView: View {
 struct CatalogView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            CatalogView()
+            CatalogView(isPresentingSignInView: .constant(false))
         }
     }
 }

@@ -12,6 +12,7 @@ struct MainView: View {
     
     /// Current active tab, numbered 1-5
     @State private var selectedTab = 1
+    @State var isPresentingSignInView = false
     
     var body: some View {
         NavigationStack {
@@ -31,7 +32,7 @@ struct MainView: View {
                     .tabItem {
                         Image("add")
                     }.tag(3)
-                CatalogView()
+                CatalogView(isPresentingSignInView: $isPresentingSignInView)
                     .tabItem {
                         Text("Explore")
                         selectedTab == 4 ? Image("search.fill") : Image("search")
@@ -44,6 +45,12 @@ struct MainView: View {
             }
             .navigationTitle(Text("DesignScape AR"))
             .navigationBarTitleDisplayMode(.inline)
+        }
+        .sheet(isPresented: $isPresentingSignInView) {
+            // The view to present goes here
+            NavigationStack {
+                AccountView()
+            }
         }
         
     }

@@ -19,7 +19,7 @@ struct FavoritesView: View {
                                 GridItem(.flexible(), spacing: 16)], spacing: 16) {
                 ForEach(products, id: \.self) { product in
                         NavigationLink(destination: ProductView(id: product.id!)) {
-                            ProductCard(productName: product.name, price: product.price, imageURL: product.imageURL, productId: product.id!)
+                            ProductCard(productName: product.name, price: product.price, imageURL: product.imageURL, productId: product.id!, isPresentingSignInView: .constant(false))
                         }
                     
                 }
